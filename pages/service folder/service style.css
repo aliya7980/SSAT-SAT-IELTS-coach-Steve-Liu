@@ -1,0 +1,153 @@
+.floating-square {
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, #ff7eb3, #ff758c);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 3s ease-in-out infinite, spin 3s linear infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translate(-50%, -50%) translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-20px) rotate(180deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0) rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #3498db;
+}
+
+.hero {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: white;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #84d8ff96;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #87cff836;
+}
+
+.sidenav {
+  height: 100%; 
+  width: 160px; 
+  position: fixed; 
+  z-index: 1; 
+  top: 0; 
+  left: 0;
+  background-image: linear-gradient(to bottom, #ffffff, #808080); 
+  overflow-x: hidden; 
+  padding-top: 5rem;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #2c3e50;
+  display: block;
+  padding-bottom: 20px;
+}
+
+.sidenav a:hover {
+  color: #3498db;
+}
+
+.main {
+  margin-left: 150px; 
+  padding: 0px 10px;
+}

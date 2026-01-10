@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT/SSAT/ACT Coach Steve Liu | Expert Guidance for Success</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Steve Liu|SAT/SSAT/ACT Coach</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#previous-clients">Reviews</a></li>
+            <li><a href="#review-section">Submit A Review</a></li>
+        </ul>
+    </nav>
+    <div class="sidenav">
+        <a href="index.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="clients.html">Clients</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <div class="main">
+        <section id="home" class="hero">
+                <div class="hero-content">
+                    <h1 class="services-h1">Customer Reviews & Clients</h1>
+                    <p>Here is a list of all my previous clients and their reviews and scores.</p>
+                    <a href="#previous-clients" class="cta-button">View Customer Reviews</a>
+                </div>
+        </section>
+                <section id="previous-clients">
+            <div class="clients-bg">
+                <h1 class="clients-h1">Previous Clients</h1>
+
+                <div class="clients-container">
+                    <div class="client-box">
+                        <h2 class="clients-h2-1">Michael Chen</h2>
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>
+                            I had an excellent experience with this tutor! They were patient, knowledgeable, and explained concepts in a way that was easy to understand. SAT score: 1520.
+                        </p>
+                    </div>
+
+                    <div class="client-box">
+                        <h2 class="clients-h2-2">Rachel Park</h2>
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>
+                            Each session was well-organized and tailored to my learning style, which made a huge difference in my confidence and progress.
+                        </p>
+                    </div>
+
+                    <div class="client-box">
+                        <h2 class="clients-h2-2">Eric Choi</h2>
+                        <p>⭐⭐⭐⭐⭐</p>
+                        <p>
+                            I saw real improvement in a short amount of time and always felt encouraged and supported.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="review-section">
+            <div class="submit-review-form">
+                <h1>Submit a Review</h1>
+                <form action="https://formspree.io/f/xojjadno" method="POST">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="rating">Rating:</label>
+                    <select id="rating" name="rating" required>
+                        <option value="">Select a rating</option>
+                        <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                        <option value="4">⭐⭐⭐⭐ (4)</option>
+                        <option value="3">⭐⭐⭐ (3)</option>
+                        <option value="2">⭐⭐ (2)</option>
+                        <option value="1">⭐ (1)</option>
+                    </select>
+
+                    <label for="review">Review:</label>
+                    <textarea id="review" name="review" rows="5" required></textarea>
+
+                    <input type="submit" value="Submit Review">
+                    <input type="reset" value="Clear">
+                </form>
+            </div>
+        </section>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>
