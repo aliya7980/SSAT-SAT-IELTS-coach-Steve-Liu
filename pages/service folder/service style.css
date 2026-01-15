@@ -162,9 +162,154 @@ body {
 #course-content p {
   text-align: center;
   font-size: 20px;
+<<<<<<< HEAD
   padding: 1em;
   margin-left: 10em;
   margin-right: 10em;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
   border-radius: 25px;
 }
+=======
+}
+
+.program-overview,
+.personalized,
+.results,
+.about-tutor,
+.final-cta {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.program-overview h2,
+#course-content h2,
+.personalized h2,
+.results h2,
+.about-tutor h2,
+.final-cta h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+.program-overview ul {
+    list-style: none;
+    text-align: center;
+}
+
+.program-overview li {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+#course-content {
+    padding: 4rem 2rem;
+}
+
+.content-block {
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 900px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.content-block h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #3498db;
+}
+
+.content-block ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+}
+
+.content-block li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.visit-download-page {
+  text-align: center;
+}
+
+.visit-download-page a {
+  color: #333;
+}
+
+.personalized p,
+.about-tutor p,
+.final-cta p {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.results ul {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+
+.results li {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.about-tutor ul {
+    list-style: none;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.about-tutor li {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+.final-cta {
+    background: linear-gradient(135deg, #3498db, #2c3e50);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 4rem;
+}
+
+.final-cta h2 {
+    color: white;
+}
+
+.final-cta p {
+    margin-bottom: 2rem;
+}
+
+.final-cta .cta-button {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+.final-cta .cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+    }
+
+    .sidenav {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .content-block {
+        padding: 1.5rem;
+    }
+}
+>>>>>>> 1a45b832219519bbad425cf70f03cd2e264e53ce
