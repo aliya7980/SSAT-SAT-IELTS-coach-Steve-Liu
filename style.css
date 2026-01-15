@@ -453,7 +453,6 @@ body {
   text-align: right;
 }
 
-<<<<<<< HEAD
 .ielts-image img { 
   top: 20px; 
   left: 0; 
@@ -464,11 +463,9 @@ body {
   margin-left: 14em;
   border-radius: 10px;
   position: relative;
-=======
 .ielts-practice p {
   max-width: 600px;
   margin-left: auto;
->>>>>>> 1a45b832219519bbad425cf70f03cd2e264e53ce
 }
 
 @media (max-width: 1024px) {
