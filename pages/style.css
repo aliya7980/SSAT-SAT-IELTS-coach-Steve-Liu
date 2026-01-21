@@ -41,7 +41,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-    color: #310c0c59;
+    color: #583e3e59;
 }
 
 .container {
@@ -51,7 +51,7 @@ body {
 }
 
 .navbar {
-    background-color: #c4e712;
+    background-color: #94eec5;
     box-shadow: 0 2px 5px rgba(38, 32, 32, 0.1);
     position: fixed;
     width: 100%;
@@ -66,7 +66,7 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #16c37b;
+    color: #298f64;
 }
 
 .nav-links {
@@ -87,8 +87,8 @@ body {
 }
 
 .hero {
-    background: linear-gradient(135deg, #04ff00, #2c502d);
-    color: white;
+    background: linear-gradient(135deg, #26e408c1, #2f6d31);
+    color: rgb(177, 221, 190);
     padding: 8rem 2rem 4rem;
     text-align: center;
 }
@@ -119,18 +119,18 @@ body {
 }
 
 .cta-button:hover {
-    background-color: #87cff836;
+    background-color: #1d9ce636;
 }
 
 .about {
     padding: 5rem 0;
-    background-color: #f9f9f9;
+    background-color: #abe4e0;
 }
 
 .about h2 {
     text-align: center;
     margin-bottom: 3rem;
-    color: #1dc161;
+    color: #276b45;
 }
 
 .about-content {
@@ -143,7 +143,7 @@ body {
 .about-image img {
     width: 100%;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(34, 7, 7, 0.1);
 }
 
 .credentials {
@@ -156,14 +156,14 @@ body {
 .credential-item {
     text-align: center;
     padding: 1rem;
-    background-color: white;
+    background-color: rgb(165, 234, 242);
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .credential-item i {
     font-size: 2rem;
-    color: #3498db;
+    color: #3c5362;
     margin-bottom: 0.5rem;
 }
 
@@ -186,7 +186,7 @@ body {
 }
 
 .passage {
-    background-color: #f8f9fa;
+    background-color: #6c8cab;
     padding: 1rem;
     border-radius: 5px;
     margin: 1rem 0;
@@ -327,7 +327,7 @@ footer {
   z-index: 1; 
   top: 0; 
   left: 0;
-  background-image: linear-gradient(to bottom, #ffffff, #808080); 
+  background-image: linear-gradient(to bottom, #36f479, #ebd4d4); 
   overflow-x: hidden; 
   padding-top: 5rem;
 }
@@ -336,7 +336,7 @@ footer {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #2c3e50;
+  color: #198d13;
   display: block;
   padding-bottom: 20px;
 }
