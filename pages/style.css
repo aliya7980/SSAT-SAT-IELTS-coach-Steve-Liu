@@ -87,8 +87,8 @@ body {
 }
 
 .hero {
-    background: linear-gradient(135deg, #26e408c1, #2f6d31);
-    color: rgb(177, 221, 190);
+    background: linear-gradient(135deg, #0ab63ecd, #2f6d31);
+    color: rgb(28, 223, 86);
     padding: 8rem 2rem 4rem;
     text-align: center;
 }
@@ -336,13 +336,13 @@ footer {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #198d13;
+  color: #109b09;
   display: block;
   padding-bottom: 20px;
 }
 
 .sidenav a:hover {
-  color: #3498db;
+  color: #6b9ec0;
 }
 
 .main {
@@ -397,7 +397,7 @@ body {
   display: inline-block;
   margin-top: 2.5rem;
   padding: 1rem 3rem;
-  background-color: #3c94e7;
+  background-color: #306c38;
   color: white;
   text-decoration: none;
   border-radius: 6px;
@@ -405,7 +405,7 @@ body {
 }
 
 .practice-button:hover {
-  background-color: #305f7a;
+  background-color: #336e54;
 }
 
 .ssat-practice {
