@@ -51,7 +51,7 @@ body {
 }
 
 .navbar {
-    background-color: #94eec5;
+    background-color: #0d8750;
     box-shadow: 0 2px 5px rgba(38, 32, 32, 0.1);
     position: fixed;
     width: 100%;
@@ -66,7 +66,7 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #298f64;
+    color: #c0f0dc;
 }
 
 .nav-links {
@@ -83,12 +83,12 @@ body {
 }
 
 .nav-links a:hover {
-    color: #2f4e63;
+    color: #072234;
 }
 
 .hero {
-    background: linear-gradient(135deg, #0ab63ecd, #2f6d31);
-    color: rgb(28, 223, 86);
+    background: linear-gradient(135deg, #e6c8c85c, #eaecea);
+    color: rgb(100, 188, 127);
     padding: 8rem 2rem 4rem;
     text-align: center;
 }
@@ -295,7 +295,7 @@ body {
 }
 
 footer {
-    background-color: #a6bacf;
+    background-color: #97c6f7;
     color: white;
     text-align: center;
     padding: 2rem 0;
@@ -327,7 +327,7 @@ footer {
   z-index: 1; 
   top: 0; 
   left: 0;
-  background-image: linear-gradient(to bottom, #36f479, #ebd4d4); 
+  background-image: linear-gradient(to bottom, #0ea9c4c1, #dcb7d2a3); 
   overflow-x: hidden; 
   padding-top: 5rem;
 }
@@ -336,7 +336,7 @@ footer {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 25px;
-  color: #109b09;
+  color: #4e7e5c;
   display: block;
   padding-bottom: 20px;
 }
@@ -397,7 +397,7 @@ body {
   display: inline-block;
   margin-top: 2.5rem;
   padding: 1rem 3rem;
-  background-color: #306c38;
+  background-color: #1ca52e;
   color: white;
   text-decoration: none;
   border-radius: 6px;
