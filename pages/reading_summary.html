@@ -2,136 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Homework Submission</title>
+  <title>Weekly Reading Log</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 16px;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
-    h1, h2 {
-      margin-bottom: 8px;
-    }
-    .card {
-      border: 1px solid #ddd;
-      border-radius: 12px;
-      padding: 18px;
-      margin: 24px 0;
-    }
-    textarea, input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-    }
-    textarea {
-      min-height: 220px;
-    }
-    button {
-      margin-top: 12px;
-      padding: 10px 16px;
-      border-radius: 8px;
-      border: none;
-      background: #159fde;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #0f7fb2;
-    }
-    .note {
-      color: #555;
-      font-size: 0.95rem;
-    }
-    .preview {
-      white-space: pre-wrap;
-      background: #f8f9fa;
-      padding: 14px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      margin-top: 12px;
-    }
+    body { max-width: 900px; margin: 40px auto; padding: 0 16px; font-family: Arial, sans-serif; line-height: 1.6; }
+    .card { border: 1px solid #ddd; border-radius: 12px; padding: 18px; margin: 18px 0; }
+    .note { color: #555; font-size: 0.95rem; }
+    .template { background:#f6f7f8; border:1px solid #e1e1e1; border-radius:10px; padding:12px; white-space:pre-wrap; }
+    a { text-decoration: none; }
   </style>
 </head>
 <body>
 
-  <h1>Homework Submission</h1>
-  <p class="note">
-    Paste your homework below. After submitting, scroll down to the feedback section.
-  </p>
+  <h1>Weekly Reading Log</h1>
 
-  <!-- STUDENT HOMEWORK SECTION -->
   <div class="card">
-    <h2>1) Student Homework</h2>
+    <h2>Student Instructions</h2>
+    <p class="note">Post ONE comment each time using this format:</p>
+    <div class="template">Name:
+Book (title + author):
+Summary (6–10 sentences):
+Favourite quote (optional):
+One question you have (optional):</div>
 
-    <label>
-      Student Name:
-      <input id="studentName" type="text" placeholder="Your name">
-    </label>
-
-    <label>
-      Homework:
-      <textarea id="homeworkText" placeholder="Paste your homework here..."></textarea>
-    </label>
-
-    <button type="button" onclick="showPreview()">Submit Homework</button>
-
-    <div id="previewArea" style="display:none;">
-      <h3>Preview (not saved)</h3>
-      <div id="previewContent" class="preview"></div>
-      <p class="note">
-        ⚠️ This preview is temporary. For permanent submission, also comment “Submitted – Your Name” below.
-      </p>
-    </div>
+    <p class="note">
+      Tip: If you revise, reply to your own comment with “Revision”.
+    </p>
   </div>
 
-  <!-- TEACHER FEEDBACK / FORUM SECTION -->
   <div class="card">
-    <h2>2) Teacher Feedback & Comments</h2>
-    <p class="note">
-      Students: comment “Submitted – Name” below.<br>
-      Teacher: reply directly with feedback.
-    </p>
+    <h2>Submit & Teacher Feedback</h2>
+    <p class="note">Students post their reading summary below. I will reply with comments.</p>
 
-    <!-- DISQUS COMMENTS -->
     <div id="disqus_thread"></div>
-    <script>
-      var disqus_config = function () {
-        this.page.url = window.location.href;
-        this.page.identifier = "homework-page";
-      };
-      (function() {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://steve-bigdaddyhusky.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view comments.</noscript>
   </div>
 
   <script>
-    function showPreview() {
-      const name = document.getElementById("studentName").value.trim();
-      const text = document.getElementById("homeworkText").value.trim();
+    // Keeps the comments attached to this page reliably:
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = "weekly-reading-log";
+    };
 
-      if (!name || !text) {
-        alert("Please enter your name and homework.");
-        return;
-      }
-
-      document.getElementById("previewContent").textContent =
-        "Student: " + name + "\n\n" + text;
-
-      document.getElementById("previewArea").style.display = "block";
-    }
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://steve-bigdaddyhusky.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
   </script>
+
+  <noscript>Please enable JavaScript to view the comments.</noscript>
 
 </body>
 </html>
