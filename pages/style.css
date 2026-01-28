@@ -111,10 +111,11 @@ body {
 .cta-button {
     display: inline-block;
     padding: 1rem 2rem;
-    background-color: #84d8ff96;
-    color: white;
+    background-color: #159fde96;
+    color: rgb(236, 247, 239);
     text-decoration: none;
     border-radius: 5px;
+    font-weight: 800;
     transition: background-color 0.3s ease;
 }
 
