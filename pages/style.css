@@ -752,3 +752,32 @@ button:hover {
     padding: 2.5rem 1.5rem;
   }
 }
+.center-link {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.center-link a {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #1e40af; /* dark blue */
+  font-weight: 500;
+}
+
+.center-link a:hover {
+  text-decoration: underline;
+}
+
+/* Flicker animation */
+.flicker {
+  font-weight: bold;
+  color: #dc2626; /* red */
+  animation: flicker 1.2s infinite;
+}
+
+/* Keyframes */
+@keyframes flicker {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.3; }
+  100% { opacity: 1; }
+}
