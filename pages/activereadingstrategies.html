@@ -3,146 +3,114 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Active Reading Toolkit (Tutor Page)</title>
+  <title>Active Reading Toolkit (Student Handouts)</title>
 
   <style>
     :root{
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #444444;
-      --line: #dddddd;
-      --line2: #bdbdbd;
-      --shadow: none;
-      --radius: 12px;
+      --bg:#ffffff;
+      --text:#111111;
+      --muted:#444444;
+      --line:#d9d9d9;
+      --line2:#bdbdbd;
+      --radius:14px;
+      --max:1050px;
     }
-
     *{ box-sizing:border-box; }
-
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: var(--bg); /* NO background color effects */
+      background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height:1.65;
     }
-
-    a{ color: #111; text-decoration: underline; }
-    a:hover{ text-decoration-thickness: 2px; }
-
-    .wrap{ max-width: 1050px; margin: 0 auto; padding: 26px 18px 44px; }
+    a{ color:#111; text-decoration: underline; }
+    a:hover{ text-decoration-thickness:2px; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 26px 18px 44px; }
 
     header{
-      display:flex;
-      gap:16px;
-      align-items:flex-start;
-      justify-content:space-between;
-      flex-wrap:wrap;
       border-bottom: 2px solid var(--line2);
       padding-bottom: 14px;
       margin-bottom: 18px;
     }
-
     h1{
       margin:0;
-      font-size: clamp(1.35rem, 2.4vw, 2rem);
-      letter-spacing: .2px;
+      font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+      letter-spacing:.2px;
     }
-
     .subtitle{
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
-      max-width: 75ch;
+      max-width: 80ch;
     }
-
-    .pillbar{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .meta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
     .pill{
-      font-size: .92rem;
+      font-size:.92rem;
       padding: 6px 10px;
       border:1px solid var(--line);
-      border-radius: 999px;
-      background: transparent;
+      border-radius:999px;
       color: var(--muted);
+      background: transparent;
     }
     .pill strong{ color: var(--text); }
 
-    .top-actions{
-      display:flex; gap:10px; align-items:center;
-    }
-
-    button, .btn{
-      appearance:none;
-      border:1px solid var(--line2);
-      background: transparent;
-      color: var(--text);
-      border-radius: 10px;
-      padding: 10px 12px;
-      cursor:pointer;
-      font-size: .95rem;
-    }
-    button:hover, .btn:hover{
-      border-color: #111;
-    }
-
-    /* Layout */
+    /* Page layout */
     .grid{
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 18px;
+      grid-template-columns: 1fr;
+      gap: 14px;
       margin-top: 14px;
     }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-    }
 
-    /* Section styling */
-    .section{
+    /* Handouts */
+    .handout{
       border: 2px solid var(--line2);
       border-radius: var(--radius);
       padding: 14px;
       background: transparent;
-      margin-bottom: 14px;
     }
-    .section-title{
-      margin: 0 0 10px;
-      font-size: 1.1rem;
-      letter-spacing: .2px;
+    .handout-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 12px;
+      flex-wrap:wrap;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+    .handout h2{
+      margin:0;
+      font-size: 1.15rem;
+      letter-spacing:.2px;
+    }
+    .handout small{
+      color: var(--muted);
+      display:block;
+      margin-top: 4px;
+      max-width: 85ch;
+    }
+    .handout-actions{
+      display:flex;
+      gap: 14px;
+      align-items:center;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+    .handout-actions a{
+      white-space: nowrap;
     }
 
     .muted{ color: var(--muted); }
-
     .divider{ height:1px; background: var(--line); margin: 12px 0; }
-
     ul{ margin: 10px 0 0; padding-left: 18px; }
     li{ margin: 6px 0; }
 
-    /* Tabs */
-    .tabs{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 10px;
-      margin-bottom: 12px;
-    }
-    .tab{
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--line2);
-      background: transparent;
-      color: var(--muted);
-      cursor:pointer;
-      user-select:none;
-      font-weight: 700;
-      font-size: .92rem;
-    }
-    .tab[aria-selected="true"]{
-      color: var(--text);
-      border-color: #111;
-    }
-    .panel{ display:none; }
-    .panel.active{ display:block; }
-
-    /* Callouts: black & white */
     .callout{
       border-left: 4px solid #111;
       padding: 10px 12px;
@@ -150,32 +118,14 @@
       background: transparent;
     }
 
-    /* Accordion */
-    details{
+    .toc{
       border:1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin: 10px 0;
-      background: transparent;
+      border-radius: var(--radius);
+      padding: 12px 14px;
     }
-    summary{
-      cursor:pointer;
-      font-weight: 800;
-      color: var(--text);
-      list-style:none;
-    }
-    summary::-webkit-details-marker{ display:none; }
-
-    .tag{
-      display:inline-block;
-      font-size:.78rem;
-      padding: 3px 8px;
-      margin-left: 8px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      color: var(--muted);
-      vertical-align: middle;
-    }
+    .toc h3{ margin:0 0 8px; font-size:1rem; }
+    .toc ul{ margin:0; }
+    .toc li{ margin: 5px 0; }
 
     /* Checklist */
     .checklist{ display:grid; gap: 10px; margin-top: 10px; }
@@ -186,26 +136,13 @@
       border-radius: 10px;
     }
     .check input{ margin-top: 3px; }
-    .check label{ cursor:pointer; }
 
-    /* Footer */
-    .footer{
-      margin-top: 16px;
-      color: var(--muted);
-      font-size: .92rem;
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      border-top: 1px solid var(--line);
-      padding-top: 12px;
-    }
-
-    /* Print */
+    /* Print rules */
     @media print{
-      button, .btn{ display:none !important; }
+      .handout-actions, .toc{ display:none !important; }
       a{ color:#000; }
-      .wrap{ max-width: none; }
+      .wrap{ max-width:none; }
+      .handout{ break-inside: avoid; }
     }
   </style>
 </head>
@@ -214,266 +151,334 @@
   <div class="wrap">
 
     <header>
-      <div>
-        <h1>Active Reading Toolkit (Tutor Page)</h1>
-        <p class="subtitle">
-          Read with purpose. Think critically, creatively, and reflectively—then show your understanding through clear, thoughtful writing.
-        </p>
-        <div class="pillbar">
-          <span class="pill"><strong>Focus:</strong> Prose / Short Stories</span>
-          <span class="pill"><strong>Strategy:</strong> Predict • Visualize • Connect • Question • Respond</span>
-          <span class="pill"><strong>Time:</strong> 45–60 minutes</span>
-        </div>
-      </div>
-
-      <div class="top-actions">
-        <button type="button" onclick="window.print()">Print / Save as PDF</button>
-        <a class="btn" href="#assignment">Jump to Assignment</a>
+      <h1>Active Reading Toolkit (Student Handouts)</h1>
+      <p class="subtitle">
+        Read with purpose. Think critically, creatively, and reflectively—then show your understanding through clear, thoughtful writing.
+      </p>
+      <div class="meta">
+        <span class="pill"><strong>Focus:</strong> Prose / Short Stories</span>
+        <span class="pill"><strong>Strategy:</strong> Predict • Visualize • Connect • Question • Respond</span>
+        <span class="pill"><strong>Time:</strong> 45–60 minutes</span>
       </div>
     </header>
 
-    <div class="grid">
+    
 
-      <!-- LEFT COLUMN -->
-      <main>
+    <main class="grid">
 
-        <section class="section" aria-labelledby="tabs-title">
-          <h2 class="section-title" id="tabs-title">Lesson Overview</h2>
-
-          <div class="tabs" role="tablist" aria-label="Lesson tabs">
-            <div class="tab" role="tab" tabindex="0" aria-selected="true" aria-controls="panel-targets" id="tab-targets">Learning Targets</div>
-            <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="panel-active" id="tab-active">Active Reading</div>
-            <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="panel-sq3r" id="tab-sq3r">SQ3R</div>
-            <div class="tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="panel-stories" id="tab-stories">Short Stories</div>
+      <!-- HANDOUT 1 -->
+      <section class="handout" id="h-targets" data-handout-title="Handout 1 - Learning Targets">
+        <div class="handout-header">
+          <div>
+            <h2> Learning Targets</h2>
+            <small>What you should be able to do by the end of today’s lesson.</small>
           </div>
-
-          <!-- Targets -->
-          <div class="panel active" id="panel-targets" role="tabpanel" aria-labelledby="tab-targets">
-            <h3>Learning Target(s)</h3>
-            <ul>
-              <li>Think critically, creatively, and reflectively to analyze ideas within, between, and beyond texts.</li>
-              <li>Use active reading skills to predict, visualize, connect, question, and respond to questions on a selection of prose.</li>
-              <li>Evaluate how literary elements, techniques, and devices enhance and shape meaning and impact.</li>
-            </ul>
-
-            <div class="callout">
-              <strong>Tutor tip:</strong> Before reading, ask: <em>“What’s my purpose today?”</em>
-              (test prep, discussion, writing a response, or reading for enjoyment).
-            </div>
+          <div class="handout-actions">
+            <a href="#" data-print="#h-targets">Print</a>
+            <a href="#" data-pdf="#h-targets">Download PDF</a>
           </div>
+        </div>
 
-          <!-- Active Reading -->
-          <div class="panel" id="panel-active" role="tabpanel" aria-labelledby="tab-active">
-            <h3>What is Active Reading?</h3>
-            <p class="muted">
-              Active reading means thinking while you read. Choose strategies based on the text type (poetry, fiction, nonfiction)
-              and your purpose (understand an author, answer questions, prepare for an essay, or read for pleasure).
-            </p>
+        <h3 style="margin:0">Learning Target(s)</h3>
+        <ul>
+          <li>Think critically, creatively, and reflectively to analyze ideas within, between, and beyond texts.</li>
+          <li>Use active reading skills to predict, visualize, connect, question, and respond to questions on a selection of prose.</li>
+          <li>Evaluate how literary elements, techniques, and devices enhance and shape meaning and impact.</li>
+        </ul>
 
-            <details open>
-              <summary>Effective Strategies You Can Use <span class="tag">Choose what works</span></summary>
-              <ul>
-                <li><strong>Pre-reading questions:</strong> topic, title clues, what you know, what you wonder.</li>
-                <li><strong>Define unfamiliar terms:</strong> highlight and look up meanings.</li>
-                <li><strong>Find the main idea/thesis:</strong> bracket it and star it.</li>
-                <li><strong>Margin notes:</strong> summarize, question, agree/disagree, write keywords.</li>
-                <li><strong>Turn headings into questions:</strong> read to answer them.</li>
-                <li><strong>Visual organizers:</strong> outlines, flow charts, diagrams.</li>
-                <li><strong>“What it says / what it does”:</strong> idea + purpose in the text.</li>
-                <li><strong>One-page summary:</strong> main ideas + 1–2 examples.</li>
-                <li><strong>Create an exam question:</strong> test deeper understanding.</li>
-                <li><strong>Teach it:</strong> explaining out loud strengthens long-term memory.</li>
-              </ul>
-            </details>
+        <div class="callout">
+          <strong>Before you read, ask:</strong> <em>“What’s my purpose today?”</em>
+          (test prep, discussion, writing a response, or reading for enjoyment)
+        </div>
+      </section>
 
-            <details>
-              <summary>Deep Reading Mindset <span class="tag">Think beyond facts</span></summary>
-              <p class="muted">
-                Deep reading isn’t just memorizing facts. It’s connecting ideas, using background knowledge,
-                asking “why/how,” and noticing what the text suggests—even when it’s not stated directly.
-              </p>
-            </details>
-
-            <div class="callout">
-              <strong>Your task:</strong> Pick <strong>2–3 strategies</strong> from this section and write them down before reading.
-            </div>
+      <!-- HANDOUT 2 -->
+      <section class="handout" id="h-active" data-handout-title="Handout 2 - Active Reading Strategies">
+        <div class="handout-header">
+          <div>
+            <h2>Active Reading Strategies</h2>
+            <small>Active reading means thinking while you read. Choose the strategies that match your purpose.</small>
           </div>
-
-          <!-- SQ3R -->
-          <div class="panel" id="panel-sq3r" role="tabpanel" aria-labelledby="tab-sq3r">
-            <h3>SQ3R Strategy</h3>
-            <p class="muted">SQ3R helps you “get it” the first time you read: <strong>Survey, Question, Read, Recite, Review</strong>.</p>
-
-            <details open>
-              <summary>How SQ3R Works <span class="tag">5 steps</span></summary>
-              <ul>
-                <li><strong>Survey (Skim):</strong> preview headings, bold words, charts—get the big picture.</li>
-                <li><strong>Question:</strong> create questions from what you preview.</li>
-                <li><strong>Read:</strong> read to answer your questions (stay focused).</li>
-                <li><strong>Recite:</strong> say answers out loud; jot notes for later.</li>
-                <li><strong>Review:</strong> revisit the text; answer leftover questions and retell key ideas.</li>
-              </ul>
-            </details>
-
-            <div class="callout">
-              <strong>Quick win:</strong> If you only do one part, do <em>Question</em>. Questions turn reading into a mission.
-            </div>
+          <div class="handout-actions">
+            <a href="#" data-print="#h-active">Print</a>
+            <a href="#" data-pdf="#h-active">Download PDF</a>
           </div>
+        </div>
 
-          <!-- Short stories -->
-          <div class="panel" id="panel-stories" role="tabpanel" aria-labelledby="tab-stories">
-            <h3>Active Reading for Short Stories</h3>
-            <p class="muted">
-              Fiction invites you into a world created by the author. Reading stories is an active process:
-              you build a “movie” in your mind, adjust your understanding as events unfold, and think about meaning.
-            </p>
+        <h3 style="margin:0">What is Active Reading?</h3>
+        <p class="muted" style="margin-top:6px">
+          Active reading means you don’t just “go through” a text—you interact with it: noticing, questioning, and building meaning.
+        </p>
 
-            <details open>
-              <summary>Core Strategies for Stories <span class="tag">Use during reading</span></summary>
-              <ul>
-                <li><strong>QUESTION:</strong> Why do characters act this way? What causes events? Why include certain details?</li>
-                <li><strong>VISUALIZE:</strong> picture scenes; revise your mental image; use it to clear confusion.</li>
-                <li><strong>PREDICT:</strong> what might happen next? What hints suggest an outcome?</li>
-                <li><strong>CONNECT:</strong> link to your life, real world, and other events in the story.</li>
-                <li><strong>RESPOND:</strong> what does it mean? How does it make you feel? What does it teach?</li>
-              </ul>
-            </details>
+        <div class="divider"></div>
 
-            <div class="callout">
-              <strong>Goal:</strong> Choose at least <strong>5</strong> active reading strategies to use consistently.
-            </div>
+        <h3 style="margin:0">Strategies (choose 2–3 today)</h3>
+        <ul>
+          <li><strong>Pre-reading questions:</strong> topic, title clues, what you know, what you wonder.</li>
+          <li><strong>Define unfamiliar terms:</strong> highlight and look up meanings.</li>
+          <li><strong>Find the main idea/thesis:</strong> bracket it and star it.</li>
+          <li><strong>Margin notes:</strong> summarize, question, agree/disagree, write keywords.</li>
+          <li><strong>Turn headings into questions:</strong> read to answer them.</li>
+          <li><strong>Visual organizers:</strong> outlines, flow charts, diagrams.</li>
+          <li><strong>“What it says / what it does”:</strong> idea + purpose in the text.</li>
+          <li><strong>One-page summary:</strong> main ideas + 1–2 examples.</li>
+          <li><strong>Create an exam question:</strong> test deeper understanding.</li>
+          <li><strong>Teach it out loud:</strong> explaining strengthens long-term memory.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Your task:</strong> Write down the <strong>2–3 strategies</strong> you will use before you start reading.
+        </div>
+      </section>
+
+      <!-- HANDOUT 3 -->
+      <section class="handout" id="h-sq3r" data-handout-title="Handout 3 - SQ3R">
+        <div class="handout-header">
+          <div>
+            <h2>SQ3R</h2>
+            <small>SQ3R helps you understand a text the first time: <strong>Survey • Question • Read • Recite • Review</strong>.</small>
           </div>
-        </section>
-
-        <!-- ASSIGNMENT SECTION -->
-        <section class="section" id="assignment" aria-labelledby="assn-title">
-          <h2 class="section-title" id="assn-title">Assignment: Active Reading — “Games at Twilight”</h2>
-
-          <p class="muted">
-            <strong>Task:</strong> Answer the questions below using complete, descriptive sentences.
-            Each question is labeled with the active-reading strategy. Make reference to the question in your answer.
-          </p>
-
-          <details open>
-            <summary>Questions (9)</summary>
-            <ol style="margin:10px 0 0; padding-left:18px">
-              <li><strong>PREDICT:</strong> What does the title of the story suggest about its content?</li>
-              <li><strong>VISUALIZE / CONNECT:</strong> Put yourself in Ravi’s position. What would you have done after Raghu left the shed area?</li>
-              <li><strong>PREDICT / CONNECT:</strong> If you could speak to Ravi, what would you tell him about games?</li>
-              <li><strong>QUESTION:</strong> In the story, where does Ravi hide?</li>
-              <li><strong>QUESTION:</strong> Even though he wasn’t caught, what causes Ravi to lose the game?</li>
-              <li><strong>QUESTION:</strong> How does Ravi feel about Raghu?</li>
-              <li><strong>VISUALIZE:</strong> Based on Ravi’s choices, what do we know about his personality?</li>
-              <li><strong>RESPOND:</strong> At the end of the story, what bitter lesson does Ravi learn?</li>
-              <li><strong>RESPOND:</strong> Will Ravi’s “sense of insignificance” remain strong? Explain.</li>
-            </ol>
-          </details>
-
-          <div class="divider"></div>
-
-          <h3>Assessment Criteria</h3>
-          <ul>
-            <li><strong>Learning Target (6/6):</strong> Exemplary comprehension; all activities complete and correct; thoughtful and unique ideas.</li>
-            <li><strong>Written Expression (6/6):</strong> Varied sentence structure and vocabulary; proofread; insightful connections; logical organization.</li>
-          </ul>
-
-          <div class="callout">
-            <strong>Time plan (45–60 min):</strong>
-            10 min preview + question • 20–25 min read + annotate • 15–20 min answer questions • 5 min review + proofread
+          <div class="handout-actions">
+            <a href="#" data-print="#h-sq3r">Print</a>
+            <a href="#" data-pdf="#h-sq3r">Download PDF</a>
           </div>
-        </section>
+        </div>
 
-      </main>
+        <ul>
+          <li><strong>Survey (Skim):</strong> preview headings, bold words, charts—get the big picture.</li>
+          <li><strong>Question:</strong> create questions from what you preview.</li>
+          <li><strong>Read:</strong> read to answer your questions (stay focused).</li>
+          <li><strong>Recite:</strong> say answers out loud; jot notes for later.</li>
+          <li><strong>Review:</strong> revisit the text; retell key ideas; answer leftover questions.</li>
+        </ul>
 
-      <!-- RIGHT COLUMN -->
-      <aside>
+        <div class="callout">
+          <strong>Quick win:</strong> If you only do one step, do <em>Question</em>. Questions turn reading into a mission.
+        </div>
+      </section>
 
-        <section class="section" aria-labelledby="tools-title">
-          <h2 class="section-title" id="tools-title">Student Tools</h2>
-          <p class="muted">Use this checklist while reading. It turns “passive reading” into visible progress.</p>
-
-          <div class="checklist">
-            <div class="check">
-              <input type="checkbox" id="c1">
-              <label for="c1"><strong>Purpose set:</strong> I know why I’m reading (questions / response / essay / enjoyment).</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c2">
-              <label for="c2"><strong>Previewed:</strong> title + first paragraph + key details (SQ3R Survey).</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c3">
-              <label for="c3"><strong>Questions:</strong> I wrote at least 3 questions before or during reading.</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c4">
-              <label for="c4"><strong>Annotations:</strong> I highlighted key ideas and defined unfamiliar words.</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c5">
-              <label for="c5"><strong>What it says / does:</strong> I summarized each paragraph’s idea + purpose.</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c6">
-              <label for="c6"><strong>Response:</strong> I wrote how the text affected me (agree/disagree/feelings).</label>
-            </div>
-            <div class="check">
-              <input type="checkbox" id="c7">
-              <label for="c7"><strong>Summary:</strong> I can explain the text in under 8 sentences.</label>
-            </div>
+      <!-- HANDOUT 4 -->
+      <section class="handout" id="h-stories" data-handout-title="Handout 4 - Short Stories Active Reading">
+        <div class="handout-header">
+          <div>
+            <h2>Active Reading for Short Stories</h2>
+            <small>Fiction invites you into a world—your job is to build meaning as the story unfolds.</small>
           </div>
-        </section>
+          <div class="handout-actions">
+            <a href="#" data-print="#h-stories">Print</a>
+            <a href="#" data-pdf="#h-stories">Download PDF</a>
+          </div>
+        </div>
 
-        <section class="section" aria-labelledby="prompts-title">
-          <h2 class="section-title" id="prompts-title">Mini Prompts (Quick Writing)</h2>
-          <ul>
-            <li><strong>I predict…</strong> because the title/details suggest…</li>
-            <li><strong>I visualize…</strong> (describe the scene like a movie).</li>
-            <li><strong>I connect…</strong> (to my life / real world / another event).</li>
-            <li><strong>I wonder…</strong> (a question that pushes deeper meaning).</li>
-            <li><strong>This matters because…</strong> (theme / lesson / message).</li>
-          </ul>
-        </section>
+        <ul>
+          <li><strong>QUESTION:</strong> Why do characters act this way? What causes events? Why include certain details?</li>
+          <li><strong>VISUALIZE:</strong> picture scenes; revise your mental image; use it to clear confusion.</li>
+          <li><strong>PREDICT:</strong> what might happen next? What hints suggest an outcome?</li>
+          <li><strong>CONNECT:</strong> link to your life, real world, and other events in the story.</li>
+          <li><strong>RESPOND:</strong> what does it mean? How does it make you feel? What does it teach?</li>
+        </ul>
 
-      </aside>
+        <div class="callout">
+          <strong>Goal:</strong> Use at least <strong>5</strong> strategies consistently across the story.
+        </div>
+      </section>
 
-    </div>
+      <!-- HANDOUT 5 -->
+      <section class="handout" id="h-tools" data-handout-title="Handout 5 - Student Tools Checklist">
+        <div class="handout-header">
+          <div>
+            <h2>Student Tools Checklist</h2>
+            <small>Use this checklist while reading. It turns “passive reading” into visible progress.</small>
+          </div>
+          <div class="handout-actions">
+            <a href="#" data-print="#h-tools">Print</a>
+            <a href="#" data-pdf="#h-tools">Download PDF</a>
+          </div>
+        </div>
 
-    <div class="footer">
-      <div>Tip: In VS Code, use <strong>Ctrl + F</strong> to find keywords like <em>predict</em>, <em>visualize</em>, <em>respond</em>.</div>
-      <div>Black & white • Print-friendly • Clean sections</div>
-    </div>
+        <div class="checklist">
+          <div class="check">
+            <input type="checkbox" id="t1">
+            <label for="t1"><strong>Purpose set:</strong> I know why I’m reading (questions / response / essay / enjoyment).</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t2">
+            <label for="t2"><strong>Previewed:</strong> title + first paragraph + key details (SQ3R Survey).</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t3">
+            <label for="t3"><strong>Questions:</strong> I wrote at least 3 questions before or during reading.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t4">
+            <label for="t4"><strong>Annotations:</strong> I highlighted key ideas and defined unfamiliar words.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t5">
+            <label for="t5"><strong>What it says / does:</strong> I summarized each paragraph’s idea + purpose.</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t6">
+            <label for="t6"><strong>Response:</strong> I wrote how the text affected me (agree/disagree/feelings).</label>
+          </div>
+          <div class="check">
+            <input type="checkbox" id="t7">
+            <label for="t7"><strong>Summary:</strong> I can explain the text in under 8 sentences.</label>
+          </div>
+        </div>
 
+        <div class="callout">
+          <strong>Mini Prompts:</strong>
+          I predict… • I visualize… • I connect… • I wonder… • This matters because…
+        </div>
+      </section>
+
+      <!-- HANDOUT 6 -->
+      <section class="handout" id="h-assignment" data-handout-title="Handout 6 - Assignment Games at Twilight">
+        <div class="handout-header">
+          <div>
+            <h2>Assignment: Active Reading “Games at Twilight”</h2>
+            <small>Answer in complete, descriptive sentences. Refer to the question in your answer.</small>
+          </div>
+          <div class="handout-actions">
+            <a href="#" data-print="#h-assignment">Print</a>
+            <a href="#" data-pdf="#h-assignment">Download PDF</a>
+          </div>
+        </div>
+
+        <p class="muted" style="margin-top:0">
+          <strong>Task:</strong> Answer the questions below using complete, descriptive sentences.
+          Each question is labeled with the active-reading strategy.
+        </p>
+
+        <ol style="margin:10px 0 0; padding-left:18px">
+          <li><strong>PREDICT:</strong> What does the title of the story suggest about its content?</li>
+          <li><strong>VISUALIZE / CONNECT:</strong> Put yourself in Ravi’s position. What would you have done after Raghu left the shed area?</li>
+          <li><strong>PREDICT / CONNECT:</strong> If you could speak to Ravi, what would you tell him about games?</li>
+          <li><strong>QUESTION:</strong> In the story, where does Ravi hide?</li>
+          <li><strong>QUESTION:</strong> Even though he wasn’t caught, what causes Ravi to lose the game?</li>
+          <li><strong>QUESTION:</strong> How does Ravi feel about Raghu?</li>
+          <li><strong>VISUALIZE:</strong> Based on Ravi’s choices, what do we know about his personality?</li>
+          <li><strong>RESPOND:</strong> At the end of the story, what bitter lesson does Ravi learn?</li>
+          <li><strong>RESPOND:</strong> Will Ravi’s “sense of insignificance” remain strong? Explain.</li>
+        </ol>
+
+        <div class="divider"></div>
+
+        <h3 style="margin:0">Assessment Criteria</h3>
+        <ul>
+          <li><strong>Learning Target (6/6):</strong> Exemplary comprehension; all activities complete and correct; thoughtful and unique ideas.</li>
+          <li><strong>Written Expression (6/6):</strong> Varied sentence structure and vocabulary; proofread; insightful connections; logical organization.</li>
+        </ul>
+
+        <div class="callout">
+          <strong>Time plan (45–60 min):</strong>
+          10 min preview + question • 20–25 min read + annotate • 15–20 min answer • 5 min review + proofread
+        </div>
+      </section>
+
+     
+
+    </main>
   </div>
 
+  <!-- jsPDF for “Download PDF” (links, not buttons) -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
   <script>
-    // Tabs
-    const tabs = Array.from(document.querySelectorAll(".tab"));
-    const panels = Array.from(document.querySelectorAll(".panel"));
+    // Utility: open a print window containing ONLY the selected handout
+    function printSection(selector){
+      const el = document.querySelector(selector);
+      if(!el) return;
 
-    function activateTab(tab){
-      tabs.forEach(t => {
-        const selected = (t === tab);
-        t.setAttribute("aria-selected", selected ? "true" : "false");
-        t.tabIndex = selected ? 0 : -1;
-      });
+      const w = window.open("", "_blank");
+      const styles = Array.from(document.querySelectorAll("style"))
+        .map(s => s.outerHTML).join("\n");
 
-      panels.forEach(p => p.classList.remove("active"));
-      const panelId = tab.getAttribute("aria-controls");
-      const panel = document.getElementById(panelId);
-      if(panel) panel.classList.add("active");
-      tab.focus();
+      w.document.open();
+      w.document.write(`
+        <!doctype html>
+        <html>
+        <head>
+          <meta charset="utf-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <title>Print</title>
+          ${styles}
+          <style>
+            /* ensure print window hides action links too */
+            .handout-actions, .toc{ display:none !important; }
+            body{ padding: 14px; }
+          </style>
+        </head>
+        <body>
+          ${el.outerHTML}
+          <script>
+            window.onload = () => { window.print(); };
+          <\/script>
+        </body>
+        </html>
+      `);
+      w.document.close();
     }
 
-    tabs.forEach(tab => {
-      tab.addEventListener("click", () => activateTab(tab));
-      tab.addEventListener("keydown", (e) => {
-        const i = tabs.indexOf(tab);
-        if(e.key === "ArrowRight") activateTab(tabs[(i+1) % tabs.length]);
-        if(e.key === "ArrowLeft") activateTab(tabs[(i-1 + tabs.length) % tabs.length]);
-        if(e.key === "Home") activateTab(tabs[0]);
-        if(e.key === "End") activateTab(tabs[tabs.length-1]);
+    // Utility: convert handout text into a clean PDF (fast + reliable for B/W handouts)
+    async function downloadPDF(selector){
+      const el = document.querySelector(selector);
+      if(!el) return;
+
+      const title = el.getAttribute("data-handout-title") || "Handout";
+      const { jsPDF } = window.jspdf;
+
+      const doc = new jsPDF({ unit: "pt", format: "letter" });
+      const margin = 48;
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const maxWidth = pageWidth - margin * 2;
+
+      // Pull readable text (print-handout style)
+      const text = el.innerText
+        .replace(/\n{3,}/g, "\n\n")
+        .trim();
+
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(12);
+
+      // Title
+      doc.setFontSize(14);
+      doc.text(title, margin, margin);
+      doc.setFontSize(12);
+
+      // Body
+      const lines = doc.splitTextToSize(text, maxWidth);
+      let y = margin + 22;
+
+      lines.forEach(line => {
+        if (y > doc.internal.pageSize.getHeight() - margin){
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(line, margin, y);
+        y += 16;
       });
+
+      doc.save(`${title}.pdf`);
+    }
+
+    // Link handlers (no buttons used)
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a");
+      if(!a) return;
+
+      const selPrint = a.getAttribute("data-print");
+      const selPDF = a.getAttribute("data-pdf");
+
+      if(selPrint){
+        e.preventDefault();
+        printSection(selPrint);
+      }
+      if(selPDF){
+        e.preventDefault();
+        downloadPDF(selPDF);
+      }
     });
   </script>
 </body>
