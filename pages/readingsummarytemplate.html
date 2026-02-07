@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chapter Book Reading Summary Worksheet</title>
+  <style>
+    :root{
+      --paper: #fbfbf6;
+      --ink: #111827;
+      --muted: #374151;
+      --line: rgba(59,130,246,.18); /* notebook blue */
+      --margin: rgba(239,68,68,.28); /* notebook red */
+      --card: rgba(255,255,255,.80);
+      --border: rgba(17,24,39,.10);
+      --radius: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      color:var(--ink);
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* Notebook lined background */
+      background:
+        linear-gradient(to right, transparent 64px, var(--margin) 64px, var(--margin) 66px, transparent 66px),
+        repeating-linear-gradient(
+          to bottom,
+          var(--paper) 0px,
+          var(--paper) 28px,
+          var(--line) 29px
+        );
+      min-height:100vh;
+      padding: 28px 16px 44px;
+    }
+
+    .sheet{
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--card);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+
+    header{
+      padding: 22px 22px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1{
+      margin:0;
+      font-size: 26px;
+      letter-spacing:.2px;
+    }
+
+    .subtitle{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main{
+      padding: 18px 22px 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    section{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.72);
+      padding: 16px;
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size: 18px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+    }
+
+    .line{
+      display:flex;
+      gap:10px;
+      align-items:flex-end;
+      flex-wrap:wrap;
+    }
+    .label{
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .blank{
+      flex:1;
+      min-width: 220px;
+      border-bottom: 2px solid rgba(17,24,39,.25);
+      height: 18px;
+    }
+
+    .note-lines{
+      margin-top: 8px;
+      display:grid;
+      gap: 10px;
+    }
+    .write-line{
+      height: 20px;
+      border-bottom: 2px solid rgba(17,24,39,.18);
+    }
+
+    ul.clean{
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+    ul.clean li{
+      margin: 6px 0;
+    }
+
+    table{
+      width:100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow:hidden;
+      border: 1px solid rgba(17,24,39,.16);
+      background: rgba(255,255,255,.85);
+    }
+    th, td{
+      border: 1px solid rgba(17,24,39,.12);
+      padding: 10px;
+      vertical-align: top;
+      text-align:left;
+      font-size: 14px;
+    }
+    th{
+      background: rgba(17,24,39,.05);
+      font-weight:700;
+    }
+    td{
+      height: 52px;
+    }
+
+    .small{
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      margin-top: 8px;
+    }
+    .chip{
+      padding: 6px 10px;
+      border: 1px solid rgba(17,24,39,.14);
+      border-radius: 999px;
+      background: rgba(255,255,255,.7);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .draw-box{
+      height: 260px;
+      border: 2px dashed rgba(17,24,39,.25);
+      border-radius: 14px;
+      background: rgba(255,255,255,.75);
+    }
+
+    footer{
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 760px){
+      .grid-2{ grid-template-columns: 1fr; }
+      header, main, footer{ padding-left: 14px; padding-right: 14px; }
+      .blank{ min-width: 160px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <h1>Chapter Book Reading Summary Worksheet</h1>
+      <p class="subtitle">Complete Parts 1–6 for each chapter you read.</p>
+    </header>
+
+    <main>
+      <!-- Student Info -->
+      <section>
+        <h2>Student Information</h2>
+        <div class="grid-2">
+          <div class="line"><span class="label">Name:</span><span class="blank"></span></div>
+          <div class="line"><span class="label">Date:</span><span class="blank"></span></div>
+          <div class="line"><span class="label">Book Title:</span><span class="blank"></span></div>
+          <div class="line"><span class="label">Author:</span><span class="blank"></span></div>
+          <div class="line"><span class="label">Chapter(s):</span><span class="blank"></span></div>
+        </div>
+      </section>
+
+      <!-- Part 1 -->
+      <section>
+        <h2>Part 1: Chapter Summary (Main Events)</h2>
+        <div class="small">Write 5–7 sentences summarizing what happened:</div>
+        <div class="note-lines" aria-label="Summary lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+
+        <div style="margin-top:14px" class="small"><b>Important events:</b></div>
+        <ul class="clean">
+          <li>______________________________________________________________</li>
+          <li>______________________________________________________________</li>
+          <li>______________________________________________________________</li>
+        </ul>
+      </section>
+
+      <!-- Part 2 -->
+      <section>
+        <h2>Part 2: Characters</h2>
+        <table>
+          <thead>
+            <tr>
+              <th style="width:22%">Character</th>
+              <th style="width:33%">What did they do?</th>
+              <th>What did we learn about them?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Part 3 -->
+      <section>
+        <h2>Part 3: Thoughts &amp; Reactions</h2>
+
+        <div class="small"><b>What surprised you?</b></div>
+        <div class="note-lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+
+        <div style="margin-top:12px" class="small"><b>What confused you?</b></div>
+        <div class="note-lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+
+        <div style="margin-top:12px" class="small"><b>What do you think will happen next?</b></div>
+        <div class="note-lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+      </section>
+
+      <!-- Part 4 -->
+      <section>
+        <h2>Part 4: Vocabulary Builder</h2>
+        <div class="small">Choose 5 important or unfamiliar words from the chapter.</div>
+        <div style="height:10px"></div>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width:16%">Word</th>
+              <th style="width:32%">Sentence from the book</th>
+              <th style="width:26%">Meaning (in your own words)</th>
+              <th>Draw / Connect to life</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:14px">
+          <div class="small"><b>Vocabulary Challenge</b> (pick ONE word)</div>
+          <div class="grid-2" style="margin-top:8px">
+            <div class="line"><span class="label">Synonym:</span><span class="blank"></span></div>
+            <div class="line"><span class="label">Opposite:</span><span class="blank"></span></div>
+          </div>
+
+          <div style="margin-top:10px" class="small"><b>Make your own sentence:</b></div>
+          <div class="note-lines">
+            <div class="write-line"></div>
+            <div class="write-line"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Part 5 -->
+      <section>
+        <h2>Part 5: Deep Thinking</h2>
+        <div class="small"><b>What is the BIG idea or theme in this chapter?</b></div>
+        <div class="chips" aria-label="Theme options">
+          <span class="chip">Friendship</span>
+          <span class="chip">Courage</span>
+          <span class="chip">Fear</span>
+          <span class="chip">Power</span>
+          <span class="chip">Kindness</span>
+          <span class="chip">Growing up</span>
+          <span class="chip">Good vs Evil</span>
+          <span class="chip">Other: ________</span>
+        </div>
+
+        <div style="margin-top:12px" class="small"><b>Explain why:</b></div>
+        <div class="note-lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+      </section>
+
+      <!-- Part 6 -->
+      <section>
+        <h2>Part 6: Visual Understanding</h2>
+        <div class="small">Draw one important scene:</div>
+        <div style="height:10px"></div>
+        <div class="draw-box" aria-label="Drawing box"></div>
+
+        <div style="margin-top:14px" class="small"><b>Why did you choose this scene?</b></div>
+        <div class="note-lines">
+          <div class="write-line"></div>
+          <div class="write-line"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      Tip: Use full sentences in Part 1, and choose vocabulary words that repeat or seem important to the plot or theme.
+    </footer>
+  </div>
+</body>
+</html>
