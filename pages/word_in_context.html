@@ -93,6 +93,74 @@
       font-weight: 700;
     }
     .back-home { display: inline-block; margin-top: 24px; color: #1d4ed8; font-weight: 700; text-decoration: none; }
+
+    .choice.selected {
+      background: #dbeafe;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+      font-weight: 700;
+    }
+    .teacher-summary {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+      padding: 24px;
+      margin: 30px 0 10px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+    }
+    .teacher-summary h2 { margin-top: 0; color: #111827; }
+    .student-info {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0 18px;
+    }
+    .student-info label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      color: #374151;
+      font-size: 14px;
+    }
+    .student-info input {
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 15px;
+    }
+    .summary-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .summary-actions button {
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+    }
+    .summary-actions button.secondary { background: #e5e7eb; color: #111827; }
+    .answer-grid {
+      display: grid;
+      grid-template-columns: repeat(13, minmax(48px, 1fr));
+      gap: 8px;
+    }
+    .answer-cell {
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 8px 6px;
+      text-align: center;
+      background: #f9fafb;
+      min-height: 62px;
+    }
+    .answer-cell strong { display: block; color: #1e40af; font-size: 13px; }
+    .answer-cell span { display: block; margin-top: 4px; font-size: 20px; font-weight: 800; color: #111827; }
+    @media print {
+      .hero, .toolbar, .top-link, .back-home, .summary-actions { display: none; }
+      body { background: white; }
+      .container { max-width: none; padding: 0; }
+      .question-card, .teacher-summary { box-shadow: none; break-inside: avoid; }
+      .choice { border-color: #999; }
+    }
     @media (max-width: 600px) {
       .question-card { padding: 18px; }
       .toolbar { position: static; }
@@ -117,10 +185,10 @@
         <p class="passage">The following text is adapted from Kenneth Grahame&#x27;s 1908 novel The Wind in the Willows. The Mole is dazed after briefly meeting a stranger while traveling with a friend. The Mole stood still for a moment, held in thought. As one awakened suddenly from a beautiful dream, who struggles to recall it, and can recapture nothing but a dim sense of the beauty of it, the beauty! Till that, too, fades away in its turn.</p>
         <p class="prompt">As used in the text, what does the word &quot;recall&quot; most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>overlook</button></li>
-<li><button class="choice"><span>B</span>remember</button></li>
-<li><button class="choice"><span>C</span>deny</button></li>
-<li><button class="choice"><span>D</span>begin</button></li>
+          <li><button class="choice" data-question="1" data-choice="A"><span>A</span>overlook</button></li>
+<li><button class="choice" data-question="1" data-choice="B"><span>B</span>remember</button></li>
+<li><button class="choice" data-question="1" data-choice="C"><span>C</span>deny</button></li>
+<li><button class="choice" data-question="1" data-choice="D"><span>D</span>begin</button></li>
         </ol>
       </article>
       <article class="question-card" id="q2">
@@ -128,10 +196,10 @@
         <p class="passage">The following text is from Jhumpa Lahiri&#x27;s 2003 novel The Namesake. Gogol, a child, is at a beach in Massachusetts with his father. He watches his father raise a kite within minutes into the wind, so high that Gogol must tip his head back in order to see a rippling speck against the sky. The wind whips around their ears, covering their faces cold.</p>
         <p class="prompt">As used in the text, what does the word &quot;rise&quot; most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>strengthen</button></li>
-<li><button class="choice"><span>B</span>lift</button></li>
-<li><button class="choice"><span>C</span>congratulate</button></li>
-<li><button class="choice"><span>D</span>grow</button></li>
+          <li><button class="choice" data-question="2" data-choice="A"><span>A</span>strengthen</button></li>
+<li><button class="choice" data-question="2" data-choice="B"><span>B</span>lift</button></li>
+<li><button class="choice" data-question="2" data-choice="C"><span>C</span>congratulate</button></li>
+<li><button class="choice" data-question="2" data-choice="D"><span>D</span>grow</button></li>
         </ol>
       </article>
       <article class="question-card" id="q3">
@@ -139,10 +207,10 @@
         <p class="passage">Wireless headphones and other small electronic devices sometimes use batteries that can’t be taken out and swapped for new ones. Environmental policy researcher Jessica Richter warns that once these internal batteries stop working, the devices become ______ and are typically thrown away, creating harmful waste.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>useless</button></li>
-<li><button class="choice"><span>B</span>valuable</button></li>
-<li><button class="choice"><span>C</span>familiar</button></li>
-<li><button class="choice"><span>D</span>attractive</button></li>
+          <li><button class="choice" data-question="3" data-choice="A"><span>A</span>useless</button></li>
+<li><button class="choice" data-question="3" data-choice="B"><span>B</span>valuable</button></li>
+<li><button class="choice" data-question="3" data-choice="C"><span>C</span>familiar</button></li>
+<li><button class="choice" data-question="3" data-choice="D"><span>D</span>attractive</button></li>
         </ol>
       </article>
       <article class="question-card" id="q4">
@@ -150,10 +218,10 @@
         <p class="passage">Smartphones and other small electronic devices tend to use batteries that can’t be easily taken out and swapped for new ones. Environmental policy researcher Jean-Pierre Schweitzer warns that when these internal batteries stop working, the devices are usually thrown away, becoming harmful ______.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>advice</button></li>
-<li><button class="choice"><span>B</span>waste</button></li>
-<li><button class="choice"><span>C</span>rewards</button></li>
-<li><button class="choice"><span>D</span>positions</button></li>
+          <li><button class="choice" data-question="4" data-choice="A"><span>A</span>advice</button></li>
+<li><button class="choice" data-question="4" data-choice="B"><span>B</span>waste</button></li>
+<li><button class="choice" data-question="4" data-choice="C"><span>C</span>rewards</button></li>
+<li><button class="choice" data-question="4" data-choice="D"><span>D</span>positions</button></li>
         </ol>
       </article>
       <article class="question-card" id="q5">
@@ -161,10 +229,10 @@
         <p class="passage">The reception of Hena Khan’s book Amina’s Song has been very good. Many reviewers, booksellers, and librarians have ______ the book, and it won the Asian/Pacific American Award for Literature.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase? Craft and Structure 1.1 Words in Context (continued)</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>attacked</button></li>
-<li><button class="choice"><span>B</span>overlooked</button></li>
-<li><button class="choice"><span>C</span>recommended</button></li>
-<li><button class="choice"><span>D</span>misunderstood</button></li>
+          <li><button class="choice" data-question="5" data-choice="A"><span>A</span>attacked</button></li>
+<li><button class="choice" data-question="5" data-choice="B"><span>B</span>overlooked</button></li>
+<li><button class="choice" data-question="5" data-choice="C"><span>C</span>recommended</button></li>
+<li><button class="choice" data-question="5" data-choice="D"><span>D</span>misunderstood</button></li>
         </ol>
       </article>
       <article class="question-card" id="q6">
@@ -172,10 +240,10 @@
         <p class="passage">The following text is adapted from John Matheus’s 1925 short story Fog. A train has stopped at a station, where heavy fog has set in. The little conductor stood on tiptoe in an effort to keep one hand on the signal rope, craning his neck in a vain and dissatisfied endeavor to pierce the miasma of the fog. The motorman chafed in his box, thinking of the drudging toil of the laboring man. He registered discontent.</p>
         <p class="prompt">As used in the text, what does the word “registered” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>bypassed</button></li>
-<li><button class="choice"><span>B</span>enrolled</button></li>
-<li><button class="choice"><span>C</span>valued</button></li>
-<li><button class="choice"><span>D</span>displayed</button></li>
+          <li><button class="choice" data-question="6" data-choice="A"><span>A</span>bypassed</button></li>
+<li><button class="choice" data-question="6" data-choice="B"><span>B</span>enrolled</button></li>
+<li><button class="choice" data-question="6" data-choice="C"><span>C</span>valued</button></li>
+<li><button class="choice" data-question="6" data-choice="D"><span>D</span>displayed</button></li>
         </ol>
       </article>
       <article class="question-card" id="q7">
@@ -183,10 +251,10 @@
         <p class="passage">Portable video game consoles and wireless speakers tend to contain batteries that can’t be easily ______. Environmental policy researcher Jean-Pierre Schweitzer wants that because new batteries can’t be put in once the old ones no longer work, the gadgets stop functioning and are usually disposed of as trash.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>invented</button></li>
-<li><button class="choice"><span>B</span>prevented</button></li>
-<li><button class="choice"><span>C</span>rated</button></li>
-<li><button class="choice"><span>D</span>replaced</button></li>
+          <li><button class="choice" data-question="7" data-choice="A"><span>A</span>invented</button></li>
+<li><button class="choice" data-question="7" data-choice="B"><span>B</span>prevented</button></li>
+<li><button class="choice" data-question="7" data-choice="C"><span>C</span>rated</button></li>
+<li><button class="choice" data-question="7" data-choice="D"><span>D</span>replaced</button></li>
         </ol>
       </article>
       <article class="question-card" id="q8">
@@ -194,10 +262,10 @@
         <p class="passage">The following text is from Charles Chesnutt’s 1905 novel The Colonel’s Dream. Mr. French and Mr. Kirby work together. Mr. French, the senior partner, who sat opposite Kirby, was an older man—a safe guess would have placed him somewhere in the debatable ground between forty and fifty; of a good height, as could be seen even from the seated figure, the upper part of which was held erect with the unconscious ease which one associates with military training.</p>
         <p class="prompt">As used in the text, what does the word “placed” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>estimated</button></li>
-<li><button class="choice"><span>B</span>modified</button></li>
-<li><button class="choice"><span>C</span>contracted</button></li>
-<li><button class="choice"><span>D</span>arranged</button></li>
+          <li><button class="choice" data-question="8" data-choice="A"><span>A</span>estimated</button></li>
+<li><button class="choice" data-question="8" data-choice="B"><span>B</span>modified</button></li>
+<li><button class="choice" data-question="8" data-choice="C"><span>C</span>contracted</button></li>
+<li><button class="choice" data-question="8" data-choice="D"><span>D</span>arranged</button></li>
         </ol>
       </article>
       <article class="question-card" id="q9">
@@ -205,10 +273,10 @@
         <p class="passage">Novelist Leon Forrest admired William Faulkner’s writing style. Forrest’s novel Divine Days contains a long passage in tribute to Faulkner that is a perfect ______ of Faulkner’s style; anyone familiar with Faulkner’s writing would see the resemblance.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>imitation</button></li>
-<li><button class="choice"><span>B</span>forgetting</button></li>
-<li><button class="choice"><span>C</span>rejection</button></li>
-<li><button class="choice"><span>D</span>opinion</button></li>
+          <li><button class="choice" data-question="9" data-choice="A"><span>A</span>imitation</button></li>
+<li><button class="choice" data-question="9" data-choice="B"><span>B</span>forgetting</button></li>
+<li><button class="choice" data-question="9" data-choice="C"><span>C</span>rejection</button></li>
+<li><button class="choice" data-question="9" data-choice="D"><span>D</span>opinion</button></li>
         </ol>
       </article>
       <article class="question-card" id="q10">
@@ -216,10 +284,10 @@
         <p class="passage">According to a board-gaming website, the game Food Chain Magnate has an average website user rating of 8.2 out of 10. Although average ratings can be misleading when only a few users have rated the game, Food Chain Magnate has been rated by over 9,000 users, which is an ______ number to feel confident that the average rating is reliable.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>insufficient</button></li>
-<li><button class="choice"><span>B</span>excessive</button></li>
-<li><button class="choice"><span>C</span>accurate</button></li>
-<li><button class="choice"><span>D</span>adequate</button></li>
+          <li><button class="choice" data-question="10" data-choice="A"><span>A</span>insufficient</button></li>
+<li><button class="choice" data-question="10" data-choice="B"><span>B</span>excessive</button></li>
+<li><button class="choice" data-question="10" data-choice="C"><span>C</span>accurate</button></li>
+<li><button class="choice" data-question="10" data-choice="D"><span>D</span>adequate</button></li>
         </ol>
       </article>
       <article class="question-card" id="q11">
@@ -227,10 +295,10 @@
         <p class="passage">Becoming a member of the organization Indigenous Photograph has helped Sara Aliaga Ticona (Aymara) ______ her work with an audience beyond Bolivia, where she’s from. The organization’s database of members is used by photography editors and others in the media industry around the world.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>share</button></li>
-<li><button class="choice"><span>B</span>split</button></li>
-<li><button class="choice"><span>C</span>challenge</button></li>
-<li><button class="choice"><span>D</span>examine</button></li>
+          <li><button class="choice" data-question="11" data-choice="A"><span>A</span>share</button></li>
+<li><button class="choice" data-question="11" data-choice="B"><span>B</span>split</button></li>
+<li><button class="choice" data-question="11" data-choice="C"><span>C</span>challenge</button></li>
+<li><button class="choice" data-question="11" data-choice="D"><span>D</span>examine</button></li>
         </ol>
       </article>
       <article class="question-card" id="q12">
@@ -238,10 +306,10 @@
         <p class="passage">Since the Hubble Space Telescope was launched into space in 1990, astronauts have needed to complete regular missions to repair the telescope and keep it working smoothly. Researchers hope that robots will soon be able to make these repairs. Employing robots instead of humans to make repairs will be helpful, as astronauts to maintain the telescope can be expensive.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>straightening</button></li>
-<li><button class="choice"><span>B</span>relying on</button></li>
-<li><button class="choice"><span>C</span>reducing</button></li>
-<li><button class="choice"><span>D</span>forgetting about</button></li>
+          <li><button class="choice" data-question="12" data-choice="A"><span>A</span>straightening</button></li>
+<li><button class="choice" data-question="12" data-choice="B"><span>B</span>relying on</button></li>
+<li><button class="choice" data-question="12" data-choice="C"><span>C</span>reducing</button></li>
+<li><button class="choice" data-question="12" data-choice="D"><span>D</span>forgetting about</button></li>
         </ol>
       </article>
       <article class="question-card" id="q13">
@@ -249,10 +317,10 @@
         <p class="passage">In 1776, the United States sent Benjamin Franklin to France to try to win the country’s support in the United States’ fight for independence from Great Britain. Franklin was very popular in France. This ______ surely helped him to convince France to assist the United States.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>controversy</button></li>
-<li><button class="choice"><span>B</span>sincerity</button></li>
-<li><button class="choice"><span>C</span>esteem</button></li>
-<li><button class="choice"><span>D</span>thoughtfulness</button></li>
+          <li><button class="choice" data-question="13" data-choice="A"><span>A</span>controversy</button></li>
+<li><button class="choice" data-question="13" data-choice="B"><span>B</span>sincerity</button></li>
+<li><button class="choice" data-question="13" data-choice="C"><span>C</span>esteem</button></li>
+<li><button class="choice" data-question="13" data-choice="D"><span>D</span>thoughtfulness</button></li>
         </ol>
       </article>
       <article class="question-card" id="q14">
@@ -260,10 +328,10 @@
         <p class="passage">The following text is adapted from Kenneth Grahame’s 1908 novel The Wind in the Willows. The Mole has been found by a friend after getting lost in the woods. The Mole saw how the bad been so dreadful to him in quite a changed aspect. Holes, hollows, pools, pitfalls, and other menaces by the wayside were vanishing fast, and a gleaming carpet was springing up everywhere, that looked too delicate to be trodden upon by rough feet.</p>
         <p class="prompt">As used in the text, what does the word “delicate” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>generous</button></li>
-<li><button class="choice"><span>B</span>fragile</button></li>
-<li><button class="choice"><span>C</span>accurate</button></li>
-<li><button class="choice"><span>D</span>empty</button></li>
+          <li><button class="choice" data-question="14" data-choice="A"><span>A</span>generous</button></li>
+<li><button class="choice" data-question="14" data-choice="B"><span>B</span>fragile</button></li>
+<li><button class="choice" data-question="14" data-choice="C"><span>C</span>accurate</button></li>
+<li><button class="choice" data-question="14" data-choice="D"><span>D</span>empty</button></li>
         </ol>
       </article>
       <article class="question-card" id="q15">
@@ -271,10 +339,10 @@
         <p class="passage">Jean Batten, who was the first person to fly between England and New Zealand solo, and Ynes Mexia, who was the first to discover the botanical genus Mexianthus, are ensured lasting places in our historical memory. No matter what others may do in the future, nobody can ever ______ the standing of these women as the first to accomplish these feats.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase? Craft and Structure 1.1 Words in Context (continued)</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>undermine</button></li>
-<li><button class="choice"><span>B</span>imply</button></li>
-<li><button class="choice"><span>C</span>extend</button></li>
-<li><button class="choice"><span>D</span>promote</button></li>
+          <li><button class="choice" data-question="15" data-choice="A"><span>A</span>undermine</button></li>
+<li><button class="choice" data-question="15" data-choice="B"><span>B</span>imply</button></li>
+<li><button class="choice" data-question="15" data-choice="C"><span>C</span>extend</button></li>
+<li><button class="choice" data-question="15" data-choice="D"><span>D</span>promote</button></li>
         </ol>
       </article>
       <article class="question-card" id="q16">
@@ -282,10 +350,10 @@
         <p class="passage">Whatever the general attitude toward Madeline Anderson’s 1970 film I Am Somebody and Reginald Hudlin’s 1990 film House Party when they were initially released, both films now tend to be regarded quite ______. In 2018, for example, critics for The New York Times praised the former as “galvanizing” and the latter as “exuberant.”</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>favorably</button></li>
-<li><button class="choice"><span>B</span>skeptically</button></li>
-<li><button class="choice"><span>C</span>neutrally</button></li>
-<li><button class="choice"><span>D</span>strangely</button></li>
+          <li><button class="choice" data-question="16" data-choice="A"><span>A</span>favorably</button></li>
+<li><button class="choice" data-question="16" data-choice="B"><span>B</span>skeptically</button></li>
+<li><button class="choice" data-question="16" data-choice="C"><span>C</span>neutrally</button></li>
+<li><button class="choice" data-question="16" data-choice="D"><span>D</span>strangely</button></li>
         </ol>
       </article>
       <article class="question-card" id="q17">
@@ -293,10 +361,10 @@
         <p class="passage">To evaluate their ideas about environmental conditions in the Pliocene epoch, paleontologists must turn to ______ evidence. Only material objects—such as the fossil remains of the individual known as AL 288-1, discovered in Ethiopia in 1975—can show what a particular idea about the Pliocene is defensible.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>physical</button></li>
-<li><button class="choice"><span>B</span>convenient</button></li>
-<li><button class="choice"><span>C</span>creative</button></li>
-<li><button class="choice"><span>D</span>inconclusive</button></li>
+          <li><button class="choice" data-question="17" data-choice="A"><span>A</span>physical</button></li>
+<li><button class="choice" data-question="17" data-choice="B"><span>B</span>convenient</button></li>
+<li><button class="choice" data-question="17" data-choice="C"><span>C</span>creative</button></li>
+<li><button class="choice" data-question="17" data-choice="D"><span>D</span>inconclusive</button></li>
         </ol>
       </article>
       <article class="question-card" id="q18">
@@ -304,10 +372,10 @@
         <p class="passage">Building additional road capacity may seem like an obvious solution to traffic congestion, but numerous studies have cast doubt on the ______ of that approach. Not only does additional road capacity often fail to relieve congestion, but it can also make traffic worse by encouraging more people to drive.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>efficacy</button></li>
-<li><button class="choice"><span>B</span>aesthetics</button></li>
-<li><button class="choice"><span>C</span>originality</button></li>
-<li><button class="choice"><span>D</span>popularity</button></li>
+          <li><button class="choice" data-question="18" data-choice="A"><span>A</span>efficacy</button></li>
+<li><button class="choice" data-question="18" data-choice="B"><span>B</span>aesthetics</button></li>
+<li><button class="choice" data-question="18" data-choice="C"><span>C</span>originality</button></li>
+<li><button class="choice" data-question="18" data-choice="D"><span>D</span>popularity</button></li>
         </ol>
       </article>
       <article class="question-card" id="q19">
@@ -315,10 +383,10 @@
         <p class="passage">Though many ______ studies of the effect of altitude on blood chemistry focus on people who live above sea level, researcher Suleiman A. Al-Sweidan and Moath Alhaj recently chose the novel path of focusing on people who live below sea level, in locations such as the California towns of Niland and Heber.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>eccentric</button></li>
-<li><button class="choice"><span>B</span>traditional</button></li>
-<li><button class="choice"><span>C</span>meager</button></li>
-<li><button class="choice"><span>D</span>random</button></li>
+          <li><button class="choice" data-question="19" data-choice="A"><span>A</span>eccentric</button></li>
+<li><button class="choice" data-question="19" data-choice="B"><span>B</span>traditional</button></li>
+<li><button class="choice" data-question="19" data-choice="C"><span>C</span>meager</button></li>
+<li><button class="choice" data-question="19" data-choice="D"><span>D</span>random</button></li>
         </ol>
       </article>
       <article class="question-card" id="q20">
@@ -326,10 +394,10 @@
         <p class="passage">New and interesting research conducted by Suleiman A. Al-Sweidan and Moath Alhaj is inspired by their observation that though studies of the effect of high altitude on blood chemistry are ______, the effect on blood chemistry of living in locations below sea level, such as the California towns of Niland and Heber, has received comparatively little notice.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>abundant</button></li>
-<li><button class="choice"><span>B</span>equivocal</button></li>
-<li><button class="choice"><span>C</span>sporadic</button></li>
-<li><button class="choice"><span>D</span>preliminary</button></li>
+          <li><button class="choice" data-question="20" data-choice="A"><span>A</span>abundant</button></li>
+<li><button class="choice" data-question="20" data-choice="B"><span>B</span>equivocal</button></li>
+<li><button class="choice" data-question="20" data-choice="C"><span>C</span>sporadic</button></li>
+<li><button class="choice" data-question="20" data-choice="D"><span>D</span>preliminary</button></li>
         </ol>
       </article>
       <article class="question-card" id="q21">
@@ -337,10 +405,10 @@
         <p class="passage">The following text is from Kenneth Grahame’s 1908 novel The Wind in the Willows. The Mole is returning home after a visit to Mr. Badger’s house. As he hurried along, eagerly anticipating the moment when he would be back again among the things he knew and liked, the Mole saw clearly that he was an animal of tilled field and hedge-row, linked to the ploughed furrow, the frequented pasture, the lane of evening lingerings, the cultivated garden-plot.</p>
         <p class="prompt">As used in the text, what does the word “anticipating” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>managing</button></li>
-<li><button class="choice"><span>B</span>getting ahead of</button></li>
-<li><button class="choice"><span>C</span>revealing</button></li>
-<li><button class="choice"><span>D</span>looking forward to</button></li>
+          <li><button class="choice" data-question="21" data-choice="A"><span>A</span>managing</button></li>
+<li><button class="choice" data-question="21" data-choice="B"><span>B</span>getting ahead of</button></li>
+<li><button class="choice" data-question="21" data-choice="C"><span>C</span>revealing</button></li>
+<li><button class="choice" data-question="21" data-choice="D"><span>D</span>looking forward to</button></li>
         </ol>
       </article>
       <article class="question-card" id="q22">
@@ -348,10 +416,10 @@
         <p class="passage">British painter Peter Edwards is known for his portraits of notable figures in different fields, from poet Seamus Heaney to casting director Ruth Lambert. These works are widely praised, meaning that Edwards receives substantial ______ as an artist.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>guidance</button></li>
-<li><button class="choice"><span>B</span>acclaim</button></li>
-<li><button class="choice"><span>C</span>sympathy</button></li>
-<li><button class="choice"><span>D</span>tolerance</button></li>
+          <li><button class="choice" data-question="22" data-choice="A"><span>A</span>guidance</button></li>
+<li><button class="choice" data-question="22" data-choice="B"><span>B</span>acclaim</button></li>
+<li><button class="choice" data-question="22" data-choice="C"><span>C</span>sympathy</button></li>
+<li><button class="choice" data-question="22" data-choice="D"><span>D</span>tolerance</button></li>
         </ol>
       </article>
       <article class="question-card" id="q23">
@@ -359,10 +427,10 @@
         <p class="passage">The National Heritage Fellowship was created to honor exceptional folk and traditional artists in the United States. One artist who received the fellowship is taiko drummer Seiichi Tanaka. Tanaka was chosen for his lifetime ______ the arts.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>contributions to</button></li>
-<li><button class="choice"><span>B</span>limitations</button></li>
-<li><button class="choice"><span>C</span>doubts about</button></li>
-<li><button class="choice"><span>D</span>misunderstandings of</button></li>
+          <li><button class="choice" data-question="23" data-choice="A"><span>A</span>contributions to</button></li>
+<li><button class="choice" data-question="23" data-choice="B"><span>B</span>limitations</button></li>
+<li><button class="choice" data-question="23" data-choice="C"><span>C</span>doubts about</button></li>
+<li><button class="choice" data-question="23" data-choice="D"><span>D</span>misunderstandings of</button></li>
         </ol>
       </article>
       <article class="question-card" id="q24">
@@ -370,10 +438,10 @@
         <p class="passage">One way to ______ the importance of a scholar’s research is to track how often other scholars refer to that research. For example, Yale University economist Xiaocheng Chen, who studies statistical methods in economics, is among the world’s most frequently cited researchers in her field, indicating that her work has been quite significant.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>increase</button></li>
-<li><button class="choice"><span>B</span>measure</button></li>
-<li><button class="choice"><span>C</span>diminish</button></li>
-<li><button class="choice"><span>D</span>vary</button></li>
+          <li><button class="choice" data-question="24" data-choice="A"><span>A</span>increase</button></li>
+<li><button class="choice" data-question="24" data-choice="B"><span>B</span>measure</button></li>
+<li><button class="choice" data-question="24" data-choice="C"><span>C</span>diminish</button></li>
+<li><button class="choice" data-question="24" data-choice="D"><span>D</span>vary</button></li>
         </ol>
       </article>
       <article class="question-card" id="q25">
@@ -381,10 +449,10 @@
         <p class="passage">To assist with the development of new water-repellent materials for aviation and other applications, a team including both engineers and entomologists conducted a study of the water-repellent properties of cicada wings. The team explained that the ______ experts in these two disciplines resulted in a more comprehensive approach than independent efforts by experts in either discipline could have achieved.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase? Craft and Structure 1.1 Words in Context (continued)</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>skepticism toward</button></li>
-<li><button class="choice"><span>B</span>exaggeration of</button></li>
-<li><button class="choice"><span>C</span>distrust among</button></li>
-<li><button class="choice"><span>D</span>collaboration between</button></li>
+          <li><button class="choice" data-question="25" data-choice="A"><span>A</span>skepticism toward</button></li>
+<li><button class="choice" data-question="25" data-choice="B"><span>B</span>exaggeration of</button></li>
+<li><button class="choice" data-question="25" data-choice="C"><span>C</span>distrust among</button></li>
+<li><button class="choice" data-question="25" data-choice="D"><span>D</span>collaboration between</button></li>
         </ol>
       </article>
       <article class="question-card" id="q26">
@@ -392,10 +460,10 @@
         <p class="passage">Researchers studying the diets of early humans have long assumed that meat played a central role. However, new evidence suggests that plant-based foods may have been more ______ to early human diets than previously believed.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>peripheral</button></li>
-<li><button class="choice"><span>B</span>essential</button></li>
-<li><button class="choice"><span>C</span>irrelevant</button></li>
-<li><button class="choice"><span>D</span>harmful</button></li>
+          <li><button class="choice" data-question="26" data-choice="A"><span>A</span>peripheral</button></li>
+<li><button class="choice" data-question="26" data-choice="B"><span>B</span>essential</button></li>
+<li><button class="choice" data-question="26" data-choice="C"><span>C</span>irrelevant</button></li>
+<li><button class="choice" data-question="26" data-choice="D"><span>D</span>harmful</button></li>
         </ol>
       </article>
       <article class="question-card" id="q27">
@@ -403,10 +471,10 @@
         <p class="passage">The following text is adapted from a nineteenth-century essay. The author’s argument proceeds with such clarity and logical precision that even readers unfamiliar with the topic can easily follow the line of reasoning.</p>
         <p class="prompt">As used in the text, what does the word “proceeds” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>advances</button></li>
-<li><button class="choice"><span>B</span>profits</button></li>
-<li><button class="choice"><span>C</span>stops</button></li>
-<li><button class="choice"><span>D</span>complains</button></li>
+          <li><button class="choice" data-question="27" data-choice="A"><span>A</span>advances</button></li>
+<li><button class="choice" data-question="27" data-choice="B"><span>B</span>profits</button></li>
+<li><button class="choice" data-question="27" data-choice="C"><span>C</span>stops</button></li>
+<li><button class="choice" data-question="27" data-choice="D"><span>D</span>complains</button></li>
         </ol>
       </article>
       <article class="question-card" id="q28">
@@ -414,10 +482,10 @@
         <p class="passage">Although the artist’s early works were largely ignored, her later paintings received widespread praise. This shift in reception highlights how public opinion can be ______ over time.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>fixed</button></li>
-<li><button class="choice"><span>B</span>resistant</button></li>
-<li><button class="choice"><span>C</span>variable</button></li>
-<li><button class="choice"><span>D</span>irrelevant</button></li>
+          <li><button class="choice" data-question="28" data-choice="A"><span>A</span>fixed</button></li>
+<li><button class="choice" data-question="28" data-choice="B"><span>B</span>resistant</button></li>
+<li><button class="choice" data-question="28" data-choice="C"><span>C</span>variable</button></li>
+<li><button class="choice" data-question="28" data-choice="D"><span>D</span>irrelevant</button></li>
         </ol>
       </article>
       <article class="question-card" id="q29">
@@ -425,10 +493,10 @@
         <p class="passage">The historian’s conclusions are based on a careful examination of primary sources, making the argument particularly ______.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>speculative</button></li>
-<li><button class="choice"><span>B</span>convincing</button></li>
-<li><button class="choice"><span>C</span>confusing</button></li>
-<li><button class="choice"><span>D</span>trivial</button></li>
+          <li><button class="choice" data-question="29" data-choice="A"><span>A</span>speculative</button></li>
+<li><button class="choice" data-question="29" data-choice="B"><span>B</span>convincing</button></li>
+<li><button class="choice" data-question="29" data-choice="C"><span>C</span>confusing</button></li>
+<li><button class="choice" data-question="29" data-choice="D"><span>D</span>trivial</button></li>
         </ol>
       </article>
       <article class="question-card" id="q30">
@@ -436,10 +504,10 @@
         <p class="passage">The following text is adapted from a scientific article. The experiment yielded results that were inconsistent with the researchers’ original hypothesis, prompting them to reconsider their assumptions.</p>
         <p class="prompt">As used in the text, what does the word “prompting” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>discouraging</button></li>
-<li><button class="choice"><span>B</span>forcing</button></li>
-<li><button class="choice"><span>C</span>delaying</button></li>
-<li><button class="choice"><span>D</span>questioning</button></li>
+          <li><button class="choice" data-question="30" data-choice="A"><span>A</span>discouraging</button></li>
+<li><button class="choice" data-question="30" data-choice="B"><span>B</span>forcing</button></li>
+<li><button class="choice" data-question="30" data-choice="C"><span>C</span>delaying</button></li>
+<li><button class="choice" data-question="30" data-choice="D"><span>D</span>questioning</button></li>
         </ol>
       </article>
       <article class="question-card" id="q31">
@@ -447,10 +515,10 @@
         <p class="passage">Many cities have introduced bike-sharing programs as a way to reduce traffic congestion. While these programs have been successful in some areas, their effectiveness can vary depending on factors such as infrastructure and public support, making it difficult to ______ their overall impact.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>ignore</button></li>
-<li><button class="choice"><span>B</span>measure</button></li>
-<li><button class="choice"><span>C</span>exaggerate</button></li>
-<li><button class="choice"><span>D</span>simplify</button></li>
+          <li><button class="choice" data-question="31" data-choice="A"><span>A</span>ignore</button></li>
+<li><button class="choice" data-question="31" data-choice="B"><span>B</span>measure</button></li>
+<li><button class="choice" data-question="31" data-choice="C"><span>C</span>exaggerate</button></li>
+<li><button class="choice" data-question="31" data-choice="D"><span>D</span>simplify</button></li>
         </ol>
       </article>
       <article class="question-card" id="q32">
@@ -458,10 +526,10 @@
         <p class="passage">The poet’s use of vivid imagery allows readers to visualize the scene clearly, creating a powerful emotional ______.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>response</button></li>
-<li><button class="choice"><span>B</span>confusion</button></li>
-<li><button class="choice"><span>C</span>distance</button></li>
-<li><button class="choice"><span>D</span>barrier</button></li>
+          <li><button class="choice" data-question="32" data-choice="A"><span>A</span>response</button></li>
+<li><button class="choice" data-question="32" data-choice="B"><span>B</span>confusion</button></li>
+<li><button class="choice" data-question="32" data-choice="C"><span>C</span>distance</button></li>
+<li><button class="choice" data-question="32" data-choice="D"><span>D</span>barrier</button></li>
         </ol>
       </article>
       <article class="question-card" id="q33">
@@ -469,10 +537,10 @@
         <p class="passage">The company’s decision to invest in renewable energy sources reflects a broader commitment to environmental ______.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>neglect</button></li>
-<li><button class="choice"><span>B</span>sustainability</button></li>
-<li><button class="choice"><span>C</span>indifference</button></li>
-<li><button class="choice"><span>D</span>uncertainty</button></li>
+          <li><button class="choice" data-question="33" data-choice="A"><span>A</span>neglect</button></li>
+<li><button class="choice" data-question="33" data-choice="B"><span>B</span>sustainability</button></li>
+<li><button class="choice" data-question="33" data-choice="C"><span>C</span>indifference</button></li>
+<li><button class="choice" data-question="33" data-choice="D"><span>D</span>uncertainty</button></li>
         </ol>
       </article>
       <article class="question-card" id="q34">
@@ -480,10 +548,10 @@
         <p class="passage">The following text is adapted from a historical account. The leader’s speech inspired the crowd, filling them with a renewed sense of purpose and determination.</p>
         <p class="prompt">As used in the text, what does the word “inspired” most nearly mean?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>discouraged</button></li>
-<li><button class="choice"><span>B</span>motivated</button></li>
-<li><button class="choice"><span>C</span>confused</button></li>
-<li><button class="choice"><span>D</span>limited</button></li>
+          <li><button class="choice" data-question="34" data-choice="A"><span>A</span>discouraged</button></li>
+<li><button class="choice" data-question="34" data-choice="B"><span>B</span>motivated</button></li>
+<li><button class="choice" data-question="34" data-choice="C"><span>C</span>confused</button></li>
+<li><button class="choice" data-question="34" data-choice="D"><span>D</span>limited</button></li>
         </ol>
       </article>
       <article class="question-card" id="q35">
@@ -491,10 +559,10 @@
         <p class="passage">Although the new policy was intended to improve efficiency, it had the ______ effect of creating additional delays.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>intended</button></li>
-<li><button class="choice"><span>B</span>opposite</button></li>
-<li><button class="choice"><span>C</span>immediate</button></li>
-<li><button class="choice"><span>D</span>predictable</button></li>
+          <li><button class="choice" data-question="35" data-choice="A"><span>A</span>intended</button></li>
+<li><button class="choice" data-question="35" data-choice="B"><span>B</span>opposite</button></li>
+<li><button class="choice" data-question="35" data-choice="C"><span>C</span>immediate</button></li>
+<li><button class="choice" data-question="35" data-choice="D"><span>D</span>predictable</button></li>
         </ol>
       </article>
       <article class="question-card" id="q36">
@@ -502,10 +570,10 @@
         <p class="passage">Text corpora such as the American National Corpus are enormous collections of electronically stored texts that can be used for empirical testing of hypotheses regarding how ____ a word is in spoken and written English. For instance, one might have a guess about the incidence of the word “long”, but only an analysis of a corpus can prove that “long” is the fifth most commonly used adjective.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>Credible</button></li>
-<li><button class="choice"><span>B</span>Pervasive</button></li>
-<li><button class="choice"><span>C</span>Profound</button></li>
-<li><button class="choice"><span>D</span>Assertive</button></li>
+          <li><button class="choice" data-question="36" data-choice="A"><span>A</span>Credible</button></li>
+<li><button class="choice" data-question="36" data-choice="B"><span>B</span>Pervasive</button></li>
+<li><button class="choice" data-question="36" data-choice="C"><span>C</span>Profound</button></li>
+<li><button class="choice" data-question="36" data-choice="D"><span>D</span>Assertive</button></li>
         </ol>
       </article>
       <article class="question-card" id="q37">
@@ -513,10 +581,10 @@
         <p class="passage">Text corpora such as the British National Corpus are large collections of electronically stored texts that can be used to determine the frequency of ____ words (Words used mainly in specialized or academic publications, on the other hand, tend to be poorly represented). A corpus could reveal, for example, that the word “world” is the eighth most commonly used noun in standard English.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>Trivial</button></li>
-<li><button class="choice"><span>B</span>Conventional</button></li>
-<li><button class="choice"><span>C</span>Profound</button></li>
-<li><button class="choice"><span>D</span>Accidental</button></li>
+          <li><button class="choice" data-question="37" data-choice="A"><span>A</span>Trivial</button></li>
+<li><button class="choice" data-question="37" data-choice="B"><span>B</span>Conventional</button></li>
+<li><button class="choice" data-question="37" data-choice="C"><span>C</span>Profound</button></li>
+<li><button class="choice" data-question="37" data-choice="D"><span>D</span>Accidental</button></li>
         </ol>
       </article>
       <article class="question-card" id="q38">
@@ -524,10 +592,10 @@
         <p class="passage">There is no doubt that Irving Langmuir must have proved himself to be extraordinarily ____ understanding some of the most advanced concepts in the field of chemistry - in 1932 his remarkable talent and hard work was recognized when he was awarded the Nobel Prize in Chemistry for “his discoveries and investigations in surface chemistry”.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>Modest about</button></li>
-<li><button class="choice"><span>B</span>Dispassionate in</button></li>
-<li><button class="choice"><span>C</span>Adept at</button></li>
-<li><button class="choice"><span>D</span>Lighthearted about</button></li>
+          <li><button class="choice" data-question="38" data-choice="A"><span>A</span>Modest about</button></li>
+<li><button class="choice" data-question="38" data-choice="B"><span>B</span>Dispassionate in</button></li>
+<li><button class="choice" data-question="38" data-choice="C"><span>C</span>Adept at</button></li>
+<li><button class="choice" data-question="38" data-choice="D"><span>D</span>Lighthearted about</button></li>
         </ol>
       </article>
       <article class="question-card" id="q39">
@@ -535,14 +603,118 @@
         <p class="passage">Any effort to raise the toll that drivers must pay to use the Ogdensburg– Prescott Bridge, which spans the Saint Lawrence River to connect New York State and Ontario, Canada, should explain why a higher toll is necessary; no amount of justification, however, is likely to persuade some drivers who believe the current toll is ______.</p>
         <p class="prompt">Which choice completes the text with the most logical and precise word or phrase?</p>
         <ol class="choices" type="A">
-          <li><button class="choice"><span>A</span>Contentious</button></li>
-<li><button class="choice"><span>B</span>Equivoval</button></li>
-<li><button class="choice"><span>C</span>Exorbitant</button></li>
-<li><button class="choice"><span>D</span>Warranted</button></li>
+          <li><button class="choice" data-question="39" data-choice="A"><span>A</span>Contentious</button></li>
+<li><button class="choice" data-question="39" data-choice="B"><span>B</span>Equivoval</button></li>
+<li><button class="choice" data-question="39" data-choice="C"><span>C</span>Exorbitant</button></li>
+<li><button class="choice" data-question="39" data-choice="D"><span>D</span>Warranted</button></li>
         </ol>
       </article>
 
+
+    <section class="teacher-summary" id="teacher-summary">
+      <h2>Teacher Marking Summary</h2>
+      <p>Click an answer choice in each question. The selected answers will appear here for quick teacher marking.</p>
+
+      <div class="student-info">
+        <label>Student Name <input type="text" placeholder="Name"></label>
+        <label>Date <input type="text" placeholder="Date"></label>
+        <label>Score <input type="text" placeholder="__/39"></label>
+      </div>
+
+      <div class="summary-actions">
+        <button onclick="window.print()">Print / Save as PDF</button>
+        <button class="secondary" onclick="clearAnswers()">Clear Answers</button>
+      </div>
+
+      <div class="answer-grid">
+        <div class="answer-cell"><strong>Q1</strong><span id="ans1">—</span></div>
+        <div class="answer-cell"><strong>Q2</strong><span id="ans2">—</span></div>
+        <div class="answer-cell"><strong>Q3</strong><span id="ans3">—</span></div>
+        <div class="answer-cell"><strong>Q4</strong><span id="ans4">—</span></div>
+        <div class="answer-cell"><strong>Q5</strong><span id="ans5">—</span></div>
+        <div class="answer-cell"><strong>Q6</strong><span id="ans6">—</span></div>
+        <div class="answer-cell"><strong>Q7</strong><span id="ans7">—</span></div>
+        <div class="answer-cell"><strong>Q8</strong><span id="ans8">—</span></div>
+        <div class="answer-cell"><strong>Q9</strong><span id="ans9">—</span></div>
+        <div class="answer-cell"><strong>Q10</strong><span id="ans10">—</span></div>
+        <div class="answer-cell"><strong>Q11</strong><span id="ans11">—</span></div>
+        <div class="answer-cell"><strong>Q12</strong><span id="ans12">—</span></div>
+        <div class="answer-cell"><strong>Q13</strong><span id="ans13">—</span></div>
+        <div class="answer-cell"><strong>Q14</strong><span id="ans14">—</span></div>
+        <div class="answer-cell"><strong>Q15</strong><span id="ans15">—</span></div>
+        <div class="answer-cell"><strong>Q16</strong><span id="ans16">—</span></div>
+        <div class="answer-cell"><strong>Q17</strong><span id="ans17">—</span></div>
+        <div class="answer-cell"><strong>Q18</strong><span id="ans18">—</span></div>
+        <div class="answer-cell"><strong>Q19</strong><span id="ans19">—</span></div>
+        <div class="answer-cell"><strong>Q20</strong><span id="ans20">—</span></div>
+        <div class="answer-cell"><strong>Q21</strong><span id="ans21">—</span></div>
+        <div class="answer-cell"><strong>Q22</strong><span id="ans22">—</span></div>
+        <div class="answer-cell"><strong>Q23</strong><span id="ans23">—</span></div>
+        <div class="answer-cell"><strong>Q24</strong><span id="ans24">—</span></div>
+        <div class="answer-cell"><strong>Q25</strong><span id="ans25">—</span></div>
+        <div class="answer-cell"><strong>Q26</strong><span id="ans26">—</span></div>
+        <div class="answer-cell"><strong>Q27</strong><span id="ans27">—</span></div>
+        <div class="answer-cell"><strong>Q28</strong><span id="ans28">—</span></div>
+        <div class="answer-cell"><strong>Q29</strong><span id="ans29">—</span></div>
+        <div class="answer-cell"><strong>Q30</strong><span id="ans30">—</span></div>
+        <div class="answer-cell"><strong>Q31</strong><span id="ans31">—</span></div>
+        <div class="answer-cell"><strong>Q32</strong><span id="ans32">—</span></div>
+        <div class="answer-cell"><strong>Q33</strong><span id="ans33">—</span></div>
+        <div class="answer-cell"><strong>Q34</strong><span id="ans34">—</span></div>
+        <div class="answer-cell"><strong>Q35</strong><span id="ans35">—</span></div>
+        <div class="answer-cell"><strong>Q36</strong><span id="ans36">—</span></div>
+        <div class="answer-cell"><strong>Q37</strong><span id="ans37">—</span></div>
+        <div class="answer-cell"><strong>Q38</strong><span id="ans38">—</span></div>
+        <div class="answer-cell"><strong>Q39</strong><span id="ans39">—</span></div>
+      </div>
+    </section>
+
     <a class="back-home" href="index.html">← Back to Home</a>
   </main>
+
+  <script>
+    const totalQuestions = 39;
+
+    function loadSavedAnswers() {
+      for (let q = 1; q <= totalQuestions; q++) {
+        const saved = localStorage.getItem('practice-q' + q);
+        if (saved) {
+          updateSummary(q, saved);
+          const button = document.querySelector(`.choice[data-question="${q}"][data-choice="${saved}"]`);
+          if (button) button.classList.add('selected');
+        }
+      }
+    }
+
+    function updateSummary(question, choice) {
+      const cell = document.getElementById('ans' + question);
+      if (cell) cell.textContent = choice;
+    }
+
+    document.querySelectorAll('.choice').forEach(button => {
+      button.addEventListener('click', () => {
+        const question = button.dataset.question;
+        const choice = button.dataset.choice;
+
+        document.querySelectorAll(`.choice[data-question="${question}"]`).forEach(btn => {
+          btn.classList.remove('selected');
+        });
+
+        button.classList.add('selected');
+        updateSummary(question, choice);
+        localStorage.setItem('practice-q' + question, choice);
+      });
+    });
+
+    function clearAnswers() {
+      for (let q = 1; q <= totalQuestions; q++) {
+        localStorage.removeItem('practice-q' + q);
+        updateSummary(q, '—');
+      }
+      document.querySelectorAll('.choice').forEach(button => button.classList.remove('selected'));
+    }
+
+    loadSavedAnswers();
+  </script>
 </body>
 </html>
