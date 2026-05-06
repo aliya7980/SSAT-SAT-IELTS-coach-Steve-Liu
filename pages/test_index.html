@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steve Liu | SAT SSAT ACT IELTS Coach</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    .home-hero {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 70px 8%;
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .home-hero-text h1 {
+      font-size: 52px;
+      line-height: 1.12;
+      color: #102a43;
+      margin-bottom: 24px;
+    }
+
+    .home-hero-text p {
+      font-size: 19px;
+      color: #3e4c59;
+      margin-bottom: 30px;
+    }
+
+    .hero-label {
+      color: #b08a22 !important;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 12px !important;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .secondary-button {
+      display: inline-block;
+      background: white;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #d8cdbb;
+    }
+
+    .home-hero-card {
+      background: white;
+      padding: 34px;
+      border-radius: 14px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.1);
+      text-align: center;
+    }
+
+    .profile-placeholder {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #102a43, #d4af37);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 54px;
+      font-weight: bold;
+    }
+
+    .home-hero-card h2 {
+      color: #102a43;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .home-hero-card p {
+      color: #3e4c59;
+      margin-bottom: 8px;
+    }
+
+    .trust-section {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      padding: 0 8%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .trust-card {
+      background: #102a43;
+      color: white;
+      padding: 28px;
+      border-radius: 12px;
+    }
+
+    .trust-card h3 {
+      color: #d4af37;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    .trust-card p {
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .card h2,
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .intro-card {
+      text-align: center;
+    }
+
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .program-grid .card i {
+      font-size: 30px;
+      color: #d4af37;
+      margin-bottom: 15px;
+    }
+
+    .process-section {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .process-section h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+
+    .process-grid {
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .process-grid div {
+      background: rgba(255,255,255,0.08);
+      padding: 28px;
+      border-radius: 12px;
+    }
+
+    .process-grid span {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-bottom: 14px;
+    }
+
+    .process-grid h3 {
+      color: #d4af37;
+      margin-bottom: 10px;
+    }
+
+    .process-grid p {
+      color: #e5e7eb;
+    }
+
+    .final-home-cta {
+      text-align: center;
+      padding: 70px 8%;
+      background: #f7f3eb;
+    }
+
+    .final-home-cta h2 {
+      font-size: 36px;
+      color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .final-home-cta p {
+      color: #3e4c59;
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .home-hero,
+      .trust-section,
+      .program-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-hero-text h1 {
+        font-size: 38px;
+      }
+
+      .home-hero {
+        text-align: center;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="pages/services.html">Test Prep</a></li>
+      <li><a href="pages/readingtips.html">Reading</a></li>
+      <li><a href="pages/reading_summary.html">Homework</a></li>
+      <li><a href="pages/clients.html">Clients</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="home-hero">
+    <div class="home-hero-text">
+      <p class="hero-label">SAT · SSAT · ACT · IELTS · Academic Reading</p>
+
+      <h1>Professional Test Prep and Reading Coaching for Ambitious Students</h1>
+
+      <p>
+        I help students build stronger reading skills, sharper test strategies,
+        and greater confidence through structured, personalized coaching.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="pages/contact.html" class="button">Book a Consultation</a>
+        <a href="pages/services.html" class="secondary-button">View Programs</a>
+      </div>
+    </div>
+
+    <div class="home-hero-card">
+      <div class="profile-placeholder">SL</div>
+      <h2>Steve Liu</h2>
+      <p>Master’s Degree in Education</p>
+      <p>20+ Years Teaching Experience</p>
+      <p>5000+ Students Taught</p>
+    </div>
+  </section>
+
+  <section class="trust-section">
+    <div class="trust-card">
+      <h3>20+ Years</h3>
+      <p>Experience in English, reading, and test preparation.</p>
+    </div>
+
+    <div class="trust-card">
+      <h3>5000+ Students</h3>
+      <p>Students taught in SAT, SSAT, ACT, IELTS, and academic reading.</p>
+    </div>
+
+    <div class="trust-card">
+      <h3>Personalized Plan</h3>
+      <p>Lessons are based on each student’s level, goals, and weaknesses.</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="card intro-card">
+      <h2>How I Help Students Improve</h2>
+
+      <p>
+        My coaching focuses on diagnosis, targeted instruction, guided practice,
+        and careful review. Students learn not only how to answer questions, but
+        also how to think through reading passages, grammar rules, evidence, and
+        test timing.
+      </p>
+    </div>
+
+    <div class="program-grid">
+      <div class="card">
+        <i class="fas fa-book-open"></i>
+        <h3>SAT / ACT Prep</h3>
+        <p>Reading, Writing, Math, timing control, and digital test strategies.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-school"></i>
+        <h3>SSAT Prep</h3>
+        <p>Reading, verbal reasoning, vocabulary, math, and test confidence.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-pen-nib"></i>
+        <h3>Academic Reading</h3>
+        <p>Close reading, annotation, evidence gathering, and literary analysis.</p>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-globe"></i>
+        <h3>IELTS Coaching</h3>
+        <p>Reading, writing, listening, speaking, and band-score improvement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <h2>My Coaching Process</h2>
+
+    <div class="process-grid">
+      <div>
+        <span>1</span>
+        <h3>Diagnose</h3>
+        <p>Identify the student’s current level and major weaknesses.</p>
+      </div>
+
+      <div>
+        <span>2</span>
+        <h3>Plan</h3>
+        <p>Create a focused study path based on target score and timeline.</p>
+      </div>
+
+      <div>
+        <span>3</span>
+        <h3>Practice</h3>
+        <p>Use structured lessons, real questions, and guided review.</p>
+      </div>
+
+      <div>
+        <span>4</span>
+        <h3>Improve</h3>
+        <p>Track mistakes, sharpen strategies, and build confidence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-home-cta">
+    <h2>Ready to Build a Stronger Score?</h2>
+    <p>Contact me to discuss your student’s goals and learning needs.</p>
+    <a href="pages/contact.html" class="button">Contact Steve Liu</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Steve Liu. All rights reserved.</p>
+  </footer>
+</body>
+</html>
