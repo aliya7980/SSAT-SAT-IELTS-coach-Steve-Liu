@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Kill a Mockingbird Reading Guide | Steve Liu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.65;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover { color: #d4af37; }
+
+    .hero {
+      background: linear-gradient(rgba(16, 42, 67, 0.82), rgba(16, 42, 67, 0.82)),
+                  url("../index image.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      padding: 80px 8%;
+      color: white;
+    }
+
+    .hero-content { max-width: 780px; }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 720px;
+      margin-bottom: 32px;
+      color: #f3f4f6;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 14px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .cta-button:hover { background: #c19a2e; }
+
+    .page-section { padding: 70px 8%; }
+
+    .container {
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 36px;
+      color: #102a43;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .intro-card,
+    .content-card {
+      background: white;
+      padding: 42px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 32px;
+    }
+
+    .intro-card { border-left: 5px solid #d4af37; }
+
+    .intro-card p,
+    .content-card p {
+      font-size: 18px;
+      color: #3e4c59;
+      margin-bottom: 16px;
+    }
+
+    .content-card h3 {
+      font-size: 28px;
+      color: #102a43;
+      margin-bottom: 16px;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
+    }
+
+    .character-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      overflow: hidden;
+      border-top: 5px solid #d4af37;
+    }
+
+    .illustration {
+      background: #102a43;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .illustration svg {
+      width: 100%;
+      max-width: 280px;
+      height: 160px;
+    }
+
+    .character-content { padding: 26px; }
+
+    .character-content h3 {
+      font-size: 24px;
+      color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .character-content p {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .history-layout {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .history-image {
+      background: #102a43;
+      border-radius: 10px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+    }
+
+    .history-image svg {
+      width: 100%;
+      max-width: 300px;
+      height: 230px;
+    }
+
+    .key-list {
+      list-style: none;
+      margin-top: 18px;
+    }
+
+    .key-list li {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 15px;
+      margin-bottom: 12px;
+      color: #243b53;
+      font-size: 17px;
+    }
+
+    .key-list i {
+      color: #102a43;
+      margin-right: 10px;
+    }
+
+    .note {
+      background: #fffaf0;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      margin-top: 18px;
+      color: #3e4c59;
+      font-size: 16px;
+    }
+
+    .final-cta {
+      background: #102a43;
+      color: white;
+      text-align: center;
+      padding: 70px 8%;
+    }
+
+    .final-cta h2 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .final-cta p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    footer {
+      background: #081826;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .character-grid,
+      .history-layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero h1 { font-size: 36px; }
+
+      .hero {
+        min-height: 400px;
+        padding: 60px 8%;
+      }
+
+      .intro-card,
+      .content-card,
+      .character-content { padding: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>To Kill a Mockingbird Reading Guide</h1>
+      <p>
+        Explore major characters, historical background, and key conflicts that help students
+        understand Harper Lee’s classic novel with greater depth.
+      </p>
+      <a href="#characters" class="cta-button">Start Reading</a>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Why Study This Novel?</h2>
+
+      <div class="intro-card">
+        <p>
+          <em>To Kill a Mockingbird</em> is often taught in Grades 9–11 because it develops
+          students’ ability to analyze character, moral conflict, prejudice, justice, symbolism,
+          and narrative perspective. Students learn not only what happens in the story, but also
+          how Harper Lee uses Scout’s childhood point of view to reveal adult social problems.
+        </p>
+
+        <p>
+          This guide is designed to support reading, annotation, chapter summary, character
+          analysis, symbolism, and writing practice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="characters" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Major Characters</h2>
+
+      <div class="character-grid">
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <circle cx="200" cy="74" r="38" fill="#f7d9b5"/>
+              <path d="M155 155 Q200 105 245 155 L260 210 H140 Z" fill="#d4af37"/>
+              <circle cx="185" cy="70" r="4" fill="#102a43"/>
+              <circle cx="215" cy="70" r="4" fill="#102a43"/>
+              <path d="M178 95 Q200 110 222 95" stroke="#102a43" stroke-width="4" fill="none"/>
+              <text x="200" y="198" text-anchor="middle" fill="white" font-size="24" font-family="Georgia">Scout</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Scout Finch</h3>
+            <p>
+              Scout is the narrator and young daughter of Atticus Finch. Through her eyes, readers
+              see both childhood innocence and the unfairness of adult society.
+            </p>
+          </div>
+        </div>
+
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <circle cx="200" cy="70" r="38" fill="#f7d9b5"/>
+              <rect x="160" y="112" width="80" height="90" rx="8" fill="#1f2933"/>
+              <rect x="175" y="114" width="50" height="80" fill="#ffffff"/>
+              <line x1="182" y1="132" x2="218" y2="132" stroke="#102a43" stroke-width="3"/>
+              <line x1="182" y1="150" x2="218" y2="150" stroke="#102a43" stroke-width="3"/>
+              <circle cx="185" cy="68" r="4" fill="#102a43"/>
+              <circle cx="215" cy="68" r="4" fill="#102a43"/>
+              <text x="200" y="198" text-anchor="middle" fill="#d4af37" font-size="24" font-family="Georgia">Atticus</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Atticus Finch</h3>
+            <p>
+              Atticus is Scout and Jem’s father and a lawyer. He represents moral courage,
+              fairness, calm judgment, and ethical responsibility.
+            </p>
+          </div>
+        </div>
+
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <circle cx="200" cy="72" r="36" fill="#f7d9b5"/>
+              <path d="M150 155 Q200 110 250 155 L265 210 H135 Z" fill="#3e4c59"/>
+              <path d="M168 52 Q200 20 232 52" fill="#1f2933"/>
+              <circle cx="186" cy="72" r="4" fill="#102a43"/>
+              <circle cx="214" cy="72" r="4" fill="#102a43"/>
+              <path d="M178 96 Q200 106 222 96" stroke="#102a43" stroke-width="3" fill="none"/>
+              <text x="200" y="198" text-anchor="middle" fill="#d4af37" font-size="24" font-family="Georgia">Jem</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Jem Finch</h3>
+            <p>
+              Jem is Scout’s older brother. His changing view of Maycomb shows the painful loss
+              of childhood innocence.
+            </p>
+          </div>
+        </div>
+
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <rect x="130" y="52" width="140" height="118" rx="12" fill="#f7f3eb"/>
+              <path d="M150 82 H250 M150 110 H250 M150 138 H220" stroke="#102a43" stroke-width="5"/>
+              <circle cx="292" cy="84" r="26" fill="#d4af37"/>
+              <path d="M292 60 L299 78 L318 78 L303 90 L309 108 L292 96 L275 108 L281 90 L266 78 L285 78 Z" fill="#102a43"/>
+              <text x="200" y="202" text-anchor="middle" fill="#d4af37" font-size="22" font-family="Georgia">Tom Robinson</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Tom Robinson</h3>
+            <p>
+              Tom Robinson is falsely accused of assaulting Mayella Ewell. His trial exposes
+              racial injustice, social prejudice, and the limits of legal fairness in Maycomb.
+            </p>
+          </div>
+        </div>
+
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <rect x="105" y="50" width="190" height="130" fill="#3e4c59"/>
+              <polygon points="100,50 200,12 300,50" fill="#1f2933"/>
+              <rect x="178" y="106" width="44" height="74" fill="#081826"/>
+              <circle cx="215" cy="143" r="4" fill="#d4af37"/>
+              <circle cx="132" cy="82" r="10" fill="#d4af37"/>
+              <text x="200" y="204" text-anchor="middle" fill="#d4af37" font-size="24" font-family="Georgia">Boo Radley</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Boo Radley</h3>
+            <p>
+              Boo Radley begins as a mysterious figure, but later becomes a symbol of
+              misunderstood goodness and quiet protection.
+            </p>
+          </div>
+        </div>
+
+        <div class="character-card">
+          <div class="illustration">
+            <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+              <rect width="400" height="220" fill="#102a43"/>
+              <circle cx="200" cy="72" r="38" fill="#7c4a28"/>
+              <path d="M155 154 Q200 108 245 154 L262 210 H138 Z" fill="#d4af37"/>
+              <path d="M162 64 Q200 30 238 64" fill="#1f2933"/>
+              <circle cx="185" cy="72" r="4" fill="#102a43"/>
+              <circle cx="215" cy="72" r="4" fill="#102a43"/>
+              <path d="M178 98 Q200 112 222 98" stroke="#102a43" stroke-width="3" fill="none"/>
+              <text x="200" y="198" text-anchor="middle" fill="white" font-size="24" font-family="Georgia">Calpurnia</text>
+            </svg>
+          </div>
+          <div class="character-content">
+            <h3>Calpurnia</h3>
+            <p>
+              Calpurnia is the Finch family’s housekeeper and an important moral influence on
+              Scout and Jem. She teaches discipline, manners, and empathy.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Historical Background: King Harold and the Arrow</h2>
+
+      <div class="content-card">
+        <div class="history-layout">
+          <div class="history-image">
+            <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+              <rect width="360" height="260" fill="#102a43"/>
+              <circle cx="175" cy="90" r="42" fill="#f7d9b5"/>
+              <path d="M132 168 Q175 122 218 168 L238 245 H112 Z" fill="#d4af37"/>
+              <path d="M145 55 Q175 22 205 55" fill="#8b5a2b"/>
+              <circle cx="160" cy="88" r="4" fill="#102a43"/>
+              <path d="M235 48 L160 88" stroke="#ffffff" stroke-width="6"/>
+              <polygon points="235,48 216,44 224,62" fill="#ffffff"/>
+              <line x1="235" y1="48" x2="292" y2="24" stroke="#d4af37" stroke-width="5"/>
+              <text x="180" y="235" text-anchor="middle" fill="white" font-size="22" font-family="Georgia">1066: Harold</text>
+            </svg>
+          </div>
+
+          <div>
+            <h3>What Happened?</h3>
+            <p>
+              King Harold Godwinson was the last Anglo-Saxon king of England. In 1066, he fought
+              William of Normandy at the Battle of Hastings. A famous tradition says Harold was
+              struck in the eye by an arrow during the battle.
+            </p>
+
+            <p>
+              Historians still debate exactly how Harold died. Some accounts suggest an arrow wound;
+              others suggest he was killed by Norman knights. The arrow-in-the-eye image became famous
+              partly because of the Bayeux Tapestry.
+            </p>
+
+            <div class="note">
+              <strong>Teaching Connection:</strong> This story helps students understand how history,
+              legend, and visual evidence shape the way people remember the past.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Historical Background: The American Civil War</h2>
+
+      <div class="content-card">
+        <div class="history-layout">
+          <div class="history-image">
+            <svg viewBox="0 0 360 260" xmlns="http://www.w3.org/2000/svg">
+              <rect width="360" height="260" fill="#102a43"/>
+              <rect x="55" y="45" width="110" height="72" fill="#f7f3eb"/>
+              <rect x="55" y="45" width="110" height="12" fill="#d4af37"/>
+              <rect x="55" y="69" width="110" height="12" fill="#d4af37"/>
+              <rect x="55" y="93" width="110" height="12" fill="#d4af37"/>
+              <rect x="55" y="45" width="45" height="36" fill="#1d4ed8"/>
+              <line x1="55" y1="45" x2="55" y2="210" stroke="#f7f3eb" stroke-width="6"/>
+              <rect x="215" y="45" width="95" height="70" fill="#b91c1c"/>
+              <line x1="215" y1="45" x2="310" y2="115" stroke="#ffffff" stroke-width="6"/>
+              <line x1="310" y1="45" x2="215" y2="115" stroke="#ffffff" stroke-width="6"/>
+              <line x1="215" y1="45" x2="215" y2="210" stroke="#f7f3eb" stroke-width="6"/>
+              <path d="M80 210 C140 165, 220 165, 285 210" stroke="#d4af37" stroke-width="8" fill="none"/>
+              <text x="180" y="240" text-anchor="middle" fill="white" font-size="22" font-family="Georgia">1861–1865</text>
+            </svg>
+          </div>
+
+          <div>
+            <h3>Why It Matters for Reading</h3>
+            <p>
+              The American Civil War lasted from 1861 to 1865. It was fought mainly between the
+              Northern states, called the Union, and the Southern states, called the Confederacy.
+              One of the central issues was slavery and whether it would continue or expand.
+            </p>
+
+            <p>
+              Although <em>To Kill a Mockingbird</em> takes place decades after the Civil War, the
+              novel is shaped by the long aftermath of slavery, segregation, racial hierarchy, and
+              social inequality in the American South.
+            </p>
+
+            <ul class="key-list">
+              <li><i class="fas fa-landmark"></i><strong>1861:</strong> The Civil War begins.</li>
+              <li><i class="fas fa-file-signature"></i><strong>1863:</strong> The Emancipation Proclamation declares enslaved people free in Confederate-held areas.</li>
+              <li><i class="fas fa-flag"></i><strong>1865:</strong> The war ends, and the Thirteenth Amendment abolishes slavery.</li>
+              <li><i class="fas fa-balance-scale"></i><strong>Afterward:</strong> Reconstruction and later Jim Crow laws shaped race relations in the South.</li>
+            </ul>
+
+            <div class="note">
+              <strong>Teaching Connection:</strong> Understanding the Civil War helps students see why
+              Tom Robinson’s trial is not just one courtroom event; it reflects a much longer history
+              of racial injustice in America.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Reading, Annotation, and Writing Practice</h2>
+    <p>
+      Use this page as a starting point for character analysis, historical context,
+      symbolism, and evidence-based essay writing.
+    </p>
+    <a href="contact.html" class="cta-button">Book a Reading Lesson</a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Steve Liu. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

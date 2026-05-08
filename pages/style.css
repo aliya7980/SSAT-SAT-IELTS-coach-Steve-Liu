@@ -269,3 +269,43 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+.book-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 440px;
+}
+
+.book-button {
+  display: block;
+  padding: 16px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+}
+
+.book-button:nth-child(1) {
+  background: linear-gradient(135deg, #ff7eb3, #ff758c);
+}
+
+.book-button:nth-child(2) {
+  background: linear-gradient(135deg, #7afcff, #4facfe);
+}
+
+.book-button:nth-child(3) {
+  background: linear-gradient(135deg, #b8f7a1, #4ade80);
+}
+
+.book-button:nth-child(4) {
+  background: linear-gradient(135deg, #ffd166, #f59e0b);
+}
