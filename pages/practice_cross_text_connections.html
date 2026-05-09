@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAT Cross-Text Connections Practice | Steve Liu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.65;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover { color: #d4af37; }
+
+    .hero {
+      background: linear-gradient(rgba(16, 42, 67, 0.84), rgba(16, 42, 67, 0.84)),
+                  url("../index image.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      padding: 80px 8%;
+      color: white;
+    }
+
+    .hero-content { max-width: 800px; }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 740px;
+      margin-bottom: 32px;
+      color: #f3f4f6;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 14px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cta-button:hover { background: #c19a2e; }
+
+    .page-section { padding: 70px 8%; }
+
+    .container {
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 36px;
+      color: #102a43;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .intro-card,
+    .method-card,
+    .question-card {
+      background: white;
+      padding: 42px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 32px;
+    }
+
+    .intro-card {
+      border-left: 5px solid #d4af37;
+    }
+
+    .intro-card p,
+    .method-card p,
+    .question-card p {
+      font-size: 18px;
+      color: #3e4c59;
+      margin-bottom: 16px;
+    }
+
+    .method-card h3,
+    .question-card h3 {
+      font-size: 28px;
+      color: #102a43;
+      margin-bottom: 16px;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .steps-list li {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 16px;
+      color: #243b53;
+      font-size: 17px;
+    }
+
+    .text-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 22px 0;
+    }
+
+    .text-box {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    .text-box h4 {
+      color: #102a43;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .question-box {
+      background: #102a43;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .question-box p { color: white; }
+
+    .choices {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .choices li {
+      padding: 8px 0;
+      color: #f3f4f6;
+      font-size: 17px;
+    }
+
+    details {
+      background: #fffaf0;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      margin-top: 18px;
+      border-radius: 6px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: #102a43;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    details p { margin-top: 12px; }
+
+    .badge {
+      display: inline-block;
+      background: #fffaf0;
+      color: #102a43;
+      border-left: 4px solid #d4af37;
+      padding: 8px 12px;
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+
+    .final-cta {
+      background: #102a43;
+      color: white;
+      text-align: center;
+      padding: 70px 8%;
+    }
+
+    .final-cta h2 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .final-cta p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    footer {
+      background: #081826;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .text-pair { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 800px) {
+      .navbar { flex-direction: column; gap: 18px; }
+      .nav-links { flex-wrap: wrap; justify-content: center; }
+      .hero h1 { font-size: 36px; }
+      .hero { min-height: 380px; padding: 60px 8%; }
+      .intro-card, .method-card, .question-card { padding: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SAT Cross-Text Connections Practice</h1>
+      <p>
+        Train students to compare two texts, identify each author’s claim, and choose the answer
+        that best describes the relationship between the passages.
+      </p>
+      <a href="#practice" class="cta-button">Start Practice</a>
+      <a href="https://satsuitequestionbank.collegeboard.org/digital/search" target="_blank" class="cta-button">Official College Board Practice</a>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Teacher Method</h2>
+
+      <div class="intro-card">
+        <p>
+          Cross-Text Connections questions ask students to compare two short texts. The correct answer must
+          describe the relationship between both texts, not just repeat a detail from one passage.
+        </p>
+        <p>
+          Use the button above to access official College Board practice. The five questions below are original
+          SAT-style classroom questions designed for practice and skill-building.
+        </p>
+      </div>
+
+      <div class="method-card">
+        <h3>How to Solve</h3>
+        <ul class="steps-list">
+          <li><strong>1. Read the question first.</strong> Decide whether it asks about agreement, disagreement, support, challenge, or response.</li>
+          <li><strong>2. Summarize Text 1 in a few words.</strong> Focus on the claim or main idea.</li>
+          <li><strong>3. Summarize Text 2 in a few words.</strong> Decide whether it supports, challenges, or qualifies Text 1.</li>
+          <li><strong>4. Predict the relationship.</strong> Say it simply: “Text 2 agrees but adds a limitation.”</li>
+          <li><strong>5. Eliminate trap answers.</strong> Wrong answers often exaggerate, reverse the relationship, or mention only one text.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="practice" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Five Cross-Text Connections Questions</h2>
+
+      <div class="question-card">
+        <span class="badge">Question 1 — Agreement</span>
+        <h3>Handwritten Notes</h3>
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>Some learning researchers argue that handwritten notes can improve understanding because students must select and organize ideas instead of copying every sentence they hear.</p>
+          </div>
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>In one classroom study, students who typed notes recorded more words, but students who wrote notes by hand performed better on questions that required explaining concepts in their own words.</p>
+          </div>
+        </div>
+        <div class="question-box">
+          <p><strong>How would the author of Text 2 most likely respond to Text 1?</strong></p>
+          <ul class="choices">
+            <li>A. By rejecting Text 1 because typed notes are always superior</li>
+            <li>B. By supporting Text 1 with evidence that handwriting may encourage deeper processing</li>
+            <li>C. By arguing that note-taking is useful only in science classes</li>
+            <li>D. By claiming that students should memorize lectures without taking notes</li>
+          </ul>
+        </div>
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Answer: B.</strong> Text 2 supports Text 1 by giving evidence that handwritten notes may improve conceptual understanding.</p>
+        </details>
+      </div>
+
+      <div class="question-card">
+        <span class="badge">Question 2 — Challenge</span>
+        <h3>Urban Green Roofs</h3>
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>Green roofs are often praised for environmental reasons, but a single roof garden is too small to meaningfully affect a city’s temperature or air quality.</p>
+          </div>
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>Although one roof garden may have limited impact, researchers have found that networks of green roofs can reduce heat, absorb rainwater, and create habitats for insects.</p>
+          </div>
+        </div>
+        <div class="question-box">
+          <p><strong>What is the main relationship between the two texts?</strong></p>
+          <ul class="choices">
+            <li>A. Text 2 challenges Text 1 by arguing that green roofs can have value when used widely.</li>
+            <li>B. Text 2 agrees that green roofs are useful only for decoration.</li>
+            <li>C. Text 2 claims that green roofs are too expensive for most cities.</li>
+            <li>D. Text 2 argues that roof gardens harm urban wildlife.</li>
+          </ul>
+        </div>
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Answer: A.</strong> Text 2 challenges the limited view in Text 1 by showing that many green roofs together can create environmental benefits.</p>
+        </details>
+      </div>
+
+      <div class="question-card">
+        <span class="badge">Question 3 — Qualification</span>
+        <h3>Fiction and Empathy</h3>
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>Reading fiction can strengthen empathy because readers imagine the feelings and motives of characters whose lives differ from their own.</p>
+          </div>
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>Fiction may encourage empathy, but the effect depends on how carefully readers engage with characters. Students who rush through a story may remember events without reflecting on inner lives.</p>
+          </div>
+        </div>
+        <div class="question-box">
+          <p><strong>How does Text 2 relate to Text 1?</strong></p>
+          <ul class="choices">
+            <li>A. It completely rejects the claim that fiction can build empathy.</li>
+            <li>B. It agrees with Text 1 but adds that reader engagement matters.</li>
+            <li>C. It claims nonfiction is always more useful than fiction.</li>
+            <li>D. It argues that plot is the only important feature of fiction.</li>
+          </ul>
+        </div>
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Answer: B.</strong> Text 2 qualifies Text 1. It accepts the basic idea but adds a condition: readers must engage thoughtfully.</p>
+        </details>
+      </div>
+
+      <div class="question-card">
+        <span class="badge">Question 4 — Different Emphasis</span>
+        <h3>Music Festivals</h3>
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>Music festivals have become popular because audiences increasingly value memorable experiences, not just the chance to hear songs performed live.</p>
+          </div>
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>For musicians, festivals are increasingly important because streaming has reduced album sales, making live performances a larger part of many artists’ income.</p>
+          </div>
+        </div>
+        <div class="question-box">
+          <p><strong>Based on the texts, both authors would most likely agree with which statement?</strong></p>
+          <ul class="choices">
+            <li>A. Music festivals are changing because of new consumer and industry behavior.</li>
+            <li>B. Streaming services have made live music unnecessary.</li>
+            <li>C. Audiences attend festivals only because ticket prices are low.</li>
+            <li>D. Musicians earn most of their income from printed sheet music.</li>
+          </ul>
+        </div>
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Answer: A.</strong> Text 1 focuses on audience experience, while Text 2 focuses on musicians’ income. Both show that music-related businesses are changing.</p>
+        </details>
+      </div>
+
+      <div class="question-card">
+        <span class="badge">Question 5 — Support with Evidence</span>
+        <h3>Bee Navigation</h3>
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>Some scientists believe that bees use the position of the sun to help navigate back to the hive after finding food sources.</p>
+          </div>
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>In experiments where bees were trained to find food at specific times, researchers found that the bees adjusted their flight direction when the sun’s apparent position changed during the day.</p>
+          </div>
+        </div>
+        <div class="question-box">
+          <p><strong>Which choice best describes the relationship between Text 1 and Text 2?</strong></p>
+          <ul class="choices">
+            <li>A. Text 2 provides experimental evidence that supports the idea in Text 1.</li>
+            <li>B. Text 2 argues that bees cannot navigate without human assistance.</li>
+            <li>C. Text 2 contradicts Text 1 by showing bees ignore the sun.</li>
+            <li>D. Text 2 explains why bees prefer one type of flower over another.</li>
+          </ul>
+        </div>
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Answer: A.</strong> Text 1 presents a claim about bee navigation. Text 2 provides experimental evidence that supports that claim.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Practice Official Questions Next</h2>
+    <p>
+      After completing these five classroom questions, use the College Board Student Question Bank and filter for Reading and Writing → Craft and Structure → Cross-Text Connections.
+    </p>
+    <a href="https://satsuitequestionbank.collegeboard.org/digital/search" target="_blank" class="cta-button">Go to Official Question Bank</a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Steve Liu. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
