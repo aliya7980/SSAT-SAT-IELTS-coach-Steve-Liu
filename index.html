@@ -1,8 +1,12 @@
+<!-- Save this as index.html -->
+<!-- Put your image here: images/winding-trail.jpg -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>HuskyDaddy | SAT, SSAT, Reading & Writing Coaching</title>
 
   <style>
@@ -49,10 +53,6 @@
       gap: 10px;
     }
 
-    .logo span {
-      font-size: 30px;
-    }
-
     .nav-links {
       list-style: none;
       display: flex;
@@ -78,22 +78,14 @@
     .hero {
       min-height: 620px;
       background:
-        linear-gradient(90deg, rgba(248,243,232,0.95) 0%, rgba(248,243,232,0.72) 38%, rgba(248,243,232,0.18) 65%),
-        url("images/husky-sled-hero.jpg");
+        linear-gradient(90deg, rgba(248,243,232,0.96) 0%, rgba(248,243,232,0.82) 42%, rgba(248,243,232,0.10) 68%),
+        url("images/winding-trail.jpg");
       background-size: cover;
       background-position: center right;
       display: flex;
       align-items: center;
       padding: 90px 7%;
       position: relative;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 75% 20%, rgba(255,255,255,0.4), transparent 35%);
-      pointer-events: none;
     }
 
     .hero-content {
@@ -218,7 +210,6 @@
       position: absolute;
       font-size: 95px;
       color: rgba(16,42,67,0.08);
-      font-family: Georgia, "Times New Roman", serif;
     }
 
     .quote-panel::before {
@@ -362,7 +353,7 @@
       .hero {
         background:
           linear-gradient(rgba(248,243,232,0.90), rgba(248,243,232,0.85)),
-          url("images/husky-sled-hero.jpeg");
+          url("images/winding-trail.jpeg");
         background-size: cover;
         background-position: center;
       }
@@ -438,8 +429,9 @@
 </head>
 
 <body>
+
   <nav class="navbar">
-    <div class="logo"><span>🐾</span> HuskyDaddy</div>
+    <div class="logo">🐾 HuskyDaddy</div>
 
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
@@ -453,21 +445,23 @@
 
   <section id="home" class="hero">
     <div class="hero-content">
-      <h1>Learning is a long trail. We move forward, one steady step at a time.</h1>
+      <h1>The trail is not straight. But every step takes you higher.</h1>
 
       <div class="divider">🐾</div>
 
       <p>
         Like a husky pulling a sled through snow, real study requires tenacity,
-        relentlessness, long-term patience, and dedication.
+        relentlessness, patience, and dedication.
       </p>
 
       <p>
-        It is not always easy, but every careful step builds strength, clarity,
-        and confidence.
+        Strong students are not built in one easy stretch. They grow through
+        steady effort, careful review, and the courage to keep going.
       </p>
 
-      <a class="hero-button" href="pages/contact.html">Begin the Journey <span>🐾</span></a>
+      <a class="hero-button" href="pages/contact.html">
+        Begin the Journey <span>🐾</span>
+      </a>
     </div>
   </section>
 
@@ -509,22 +503,33 @@
     <div class="quote-panel">
       <h2>Huskies are born for the journey, not the destination.</h2>
       <div class="divider">🐾</div>
-      <p>They understand that progress comes from consistent, purposeful movement.</p>
+      <p>
+        They understand that progress comes from consistent,
+        purposeful movement.
+      </p>
     </div>
+
     <div class="image-panel img-team"></div>
 
     <div class="image-panel img-face"></div>
+
     <div class="quote-panel">
       <h2>Huskies work as a team. They trust, support, and pull together.</h2>
       <div class="divider">🐾</div>
-      <p>Good learning is also a partnership built on trust, communication, and mutual respect.</p>
+      <p>
+        Good learning is also a partnership built on trust,
+        communication, and mutual respect.
+      </p>
     </div>
 
     <div class="quote-panel">
       <h2>Huskies are strong, but gentle. They have courage without aggression.</h2>
       <div class="divider">🐾</div>
-      <p>We cultivate confidence, not pressure. Clarity, not cramming.</p>
+      <p>
+        We cultivate confidence, not pressure. Clarity, not cramming.
+      </p>
     </div>
+
     <div class="image-panel img-rest"></div>
   </section>
 
@@ -534,13 +539,16 @@
 
       <div class="about-text">
         <h2>About Steve</h2>
+
         <p>
           With over 20 years of experience in test preparation and reading instruction,
           I help students build stronger thinking, clearer writing, and better results.
         </p>
+
         <p>
           My approach is calm, structured, and personalized.
         </p>
+
         <p>
           I coach SAT, SSAT, ACT, IELTS, reading, and writing with one goal in mind:
           to help students become confident, independent learners.
@@ -579,5 +587,6 @@
     Stay the course. Keep pulling. The view gets better the farther you go.
     <span>🐾</span>
   </footer>
+
 </body>
 </html>
