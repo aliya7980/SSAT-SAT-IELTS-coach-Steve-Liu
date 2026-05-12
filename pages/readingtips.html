@@ -79,7 +79,7 @@
     }
 
     .page-hero-content {
-      max-width: 720px;
+      max-width: 760px;
     }
 
     .page-hero h1 {
@@ -87,21 +87,24 @@
       line-height: 1.15;
       margin-bottom: 18px;
       color: #08233d;
+      text-align: center;
     }
 
     .page-hero p {
       font-size: 20px;
       color: #1f2933;
-      max-width: 620px;
+      max-width: 650px;
     }
 
     .divider {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
       margin: 20px 0;
       color: #b99041;
       font-size: 22px;
+      width: 100%;
     }
 
     .divider::before,
@@ -113,41 +116,13 @@
     }
 
     .layout {
-      display: grid;
-      grid-template-columns: 230px 1fr;
-      gap: 34px;
-      max-width: 1250px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 50px 7%;
     }
 
-    .sidenav {
-      position: sticky;
-      top: 92px;
-      align-self: start;
-      background: white;
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
-      border-top: 5px solid #d9b25f;
-    }
-
-    .sidenav a {
-      display: block;
-      color: #102a43;
-      padding: 12px 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .sidenav a:hover {
-      background: #e8f3f8;
-      color: #0b3d66;
-    }
-
     main {
-      min-width: 0;
+      width: 100%;
     }
 
     .card {
@@ -201,27 +176,11 @@
     }
 
     .center-link {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       text-align: center;
-      margin: 18px 0;
-    }
-
-    .center-link a {
-      display: inline-block;
-      color: #082b49;
-      background: white;
-      padding: 14px 24px;
-      border-radius: 30px;
-      font-weight: bold;
-      box-shadow: 0 8px 20px rgba(16, 42, 67, 0.08);
-    }
-
-    .center-link a:hover {
-      background: #e8f3f8;
-    }
-
-    .flicker {
-      color: #b99041;
-      font-weight: bold;
+      margin: 22px 0;
     }
 
     .book-section {
@@ -255,6 +214,7 @@
       color: white;
       font-weight: bold;
       transition: 0.25s ease;
+      border: none;
     }
 
     .book-button:hover {
@@ -293,17 +253,6 @@
         font-size: 36px;
       }
 
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .sidenav {
-        position: static;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
       .book-buttons {
         grid-template-columns: 1fr;
       }
@@ -326,10 +275,6 @@
       .book-section {
         padding: 24px;
       }
-
-      .sidenav {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
@@ -351,18 +296,17 @@
 
   <section class="page-hero">
     <div class="page-hero-content">
-      <h1 style="text-align: center;">How to Read a Short Story?</h1>
+      <h1>How to Read a Short Story?</h1>
 
-      <div class="divider" style="width: 100%; justify-content: center;">🐾</div>
+      <div class="divider">🐾</div>
 
       <p>
         Reading is like following a snowy trail: setting, character, conflict,
         climax, and theme all leave footprints. Careful readers learn how to track them.
       </p>
     </div>
-    
   </section>
-  <div class="divider" style="width: 100%; justify-content: center;">🐾</div>
+      <div class="divider">🐾</div>
   <div class="layout">
     <main>
       <div class="card">
@@ -383,11 +327,12 @@ Reading short stories effectively begins with understanding the setting and char
         </p>
       </div>
 
-      <div class="center-link" style="display: flex; flex-direction: column; gap: 10px;">
-        <a href="./activereadingstrategies.html" class="book-button" style="border: 2px solid black;">
+      <div class="center-link">
+        <a href="./activereadingstrategies.html" class="book-button">
           Active Reading Strategies
         </a>
-        <a href="./readingsummarytemplate.html" class="book-button" style="border: 2px solid black;">
+
+        <a href="./readingsummarytemplate.html" class="book-button">
           Summary Writing Tips
         </a>
       </div>
@@ -403,7 +348,6 @@ Reading short stories effectively begins with understanding the setting and char
         </div>
       </section>
     </main>
-
   </div>
 
   <footer>
@@ -412,4 +356,3 @@ Reading short stories effectively begins with understanding the setting and char
 
 </body>
 </html>
-```
