@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAT/SSAT/ACT Coach Steve Liu | Expert Guidance for Success</title>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HuskyDaddy | SAT, SSAT, Reading & Writing Coaching</title>
 
   <style>
     * {
@@ -15,189 +12,426 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: Georgia, "Times New Roman", serif;
-      background: #f7f3eb;
-      color: #1f2933;
-      line-height: 1.6;
+      background: #f8f3e8;
+      color: #102a43;
+      line-height: 1.65;
+    }
+
+    a {
+      text-decoration: none;
     }
 
     .navbar {
-      background: #102a43;
+      width: 100%;
+      background: linear-gradient(90deg, #071f36, #0b3455);
       color: white;
-      padding: 18px 8%;
+      padding: 15px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
     }
 
     .logo {
-      font-size: 22px;
+      font-size: 30px;
       font-weight: bold;
-      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      font-size: 30px;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 28px;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
+      color: #f7fbff;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
+      transition: 0.25s ease;
     }
 
     .nav-links a:hover {
-      color: #d4af37;
-    }
-
-    .sidenav {
-      display: none;
-    }
-
-    .main {
-      margin: 0;
+      color: #d9b25f;
+      border-bottom: 2px solid #d9b25f;
     }
 
     .hero {
-      background: linear-gradient(rgba(16, 42, 67, 0.78), rgba(16, 42, 67, 0.78)),
-                  url("../index image.jpg");
+      min-height: 620px;
+      background:
+        linear-gradient(90deg, rgba(248,243,232,0.95) 0%, rgba(248,243,232,0.72) 38%, rgba(248,243,232,0.18) 65%),
+        url("images/husky-sled-hero.jpg");
       background-size: cover;
-      background-position: center;
-      min-height: 520px;
+      background-position: center right;
       display: flex;
       align-items: center;
-      padding: 80px 8%;
-      color: white;
+      padding: 90px 7%;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 75% 20%, rgba(255,255,255,0.4), transparent 35%);
+      pointer-events: none;
     }
 
     .hero-content {
-      max-width: 720px;
+      max-width: 640px;
+      position: relative;
+      z-index: 2;
     }
 
     .hero h1 {
-      font-size: 48px;
-      line-height: 1.15;
-      margin-bottom: 24px;
+      font-size: 52px;
+      line-height: 1.16;
+      margin-bottom: 26px;
+      color: #08233d;
     }
 
     .hero p {
-      font-size: 20px;
-      max-width: 650px;
-      margin-bottom: 32px;
-      color: #f3f4f6;
+      font-size: 21px;
+      color: #1f2933;
+      max-width: 560px;
+      margin-bottom: 24px;
     }
 
-    .cta-button {
-      display: inline-block;
-      background: #d4af37;
-      color: #102a43;
-      padding: 14px 28px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .cta-button:hover {
-      background: #c19a2e;
-    }
-
-    .about {
-      padding: 70px 8%;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .about h2 {
-      font-size: 36px;
-      color: #102a43;
-      margin-bottom: 35px;
-      text-align: center;
-    }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 320px 1fr;
-      gap: 50px;
-      align-items: center;
-      background: white;
-      padding: 45px;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
-    }
-
-    .about-image img {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .about-text h3 {
-      font-size: 28px;
-      color: #102a43;
-      margin-bottom: 18px;
-    }
-
-    .about-text p {
-      font-size: 18px;
-      color: #3e4c59;
-      margin-bottom: 28px;
-    }
-
-    .credentials {
-      display: grid;
-      gap: 16px;
-    }
-
-    .credential-item {
+    .divider {
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: #f7f3eb;
-      padding: 16px;
-      border-left: 4px solid #d4af37;
-    }
-
-    .credential-item i {
-      color: #102a43;
+      gap: 16px;
+      margin: 22px 0;
+      color: #b99041;
       font-size: 22px;
     }
 
-    .credential-item span {
+    .divider::before,
+    .divider::after {
+      content: "";
+      width: 70px;
+      height: 1px;
+      background: #b99041;
+    }
+
+    .hero-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 15px 30px;
+      background: #082b49;
+      color: white;
+      border-radius: 34px;
+      font-weight: bold;
+      box-shadow: 0 10px 22px rgba(8, 43, 73, 0.25);
+      transition: 0.25s ease;
+    }
+
+    .hero-button:hover {
+      transform: translateY(-2px);
+      background: #0b3d66;
+    }
+
+    .values {
+      background: #fffaf0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(16,42,67,0.12);
+      border-bottom: 1px solid rgba(16,42,67,0.12);
+      padding: 0 7%;
+    }
+
+    .value-card {
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 16px;
+      border-right: 1px solid rgba(16,42,67,0.16);
+    }
+
+    .value-card:last-child {
+      border-right: none;
+    }
+
+    .paw {
+      font-size: 30px;
+      color: #87a9bd;
+      line-height: 1;
+    }
+
+    .value-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+      color: #102a43;
+    }
+
+    .value-card p {
+      font-size: 15.5px;
+      color: #2f3f4f;
+    }
+
+    .mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f8f3e8;
+    }
+
+    .quote-panel,
+    .image-panel {
+      min-height: 330px;
+    }
+
+    .quote-panel {
+      padding: 72px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #fbf7ee;
+      position: relative;
+    }
+
+    .quote-panel::before,
+    .quote-panel::after {
+      content: "“";
+      position: absolute;
+      font-size: 95px;
+      color: rgba(16,42,67,0.08);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .quote-panel::before {
+      left: 45px;
+      top: 24px;
+    }
+
+    .quote-panel::after {
+      content: "”";
+      right: 45px;
+      bottom: 8px;
+    }
+
+    .quote-panel h2 {
+      font-size: 30px;
+      max-width: 640px;
+      color: #102a43;
+      line-height: 1.35;
+      margin-bottom: 20px;
+    }
+
+    .quote-panel p {
+      font-size: 19px;
+      max-width: 620px;
+      color: #27394a;
+    }
+
+    .image-panel {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .img-team {
+      background-image: url("images/husky-team.jpeg");
+    }
+
+    .img-face {
+      background-image: url("images/husky-closeup.jpeg");
+    }
+
+    .img-rest {
+      background-image: url("images/husky-resting.jpeg");
+    }
+
+    .about {
+      padding: 70px 7%;
+      background: #f8f3e8;
+    }
+
+    .about-wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr 300px;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .about-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 12px 30px rgba(16,42,67,0.18);
+      background: #dcecf4;
+    }
+
+    .about-text h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #102a43;
+    }
+
+    .about-text p {
+      margin-bottom: 14px;
+      font-size: 17px;
+      color: #2d3d4d;
+    }
+
+    .credentials {
+      border-left: 1px solid rgba(16,42,67,0.18);
+      padding-left: 36px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .credential {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .icon-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #d9e9f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 23px;
+    }
+
+    .credential strong {
+      display: block;
+      color: #102a43;
       font-size: 16px;
-      color: #243b53;
+    }
+
+    .credential span {
+      color: #3e4c59;
+      font-size: 15px;
     }
 
     footer {
-      background: #102a43;
-      color: #e5e7eb;
+      padding: 28px 7%;
+      color: white;
       text-align: center;
-      padding: 24px;
-      font-size: 14px;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      font-size: 18px;
+      letter-spacing: 0.2px;
     }
 
-    @media (max-width: 800px) {
+    footer span {
+      color: #d9b25f;
+      margin-left: 12px;
+    }
+
+    @media (max-width: 950px) {
       .navbar {
         flex-direction: column;
-        gap: 18px;
+        gap: 14px;
       }
 
       .nav-links {
-        flex-wrap: wrap;
         justify-content: center;
+        gap: 18px;
+      }
+
+      .hero {
+        background:
+          linear-gradient(rgba(248,243,232,0.90), rgba(248,243,232,0.85)),
+          url("images/husky-sled-hero.jpeg");
+        background-size: cover;
+        background-position: center;
       }
 
       .hero h1 {
-        font-size: 36px;
+        font-size: 40px;
       }
 
-      .about-content {
+      .values {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .value-card {
+        border-bottom: 1px solid rgba(16,42,67,0.12);
+      }
+
+      .mosaic {
         grid-template-columns: 1fr;
-        padding: 28px;
+      }
+
+      .about-wrap {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-img {
+        margin: 0 auto;
+      }
+
+      .credentials {
+        border-left: none;
+        padding-left: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .hero {
+        padding: 70px 6%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .values {
+        grid-template-columns: 1fr;
+      }
+
+      .value-card {
+        border-right: none;
+      }
+
+      .quote-panel {
+        padding: 60px 6%;
+      }
+
+      .quote-panel h2 {
+        font-size: 25px;
       }
     }
   </style>
@@ -205,7 +439,7 @@
 
 <body>
   <nav class="navbar">
-    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+    <div class="logo"><span>🐾</span> HuskyDaddy</div>
 
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
@@ -217,63 +451,133 @@
     </ul>
   </nav>
 
-  <div class="main">
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <h1>Master the SAT, SSAT, ACT, and IELTS with Expert Guidance</h1>
-        <p>
-          Professional test preparation and reading coaching for students who want
-          stronger skills, clearer strategies, and better results.
-        </p>
-        <a href="pages/contact.html" class="cta-button">Book a Consultation</a>
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Learning is a long trail. We move forward, one steady step at a time.</h1>
+
+      <div class="divider">🐾</div>
+
+      <p>
+        Like a husky pulling a sled through snow, real study requires tenacity,
+        relentlessness, long-term patience, and dedication.
+      </p>
+
+      <p>
+        It is not always easy, but every careful step builds strength, clarity,
+        and confidence.
+      </p>
+
+      <a class="hero-button" href="pages/contact.html">Begin the Journey <span>🐾</span></a>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Tenacity</h3>
+        <p>Stay with difficult passages and challenging problems.</p>
       </div>
-    </section>
+    </div>
 
-    <section id="about" class="about">
-      <div class="container">
-        <h2>About Steve Liu</h2>
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Relentlessness</h3>
+        <p>Return to the work. Review, reflect, and improve.</p>
+      </div>
+    </div>
 
-        <div class="about-content">
-          <div class="about-image">
-            <img src="HuskyDaddy.png" alt="Steve Liu Coach Profile">
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Patience</h3>
+        <p>Great skills are built slowly through steady effort.</p>
+      </div>
+    </div>
+
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Resilience</h3>
+        <p>Like huskies, we keep going — even in tough weather.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mosaic">
+    <div class="quote-panel">
+      <h2>Huskies are born for the journey, not the destination.</h2>
+      <div class="divider">🐾</div>
+      <p>They understand that progress comes from consistent, purposeful movement.</p>
+    </div>
+    <div class="image-panel img-team"></div>
+
+    <div class="image-panel img-face"></div>
+    <div class="quote-panel">
+      <h2>Huskies work as a team. They trust, support, and pull together.</h2>
+      <div class="divider">🐾</div>
+      <p>Good learning is also a partnership built on trust, communication, and mutual respect.</p>
+    </div>
+
+    <div class="quote-panel">
+      <h2>Huskies are strong, but gentle. They have courage without aggression.</h2>
+      <div class="divider">🐾</div>
+      <p>We cultivate confidence, not pressure. Clarity, not cramming.</p>
+    </div>
+    <div class="image-panel img-rest"></div>
+  </section>
+
+  <section class="about">
+    <div class="about-wrap">
+      <img class="about-img" src="HuskyDaddy.png" alt="HuskyDaddy tutoring theme image">
+
+      <div class="about-text">
+        <h2>About Steve</h2>
+        <p>
+          With over 20 years of experience in test preparation and reading instruction,
+          I help students build stronger thinking, clearer writing, and better results.
+        </p>
+        <p>
+          My approach is calm, structured, and personalized.
+        </p>
+        <p>
+          I coach SAT, SSAT, ACT, IELTS, reading, and writing with one goal in mind:
+          to help students become confident, independent learners.
+        </p>
+      </div>
+
+      <div class="credentials">
+        <div class="credential">
+          <div class="icon-circle">🎓</div>
+          <div>
+            <strong>Master’s in Education</strong>
+            <span>University of Saskatchewan</span>
           </div>
+        </div>
 
-          <div class="about-text">
-            <h3>Your SAT, SSAT, ACT, and IELTS Coach</h3>
+        <div class="credential">
+          <div class="icon-circle">🐾</div>
+          <div>
+            <strong>20+ Years</strong>
+            <span>Teaching experience</span>
+          </div>
+        </div>
 
-            <p>
-              With over 20 years of experience in test preparation and academic
-              reading instruction, I help students build confidence, improve accuracy,
-              and reach their target scores through structured, personalized coaching.
-            </p>
-
-            <div class="credentials">
-              <div class="credential-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Master’s Degree in Education from the University of Saskatchewan</span>
-              </div>
-
-              <div class="credential-item">
-                <i class="fas fa-award"></i>
-                <span>Veteran reading coach with 20+ years of teaching experience</span>
-              </div>
-
-              <div class="credential-item">
-                <i class="fas fa-users"></i>
-                <span>5000+ students taught in IELTS, SAT, SSAT, and ACT preparation</span>
-              </div>
-            </div>
+        <div class="credential">
+          <div class="icon-circle">🏆</div>
+          <div>
+            <strong>5000+ Students</strong>
+            <span>Guided and mentored</span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer>
-      <div class="container">
-        <p>&copy; 2025 Steve Liu. All rights reserved.</p>
-      </div>
-    </footer>
-  </div>
+  <footer>
+    Stay the course. Keep pulling. The view gets better the farther you go.
+    <span>🐾</span>
+  </footer>
 </body>
 </html>
-```

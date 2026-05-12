@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SAT/SSAT/ACT Coach Steve Liu | Expert Guidance for Success</title>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HuskyDaddy | Calm Academic Coaching</title>
 
   <style>
     * {
@@ -19,16 +16,19 @@
       font-family: Georgia, "Times New Roman", serif;
       background: #f7f3eb;
       color: #1f2933;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     .navbar {
-      background: #102a43;
+      background: rgba(16, 42, 67, 0.96);
       color: white;
       padding: 18px 8%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .logo {
@@ -40,7 +40,8 @@
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 28px;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
@@ -50,62 +51,68 @@
     }
 
     .nav-links a:hover {
-      color: #d4af37;
-    }
-
-    .sidenav {
-      display: none;
-    }
-
-    .main {
-      margin: 0;
+      color: #b9d9ea;
     }
 
     .hero {
-      background: linear-gradient(rgba(16, 42, 67, 0.78), rgba(16, 42, 67, 0.78)),
-                  url("../index image.jpg");
-      background-size: cover;
-      background-position: center;
-      min-height: 520px;
+      min-height: 680px;
+      padding: 90px 8%;
+      color: white;
       display: flex;
       align-items: center;
-      padding: 80px 8%;
-      color: white;
+      background:
+        linear-gradient(rgba(9, 30, 50, 0.72), rgba(9, 30, 50, 0.78)),
+        url("HuskyDaddy.png");
+      background-size: cover;
+      background-position: center;
     }
 
     .hero-content {
-      max-width: 720px;
+      max-width: 780px;
+      background: rgba(16, 42, 67, 0.35);
+      padding: 42px;
+      border-radius: 26px;
+      backdrop-filter: blur(4px);
+    }
+
+    .tagline {
+      color: #d8ecf5;
+      font-size: 17px;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .hero h1 {
-      font-size: 48px;
-      line-height: 1.15;
+      font-size: 54px;
+      line-height: 1.12;
       margin-bottom: 24px;
     }
 
     .hero p {
-      font-size: 20px;
-      max-width: 650px;
-      margin-bottom: 32px;
-      color: #f3f4f6;
+      font-size: 21px;
+      max-width: 720px;
+      color: #f2f6f8;
+      margin-bottom: 22px;
     }
 
-    .cta-button {
+    .quiet-button {
       display: inline-block;
-      background: #d4af37;
+      margin-top: 16px;
+      background: #e8f3f8;
       color: #102a43;
       padding: 14px 28px;
-      border-radius: 4px;
+      border-radius: 30px;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .cta-button:hover {
-      background: #c19a2e;
+    .quiet-button:hover {
+      background: white;
     }
 
-    .about {
-      padding: 70px 8%;
+    .section {
+      padding: 80px 8%;
     }
 
     .container {
@@ -113,11 +120,47 @@
       margin: auto;
     }
 
-    .about h2 {
-      font-size: 36px;
+    .section h2 {
+      font-size: 38px;
       color: #102a43;
-      margin-bottom: 35px;
+      margin-bottom: 24px;
       text-align: center;
+    }
+
+    .section-intro {
+      max-width: 850px;
+      margin: 0 auto 42px;
+      text-align: center;
+      font-size: 19px;
+      color: #3e4c59;
+    }
+
+    .journey {
+      background: #eef6fa;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(16, 42, 67, 0.08);
+    }
+
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 14px;
+      font-size: 22px;
+    }
+
+    .card p {
+      color: #4a5568;
+      font-size: 17px;
     }
 
     .about-content {
@@ -127,17 +170,17 @@
       align-items: center;
       background: white;
       padding: 45px;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      border-radius: 26px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
     }
 
     .about-image img {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 22px;
     }
 
     .about-text h3 {
-      font-size: 28px;
+      font-size: 29px;
       color: #102a43;
       margin-bottom: 18px;
     }
@@ -145,59 +188,52 @@
     .about-text p {
       font-size: 18px;
       color: #3e4c59;
-      margin-bottom: 28px;
+      margin-bottom: 18px;
     }
 
-    .credentials {
-      display: grid;
-      gap: 16px;
+    .quote {
+      background: linear-gradient(135deg, #102a43, #284b63);
+      color: white;
+      text-align: center;
     }
 
-    .credential-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: #f7f3eb;
-      padding: 16px;
-      border-left: 4px solid #d4af37;
-    }
-
-    .credential-item i {
-      color: #102a43;
-      font-size: 22px;
-    }
-
-    .credential-item span {
-      font-size: 16px;
-      color: #243b53;
+    .quote blockquote {
+      max-width: 900px;
+      margin: auto;
+      font-size: 30px;
+      font-style: italic;
+      line-height: 1.5;
     }
 
     footer {
       background: #102a43;
       color: #e5e7eb;
       text-align: center;
-      padding: 24px;
+      padding: 28px;
       font-size: 14px;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 850px) {
       .navbar {
         flex-direction: column;
-        gap: 18px;
+        gap: 16px;
       }
 
       .nav-links {
-        flex-wrap: wrap;
         justify-content: center;
       }
 
       .hero h1 {
-        font-size: 36px;
+        font-size: 38px;
       }
 
+      .hero-content {
+        padding: 28px;
+      }
+
+      .cards,
       .about-content {
         grid-template-columns: 1fr;
-        padding: 28px;
       }
     }
   </style>
@@ -205,76 +241,118 @@
 
 <body>
   <nav class="navbar">
-    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+    <div class="logo">🐾 HuskyDaddy</div>
 
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li><a href="services.html">Test Prep</a></li>
-      <li><a href="readingtips.html">Reading</a></li>
-      <li><a href="reading_summary.html">Homework</a></li>
-      <li><a href="clients.html">Clients</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pages/services.html">Test Prep</a></li>
+      <li><a href="pages/readingtips.html">Reading</a></li>
+      <li><a href="pages/reading_summary.html">Homework</a></li>
+      <li><a href="pages/clients.html">Clients</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <div class="main">
-    <section id="home" class="hero">
-      <div class="hero-content">
-        <h1>Master the SAT, SSAT, ACT, and IELTS with Expert Guidance</h1>
-        <p>
-          Professional test preparation and reading coaching for students who want
-          stronger skills, clearer strategies, and better results.
-        </p>
-        <a href="contact.html" class="cta-button">Book a Consultation</a>
-      </div>
-    </section>
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="tagline">SAT • SSAT • Reading • Writing • Academic Coaching</p>
 
-    <section id="about" class="about">
-      <div class="container">
-        <h2>About Steve Liu</h2>
+      <h1>Learning is a long trail. We move forward, one steady step at a time.</h1>
 
-        <div class="about-content">
-          <div class="about-image">
-            <img src="../index image.jpg" alt="Steve Liu Coach Profile">
-          </div>
+      <p>
+        Like a husky pulling a sled through snow, real study requires patience,
+        rhythm, discipline, and quiet strength. It is not always easy, but every
+        careful step builds confidence.
+      </p>
 
-          <div class="about-text">
-            <h3>Your SAT, SSAT, ACT, and IELTS Coach</h3>
+      <p>
+        HuskyDaddy is a calm academic space for students who want to read more
+        deeply, write more clearly, and prepare for exams with resilience instead
+        of panic.
+      </p>
 
-            <p>
-              With over 20 years of experience in test preparation and academic
-              reading instruction, I help students build confidence, improve accuracy,
-              and reach their target scores through structured, personalized coaching.
-            </p>
+      <a href="pages/contact.html" class="quiet-button">Begin the Journey</a>
+    </div>
+  </section>
 
-            <div class="credentials">
-              <div class="credential-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>Master’s Degree in Education from the University of Saskatchewan</span>
-              </div>
+  <section class="section journey">
+    <div class="container">
+      <h2>The HuskyDaddy Way</h2>
 
-              <div class="credential-item">
-                <i class="fas fa-award"></i>
-                <span>Veteran reading coach with 20+ years of teaching experience</span>
-              </div>
+      <p class="section-intro">
+        Study is not a one-stretch, easy-peasy sprint. It is a trail of repeated
+        effort, small corrections, thoughtful practice, and long-term dedication.
+      </p>
 
-              <div class="credential-item">
-                <i class="fas fa-users"></i>
-                <span>5000+ students taught in IELTS, SAT, SSAT, and ACT preparation</span>
-              </div>
-            </div>
-          </div>
+      <div class="cards">
+        <div class="card">
+          <h3>🐺 Tenacity</h3>
+          <p>
+            Students learn to stay with difficult passages, hard questions, and
+            imperfect drafts instead of giving up too early.
+          </p>
         </div>
 
+        <div class="card">
+          <h3>❄️ Relentlessness</h3>
+          <p>
+            Growth comes from returning to the work again and again: review,
+            correction, practice, reflection, and improvement.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>🛷 Long-Term Patience</h3>
+          <p>
+            Strong reading, writing, and test skills are built slowly. The goal is
+            not pressure, but steady confidence.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>About Steve</h2>
+
+      <div class="about-content">
         <div class="about-image">
-          <a href="about_me.html"></a>
-            <img src="/Users/shililiu/Desktop/husky.jpg" alt="Husky Picture" style="width:100%; border-radius:8px;">
-          </a>
+          <img src="HuskyDaddy.png" alt="HuskyDaddy academic coaching theme">
         </div>
-        <p>&copy; 2025 Steve Liu. All rights reserved.</p>
+
+        <div class="about-text">
+          <h3>A calm guide for serious learning</h3>
+
+          <p>
+            I help students build stronger reading, writing, and test-preparation
+            habits through clear structure and patient coaching.
+          </p>
+
+          <p>
+            My approach is not about quick tricks or loud promises. It is about
+            helping students think carefully, revise honestly, and develop the
+            confidence to keep moving through difficult academic terrain.
+          </p>
+
+          <p>
+            SAT, SSAT, ACT, IELTS, reading, writing, and academic coaching are all
+            taught with one central belief: lasting growth comes from disciplined,
+            thoughtful practice.
+          </p>
+        </div>
       </div>
-    </footer>
-  </div>
+    </div>
+  </section>
+
+  <section class="section quote">
+    <blockquote>
+      “The trail may be long, but every steady step makes the student stronger.”
+    </blockquote>
+  </section>
+
+  <footer>
+    <p>© 2026 HuskyDaddy Tutoring. Calm learning. Steady growth. Quiet strength.</p>
+  </footer>
 </body>
 </html>
-```
