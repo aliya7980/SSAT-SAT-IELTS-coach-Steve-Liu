@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Reading Skimming Practice | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .card h2,
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .passage {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 20px;
+      margin: 18px 0;
+      border-radius: 8px;
+      color: #3e4c59;
+      font-size: 17px;
+      white-space: pre-line;
+    }
+
+    .question {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #e5dccb;
+    }
+
+    .question p {
+      font-weight: bold;
+      color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .choices label {
+      display: block;
+      background: #f7f3eb;
+      border: 1px solid #e5dccb;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      color: #3e4c59;
+    }
+
+    .choices label:hover {
+      background: #fffdf8;
+      border-color: #d4af37;
+    }
+
+    .answer-sheet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .answer-cell {
+      background: #f7f3eb;
+      border: 1px solid #e5dccb;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      color: #102a43;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      margin-top: 12px;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    input[type="password"] {
+      padding: 12px;
+      border: 1px solid #d8cdbb;
+      border-radius: 6px;
+      font-size: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #fffdf8;
+      margin-right: 8px;
+    }
+
+    #answerKey {
+      display: none;
+      margin-top: 20px;
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .wrong-password {
+      color: #9b1c1c;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="index.html">About</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="miscellaneous.html">Miscellaneous</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Reading Skimming Practice</h1>
+    <p>Main idea and detail questions for reading comprehension practice.</p>
+  </header>
+
+  <main class="container">
+
+    <section class="card">
+      <h2>Exercise 1: Main Idea Questions</h2>
+      <p>Read each passage carefully. Then choose the best answer.</p>
+    </section>
+
+    <section class="card">
+      <h3>Passage 1</h3>
+      <div class="passage">At a distance of approximately 250,000 miles from Earth, the moon is our nearest celestial neighbor. A rugged terrain of mountains, cliffs, plains, and craters covers this globe of 2,000 miles in diameter, but this landscape contains no water. There is no precipitation of any kind on the moon because it lacks an atmosphere. For the same reason, a constant barrage of meteorites and other space debris reaches its surface without hindrance. The beautiful, silvery moon is, in actuality, a barren desert, suffering from great extremes of temperature and devoid of any life as we know it.</div>
+
+      <div class="question">
+        <p>1. The title that best expresses the main idea of this selection is</p>
+        <div class="choices">
+          <label><input type="radio" name="q1" value="A"> A. “Landscapes in Space.”</label>
+          <label><input type="radio" name="q1" value="B"> B. “Life on the Moon.”</label>
+          <label><input type="radio" name="q1" value="C"> C. “The Moon’s Atmosphere.”</label>
+          <label><input type="radio" name="q1" value="D"> D. “Conditions on the Moon.”</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 2</h3>
+      <div class="passage">The more complicated our thoughts and emotions, the less effective is language as a tool of expression. This is not a simple matter of style or eloquence, for even the finest speakers and writers, using the most sensitive language, would be incapable of putting certain thoughts into words. For this reason, many people use poetry and music instead of prose. These two forms of communication convey subtle yet powerful meanings that cannot be expressed with ordinary words.</div>
+
+      <div class="question">
+        <p>2. The title that best expresses the theme of this selection is</p>
+        <div class="choices">
+          <label><input type="radio" name="q2" value="A"> A. “Words, Poetry, and Music.”</label>
+          <label><input type="radio" name="q2" value="B"> B. “The Hidden Meanings of Words.”</label>
+          <label><input type="radio" name="q2" value="C"> C. “The Eloquence of Fine Speakers.”</label>
+          <label><input type="radio" name="q2" value="D"> D. “Limitations of Language.”</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 3</h3>
+      <div class="passage">The Caribbean Sea is to North and South America what the Mediterranean is to the European continent—a central sea. The American body of water is not landlocked. Double strings of islands—the Cuba group and the Bahamas—form an arc at the Atlantic entrance, and this arc is now firmly fortified. Since the Mediterranean of the West is the passage between the Americas, it must be controlled by these countries in order to carry on trade.
+
+This sea is as necessary to the Caribbean countries as the Mediterranean is to Italy. The countries of this area produce large quantities of oil, tropical fruits, and vegetables. They are also rich in minerals. This region is capable of supplying the United States with many goods formerly imported from Africa and Asia. In exchange, the countries of this region need the manufactured goods that can be provided only by an industrial nation.</div>
+
+      <div class="question">
+        <p>3. The Caribbean Sea and the Mediterranean are alike with respect to their</p>
+        <div class="choices">
+          <label><input type="radio" name="q3" value="A"> A. variety of exports.</label>
+          <label><input type="radio" name="q3" value="B"> B. epidemics of serious diseases.</label>
+          <label><input type="radio" name="q3" value="C"> C. geographical importance.</label>
+          <label><input type="radio" name="q3" value="D"> D. living standards.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 4</h3>
+      <div class="passage">The dangers to which migratory birds are subjected during their journeys are but little less than those that would befall them if they remained in unsuitable zones. During long oversea passages, fatigue and hunger weed out the weaklings. Sudden storms and adverse winds strike migrating birds where no land is near, and they are often carried far from their intended destinations. Predatory birds accompany them, taking a toll en route, and predatory man waits for the tired wanderers with gun and net.</div>
+
+      <div class="question">
+        <p>4. The title that best expresses the main idea of this passage is</p>
+        <div class="choices">
+          <label><input type="radio" name="q4" value="A"> A. “Dangers of Storms.”</label>
+          <label><input type="radio" name="q4" value="B"> B. “Perils of Migration.”</label>
+          <label><input type="radio" name="q4" value="C"> C. “Unsuitable Environment.”</label>
+          <label><input type="radio" name="q4" value="D"> D. “How Birds Reach Goals.”</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 5</h3>
+      <div class="passage">In his library at Monticello, Jefferson made hundreds of architectural drawings, all of which have been preserved. He must have had a great gift of concentration and a real love for his subject to be able to work in a room with such an outlook. And what energy he had to find time and will for this precise and exquisite work was also devoted to riding over his estate, working in his garden, and carrying out correspondence with everyone from the Marquis de Lafayette to his youngest grandchild. “Something pursued with ardor” was Jefferson’s prescription for life, and he got the last ounce of excitement and interest out of everything that came to his notice.</div>
+
+      <div class="question">
+        <p>5. The main idea of this selection is expressed in the title</p>
+        <div class="choices">
+          <label><input type="radio" name="q5" value="A"> A. “The Library at Monticello.”</label>
+          <label><input type="radio" name="q5" value="B"> B. “The Care of the Estate.”</label>
+          <label><input type="radio" name="q5" value="C"> C. “A Full Life.”</label>
+          <label><input type="radio" name="q5" value="D"> D. “Jefferson, the Architect.”</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 6</h3>
+      <div class="passage">Specific types of lighting are required at first-class airports by the Department of Commerce. To identify an airport, there must be a beacon light of not less than 100,000 candle power, with a beam that properly distributes light up in the air so that it can be seen all around the horizon from an altitude of 500 to 2,000 feet. All flashing beacons must have a definite Morse code characteristic to aid in identification. Colored lights are required to indicate where safe area for landing ends, red lights being used where landing is particularly dangerous.</div>
+
+      <div class="question">
+        <p>6. The best title for this selection is</p>
+        <div class="choices">
+          <label><input type="radio" name="q6" value="A"> A. “Landing Areas.”</label>
+          <label><input type="radio" name="q6" value="B"> B. “Colored Lights at Airports.”</label>
+          <label><input type="radio" name="q6" value="C"> C. “Identification of Airports.”</label>
+          <label><input type="radio" name="q6" value="D"> D. “Airport Lighting Requirements.”</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 2: Detail Questions</h2>
+      <p>Read each passage carefully. Then choose the best answer.</p>
+    </section>
+
+    <section class="card">
+      <h3>Passage 7</h3>
+      <div class="passage">Ants are very interesting insects. There are about 8,000 different kinds with various ways of finding food. There are hunter ants that capture other insects, shepherd ants that care for aphids from which they get sweet honeydew, thief ants that live by stealing, slave-making ants that kidnap the children of other ant nations, and mighty military ants that live by plundering and destroying, driving even men and elephants before them.
+
+A city of ants includes the queen, the workers, the baby ants, and their nurses. Ant babies change their form three times. First, they are small, white eggs. When they hatch, they are little, fat, white worms called larvae. The larvae change into pupae, and the pupae change into adults. The queen is the mother of all the ants in the community. The workers bring food to her and protect her from invaders.</div>
+
+      <div class="question">
+        <p>7. Hunter ants</p>
+        <div class="choices">
+          <label><input type="radio" name="q7" value="A"> A. care for aphids.</label>
+          <label><input type="radio" name="q7" value="B"> B. kidnap young ants from other colonies.</label>
+          <label><input type="radio" name="q7" value="C"> C. capture other insects.</label>
+          <label><input type="radio" name="q7" value="D"> D. plunder and destroy.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>8. A colony of ants</p>
+        <div class="choices">
+          <label><input type="radio" name="q8" value="A"> A. includes a queen, workers, babies, and their nurses.</label>
+          <label><input type="radio" name="q8" value="B"> B. may have as many as 8,000 members.</label>
+          <label><input type="radio" name="q8" value="C"> C. is built in a hill.</label>
+          <label><input type="radio" name="q8" value="D"> D. protects its members.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>9. Immediately prior to entering the adult stage, ants</p>
+        <div class="choices">
+          <label><input type="radio" name="q9" value="A"> A. hatch from eggs.</label>
+          <label><input type="radio" name="q9" value="B"> B. come from larvae.</label>
+          <label><input type="radio" name="q9" value="C"> C. are all workers.</label>
+          <label><input type="radio" name="q9" value="D"> D. come from pupae.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 8</h3>
+      <div class="passage">Commercial interests were quick to recognize the great possibilities of presenting by means of radio what is in effect a person-to-person appeal. At first the novelty made people listen to almost anything, but as the audiences became more accustomed to broadcasts, varied methods of capturing and holding the attention have developed. These vary from the frank interjection of advertising matter in a program of entertainment to the mere sponsoring of the program. Entertainment at first appeared to have the greatest appeal, and low comedy and jazz music filled the air. There has come, however, the realization that the radio audience is now as complex as the public and that programs must be set up to attract the attention of as many different types of hearers as possible.</div>
+
+      <div class="question">
+        <p>10. When radio was new,</p>
+        <div class="choices">
+          <label><input type="radio" name="q10" value="A"> A. people would listen to almost anything.</label>
+          <label><input type="radio" name="q10" value="B"> B. advertising was poor.</label>
+          <label><input type="radio" name="q10" value="C"> C. advertising was interjected into the programming.</label>
+          <label><input type="radio" name="q10" value="D"> D. entertainment was limited.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 9</h3>
+      <div class="passage">The part of the ear we see is only a cartilage and skin trumpet that catches sound waves. Buried in bone at the base of the skull is the delicate apparatus that makes hearing possible.
+
+A passage leads from the outer ear to a membrane called the eardrum. Sound waves striking the eardrum make it vibrate. On the other side of the eardrum lies a space called the middle ear. Across this a chain of three tiny bones carries sound vibrations to another space called the inner ear. Sound messages are conducted along the auditory nerve, located in the inner ear, to the brain for interpretation. The middle ear is connected to the throat by the Eustachian tube. This tube ends near the throat opening of the nose, close to the tonsils. The middle ear also communicates with the mastoid, or air cells in the bone behind the ear.</div>
+
+      <div class="question">
+        <p>11. The outer ear is made of</p>
+        <div class="choices">
+          <label><input type="radio" name="q11" value="A"> A. a delicate apparatus.</label>
+          <label><input type="radio" name="q11" value="B"> B. a membrane.</label>
+          <label><input type="radio" name="q11" value="C"> C. cartilage and skin.</label>
+          <label><input type="radio" name="q11" value="D"> D. three tiny bones.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>12. The eardrum is a(n)</p>
+        <div class="choices">
+          <label><input type="radio" name="q12" value="A"> A. membrane.</label>
+          <label><input type="radio" name="q12" value="B"> B. piece of thin cartilage.</label>
+          <label><input type="radio" name="q12" value="C"> C. air cell.</label>
+          <label><input type="radio" name="q12" value="D"> D. short tube.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>13. Sound vibrations are carried</p>
+        <div class="choices">
+          <label><input type="radio" name="q13" value="A"> A. along the auditory nerve.</label>
+          <label><input type="radio" name="q13" value="B"> B. through the eardrum.</label>
+          <label><input type="radio" name="q13" value="C"> C. to the inner ear across a chain of three tiny bones.</label>
+          <label><input type="radio" name="q13" value="D"> D. to the base of the skull.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 10</h3>
+      <div class="passage">Track-and-field events are the only modern sports that would be recognizable in their original form. They can be traced back more than 2,500 years to the ancient civilization of Greece. The Greeks held their athletes in high esteem, and champions were looked upon as national heroes.
+
+The Greeks began the original Olympic games for the purpose of assembling the greatest athletes of their country. The games were religious pageants as well as peerless athletic events and were held every four years for more than eight centuries.</div>
+
+      <div class="question">
+        <p>14. In ancient Greece, athletes were</p>
+        <div class="choices">
+          <label><input type="radio" name="q14" value="A"> A. trained as professionals.</label>
+          <label><input type="radio" name="q14" value="B"> B. forced to participate in the games.</label>
+          <label><input type="radio" name="q14" value="C"> C. usually defeated by the Romans.</label>
+          <label><input type="radio" name="q14" value="D"> D. regarded very highly by the public.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>15. The present-day Olympics</p>
+        <div class="choices">
+          <label><input type="radio" name="q15" value="A"> A. have a 2,500-year-old history.</label>
+          <label><input type="radio" name="q15" value="B"> B. are religious pageants.</label>
+          <label><input type="radio" name="q15" value="C"> C. have been held every four years for eight centuries.</label>
+          <label><input type="radio" name="q15" value="D"> D. are completely different from the Greek games.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 11</h3>
+      <div class="passage">Observe the people who make an abiding impression of strength and goodness and you will see that their personal attractiveness and force are rooted in fundamentals of character. They have the physical vitality, endurance, and courage that come from good living. They have the mental stamina and penetration that come from facing up to one’s problems, however difficult, and from keeping one’s mind on things that really matter. They have the moral power that comes from an active sense of what is right, from doing their part to make truth, justice, and beauty prevail in the world. They have the inner peace and grace that are the basics of a truly charismatic personality. People trust them, like to be with them, and depend on them in emergencies. They are the salt of the earth.</div>
+
+      <div class="question">
+        <p>16. A quality NOT mentioned by the author is</p>
+        <div class="choices">
+          <label><input type="radio" name="q16" value="A"> A. courage.</label>
+          <label><input type="radio" name="q16" value="B"> B. dependability.</label>
+          <label><input type="radio" name="q16" value="C"> C. tolerance.</label>
+          <label><input type="radio" name="q16" value="D"> D. inner grace.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Passage 12</h3>
+      <div class="passage">Although you may still enjoy fairy tales, they probably do not engross you to the degree that they might have a few years ago. Fairy tales belong primarily to a stage in our lives when we are most interested by the world of fantasy. Goblins, wizards, and dwarfs appeal to the young child’s wandering imagination and contribute greatly to the development of creativity, but it is a temporary infatuation.
+
+As we grow older, real challenges begin to interest us more. The imaginary victories brought about by fairy godmothers lose their power of enchantment, and we become absorbed in the stories of real people, real success, and real accomplishment. The fascination of “Jack the Giant Killer” gives way to a keen interest in Commander Byrd’s Antarctic exploration, Helen Keller’s biography, or the harrowing adventures of spelunkers, deep-sea divers, and mountain climbers. This step marks one of the first great advances in the process of intellectual maturation.</div>
+
+      <div class="question">
+        <p>17. Young children are primarily interested in</p>
+        <div class="choices">
+          <label><input type="radio" name="q17" value="A"> A. fantasy stories.</label>
+          <label><input type="radio" name="q17" value="B"> B. horror stories.</label>
+          <label><input type="radio" name="q17" value="C"> C. goblins and witches.</label>
+          <label><input type="radio" name="q17" value="D"> D. adventure stories.</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <p>18. People become interested in real-life stories when they</p>
+        <div class="choices">
+          <label><input type="radio" name="q18" value="A"> A. are young.</label>
+          <label><input type="radio" name="q18" value="B"> B. are adults.</label>
+          <label><input type="radio" name="q18" value="C"> C. begin to mature.</label>
+          <label><input type="radio" name="q18" value="D"> D. are bored.</label>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Student Answer Sheet</h2>
+      <p>Your selected answers will appear here automatically.</p>
+      <div class="answer-sheet-grid" id="answerSheet"></div>
+    </section>
+
+    <section class="card">
+      <h2>Teacher Answer Key</h2>
+      <p>Enter the password to unlock the answer key.</p>
+
+      <input type="password" id="passwordInput" placeholder="Enter password">
+      <button class="button" onclick="unlockAnswerKey()">Unlock</button>
+
+      <p id="passwordMessage" class="wrong-password"></p>
+
+      <div id="answerKey">
+        <h3>Answer Key</h3>
+        <p>1. D</p>
+        <p>2. D</p>
+        <p>3. C</p>
+        <p>4. B</p>
+        <p>5. C</p>
+        <p>6. D</p>
+        <p>7. C</p>
+        <p>8. A</p>
+        <p>9. D</p>
+        <p>10. A</p>
+        <p>11. C</p>
+        <p>12. A</p>
+        <p>13. C</p>
+        <p>14. D</p>
+        <p>15. A</p>
+        <p>16. C</p>
+        <p>17. A</p>
+        <p>18. C</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © HuskyDaddy | SSAT Reading Practice
+  </footer>
+
+  <script>
+    const totalQuestions = 18;
+    const answerSheet = document.getElementById("answerSheet");
+
+    for (let i = 1; i <= totalQuestions; i++) {
+      const cell = document.createElement("div");
+      cell.className = "answer-cell";
+      cell.id = "answer-cell-" + i;
+      cell.textContent = i + ". —";
+      answerSheet.appendChild(cell);
+    }
+
+    document.querySelectorAll("input[type='radio']").forEach(function(input) {
+      input.addEventListener("change", function() {
+        const questionNumber = this.name.replace("q", "");
+        const selectedAnswer = this.value;
+        document.getElementById("answer-cell-" + questionNumber).textContent =
+          questionNumber + ". " + selectedAnswer;
+      });
+    });
+
+    function unlockAnswerKey() {
+      const password = document.getElementById("passwordInput").value;
+      const answerKey = document.getElementById("answerKey");
+      const message = document.getElementById("passwordMessage");
+
+      if (password === "shili2012") {
+        answerKey.style.display = "block";
+        message.textContent = "";
+      } else {
+        answerKey.style.display = "none";
+        message.textContent = "Incorrect password. Please try again.";
+      }
+    }
+  </script>
+
+</body>
+</html>
