@@ -421,7 +421,36 @@
       .quote-panel h2 {
         font-size: 25px;
       }
+      
     }
+    .visitor-card {
+  margin-top: 28px;
+  background: white;
+  border-left: 5px solid #d4af37;
+  padding: 18px 22px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 420px;
+}
+
+.visitor-icon {
+  font-size: 34px;
+}
+
+.visitor-small {
+  color: #3e4c59;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.visitor-main {
+  color: #102a43;
+  font-size: 20px;
+  font-weight: bold;
+}
   </style>
 </head>
 
@@ -461,7 +490,7 @@
       </a>
     </div>
   </section>
-
+  
   <section class="values">
     <div class="value-card">
       <div class="paw">🐾</div>
@@ -584,6 +613,26 @@
     Stay the course. Keep pulling. The view gets better the farther you go.
     <span>🐾</span>
   </footer>
-
+  <div class="visitor-card">
+    <div class="visitor-icon">🐾</div>
+    <div>
+      <p class="visitor-small">Welcome to HuskyDaddy</p>
+      <p id="visitor-counter" class="visitor-main">Counting visitors...</p>
+    </div>
+  </div>
+  <script>
+    fetch("https://api.counterapi.dev/v1/huskydaddy/homepage/up")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        document.getElementById("visitor-counter").textContent =
+          "You are visitor number " + data.count + ".";
+      })
+      .catch(function(error) {
+        document.getElementById("visitor-counter").textContent =
+          "Thanks for visiting HuskyDaddy.";
+      });
+  </script>
 </body>
 </html>

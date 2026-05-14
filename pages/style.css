@@ -310,4 +310,31 @@ footer {
   background: linear-gradient(135deg, #ffd166, #f59e0b);
 }
 
+.visitor-card {
+  margin-top: 28px;
+  background: white;
+  border-left: 5px solid #d4af37;
+  padding: 18px 22px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 420px;
+}
 
+.visitor-icon {
+  font-size: 34px;
+}
+
+.visitor-small {
+  color: #3e4c59;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.visitor-main {
+  color: #102a43;
+  font-size: 20px;
+  font-weight: bold;
+}
