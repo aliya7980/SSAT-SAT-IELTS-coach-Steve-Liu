@@ -125,41 +125,60 @@
 
     .character-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 26px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+      align-items: stretch;
     }
 
     .character-card {
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(16, 42, 67, 0.10);
       overflow: hidden;
-      border-top: 5px solid #d4af37;
+      border-top: 6px solid #d4af37;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .illustration {
-      background: #102a43;
-      padding: 22px;
-      text-align: center;
+    .character-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 34px rgba(16, 42, 67, 0.15);
     }
 
-    .illustration svg {
+    .character-image {
       width: 100%;
-      max-width: 280px;
-      height: 160px;
+      height: 280px;
+      background: #102a43;
+      overflow: hidden;
     }
 
-    .character-content { padding: 26px; }
+    .character-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .character-content {
+      padding: 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
     .character-content h3 {
-      font-size: 24px;
+      font-size: 26px;
       color: #102a43;
       margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #d4af37;
     }
 
     .character-content p {
       color: #3e4c59;
       font-size: 17px;
+      margin-bottom: 0;
     }
 
     .history-layout {
@@ -264,6 +283,10 @@
       .intro-card,
       .content-card,
       .character-content { padding: 28px; }
+
+      .character-image {
+        height: 230px;
+      }
     }
   </style>
 </head>
@@ -340,78 +363,91 @@
       <h2 class="section-title">Major Characters</h2>
 
       <div class="character-grid">
+
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Scout.jpg" alt="Scout Finch" style="width: 100%; height: auto; border-radius: 10px;">
-            </div>
+          <div class="character-image">
+            <img src="../images/Scout.jpg" alt="Scout Finch">
+          </div>
           <div class="character-content">
             <h3>Scout Finch</h3>
             <p>
               Scout is the narrator and young daughter of Atticus Finch. Through her eyes, readers
-              see both childhood innocence and the unfairness of adult society.
+              see both childhood innocence and the unfairness of adult society. Her perspective helps
+              students understand how children gradually recognize prejudice, injustice, and moral courage.
             </p>
           </div>
         </div>
 
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Atticus.jpg" alt="Atticus Finch" style="width: 100%; height: auto; border-radius: 10px;">
+          <div class="character-image">
+            <img src="../images/Atticus.jpg" alt="Atticus Finch">
+          </div>
           <div class="character-content">
             <h3>Atticus Finch</h3>
             <p>
               Atticus is Scout and Jem’s father and a lawyer. He represents moral courage,
-              fairness, calm judgment, and ethical responsibility.
+              fairness, calm judgment, and ethical responsibility. His defense of Tom Robinson
+              shows students what it means to stand for justice even when society resists it.
             </p>
           </div>
         </div>
 
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Jem.jpg" alt="Jem Finch" style="width: 100%; height: auto; border-radius: 10px;">
+          <div class="character-image">
+            <img src="../images/Jem.jpg" alt="Jem Finch">
+          </div>
           <div class="character-content">
             <h3>Jem Finch</h3>
             <p>
               Jem is Scout’s older brother. His changing view of Maycomb shows the painful loss
-              of childhood innocence.
+              of childhood innocence. As he matures, he becomes more sensitive to injustice and
+              struggles to understand why unfairness exists.
             </p>
           </div>
         </div>
 
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Tom_Robinson.jpg" alt="Tom Robinson" style="width: 100%; height: auto; border-radius: 10px;">
+          <div class="character-image">
+            <img src="../images/Tom_Robinson.jpg" alt="Tom Robinson">
+          </div>
           <div class="character-content">
             <h3>Tom Robinson</h3>
             <p>
               Tom Robinson is falsely accused of assaulting Mayella Ewell. His trial exposes
               racial injustice, social prejudice, and the limits of legal fairness in Maycomb.
+              He is central to the novel’s criticism of racism and unequal justice.
             </p>
           </div>
         </div>
 
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Boo.jpg" alt="Boo Radley" style="width: 100%; height: auto; border-radius: 10px;">
+          <div class="character-image">
+            <img src="../images/Boo.jpg" alt="Boo Radley">
+          </div>
           <div class="character-content">
             <h3>Boo Radley</h3>
             <p>
-              Boo Radley begins as a mysterious figure, but later becomes a symbol of
-              misunderstood goodness and quiet protection.
+              Boo Radley begins as a mysterious figure in the children’s imagination, but later
+              becomes a symbol of misunderstood goodness and quiet protection. His character teaches
+              students not to judge people only by rumors or appearances.
             </p>
           </div>
         </div>
 
         <div class="character-card">
-            <div class="illustration"></div>
-            <img src="../images/Calpurnia.jpg" alt="Calpurnia" style="width: 100%; height: auto; border-radius: 10px;">
+          <div class="character-image">
+            <img src="../images/Calpurnia.jpg" alt="Calpurnia">
+          </div>
           <div class="character-content">
             <h3>Calpurnia</h3>
             <p>
               Calpurnia is the Finch family’s housekeeper and an important moral influence on
-              Scout and Jem. She teaches discipline, manners, and empathy.
+              Scout and Jem. She teaches discipline, manners, empathy, and respect while helping
+              the children understand worlds beyond their own.
             </p>
           </div>
         </div>
+
       </div>
     </div>
   </section>
