@@ -5,12 +5,96 @@
 <title>HuskyDaddy | SSAT Verbal Practice Test 1</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Georgia,"Times New Roman",serif;background:#f8f3e8;color:#102a43;line-height:1.65}a{text-decoration:none}.navbar{width:100%;background:linear-gradient(90deg,#071f36,#0b3455);color:#fff;padding:15px 7%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 4px 18px rgba(0,0,0,.15)}.logo{font-size:30px;font-weight:bold}.nav-links{list-style:none;display:flex;align-items:center;gap:28px;flex-wrap:wrap}.nav-links a{color:#f7fbff;font-size:16px;font-weight:600;padding-bottom:6px;border-bottom:2px solid transparent;transition:.25s}.nav-links a:hover{color:#d9b25f;border-bottom:2px solid #d9b25f}.hero{min-height:430px;background:linear-gradient(90deg,rgba(248,243,232,.97) 0%,rgba(248,243,232,.82) 45%,rgba(248,243,232,.18) 75%),url("../images/winding-trail.jpeg");background-size:cover;background-position:center right;display:flex;align-items:center;padding:75px 7%}.hero-content{max-width:760px}.hero h1{font-size:50px;line-height:1.15;margin-bottom:18px;color:#08233d}.hero p{font-size:20px;color:#1f2933;max-width:690px;margin-bottom:14px}.divider{display:flex;align-items:center;gap:16px;margin:22px 0;color:#b99041;font-size:22px}.divider:before,.divider:after{content:"";width:70px;height:1px;background:#b99041}.quick-nav{background:#fffaf0;border-top:1px solid rgba(16,42,67,.12);border-bottom:1px solid rgba(16,42,67,.12);padding:20px 7%;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}.quick-nav a{background:#082b49;color:#fff;padding:12px 22px;border-radius:30px;font-weight:bold;transition:.25s}.quick-nav a:hover{background:#0b3d66;transform:translateY(-2px)}.section{padding:70px 7%;max-width:1250px;margin:auto}.section h2{font-size:38px;color:#102a43;text-align:center;margin-bottom:12px}.section-intro{max-width:820px;margin:0 auto 38px;text-align:center;font-size:19px;color:#3e4c59}.directions{background:#fff;padding:28px;border-radius:24px;box-shadow:0 12px 30px rgba(16,42,67,.08);border-left:6px solid #d9b25f;margin-bottom:35px}.directions h2{text-align:left;font-size:28px;margin-bottom:12px}.directions p{font-size:18px;color:#2d3d4d;margin-bottom:8px}.question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.question-card{background:#fff;border-radius:24px;padding:26px;box-shadow:0 12px 30px rgba(16,42,67,.08);border:1px solid rgba(16,42,67,.08);transition:.25s}.question-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(16,42,67,.12)}.question-number{color:#b99041;font-weight:bold;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;font-size:13px}.question-card h3{color:#102a43;font-size:22px;margin-bottom:16px}.options{display:grid;gap:10px}.options label{display:block;background:#fffaf0;border:1px solid #e5dac7;border-radius:14px;padding:11px 13px;color:#2f3f4f;cursor:pointer;transition:.2s}.options label:hover{background:#e8f3f8;border-color:#b7cfdd}.options input{margin-right:8px}.options span{font-weight:bold;color:#082b49;margin-right:4px}.quote-strip{background:linear-gradient(90deg,#071f36,#0b3455);color:#fff;text-align:center;padding:54px 8%;font-size:28px;font-style:italic;line-height:1.45}footer{padding:28px 7%;color:white;text-align:center;background:linear-gradient(90deg,#071f36,#0b3455);font-size:18px}@media(max-width:900px){.navbar{flex-direction:column;gap:14px}.nav-links{justify-content:center;gap:18px}.hero{background:linear-gradient(rgba(248,243,232,.92),rgba(248,243,232,.88)),url("../images/winding-trail.jpeg");background-size:cover;background-position:center}.hero h1{font-size:38px}.question-grid{grid-template-columns:1fr}}@media(max-width:600px){.logo{font-size:25px}.hero{padding:60px 6%}.hero h1{font-size:31px}.hero p{font-size:18px}.section{padding:55px 6%}.question-card{padding:22px}}
+
+.answer-sheet-wrap {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(16,42,67,.08);
+  padding: 30px;
+  border-left: 6px solid #d9b25f;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.answer-box {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #102a43;
+}
+
+.answer-box .qnum {
+  display: block;
+  color: #b99041;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.answer-box .choice {
+  display: block;
+  font-size: 20px;
+  color: #082b49;
+}
+
+.answer-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.answer-actions button {
+  border: none;
+  background: #082b49;
+  color: white;
+  padding: 13px 24px;
+  border-radius: 30px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.answer-actions button:hover {
+  background: #0b3d66;
+  transform: translateY(-2px);
+}
+
+#answer-summary {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 18px;
+  color: #3e4c59;
+  font-weight: bold;
+}
+
+@media(max-width:900px) {
+  .answer-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media(max-width:600px) {
+  .answer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 </style>
 </head>
 <body>
-<nav class="navbar"><div class="logo">🐾 HuskyDaddy</div><ul class="nav-links"><li><a href="../index.html">Home</a></li><li><a href="services.html">Test Prep</a></li><li><a href="readingtips.html">Reading</a></li><li><a href="reading_summary.html">Homework</a></li><li><a href="clients.html">Clients</a></li><li><a href="contact.html">Contact</a></li></ul></nav>
+<nav class="navbar"><div class="logo">🐾 HuskyDaddy</div><ul class="nav-links"><li><a href="/SSAT-SAT-IELTS-coach-Steve-Liu/index.html">Home</a></li><li><a href="../services.html">Test Prep</a></li><li><a href="../readingtips.html">Reading</a></li><li><a href="../reading_summary.html">Homework</a></li><li><a href="../clients.html">Clients</a></li><li><a href="../contact.html">Contact</a></li></ul></nav>
 <section class="hero"><div class="hero-content"><h1>SSAT Verbal Practice Test 1</h1><div class="divider">🐾</div><p>Sixty verbal questions for synonym and analogy practice. Work steadily, mark your uncertainty, and return to the trail until the pattern becomes clear.</p><p><strong>Suggested time:</strong> 30 minutes.</p></div></section>
-<div class="quick-nav"><a href="#directions">Directions</a><a href="#synonyms">Synonyms 1–30</a><a href="#analogies">Analogies 31–60</a></div>
+<div class="quick-nav"><a href="#directions">Directions</a><a href="#synonyms">Synonyms 1–30</a><a href="#analogies">Analogies 31–60</a><a href="#answer-sheet">Answer Sheet</a></div>
 <section id="directions" class="section"><div class="directions"><h2>Directions</h2><p>The synonym questions ask you to find the most appropriate synonym to the question word.</p><p>The analogy questions ask you to find the most appropriate analogy to the question. Select the answer that best matches the question.</p></div></section>
 <section id="synonyms" class="section"><h2>Synonym Questions 1–30</h2><p class="section-intro">Choose the word or phrase closest in meaning to the question word.</p><div class="question-grid"><article class="question-card"><div class="question-number">Question 1</div><h3>LATER</h3><div class="options"><label><input type="radio" name="q1" value="A"><span>A</span> subsequent</label><label><input type="radio" name="q1" value="B"><span>B</span> latent</label><label><input type="radio" name="q1" value="C"><span>C</span> earlier</label><label><input type="radio" name="q1" value="D"><span>D</span> lament</label><label><input type="radio" name="q1" value="E"><span>E</span> durable</label></div></article>
 <article class="question-card"><div class="question-number">Question 2</div><h3>EXPLOIT</h3><div class="options"><label><input type="radio" name="q2" value="A"><span>A</span> explore</label><label><input type="radio" name="q2" value="B"><span>B</span> utilize</label><label><input type="radio" name="q2" value="C"><span>C</span> help</label><label><input type="radio" name="q2" value="D"><span>D</span> expunge</label><label><input type="radio" name="q2" value="E"><span>E</span> brave</label></div></article>
@@ -73,5 +157,135 @@
 <article class="question-card"><div class="question-number">Question 58</div><h3>Improvisation is to preparation as</h3><div class="options"><label><input type="radio" name="q58" value="A"><span>A</span> improvement is to goal</label><label><input type="radio" name="q58" value="B"><span>B</span> hostility is to sympathy</label><label><input type="radio" name="q58" value="C"><span>C</span> handsome is to growth</label><label><input type="radio" name="q58" value="D"><span>D</span> formula is to equation</label><label><input type="radio" name="q58" value="E"><span>E</span> steal is to kill</label></div></article>
 <article class="question-card"><div class="question-number">Question 59</div><h3>Unique is to original as</h3><div class="options"><label><input type="radio" name="q59" value="A"><span>A</span> manipulate is to lie</label><label><input type="radio" name="q59" value="B"><span>B</span> makeshift is to stoppage</label><label><input type="radio" name="q59" value="C"><span>C</span> strong is to weak</label><label><input type="radio" name="q59" value="D"><span>D</span> radio is to T.V.</label><label><input type="radio" name="q59" value="E"><span>E</span> elegant is to attractive</label></div></article>
 <article class="question-card"><div class="question-number">Question 60</div><h3>Marvel is to myth as</h3><div class="options"><label><input type="radio" name="q60" value="A"><span>A</span> history is to fact</label><label><input type="radio" name="q60" value="B"><span>B</span> true story is to biography</label><label><input type="radio" name="q60" value="C"><span>C</span> idea is to develop</label><label><input type="radio" name="q60" value="D"><span>D</span> anecdote is to personal</label><label><input type="radio" name="q60" value="E"><span>E</span> letter is to journal</label></div></article></div></section>
+
+
+
+<section id="answer-sheet" class="section">
+  <h2>Student Answer Sheet</h2>
+  <p class="section-intro">
+    As students choose answers above, this sheet records their choices automatically.
+    Use it for quick checking, review, or discussion after practice.
+  </p>
+
+  <div class="answer-sheet-wrap">
+    <div class="answer-grid">
+      <div class="answer-box" id="answer-box-1"><span class="qnum">1</span><span class="choice" id="answer-1">—</span></div>
+<div class="answer-box" id="answer-box-2"><span class="qnum">2</span><span class="choice" id="answer-2">—</span></div>
+<div class="answer-box" id="answer-box-3"><span class="qnum">3</span><span class="choice" id="answer-3">—</span></div>
+<div class="answer-box" id="answer-box-4"><span class="qnum">4</span><span class="choice" id="answer-4">—</span></div>
+<div class="answer-box" id="answer-box-5"><span class="qnum">5</span><span class="choice" id="answer-5">—</span></div>
+<div class="answer-box" id="answer-box-6"><span class="qnum">6</span><span class="choice" id="answer-6">—</span></div>
+<div class="answer-box" id="answer-box-7"><span class="qnum">7</span><span class="choice" id="answer-7">—</span></div>
+<div class="answer-box" id="answer-box-8"><span class="qnum">8</span><span class="choice" id="answer-8">—</span></div>
+<div class="answer-box" id="answer-box-9"><span class="qnum">9</span><span class="choice" id="answer-9">—</span></div>
+<div class="answer-box" id="answer-box-10"><span class="qnum">10</span><span class="choice" id="answer-10">—</span></div>
+<div class="answer-box" id="answer-box-11"><span class="qnum">11</span><span class="choice" id="answer-11">—</span></div>
+<div class="answer-box" id="answer-box-12"><span class="qnum">12</span><span class="choice" id="answer-12">—</span></div>
+<div class="answer-box" id="answer-box-13"><span class="qnum">13</span><span class="choice" id="answer-13">—</span></div>
+<div class="answer-box" id="answer-box-14"><span class="qnum">14</span><span class="choice" id="answer-14">—</span></div>
+<div class="answer-box" id="answer-box-15"><span class="qnum">15</span><span class="choice" id="answer-15">—</span></div>
+<div class="answer-box" id="answer-box-16"><span class="qnum">16</span><span class="choice" id="answer-16">—</span></div>
+<div class="answer-box" id="answer-box-17"><span class="qnum">17</span><span class="choice" id="answer-17">—</span></div>
+<div class="answer-box" id="answer-box-18"><span class="qnum">18</span><span class="choice" id="answer-18">—</span></div>
+<div class="answer-box" id="answer-box-19"><span class="qnum">19</span><span class="choice" id="answer-19">—</span></div>
+<div class="answer-box" id="answer-box-20"><span class="qnum">20</span><span class="choice" id="answer-20">—</span></div>
+<div class="answer-box" id="answer-box-21"><span class="qnum">21</span><span class="choice" id="answer-21">—</span></div>
+<div class="answer-box" id="answer-box-22"><span class="qnum">22</span><span class="choice" id="answer-22">—</span></div>
+<div class="answer-box" id="answer-box-23"><span class="qnum">23</span><span class="choice" id="answer-23">—</span></div>
+<div class="answer-box" id="answer-box-24"><span class="qnum">24</span><span class="choice" id="answer-24">—</span></div>
+<div class="answer-box" id="answer-box-25"><span class="qnum">25</span><span class="choice" id="answer-25">—</span></div>
+<div class="answer-box" id="answer-box-26"><span class="qnum">26</span><span class="choice" id="answer-26">—</span></div>
+<div class="answer-box" id="answer-box-27"><span class="qnum">27</span><span class="choice" id="answer-27">—</span></div>
+<div class="answer-box" id="answer-box-28"><span class="qnum">28</span><span class="choice" id="answer-28">—</span></div>
+<div class="answer-box" id="answer-box-29"><span class="qnum">29</span><span class="choice" id="answer-29">—</span></div>
+<div class="answer-box" id="answer-box-30"><span class="qnum">30</span><span class="choice" id="answer-30">—</span></div>
+<div class="answer-box" id="answer-box-31"><span class="qnum">31</span><span class="choice" id="answer-31">—</span></div>
+<div class="answer-box" id="answer-box-32"><span class="qnum">32</span><span class="choice" id="answer-32">—</span></div>
+<div class="answer-box" id="answer-box-33"><span class="qnum">33</span><span class="choice" id="answer-33">—</span></div>
+<div class="answer-box" id="answer-box-34"><span class="qnum">34</span><span class="choice" id="answer-34">—</span></div>
+<div class="answer-box" id="answer-box-35"><span class="qnum">35</span><span class="choice" id="answer-35">—</span></div>
+<div class="answer-box" id="answer-box-36"><span class="qnum">36</span><span class="choice" id="answer-36">—</span></div>
+<div class="answer-box" id="answer-box-37"><span class="qnum">37</span><span class="choice" id="answer-37">—</span></div>
+<div class="answer-box" id="answer-box-38"><span class="qnum">38</span><span class="choice" id="answer-38">—</span></div>
+<div class="answer-box" id="answer-box-39"><span class="qnum">39</span><span class="choice" id="answer-39">—</span></div>
+<div class="answer-box" id="answer-box-40"><span class="qnum">40</span><span class="choice" id="answer-40">—</span></div>
+<div class="answer-box" id="answer-box-41"><span class="qnum">41</span><span class="choice" id="answer-41">—</span></div>
+<div class="answer-box" id="answer-box-42"><span class="qnum">42</span><span class="choice" id="answer-42">—</span></div>
+<div class="answer-box" id="answer-box-43"><span class="qnum">43</span><span class="choice" id="answer-43">—</span></div>
+<div class="answer-box" id="answer-box-44"><span class="qnum">44</span><span class="choice" id="answer-44">—</span></div>
+<div class="answer-box" id="answer-box-45"><span class="qnum">45</span><span class="choice" id="answer-45">—</span></div>
+<div class="answer-box" id="answer-box-46"><span class="qnum">46</span><span class="choice" id="answer-46">—</span></div>
+<div class="answer-box" id="answer-box-47"><span class="qnum">47</span><span class="choice" id="answer-47">—</span></div>
+<div class="answer-box" id="answer-box-48"><span class="qnum">48</span><span class="choice" id="answer-48">—</span></div>
+<div class="answer-box" id="answer-box-49"><span class="qnum">49</span><span class="choice" id="answer-49">—</span></div>
+<div class="answer-box" id="answer-box-50"><span class="qnum">50</span><span class="choice" id="answer-50">—</span></div>
+<div class="answer-box" id="answer-box-51"><span class="qnum">51</span><span class="choice" id="answer-51">—</span></div>
+<div class="answer-box" id="answer-box-52"><span class="qnum">52</span><span class="choice" id="answer-52">—</span></div>
+<div class="answer-box" id="answer-box-53"><span class="qnum">53</span><span class="choice" id="answer-53">—</span></div>
+<div class="answer-box" id="answer-box-54"><span class="qnum">54</span><span class="choice" id="answer-54">—</span></div>
+<div class="answer-box" id="answer-box-55"><span class="qnum">55</span><span class="choice" id="answer-55">—</span></div>
+<div class="answer-box" id="answer-box-56"><span class="qnum">56</span><span class="choice" id="answer-56">—</span></div>
+<div class="answer-box" id="answer-box-57"><span class="qnum">57</span><span class="choice" id="answer-57">—</span></div>
+<div class="answer-box" id="answer-box-58"><span class="qnum">58</span><span class="choice" id="answer-58">—</span></div>
+<div class="answer-box" id="answer-box-59"><span class="qnum">59</span><span class="choice" id="answer-59">—</span></div>
+<div class="answer-box" id="answer-box-60"><span class="qnum">60</span><span class="choice" id="answer-60">—</span></div>
+    </div>
+
+    <div id="answer-summary">Answered: 0 / 60</div>
+
+    <div class="answer-actions">
+      <button type="button" onclick="copyAnswers()">Copy Answer Sheet</button>
+      <button type="button" onclick="clearAnswers()">Clear Answers</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function updateAnswerSheet() {
+    let answered = 0;
+
+    for (let i = 1; i <= 60; i++) {
+      const selected = document.querySelector('input[name="q' + i + '"]:checked');
+      const answerSlot = document.getElementById('answer-' + i);
+
+      if (selected) {
+        answerSlot.textContent = selected.value;
+        answered++;
+      } else {
+        answerSlot.textContent = '—';
+      }
+    }
+
+    document.getElementById('answer-summary').textContent = 'Answered: ' + answered + ' / 60';
+  }
+
+  document.querySelectorAll('input[type="radio"]').forEach(function(input) {
+    input.addEventListener('change', updateAnswerSheet);
+  });
+
+  function copyAnswers() {
+    let output = [];
+
+    for (let i = 1; i <= 60; i++) {
+      const selected = document.querySelector('input[name="q' + i + '"]:checked');
+      output.push(i + '. ' + (selected ? selected.value : '—'));
+    }
+
+    navigator.clipboard.writeText(output.join('\n')).then(function() {
+      alert('Answer sheet copied!');
+    });
+  }
+
+  function clearAnswers() {
+    document.querySelectorAll('input[type="radio"]').forEach(function(input) {
+      input.checked = false;
+    });
+
+    updateAnswerSheet();
+  }
+
+  updateAnswerSheet();
+</script>
+
 <footer>Stay the course. Review your mistakes. Every hard question leaves a useful footprint. 🐾</footer>
 </body></html>

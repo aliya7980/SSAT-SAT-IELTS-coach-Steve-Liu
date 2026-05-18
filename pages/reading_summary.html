@@ -2,208 +2,412 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Miscellaneous闲情逸致 | HuskyDaddy</title>
+  <title>Miscellaneous 闲情逸致 | HuskyDaddy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 16px;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background: #fffdf8;
-      color: #2b1b1b;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f8f3e8;
+      color: #102a43;
+      line-height: 1.7;
     }
 
     a {
       text-decoration: none;
-      color: #8b1e1e;
+    }
+
+    .navbar {
+      width: 100%;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: white;
+      padding: 15px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-size: 30px;
       font-weight: bold;
+      letter-spacing: 0.2px;
     }
 
-    .topnav {
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid #b10909;
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
     }
 
-    .topnav a {
-      margin-right: 18px;
+    .nav-links a {
+      color: #f7fbff;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
+      transition: 0.25s ease;
     }
 
-    h1 {
-      color: #8b1e1e;
-      font-size: 2.4rem;
-      margin-bottom: 8px;
+    .nav-links a:hover {
+      color: #d9b25f;
+      border-bottom: 2px solid #d9b25f;
+    }
+
+    .hero {
+      min-height: 430px;
+      background:
+        linear-gradient(90deg, rgba(248,243,232,0.97) 0%, rgba(248,243,232,0.82) 45%, rgba(248,243,232,0.18) 76%),
+        url("../images/winding-trail.jpeg");
+      background-size: cover;
+      background-position: center right;
+      display: flex;
+      align-items: center;
+      padding: 75px 7%;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      color: #08233d;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #1f2933;
+      max-width: 690px;
+      margin-bottom: 14px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 22px 0;
+      color: #b99041;
+      font-size: 22px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      width: 70px;
+      height: 1px;
+      background: #b99041;
+    }
+
+    .page-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 65px 7%;
     }
 
     .intro {
-      background: #fff7ed;
-      border: 1px solid #b10909;
-      border-radius: 12px;
-      padding: 18px;
-      margin: 18px 0;
+      background: white;
+      border-left: 6px solid #d9b25f;
+      border-radius: 26px;
+      padding: 32px;
+      margin-bottom: 32px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
     }
 
-    .card {
-      border: 1px solid #b10909;
-      border-radius: 12px;
-      padding: 18px;
-      margin: 18px 0;
-      background: #ffffff;
-    }
-
-    .card h2 {
-      color: #8b1e1e;
-      margin-top: 0;
+    .intro p {
+      font-size: 18px;
+      color: #2d3d4d;
+      margin-bottom: 14px;
     }
 
     .note {
-      color: #140b0b89;
-      font-size: 0.95rem;
+      color: #3e4c59;
+      font-size: 17px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 26px;
+      padding: 34px;
+      margin: 30px 0;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+      border: 1px solid rgba(16, 42, 67, 0.08);
+    }
+
+    .card h2,
+    .quiet-comments h2 {
+      color: #102a43;
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .card p,
+    .quiet-comments p {
+      color: #2d3d4d;
+      font-size: 18px;
     }
 
     .life-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
     }
 
     .small-card {
-      border: 1px solid #e0b4a6;
-      border-radius: 10px;
-      padding: 14px;
-      background: #fffaf3;
+      background: #fffaf0;
+      border: 1px solid #e5dac7;
+      border-radius: 22px;
+      padding: 22px;
+      transition: 0.25s ease;
+    }
+
+    .small-card:hover {
+      transform: translateY(-3px);
+      background: #e8f3f8;
+      border-color: #b7cfdd;
     }
 
     .small-card h3 {
-      margin-top: 0;
-      color: #8b1e1e;
+      color: #102a43;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .small-card p {
+      font-size: 16.5px;
+      color: #3e4c59;
     }
 
     .quote {
-      background: #f6f7f8;
-      border: 1px solid #e1e1e1;
-      border-radius: 10px;
-      padding: 14px;
-      margin-top: 18px;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: white;
+      border-radius: 22px;
+      padding: 26px;
+      margin-top: 24px;
       font-style: italic;
-      color: #3b2a2a;
+      font-size: 21px;
+      text-align: center;
+      line-height: 1.55;
+    }
+
+    .quiet-comments {
+      background: white;
+      border-radius: 26px;
+      padding: 34px;
+      margin-top: 34px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+      border-left: 6px solid #d9b25f;
+    }
+
+    #disqus_thread {
+      margin-top: 24px;
     }
 
     footer {
-      margin-top: 32px;
-      padding-top: 12px;
-      border-top: 1px solid #e1e1e1;
-      color: #140b0b89;
-      font-size: 0.9rem;
+      padding: 28px 7%;
+      color: white;
+      text-align: center;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      font-size: 18px;
+    }
+
+    footer span {
+      color: #d9b25f;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 18px;
+      }
+
+      .hero {
+        background:
+          linear-gradient(rgba(248,243,232,0.92), rgba(248,243,232,0.88)),
+          url("../images/winding-trail.jpeg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .hero {
+        padding: 60px 6%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .page-wrap {
+        padding: 50px 6%;
+      }
+
+      .card,
+      .intro,
+      .quiet-comments {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="topnav">
-    <a href="index.html">About</a>
-    <a href="services.html">Test Prep</a>
-    <a href="readingtips.html">Reading</a>
-    <a href="reading_summary.html">Miscellaneous</a>
-    <a href="clients.html">Clients</a>
-    <a href="contact.html">Contact</a>
-  </div>
+  <nav class="navbar">
+    <div class="logo">🐾 HuskyDaddy</div>
 
-  <h1>Miscellaneous闲情逸致</h1>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Miscellaneous</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-  <p class="note">
-    A small personal corner of HuskyDaddy — reading, animals, outings, hiking, and hobbies.
-  </p>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Miscellaneous Stuff for Husky Daddy</h1>
 
-  <div class="intro">
-    <p>
-      Life is not only about exams, scores, and homework. This page collects the quieter
-      and warmer parts of life: books I enjoy, time with cats and dogs, outdoor walks,
-      hiking trails, family outings, music, and hobbies.
-    </p>
-    <p>
-      These moments remind me that learning is connected to real life. Reading builds
-      imagination. Animals teach patience and loyalty. Nature gives us space to think.
-      Hobbies keep curiosity alive.
-    </p>
-  </div>
+      <div class="divider">🐾</div>
 
-  <div class="card">
-    <h2>Pieces of My Life</h2>
-
-    <div class="life-grid">
-
-      <div class="small-card">
-        <h3>📚 Reading</h3>
-        <p>
-          Books help us slow down, think deeply, and see the world through another mind.
-        </p>
-      </div>
-
-      <div class="small-card">
-        <h3>🐶 Dogs</h3>
-        <p>
-          Dogs represent loyalty, courage, warmth, and the HuskyDaddy spirit of resilience.
-        </p>
-      </div>
-
-      <div class="small-card">
-        <h3>🐱 Cats</h3>
-        <p>
-          Cats bring calmness, independence, curiosity, and quiet confidence into daily life.
-        </p>
-      </div>
-
-      <div class="small-card">
-        <h3>🥾 Hiking</h3>
-        <p>
-          Trails and outdoor walks remind us that growth happens one step at a time.
-        </p>
-      </div>
-
-      <div class="small-card">
-        <h3>🌲 Outings</h3>
-        <p>
-          Parks, beaches, mountains, and city walks help turn ordinary days into memories.
-        </p>
-      </div>
-
-      <div class="small-card">
-        <h3>🎸 Hobbies</h3>
-        <p>
-          Music, technology, reading projects, and creative interests keep life colourful.
-        </p>
-      </div>
-
+      <p>
+        A quiet personal corner of HuskyDaddy — reading, animals, outings, hiking,
+        hobbies, and the small warm things that keep curiosity alive.
+      </p>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <h2>Why This Page Exists</h2>
-    <p>
-      HuskyDaddy is about learning with strength and heart. This page shows the human side
-      behind the teaching: the books, animals, places, and small interests that shape a
-      meaningful life.
-    </p>
+  <main class="page-wrap">
 
-    <div class="quote">
-      “A good life is built from small habits: reading, walking, caring, learning,
-      and refusing to give up.”
-    </div>
-  </div>
-  <div class="quiet-comments">
-    <h2>访客留言：嘛钱不钱的，乐呵乐呵完了！</h2>
     <p class="note">
-      Visitors may leave a short thought, memory, or friendly message here.
+      A small personal corner of HuskyDaddy — reading, animals, outings, hiking, and hobbies.
     </p>
 
-    <div id="disqus_thread"></div>
-  </div>
+    <div class="intro">
+      <p>
+        Life is not only about exams, scores, and homework. This page collects the quieter
+        and warmer parts of life: books I enjoy, time with cats and dogs, outdoor walks,
+        hiking trails, family outings, music, and hobbies.
+      </p>
+      <p>
+        These moments remind me that learning is connected to real life. Reading builds
+        imagination. Animals teach patience and loyalty. Nature gives us space to think.
+        Hobbies keep curiosity alive.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Pieces of My Life</h2>
+
+      <div class="life-grid">
+
+        <div class="small-card">
+          <h3>📚 Reading</h3>
+          <p>
+            Books help us slow down, think deeply, and see the world through another mind.
+          </p>
+        </div>
+
+        <div class="small-card">
+          <h3>🐶 Dogs</h3>
+          <p>
+            Dogs represent loyalty, courage, warmth, and the HuskyDaddy spirit of resilience.
+          </p>
+        </div>
+
+        <div class="small-card">
+          <h3>🐱 Cats</h3>
+          <p>
+            Cats bring calmness, independence, curiosity, and quiet confidence into daily life.
+          </p>
+        </div>
+
+        <div class="small-card">
+          <h3>🥾 Hiking</h3>
+          <p>
+            Trails and outdoor walks remind us that growth happens one step at a time.
+          </p>
+        </div>
+
+        <div class="small-card">
+          <h3>🌲 Outings</h3>
+          <p>
+            Parks, beaches, mountains, and city walks help turn ordinary days into memories.
+          </p>
+        </div>
+
+        <div class="small-card">
+          <h3>🎸 Hobbies</h3>
+          <p>
+            Music, technology, reading projects, and creative interests keep life colourful.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Why This Page Exists</h2>
+      <p>
+        HuskyDaddy is about learning with strength and heart. This page shows the human side
+        behind the teaching: the books, animals, places, and small interests that shape a
+        meaningful life.
+      </p>
+
+      <div class="quote">
+        “A good life is built from small habits: reading, walking, caring, learning,
+        and refusing to give up.”
+      </div>
+    </div>
+
+    <div class="quiet-comments">
+      <p class="note">
+        Leave your message here.
+      </p>
+
+      <div id="disqus_thread"></div>
+    </div>
+
+  </main>
 
   <script>
     var disqus_config = function () {
@@ -222,7 +426,7 @@
   <noscript>Please enable JavaScript to view the comments.</noscript>
 
   <footer>
-    © HuskyDaddy | Learning, resilience, and life beyond the classroom
+    © HuskyDaddy | Learning, resilience, and life beyond the classroom <span>🐾</span>
   </footer>
 
 </body>
