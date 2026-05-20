@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Graphing Tool</title>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<style>
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f6f9;
+        text-align:center;
+        padding:30px;
+    }
+
+    h1{
+        color:#333;
+    }
+
+    input{
+        width:300px;
+        padding:10px;
+        font-size:18px;
+        border-radius:8px;
+        border:1px solid #ccc;
+    }
+
+    button{
+        padding:10px 20px;
+        font-size:18px;
+        border:none;
+        border-radius:8px;
+        background:#4CAF50;
+        color:white;
+        cursor:pointer;
+        margin-left:10px;
+    }
+
+    button:hover{
+        background:#45a049;
+    }
+
+    #graph{
+        margin-top:30px;
+    }
+
+    .examples{
+        margin-top:20px;
+        color:#555;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Interactive Coordinate Graphing Tool</h1>
+
+<p>Enter an equation using x</p>
+
+<input type="text" id="equation" value="3*x + 16">
+
+<button onclick="drawGraph()">Draw Graph</button>
+
+<div class="examples">
+    Examples:
+    <br>
+    3*x + 16
+    <br>
+    x**2 - 4
+    <br>
+    2*x - 7
+    <br>
+    Math.sin(x)
+</div>
+
+<div id="graph"></div>
+
+<script>
+
+function drawGraph(){
+
+    let equation = document.getElementById("equation").value;
+
+    let xValues = [];
+    let yValues = [];
+
+    for(let x = -10; x <= 10; x += 0.1){
+
+        xValues.push(x);
+
+        try{
+            let y = eval(equation);
+
+            yValues.push(y);
+
+        } catch(error){
+
+            alert("Invalid Equation!");
+
+            return;
+        }
+    }
+
+    let data = [{
+        x: xValues,
+        y: yValues,
+        mode: 'lines',
+        type: 'scatter',
+        line: {
+            width: 3
+        }
+    }];
+
+    let layout = {
+
+        title: 'Graph of y = ' + equation,
+
+        xaxis: {
+            range: [-10,10],
+            zeroline: true
+        },
+
+        yaxis: {
+            range: [-20,20],
+            zeroline: true
+        },
+
+        plot_bgcolor:'#ffffff',
+        paper_bgcolor:'#f4f6f9'
+    };
+
+    Plotly.newPlot('graph', data, layout);
+}
+
+drawGraph();
+
+</script>
+
+</body>
+</html>
