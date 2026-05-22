@@ -1,382 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Advanced Vocabulary Practice | CH & CIR Words</title>
+  <meta charset="utf-8" />
+  <title>SSAT Vocabulary Practice | CH & CIR Words | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: Georgia, 'Times New Roman', serif;
-      background: linear-gradient(135deg, #eaf4ff, #f5f9ff, #eef8f0);
-      color: #1f2937;
-      line-height: 1.7;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
     }
 
-    header {
-      background: linear-gradient(135deg, #0b1f3a, #12355b, #1d4e89);
+    .navbar {
+      background: #102a43;
       color: white;
-      padding: 28px 20px;
-      text-align: center;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    header h1 {
-      font-size: 2.1rem;
-      margin-bottom: 8px;
-    }
-
-    header p {
-      color: #cbd5e1;
-      font-size: 1rem;
-    }
-
-    nav {
-      background: #102542;
-      padding: 12px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 14px;
+    .logo {
+      font-size: 22px;
       font-weight: bold;
     }
 
-    nav a:hover {
-      color: #93c5fd;
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
     }
 
-    main {
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    .container {
       max-width: 1100px;
-      margin: 30px auto;
-      padding: 0 18px 50px;
+      margin: auto;
+      padding: 60px 8%;
     }
 
-    section {
+    .card {
       background: white;
-      border-radius: 18px;
-      padding: 28px;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
       margin-bottom: 28px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
     }
 
-    h2 {
-      color: #0f172a;
-      margin-bottom: 18px;
-      border-left: 6px solid #3b82f6;
-      padding-left: 12px;
+    .card h2 {
+      color: #102a43;
+      margin-bottom: 15px;
     }
 
-    h3 {
-      margin-top: 16px;
-      color: #334155;
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 10px;
     }
 
-    .intro {
-      font-size: 1.05rem;
-      background: #eff6ff;
-      border-left: 5px solid #2563eb;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 20px;
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
     }
 
     .word-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
     }
 
-    .word-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 16px;
-      background: linear-gradient(145deg, #ffffff, #eef6ff);
+    .word-item {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #102a43;
+      font-weight: bold;
     }
 
-    .word-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(59,130,246,0.15);
-    }
-
-    .word-card strong {
-      color: #1d4ed8;
-      font-size: 1.1rem;
-    }
-
-    .word-card em {
-      color: #64748b;
+    .word-item em {
+      color: #6b7280;
       display: block;
-      margin: 4px 0;
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 2px;
     }
 
-    ol, ul {
-      padding-left: 24px;
-      margin-top: 10px;
+    .definition {
+      color: #3e4c59;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin-top: 5px;
     }
 
-    li {
-      margin-bottom: 10px;
+    .exercise-list {
+      margin-left: 22px;
+      margin-top: 15px;
     }
 
-    .exercise-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 16px;
+    .exercise-list li {
+      margin-bottom: 12px;
+    }
+
+    .blank {
+      font-weight: bold;
+      color: #102a43;
+      border-bottom: 2px solid #d4af37;
+      padding: 0 6px;
+    }
+
+    .word-bank {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+      color: #3e4c59;
     }
 
     .matching-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    .answer-key {
-      background: #ecfdf5;
-      border: 1px solid #bbf7d0;
-      padding: 18px;
-      border-radius: 14px;
+      gap: 28px;
       margin-top: 18px;
-      display: none;
     }
 
-    button {
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 10px;
+    .paragraph-box {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 22px;
+      border-radius: 8px;
+      margin-top: 18px;
+    }
+
+    details {
+      margin-top: 18px;
+      background: #f7f3eb;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5dccb;
+    }
+
+    summary {
       cursor: pointer;
-      font-size: 1rem;
-      margin-top: 18px;
+      font-weight: bold;
+      color: #102a43;
     }
 
-    button:hover {
-      background: #1d4ed8;
+    .next-link {
+      text-align: center;
     }
 
-    .paragraph {
-      background: #fff7ed;
-      border-left: 5px solid #f97316;
-      padding: 18px;
-      border-radius: 12px;
-      font-size: 1.05rem;
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .note {
-      color: #64748b;
-      font-size: 0.95rem;
-      margin-top: 10px;
+    .button:hover {
+      background: #c19a2e;
     }
 
     footer {
+      background: #102a43;
+      color: #e5e7eb;
       text-align: center;
-      background: linear-gradient(135deg, #0b1f3a, #12355b);
-      padding: 25px;
-      background: #0f172a;
-      color: #cbd5e1;
+      padding: 24px;
+      font-size: 14px;
     }
 
-    @media (max-width: 700px) {
-      .matching-grid {
-        grid-template-columns: 1fr;
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
       }
 
-      nav a {
-        display: inline-block;
-        margin: 6px 8px;
+      .nav-links {
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+
+      .matching-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
-<body>
-  <header>
-    <div style="font-size:4rem; margin-bottom:10px;">🐺</div>
-    <h1>Advanced Vocabulary Practice</h1>
-    <p>Huskydaddy Vocabulary Lab | Resilience, Precision, and Academic Excellence</p>
-  </header>
 
-  <nav>
-    <a href="#words">Words</a>
-    <a href="#matching">Matching</a>
-    <a href="#gap">Gap Filling</a>
-    <a href="#paragraph">Paragraph</a>
-    <a href="#answers">Answers</a>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
   </nav>
 
-  <main>
-    <section>
-      <div class="intro">
-        This Huskydaddy vocabulary page is designed to strengthen precision, reading sophistication, and advanced writing skills. Challenge yourself to master these difficult SAT/SSAT-level words through matching, context clues, and analytical reading practice.
-      </div>
-    </section>
+  <header class="page-header">
+    <h1>SSAT Vocabulary Practice: CH & CIR Words</h1>
+    <p>Matching, gap filling, and paragraph practice for advanced vocabulary.</p>
+  </header>
 
-    <section id="words">
-      <h2>Word Section</h2>
+  <main class="container">
+    <section class="card">
+      <h2>Vocabulary List</h2>
       <div class="word-grid">
-        <div class="word-card"><strong>charlatan</strong><em>noun</em>A fake expert; a fraud who pretends to have special knowledge.</div>
-        <div class="word-card"><strong>chasm</strong><em>noun</em>A deep gap; a huge difference between people or ideas.</div>
-        <div class="word-card"><strong>chastise</strong><em>verb</em>To scold or criticize severely.</div>
-        <div class="word-card"><strong>chicanery</strong><em>noun</em>Trickery or dishonest behavior, especially in politics or business.</div>
-        <div class="word-card"><strong>chimera</strong><em>noun</em>An unrealistic dream or illusion.</div>
-        <div class="word-card"><strong>choleric</strong><em>adjective</em>Bad-tempered; easily angered.</div>
-        <div class="word-card"><strong>chronic</strong><em>adjective</em>Continuing for a long time; constantly recurring.</div>
-        <div class="word-card"><strong>chronicle</strong><em>noun / verb</em>A record of events in order; to record events.</div>
-        <div class="word-card"><strong>circuitous</strong><em>adjective</em>Indirect; not straight or direct.</div>
-        <div class="word-card"><strong>circumlocution</strong><em>noun</em>Using too many words to avoid saying something directly.</div>
-        <div class="word-card"><strong>circumscribe</strong><em>verb</em>To limit, restrict, or draw a boundary around something.</div>
-        <div class="word-card"><strong>circumspect</strong><em>adjective</em>Careful and cautious before acting.</div>
-        <div class="word-card"><strong>circumvent</strong><em>verb</em>To avoid or get around a rule, obstacle, or difficulty.</div>
-        <div class="word-card"><strong>civil</strong><em>adjective</em>Polite; related to citizens or society.</div>
-        <div class="word-card"><strong>clemency</strong><em>noun</em>Mercy or leniency, especially in punishment.</div>
-        <div class="word-card"><strong>cliché</strong><em>noun</em>An overused phrase or idea.</div>
-        <div class="word-card"><strong>clique</strong><em>noun</em>A small exclusive group that keeps others out.</div>
+        <div class="word-item">1. Charlatan<em>noun</em><span class="definition">A fake expert; a fraud who pretends to have special knowledge.</span></div>
+        <div class="word-item">2. Chasm<em>noun</em><span class="definition">A deep gap; a huge difference between people or ideas.</span></div>
+        <div class="word-item">3. Chastise<em>verb</em><span class="definition">To scold or criticize severely.</span></div>
+        <div class="word-item">4. Chicanery<em>noun</em><span class="definition">Trickery or dishonest behavior, especially in politics or business.</span></div>
+        <div class="word-item">5. Chimera<em>noun</em><span class="definition">An unrealistic dream or illusion.</span></div>
+        <div class="word-item">6. Choleric<em>adjective</em><span class="definition">Bad-tempered; easily angered.</span></div>
+        <div class="word-item">7. Chronic<em>adjective</em><span class="definition">Continuing for a long time; constantly recurring.</span></div>
+        <div class="word-item">8. Chronicle<em>noun / verb</em><span class="definition">A record of events in order; to record events.</span></div>
+        <div class="word-item">9. Circuitous<em>adjective</em><span class="definition">Indirect; not straight or direct.</span></div>
+        <div class="word-item">10. Circumlocution<em>noun</em><span class="definition">Using too many words to avoid saying something directly.</span></div>
+        <div class="word-item">11. Circumscribe<em>verb</em><span class="definition">To limit, restrict, or draw a boundary around something.</span></div>
+        <div class="word-item">12. Circumspect<em>adjective</em><span class="definition">Careful and cautious before acting.</span></div>
+        <div class="word-item">13. Circumvent<em>verb</em><span class="definition">To avoid or get around a rule, obstacle, or difficulty.</span></div>
+        <div class="word-item">14. Civil<em>adjective</em><span class="definition">Polite; related to citizens or society.</span></div>
+        <div class="word-item">15. Clemency<em>noun</em><span class="definition">Mercy or leniency, especially in punishment.</span></div>
+        <div class="word-item">16. Cliché<em>noun</em><span class="definition">An overused phrase or idea.</span></div>
+        <div class="word-item">17. Clique<em>noun</em><span class="definition">A small exclusive group that keeps others out.</span></div>
       </div>
     </section>
 
-    <section id="matching">
-      <h2>Matching Exercise</h2>
-      <p>Match each word on the left with the correct meaning on the right.</p>
+    <section class="card">
+      <h2>Exercise 1: Matching</h2>
+      <p>Match each word with the correct definition.</p>
 
-      <div class="exercise-box matching-grid">
+      <div class="matching-grid">
         <div>
           <h3>Words</h3>
-          <ol>
-            <li>charlatan</li>
-            <li>chasm</li>
-            <li>chastise</li>
-            <li>chicanery</li>
-            <li>chimera</li>
-            <li>choleric</li>
-            <li>chronic</li>
-            <li>chronicle</li>
-            <li>circuitous</li>
-            <li>circumlocution</li>
-            <li>circumscribe</li>
-            <li>circumspect</li>
-            <li>circumvent</li>
-            <li>civil</li>
-            <li>clemency</li>
-            <li>cliché</li>
-            <li>clique</li>
+          <ol class="exercise-list">
+            <li>Charlatan _____</li>
+            <li>Chasm _____</li>
+            <li>Chastise _____</li>
+            <li>Chicanery _____</li>
+            <li>Chimera _____</li>
+            <li>Choleric _____</li>
+            <li>Chronic _____</li>
+            <li>Chronicle _____</li>
+            <li>Circuitous _____</li>
+            <li>Circumlocution _____</li>
+            <li>Circumscribe _____</li>
+            <li>Circumspect _____</li>
+            <li>Circumvent _____</li>
+            <li>Civil _____</li>
+            <li>Clemency _____</li>
+            <li>Cliché _____</li>
+            <li>Clique _____</li>
           </ol>
         </div>
-        <div>
-          <h3>Meanings</h3>
-          <ol type="A">
-            <li>A small exclusive group</li>
-            <li>An overused phrase or idea</li>
-            <li>Mercy or leniency</li>
-            <li>Polite or related to citizens</li>
-            <li>To avoid or get around a rule</li>
-            <li>Careful and cautious</li>
-            <li>To limit or restrict</li>
-            <li>Wordy indirect speech</li>
-            <li>Indirect or roundabout</li>
-            <li>A record of events in order</li>
-            <li>Long-lasting or constantly recurring</li>
-            <li>Bad-tempered</li>
-            <li>An unrealistic illusion</li>
-            <li>Dishonest trickery</li>
-            <li>To scold severely</li>
-            <li>A deep gap or divide</li>
-            <li>A fraud or fake expert</li>
-          </ol>
+
+        <div class="word-bank">
+          A. a small exclusive group<br>
+          B. an overused phrase or idea<br>
+          C. mercy or leniency<br>
+          D. polite or related to citizens<br>
+          E. to avoid or get around a rule<br>
+          F. careful and cautious<br>
+          G. to limit or restrict<br>
+          H. wordy indirect speech<br>
+          I. indirect or roundabout<br>
+          J. a record of events in order<br>
+          K. long-lasting or constantly recurring<br>
+          L. bad-tempered<br>
+          M. an unrealistic illusion<br>
+          N. dishonest trickery<br>
+          O. to scold severely<br>
+          P. a deep gap or divide<br>
+          Q. a fraud or fake expert
         </div>
       </div>
+
+      <details>
+        <summary>Show Matching Answer Key</summary>
+        <p>1-Q, 2-P, 3-O, 4-N, 5-M, 6-L, 7-K, 8-J, 9-I, 10-H, 11-G, 12-F, 13-E, 14-D, 15-C, 16-B, 17-A</p>
+      </details>
     </section>
 
-    <section id="gap">
-      <h2>Gap-Filling Exercise</h2>
-      <p>Choose the best word from the vocabulary list to complete each sentence.</p>
+    <section class="card">
+      <h2>Exercise 2: Gap Filling</h2>
+      <p>Choose the best word from the word bank to complete each sentence.</p>
 
-      <div class="exercise-box">
-        <ol>
-          <li>The dishonest salesman was exposed as a __________ after his medicine failed to cure anyone.</li>
-          <li>There was a deep __________ between the rich neighborhood and the poor village nearby.</li>
-          <li>The teacher had to __________ the student for copying another person’s essay.</li>
-          <li>The politician used legal tricks and __________ to hide the truth from the public.</li>
-          <li>The dream of becoming famous overnight was only a __________.</li>
-          <li>Because of his __________ temper, he often shouted before listening to others.</li>
-          <li>Her __________ headaches made it difficult for her to focus in class.</li>
-          <li>The historian decided to __________ the rise and fall of the empire.</li>
-          <li>Instead of taking the direct road, we followed a __________ mountain path.</li>
-          <li>The student used __________ because he did not want to admit that he had forgotten the answer.</li>
-          <li>The new rules were designed to __________ the power of the committee.</li>
-          <li>A __________ investor studies risk carefully before buying a stock.</li>
-          <li>Some students tried to __________ the school’s phone policy by hiding devices in their bags.</li>
-          <li>Even during the argument, she remained calm and __________.</li>
-          <li>The judge showed __________ and reduced the prisoner’s sentence.</li>
-          <li>“Time will tell” is a common __________ that writers should avoid overusing.</li>
-          <li>The new student felt lonely because a powerful __________ controlled the lunch table.</li>
-        </ol>
+      <div class="word-bank">
+        charlatan, chasm, chastise, chicanery, chimera, choleric, chronic,
+        chronicle, circuitous, circumlocution, circumscribe, circumspect,
+        circumvent, civil, clemency, cliché, clique
+      </div>
+
+      <ol class="exercise-list">
+        <li>The dishonest salesman was exposed as a <span class="blank">_____</span> after his medicine failed to cure anyone.</li>
+        <li>There was a deep <span class="blank">_____</span> between the rich neighborhood and the poor village nearby.</li>
+        <li>The teacher had to <span class="blank">_____</span> the student for copying another person's essay.</li>
+        <li>The politician used legal tricks and <span class="blank">_____</span> to hide the truth from the public.</li>
+        <li>The dream of becoming famous overnight was only a <span class="blank">_____</span>.</li>
+        <li>Because of his <span class="blank">_____</span> temper, he often shouted before listening to others.</li>
+        <li>Her <span class="blank">_____</span> headaches made it difficult for her to focus in class.</li>
+        <li>The historian decided to <span class="blank">_____</span> the rise and fall of the empire.</li>
+        <li>Instead of taking the direct road, we followed a <span class="blank">_____</span> mountain path.</li>
+        <li>The student used <span class="blank">_____</span> because he did not want to admit that he had forgotten the answer.</li>
+        <li>The new rules were designed to <span class="blank">_____</span> the power of the committee.</li>
+        <li>A <span class="blank">_____</span> investor studies risk carefully before buying a stock.</li>
+        <li>Some students tried to <span class="blank">_____</span> the school's phone policy by hiding devices in their bags.</li>
+        <li>Even during the argument, she remained calm and <span class="blank">_____</span>.</li>
+        <li>The judge showed <span class="blank">_____</span> and reduced the prisoner's sentence.</li>
+        <li>"Time will tell" is a common <span class="blank">_____</span> that writers should avoid overusing.</li>
+        <li>The new student felt lonely because a powerful <span class="blank">_____</span> controlled the lunch table.</li>
+      </ol>
+
+      <details>
+        <summary>Show Gap Filling Answer Key</summary>
+        <p>
+          1. charlatan, 2. chasm, 3. chastise, 4. chicanery, 5. chimera,
+          6. choleric, 7. chronic, 8. chronicle, 9. circuitous,
+          10. circumlocution, 11. circumscribe, 12. circumspect,
+          13. circumvent, 14. civil, 15. clemency, 16. cliché, 17. clique
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 3: Paragraph Using All Words</h2>
+      <p>Read the paragraph and notice how each vocabulary word is used in context.</p>
+
+      <div class="paragraph-box">
+        <p>
+          In the ancient city, a smooth-talking <strong>charlatan</strong> promised to heal every illness,
+          but his false claims created a moral <strong>chasm</strong> between honest citizens and those
+          fooled by his lies. When the council tried to <strong>chastise</strong> him, he relied on
+          <strong>chicanery</strong>, pretending that his impossible cure was not a fraud but a glorious
+          <strong>chimera</strong> of hope. His <strong>choleric</strong> followers shouted at anyone who
+          questioned him, while the city suffered from a <strong>chronic</strong> lack of trust. A young
+          scholar decided to <strong>chronicle</strong> the scandal, tracing the <strong>circuitous</strong>
+          path of deception through speeches filled with <strong>circumlocution</strong>. The mayor then
+          passed laws to <strong>circumscribe</strong> the charlatan's influence, but remained
+          <strong>circumspect</strong> because the fraudster might try to <strong>circumvent</strong> the
+          rules. In a final <strong>civil</strong> hearing, the judge showed limited <strong>clemency</strong>,
+          warning that the familiar <strong>cliché</strong> "everyone deserves a second chance" should not
+          protect a selfish <strong>clique</strong> that had harmed the whole city.
+        </p>
       </div>
     </section>
 
-    <section id="paragraph">
-      <h2>Learn by Using:</h2>
-      <div class="paragraph">
-        In the ancient city, a smooth-talking <strong>charlatan</strong> promised to heal every illness, but his false claims created a moral <strong>chasm</strong> between honest citizens and those fooled by his lies. When the council tried to <strong>chastise</strong> him, he relied on <strong>chicanery</strong>, pretending that his impossible cure was not a fraud but a glorious <strong>chimera</strong> of hope. His <strong>choleric</strong> followers shouted at anyone who questioned him, while the city suffered from a <strong>chronic</strong> lack of trust. A young scholar decided to <strong>chronicle</strong> the scandal, tracing the <strong>circuitous</strong> path of deception through speeches filled with <strong>circumlocution</strong>. The mayor then passed laws to <strong>circumscribe</strong> the charlatan’s influence, but remained <strong>circumspect</strong> because the fraudster might try to <strong>circumvent</strong> the rules. In a final <strong>civil</strong> hearing, the judge showed limited <strong>clemency</strong>, warning that the familiar <strong>cliché</strong> “everyone deserves a second chance” should not protect a selfish <strong>clique</strong> that had harmed the whole city.
-      </div>
-    </section>
-
-    <section id="answers">
-      <h2>Answer Key</h2>
-      <button onclick="toggleAnswers()">Show / Hide Answers</button>
-
-      <div class="answer-key" id="answerKey">
-        <h3>Matching Answers</h3>
-        <p>1–Q, 2–P, 3–O, 4–N, 5–M, 6–L, 7–K, 8–J, 9–I, 10–H, 11–G, 12–F, 13–E, 14–D, 15–C, 16–B, 17–A</p>
-
-        <h3>Gap-Filling Answers</h3>
-        <ol>
-          <li>charlatan</li>
-          <li>chasm</li>
-          <li>chastise</li>
-          <li>chicanery</li>
-          <li>chimera</li>
-          <li>choleric</li>
-          <li>chronic</li>
-          <li>chronicle</li>
-          <li>circuitous</li>
-          <li>circumlocution</li>
-          <li>circumscribe</li>
-          <li>circumspect</li>
-          <li>circumvent</li>
-          <li>civil</li>
-          <li>clemency</li>
-          <li>cliché</li>
-          <li>clique</li>
-        </ol>
-      </div>
+    <section class="card next-link">
+      <a class="button" href="list17_18.html">Back to Vocabulary List 17-18</a>
     </section>
   </main>
 
   <footer>
-    Vocabulary Practice Page | Built for advanced reading, SSAT, and SAT preparation
+    © HuskyDaddy | SSAT Vocabulary Practice
   </footer>
-
-  <script>
-    function toggleAnswers() {
-      const answerKey = document.getElementById('answerKey');
-      if (answerKey.style.display === 'block') {
-        answerKey.style.display = 'none';
-      } else {
-        answerKey.style.display = 'block';
-      }
-    }
-  </script>
 </body>
 </html>
