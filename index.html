@@ -3,196 +3,636 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HuskyDaddy | SAT, SSAT, Reading & Writing Coaching</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+  <title>HuskyDaddy | SAT, SSAT, Reading & Writing Coaching</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: Georgia, "Times New Roman", serif;
-      color: #102a43;
       background: #f8f3e8;
-      line-height: 1.6;
+      color: #102a43;
+      line-height: 1.65;
     }
 
-    a { text-decoration: none; }
+    a {
+      text-decoration: none;
+    }
 
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
-      z-index: 1000;
-      padding: 18px 7%;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: white;
+      padding: 15px 7%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(7, 31, 54, 0.84);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
     }
 
     .logo {
-      color: white;
-      font-size: 24px;
+      font-size: 30px;
       font-weight: bold;
-      letter-spacing: 0.4px;
-    }
-
-    .logo span {
-      color: #d4af37;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .nav-links {
       list-style: none;
       display: flex;
-      gap: 28px;
       align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
     }
 
     .nav-links a {
-      color: #f8fafc;
-      font-size: 15px;
+      color: #f7fbff;
+      font-size: 16px;
       font-weight: 600;
-      letter-spacing: 0.3px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
       transition: 0.25s ease;
     }
 
     .nav-links a:hover {
-      color: #d4af37;
+      color: #d9b25f;
+      border-bottom: 2px solid #d9b25f;
     }
 
     .hero {
-      min-height: 100vh;
+      min-height: 620px;
       background:
-        linear-gradient(90deg, rgba(7,31,54,0.38) 0%, rgba(7,31,54,0.20) 42%, rgba(7,31,54,0.05) 100%),
-        url("../SSAT-SAT-IELTS-coach-Steve-Liu/images/winding-trail.jpeg");
+        linear-gradient(90deg, rgba(248,243,232,0.96) 0%, rgba(248,243,232,0.82) 42%, rgba(248,243,232,0.10) 68%),
+        url("images/winding-trail.jpeg");
       background-size: cover;
-      background-position: center;
+      background-position: center right;
       display: flex;
       align-items: center;
-      padding: 120px 7% 80px;
+      padding: 90px 7%;
+      position: relative;
     }
 
     .hero-content {
-      max-width: 690px;
-      color: white;
+      max-width: 640px;
+      position: relative;
+      z-index: 2;
     }
 
-    .eyebrow {
-      color: #d4af37;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: 58px;
-      line-height: 1.12;
-      margin-bottom: 24px;
-      text-shadow: 0 3px 18px rgba(0,0,0,0.28);
+    .hero h1 {
+      font-size: 52px;
+      line-height: 1.16;
+      margin-bottom: 26px;
+      color: #08233d;
     }
 
     .hero p {
+      font-size: 21px;
+      color: #1f2933;
+      max-width: 560px;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 22px 0;
+      color: #b99041;
       font-size: 22px;
-      max-width: 600px;
-      margin-bottom: 34px;
-      color: #eef5fb;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      width: 70px;
+      height: 1px;
+      background: #b99041;
     }
 
     .hero-button {
-      display: inline-block;
-      background: #d4af37;
-      color: #102a43;
-      padding: 14px 28px;
-      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+      padding: 15px 30px;
+      background: #082b49;
+      color: white;
+      border-radius: 34px;
       font-weight: bold;
-      box-shadow: 0 12px 26px rgba(0,0,0,0.22);
+      box-shadow: 0 10px 22px rgba(8, 43, 73, 0.25);
       transition: 0.25s ease;
     }
 
     .hero-button:hover {
-      background: #c19a2e;
       transform: translateY(-2px);
+      background: #0b3d66;
     }
 
-    .simple-info {
-      padding: 46px 7%;
+    .values {
+      background: #fffaf0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid rgba(16,42,67,0.12);
+      border-bottom: 1px solid rgba(16,42,67,0.12);
+      padding: 0 7%;
+    }
+
+    .value-card {
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 16px;
+      border-right: 1px solid rgba(16,42,67,0.16);
+    }
+
+    .value-card:last-child {
+      border-right: none;
+    }
+
+    .paw {
+      font-size: 30px;
+      color: #87a9bd;
+      line-height: 1;
+    }
+
+    .value-card h3 {
+      font-size: 21px;
+      margin-bottom: 8px;
+      color: #102a43;
+    }
+
+    .value-card p {
+      font-size: 15.5px;
+      color: #2f3f4f;
+    }
+
+    .mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       background: #f8f3e8;
-      text-align: center;
     }
 
-    .simple-info p {
-      max-width: 860px;
-      margin: auto;
-      font-size: 20px;
-      color: #243b53;
+    .quote-panel,
+    .image-panel {
+      min-height: 330px;
     }
 
-    footer {
-      padding: 24px 7%;
-      background: #071f36;
-      color: #e5e7eb;
+    .quote-panel {
+      padding: 72px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      background: #fbf7ee;
+      position: relative;
+    }
+
+    .quote-panel::before,
+    .quote-panel::after {
+      content: "“";
+      position: absolute;
+      font-size: 95px;
+      color: rgba(16,42,67,0.08);
+    }
+
+    .quote-panel::before {
+      left: 45px;
+      top: 24px;
+    }
+
+    .quote-panel::after {
+      content: "”";
+      right: 45px;
+      bottom: 8px;
+    }
+
+    .quote-panel h2 {
+      font-size: 30px;
+      max-width: 640px;
+      color: #102a43;
+      line-height: 1.35;
+      margin-bottom: 20px;
+    }
+
+    .quote-panel p {
+      font-size: 19px;
+      max-width: 620px;
+      color: #27394a;
+    }
+
+    .image-panel {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .img-team {
+      background-image: url("images/unwaveringhuskies.jpeg");
+    }
+
+    .img-face {
+      background-image: url("images/husky-closeup.jpeg");
+    }
+
+    .img-rest {
+      background-image: url("images/huskystudy.jpeg");
+    }
+
+    .about {
+      padding: 70px 7%;
+      background: #f8f3e8;
+    }
+
+    .about-wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 220px 1fr 300px;
+      gap: 46px;
+      align-items: center;
+    }
+
+    .about-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 12px 30px rgba(16,42,67,0.18);
+      background: #dcecf4;
+    }
+
+    .about-text h2 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      color: #102a43;
+    }
+
+    .about-text p {
+      margin-bottom: 14px;
+      font-size: 17px;
+      color: #2d3d4d;
+    }
+
+    .credentials {
+      border-left: 1px solid rgba(16,42,67,0.18);
+      padding-left: 36px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .credential {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .icon-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #d9e9f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 23px;
+    }
+
+    .credential strong {
+      display: block;
+      color: #102a43;
+      font-size: 16px;
+    }
+
+    .credential span {
+      color: #3e4c59;
       font-size: 15px;
     }
 
-    @media (max-width: 850px) {
+    footer {
+      padding: 28px 7%;
+      color: white;
+      text-align: center;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      font-size: 18px;
+      letter-spacing: 0.2px;
+    }
+
+    footer span {
+      color: #d9b25f;
+      margin-left: 12px;
+    }
+
+    @media (max-width: 950px) {
       .navbar {
         flex-direction: column;
         gap: 14px;
-        padding: 16px 6%;
       }
 
       .nav-links {
-        flex-wrap: wrap;
         justify-content: center;
-        gap: 16px;
+        gap: 18px;
       }
 
-      h1 { font-size: 42px; }
-      .hero p { font-size: 19px; }
-      .hero { padding: 150px 6% 70px; }
+      .hero {
+        background:
+          linear-gradient(rgba(248,243,232,0.90), rgba(248,243,232,0.85)),
+          url("images/winding-trail.jpeg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .values {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .value-card {
+        border-bottom: 1px solid rgba(16,42,67,0.12);
+      }
+
+      .mosaic {
+        grid-template-columns: 1fr;
+      }
+
+      .about-wrap {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-img {
+        margin: 0 auto;
+      }
+
+      .credentials {
+        border-left: none;
+        padding-left: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        text-align: left;
+      }
     }
 
-    @media (max-width: 560px) {
-      h1 { font-size: 34px; }
-      .logo { font-size: 21px; }
-      .nav-links a { font-size: 14px; }
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .hero {
+        padding: 70px 6%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .values {
+        grid-template-columns: 1fr;
+      }
+
+      .value-card {
+        border-right: none;
+      }
+
+      .quote-panel {
+        padding: 60px 6%;
+      }
+
+      .quote-panel h2 {
+        font-size: 25px;
+      }
+      
     }
+    .visitor-card {
+  margin-top: 28px;
+  background: white;
+  border-left: 5px solid #d4af37;
+  padding: 18px 22px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 420px;
+}
+
+.visitor-icon {
+  font-size: 34px;
+}
+
+.visitor-small {
+  color: #3e4c59;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.visitor-main {
+  color: #102a43;
+  font-size: 20px;
+  font-weight: bold;
+}
   </style>
 </head>
+
 <body>
 
   <nav class="navbar">
-    <div class="logo">Husky<span>Daddy</span></div>
+    <div class="logo">🐾 HuskyDaddy</div>
+
     <ul class="nav-links">
-      <li><a href="../index.html">Home</a></li>
-      <li><a href="../pages/services.html">Test Prep</a></li>
-      <li><a href="../pages/readingtips.html">Reading</a></li>
-      <li><a href="../pages/reading_summary.html">Homework</a></li>
-      <li><a href="../pages/clients.html">Clients</a></li>
-      <li><a href="../pages/contact.html">Contact</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="pages/services.html">Test Prep</a></li>
+      <li><a href="pages/readingtips.html">Reading</a></li>
+      <li><a href="pages/reading_summary.html">Miscellaneous</a></li>
+      <li><a href="pages/clients.html">Clients</a></li>
+      <li><a href="pages/contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <section class="hero">
+  <section id="home" class="hero">
     <div class="hero-content">
-     
-      
+      <h1>The trail is not straight. But every step takes you higher.</h1>
+
+      <div class="divider">🐾</div>
+
+      <p>
+        Like a husky pulling a sled through snow, real study requires tenacity,
+        relentlessness, patience, and dedication.
+      </p>
+
+      <p>
+        Strong students are not built in one easy stretch. They grow through
+        steady effort, careful review, and the courage to keep going.
+      </p>
+
+      <a class="hero-button" href="pages/contact.html">
+        Begin the Journey <span>🐾</span>
+      </a>
+    </div>
+  </section>
+  
+  <section class="values">
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Tenacity</h3>
+        <p>Stay with difficult passages and challenging problems.</p>
+      </div>
+    </div>
+
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Relentlessness</h3>
+        <p>Return to the work. Review, reflect, and improve.</p>
+      </div>
+    </div>
+
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Patience</h3>
+        <p>Great skills are built slowly through steady effort.</p>
+      </div>
+    </div>
+
+    <div class="value-card">
+      <div class="paw">🐾</div>
+      <div>
+        <h3>Resilience</h3>
+        <p>Like huskies, we keep going — even in tough weather.</p>
+      </div>
     </div>
   </section>
 
-  <section class="simple-info">
-    <p>One clear path: understand the question, build the skill, review the mistake, and move forward with confidence.</p>
+  <section class="mosaic">
+    <div class="quote-panel">
+      <h2>Huskies are born for the journey, not the destination.</h2>
+      <div class="divider">🐾</div>
+      <p>
+        They understand that progress comes from consistent,
+        purposeful movement.
+      </p>
+    </div>
+
+    <div class="image-panel img-team"></div>
+
+    <div class="image-panel img-face"></div>
+
+    <div class="quote-panel">
+      <h2>Huskies work as a team. They trust, support, and pull together.</h2>
+      <div class="divider">🐾</div>
+      <p>
+        Good learning is also a partnership built on trust,
+        communication, and mutual respect.
+      </p>
+    </div>
+
+    <div class="quote-panel">
+      <h2>Huskies are strong, but gentle. They have courage without aggression.</h2>
+      <div class="divider">🐾</div>
+      <p>
+        We cultivate confidence, not pressure. Clarity, not cramming.
+      </p>
+    </div>
+
+    <div class="image-panel img-rest"></div>
+  </section>
+
+  <section class="about">
+    <div class="about-wrap">
+      <img class="about-img" src="images/hatsteveandvv.jpeg" alt="HuskyDaddy tutoring theme image">
+
+      <div class="about-text">
+        <h2>About Steve</h2>
+
+        <p>
+          With over 20 years of experience in test preparation and reading instruction,
+          I help students build stronger thinking, clearer writing, and better results.
+        </p>
+
+        <p>
+          My approach is calm, structured, and personalized.
+        </p>
+
+        <p>
+          I coach SAT, SSAT, ACT, IELTS, reading, and writing with one goal in mind:
+          to help students become confident, independent learners.
+        </p>
+      </div>
+
+      <div class="credentials">
+        <div class="credential">
+          <div class="icon-circle">🎓</div>
+          <div>
+            <strong>Master’s in Education</strong>
+            <span>University of Saskatchewan</span>
+          </div>
+        </div>
+
+        <div class="credential">
+          <div class="icon-circle">🐾</div>
+          <div>
+            <strong>20+ Years</strong>
+            <span>Teaching experience</span>
+          </div>
+        </div>
+
+        <div class="credential">
+          <div class="icon-circle">🏆</div>
+          <div>
+            <strong>5000+ Students</strong>
+            <span>Guided and mentored</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer>
-    © 2025 Steve Liu · SAT / SSAT / ACT / IELTS · Reading & Writing Coaching
+    Stay the course. Keep pulling. The view gets better the farther you go.
+    <span>🐾</span>
   </footer>
-
+  <div class="visitor-card">
+    <div class="visitor-icon">🐾</div>
+    <div>
+      <p class="visitor-small">Welcome to HuskyDaddy</p>
+      <p id="visitor-counter" class="visitor-main">Counting visitors...</p>
+    </div>
+  </div>
+  <script>
+    fetch("https://api.counterapi.dev/v1/huskydaddy/homepage/up")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        document.getElementById("visitor-counter").textContent =
+          "You are visitor number " + data.count + ".";
+      })
+      .catch(function(error) {
+        document.getElementById("visitor-counter").textContent =
+          "Thanks for visiting HuskyDaddy.";
+      });
+  </script>
 </body>
 </html>
