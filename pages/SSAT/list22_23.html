@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Vocabulary Practice | CO & COM Words | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .card h2 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 10px;
+    }
+
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .word-item {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #102a43;
+      font-weight: bold;
+    }
+
+    .word-item em {
+      color: #6b7280;
+      display: block;
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .definition {
+      color: #3e4c59;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin-top: 5px;
+    }
+
+    .exercise-list {
+      margin-left: 22px;
+      margin-top: 15px;
+    }
+
+    .exercise-list li {
+      margin-bottom: 12px;
+    }
+
+    .blank {
+      font-weight: bold;
+      color: #102a43;
+      border-bottom: 2px solid #d4af37;
+      padding: 0 6px;
+    }
+
+    .word-bank {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+      color: #3e4c59;
+    }
+
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 18px;
+    }
+
+    .paragraph-box {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 22px;
+      border-radius: 8px;
+      margin-top: 18px;
+    }
+
+    details {
+      margin-top: 18px;
+      background: #f7f3eb;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5dccb;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #102a43;
+    }
+
+    .next-link {
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Vocabulary Practice: CO & COM Words</h1>
+    <p>Matching, gap filling, and paragraph practice for advanced vocabulary.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Vocabulary List</h2>
+      <div class="word-grid">
+        <div class="word-item">1. Coalesce<em>verb</em><span class="definition">To come together and form one whole.</span></div>
+        <div class="word-item">2. Coalition<em>noun</em><span class="definition">A temporary alliance or partnership for a shared purpose.</span></div>
+        <div class="word-item">3. Coerce<em>verb</em><span class="definition">To force someone to do something by pressure or threats.</span></div>
+        <div class="word-item">4. Cogent<em>adjective</em><span class="definition">Clear, logical, and convincing.</span></div>
+        <div class="word-item">5. Cognitive<em>adjective</em><span class="definition">Related to thinking, learning, memory, or understanding.</span></div>
+        <div class="word-item">6. Cognizant<em>adjective</em><span class="definition">Aware of something; having knowledge of it.</span></div>
+        <div class="word-item">7. Coherent<em>adjective</em><span class="definition">Logical, consistent, and easy to understand.</span></div>
+        <div class="word-item">8. Colloquial<em>adjective</em><span class="definition">Informal and conversational in language.</span></div>
+        <div class="word-item">9. Collusion<em>noun</em><span class="definition">Secret cooperation for a dishonest or illegal purpose.</span></div>
+        <div class="word-item">10. Commensurate<em>adjective</em><span class="definition">Equal or corresponding in size, degree, or importance.</span></div>
+        <div class="word-item">11. Compelling<em>adjective</em><span class="definition">Powerfully convincing or strongly attracting attention.</span></div>
+        <div class="word-item">12. Compendium<em>noun</em><span class="definition">A concise collection of information on a subject.</span></div>
+        <div class="word-item">13. Complacent<em>adjective</em><span class="definition">Too self-satisfied to notice danger, weakness, or the need to improve.</span></div>
+        <div class="word-item">14. Complement<em>noun / verb</em><span class="definition">Something that completes or improves another thing; to complete or improve.</span></div>
+        <div class="word-item">15. Complicity<em>noun</em><span class="definition">Involvement with others in wrongdoing.</span></div>
+        <div class="word-item">16. Comprehensive<em>adjective</em><span class="definition">Complete and thorough; covering all or nearly all parts.</span></div>
+        <div class="word-item">17. Comprise<em>verb</em><span class="definition">To consist of or include.</span></div>
+        <div class="word-item">18. Compose<em>verb</em><span class="definition">To create, write, or make up; to calm oneself.</span></div>
+        <div class="word-item">19. Constitute<em>verb</em><span class="definition">To form, make up, or amount to something.</span></div>
+        <div class="word-item">20. Conciliatory<em>adjective</em><span class="definition">Intended to reduce anger and make peace.</span></div>
+        <div class="word-item">21. Concise<em>adjective</em><span class="definition">Brief, clear, and expressed without unnecessary words.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 1: Matching</h2>
+      <p>Match each word with the correct definition.</p>
+
+      <div class="matching-grid">
+        <div>
+          <h3>Words</h3>
+          <ol class="exercise-list">
+            <li>Coalesce _____</li>
+            <li>Coalition _____</li>
+            <li>Coerce _____</li>
+            <li>Cogent _____</li>
+            <li>Cognitive _____</li>
+            <li>Cognizant _____</li>
+            <li>Coherent _____</li>
+            <li>Colloquial _____</li>
+            <li>Collusion _____</li>
+            <li>Commensurate _____</li>
+            <li>Compelling _____</li>
+            <li>Compendium _____</li>
+            <li>Complacent _____</li>
+            <li>Complement _____</li>
+            <li>Complicity _____</li>
+            <li>Comprehensive _____</li>
+            <li>Comprise _____</li>
+            <li>Compose _____</li>
+            <li>Constitute _____</li>
+            <li>Conciliatory _____</li>
+            <li>Concise _____</li>
+          </ol>
+        </div>
+
+        <div class="word-bank">
+          A. brief and clear, with no unnecessary words<br>
+          B. a temporary alliance for a shared purpose<br>
+          C. to create, write, or make up<br>
+          D. clear, logical, and convincing<br>
+          E. intended to make peace or reduce anger<br>
+          F. aware of something<br>
+          G. logical, consistent, and understandable<br>
+          H. informal and conversational<br>
+          I. secret dishonest cooperation<br>
+          J. equal or corresponding in degree or size<br>
+          K. powerfully convincing or attention-grabbing<br>
+          L. a concise collection of information<br>
+          M. to come together into one whole<br>
+          N. too self-satisfied to notice danger or weakness<br>
+          O. something that completes or improves another thing<br>
+          P. involvement in wrongdoing<br>
+          Q. related to thinking, learning, or understanding<br>
+          R. complete and thorough<br>
+          S. to consist of or include<br>
+          T. to force someone through pressure or threats<br>
+          U. to form, make up, or amount to something
+        </div>
+      </div>
+
+      <details>
+        <summary>Show Matching Answer Key</summary>
+        <p>1-M, 2-B, 3-T, 4-D, 5-Q, 6-F, 7-G, 8-H, 9-I, 10-J, 11-K, 12-L, 13-N, 14-O, 15-P, 16-R, 17-S, 18-C, 19-U, 20-E, 21-A</p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 2: Gap Filling</h2>
+      <p>Choose the best word from the word bank to complete each sentence.</p>
+
+      <div class="word-bank">
+        coalesce, coalition, coerce, cogent, cognitive, cognizant, coherent,
+        colloquial, collusion, commensurate, compelling, compendium,
+        complacent, complement, complicity, comprehensive, comprise,
+        compose, constitute, conciliatory, concise
+      </div>
+
+      <ol class="exercise-list">
+        <li>The small clubs began to <span class="blank">_____</span> into one powerful student organization.</li>
+        <li>Several parties formed a <span class="blank">_____</span> to support the new environmental law.</li>
+        <li>The bully tried to <span class="blank">_____</span> younger students into giving him their lunch money.</li>
+        <li>Her essay made a <span class="blank">_____</span> argument supported by clear evidence.</li>
+        <li>Sleep affects many <span class="blank">_____</span> skills, including memory and attention.</li>
+        <li>The coach was <span class="blank">_____</span> of the team's weaknesses before the final match.</li>
+        <li>After revision, the paragraph became more <span class="blank">_____</span> and easier to follow.</li>
+        <li>The dialogue sounded natural because the writer used <span class="blank">_____</span> expressions.</li>
+        <li>The two companies were accused of <span class="blank">_____</span> to keep prices unfairly high.</li>
+        <li>The reward should be <span class="blank">_____</span> with the difficulty of the task.</li>
+        <li>The witness gave a <span class="blank">_____</span> account that changed the jury's opinion.</li>
+        <li>The textbook includes a useful <span class="blank">_____</span> of major grammar rules.</li>
+        <li>The team became <span class="blank">_____</span> after winning three games and stopped practicing seriously.</li>
+        <li>The quiet music will <span class="blank">_____</span> the calm mood of the scene.</li>
+        <li>The assistant denied any <span class="blank">_____</span> in the cheating scandal.</li>
+        <li>The teacher gave a <span class="blank">_____</span> review before the exam, covering every major topic.</li>
+        <li>The committee will <span class="blank">_____</span> five teachers, two parents, and three students.</li>
+        <li>Before replying, she took a deep breath to <span class="blank">_____</span> herself.</li>
+        <li>These actions may <span class="blank">_____</span> a serious violation of school rules.</li>
+        <li>His <span class="blank">_____</span> tone helped end the argument peacefully.</li>
+        <li>A strong summary should be accurate, <span class="blank">_____</span>, and focused.</li>
+      </ol>
+
+      <details>
+        <summary>Show Gap Filling Answer Key</summary>
+        <p>
+          1. coalesce, 2. coalition, 3. coerce, 4. cogent, 5. cognitive,
+          6. cognizant, 7. coherent, 8. colloquial, 9. collusion,
+          10. commensurate, 11. compelling, 12. compendium,
+          13. complacent, 14. complement, 15. complicity,
+          16. comprehensive, 17. comprise, 18. compose, 19. constitute,
+          20. conciliatory, 21. concise
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 3: Paragraph Using All Words</h2>
+      <p>Read the paragraph and notice how each vocabulary word is used in context.</p>
+
+      <div class="paragraph-box">
+        <p>
+          At first, the debate club was divided, but several members began to <strong>coalesce</strong>
+          into a strong <strong>coalition</strong> against unfair rules. When one leader tried to
+          <strong>coerce</strong> others into silence, Maya answered with a <strong>cogent</strong>
+          speech about student rights. Her argument showed sharp <strong>cognitive</strong> skill, and
+          she was fully <strong>cognizant</strong> of the risks. Because her points were <strong>coherent</strong>
+          rather than emotional, even students who usually preferred <strong>colloquial</strong> debate
+          language listened carefully. Soon, evidence of <strong>collusion</strong> among a few officers
+          became clear, and the punishment seemed <strong>commensurate</strong> with the harm they had caused.
+          Maya's <strong>compelling</strong> presentation included a <strong>compendium</strong> of emails,
+          rules, and witness statements. The club had grown too <strong>complacent</strong>, so her reforms
+          would <strong>complement</strong> the old traditions without ignoring anyone's <strong>complicity</strong>.
+          After a <strong>comprehensive</strong> review, the new council would <strong>comprise</strong>
+          elected students who could <strong>compose</strong> fair proposals and <strong>constitute</strong>
+          a more responsible leadership team. In a final <strong>conciliatory</strong> note, Maya wrote a
+          <strong>concise</strong> message asking everyone to rebuild trust.
+        </p>
+      </div>
+    </section>
+
+    <section class="card next-link">
+      <a class="button" href="list18_192021.html">Back to Vocabulary List 19-21</a>
+    </section>
+  </main>
+
+  <footer>
+    © HuskyDaddy | SSAT Vocabulary Practice
+  </footer>
+</body>
+</html>
