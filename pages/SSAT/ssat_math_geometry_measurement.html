@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Math | Geometry & Measurement | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Georgia, "Times New Roman", serif; background: #f7f3eb; color: #1f2933; line-height: 1.6; }
+    .navbar { background: #102a43; color: white; padding: 18px 8%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { color: white; text-decoration: none; font-size: 15px; }
+    .nav-links a:hover { color: #d4af37; }
+    .page-header { background: #102a43; color: white; padding: 70px 8%; text-align: center; }
+    .page-header h1 { font-size: 42px; margin-bottom: 15px; }
+    .page-header p { font-size: 19px; color: #e5e7eb; }
+    .container { max-width: 1100px; margin: auto; padding: 60px 8%; }
+    .card { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 28px; }
+    .card h2, .card h3 { color: #102a43; margin-bottom: 15px; }
+    .card p, .card li { color: #3e4c59; font-size: 17px; }
+    .lesson-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 18px; }
+    .lesson-item { background: #f7f3eb; border-left: 4px solid #d4af37; padding: 14px; border-radius: 6px; color: #243b53; }
+    .exercise-list { margin-left: 22px; margin-top: 15px; }
+    .exercise-list li { margin-bottom: 14px; }
+    .strategy-box, .answer-box { background: #fffdf8; border-left: 5px solid #d4af37; padding: 18px; border-radius: 8px; margin: 18px 0; color: #3e4c59; }
+    details { margin-top: 18px; background: #f7f3eb; padding: 18px; border-radius: 8px; border: 1px solid #e5dccb; }
+    summary { cursor: pointer; font-weight: bold; color: #102a43; }
+    .next-link { text-align: center; }
+    .button { display: inline-block; background: #d4af37; color: #102a43; padding: 13px 24px; border-radius: 4px; text-decoration: none; font-weight: bold; margin: 6px; }
+    .button:hover { background: #c19a2e; }
+    footer { background: #102a43; color: #e5e7eb; text-align: center; padding: 24px; font-size: 14px; }
+    @media (max-width: 800px) { .navbar { flex-direction: column; gap: 18px; } .nav-links { justify-content: center; } .page-header h1 { font-size: 34px; } .card { padding: 26px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../ssat.html">SSAT</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Math: Geometry & Measurement</h1>
+    <p>Angles, triangles, circles, area, perimeter, volume, and coordinate geometry.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Core Knowledge</h2>
+      <div class="lesson-grid">
+        <div class="lesson-item"><strong>Triangle angles:</strong> the three interior angles add to 180°.</div>
+        <div class="lesson-item"><strong>Area formulas:</strong> rectangle = lw, triangle = 1/2 bh, circle = πr².</div>
+        <div class="lesson-item"><strong>Perimeter:</strong> add all outside lengths.</div>
+        <div class="lesson-item"><strong>Volume:</strong> rectangular prism = length × width × height.</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>SSAT Strategy</h2>
+      <div class="strategy-box">
+        Redraw messy figures. Mark equal sides, right angles, parallel lines, and missing angle relationships before calculating.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Practice Questions</h2>
+      <ol class="exercise-list">
+        <li>A triangle has angles of 45° and 65°. What is the third angle?</li>
+        <li>A rectangle is 9 cm long and 4 cm wide. What is its area?</li>
+        <li>A circle has radius 5. What is its circumference in terms of π?</li>
+        <li>A rectangular prism measures 3 by 4 by 8. What is its volume?</li>
+        <li>A square has perimeter 52. What is the length of one side?</li>
+        <li>What is the distance between points (1, 2) and (1, 9)?</li>
+      </ol>
+
+      <details>
+        <summary>Show Answer Key</summary>
+        <div class="answer-box">
+          <p>1. 70°. 180 - 45 - 65 = 70.</p>
+          <p>2. 36 cm². Area = 9 × 4.</p>
+          <p>3. 10π. Circumference = 2πr = 2π(5).</p>
+          <p>4. 96 cubic units. Volume = 3 × 4 × 8.</p>
+          <p>5. 13. A square has four equal sides, so 52 ÷ 4 = 13.</p>
+          <p>6. 7. The x-values are the same, so the vertical distance is 9 - 2.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="card next-link">
+      <a class="button" href="ssat_math_algebra_equations.html">Back: Algebra</a>
+      <a class="button" href="ssat_math_data_probability.html">Next: Data & Probability</a>
+    </section>
+  </main>
+
+  <footer>© HuskyDaddy | SSAT Math Practice</footer>
+</body>
+</html>
