@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -180,6 +179,44 @@
       font-weight: bold;
     }
 
+    .bottom-cta {
+      background: #102a43;
+      color: white;
+      padding: 42px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .bottom-cta h2 {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .bottom-cta p {
+      color: #e5e7eb;
+      font-size: 18px;
+      margin: 0 auto 24px;
+      max-width: 640px;
+    }
+
+    .exercise-button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 14px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.25s ease;
+    }
+
+    .exercise-button:hover {
+      background: #c19a2e;
+      transform: translateY(-2px);
+    }
+
     footer {
       background: #102a43;
       color: #e5e7eb;
@@ -201,6 +238,10 @@
 
       .page-header h1 {
         font-size: 34px;
+      }
+
+      .bottom-cta {
+        padding: 30px 24px;
       }
     }
   </style>
@@ -229,7 +270,17 @@
     </p>
   </header>
 
-  <main class="container" id="quiz"></main>
+  <main class="container">
+    <div id="quiz"></div>
+
+    <section class="bottom-cta">
+      <h2>More Skimming & Scanning Practice</h2>
+      <p>
+        Continue with longer passages after finishing these quick main-idea and detail questions.
+      </p>
+      <a class="exercise-button" href="skim&scan2_exs.html">Longer Passages Practice</a>
+    </section>
+  </main>
 
   <footer>
     © HuskyDaddy | SSAT Reading Practice
@@ -677,15 +728,4 @@
   </script>
 
 </body>
-
-
 </html>
-
-<section class="card final-cta">
-    <section class="card final-cta">
-        <h2>🐾 More Exercises: 🐾</h2>
-        <p>
-          Let's further hone our reading skills! 
-        </p>
-        <a class="button" href="../SSAT/skim&scan2_exs.html">🐾 Longer Passages for Skimming and Scanning Exercises 🐾</a>
-    </section>
