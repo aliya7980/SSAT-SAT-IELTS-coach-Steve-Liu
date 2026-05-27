@@ -115,6 +115,54 @@ body {
   color: #d4af37;
 }
 
+.teaching-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.teaching-column {
+  background: #f7f3eb;
+  border-left: 4px solid #d4af37;
+  padding: 18px;
+  border-radius: 6px;
+}
+
+.teaching-column h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.teaching-column ul {
+  margin-left: 20px;
+}
+
+.teaching-column li {
+  margin-bottom: 8px;
+}
+
+.subtopic {
+  background: #f7f3eb;
+  border-left: 4px solid #d4af37;
+  padding: 18px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.subtopic h3 {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.subtopic ul {
+  margin-left: 20px;
+}
+
+.subtopic li {
+  margin-bottom: 8px;
+}
+
 .weight-table {
   width: 100%;
   border-collapse: collapse;

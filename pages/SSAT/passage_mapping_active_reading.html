@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SSAT Passage Mapping & Active Reading | HuskyDaddy</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #f8f3e8; color: #102a43; font-family: Georgia, "Times New Roman", serif; line-height: 1.65; }
+    a { text-decoration: none; }
+    .navbar { align-items: center; background: linear-gradient(90deg, #071f36, #0b3455); box-shadow: 0 4px 18px rgba(0,0,0,.15); color: #fff; display: flex; justify-content: space-between; padding: 15px 7%; position: sticky; top: 0; z-index: 1000; }
+    .logo { font-size: 30px; font-weight: bold; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 28px; list-style: none; }
+    .nav-links a { border-bottom: 2px solid transparent; color: #f7fbff; font-size: 16px; font-weight: 600; padding-bottom: 6px; }
+    .nav-links a:hover { border-bottom-color: #d9b25f; color: #d9b25f; }
+    .hero { align-items: center; background: linear-gradient(90deg, rgba(248,243,232,.98), rgba(248,243,232,.84), rgba(248,243,232,.22)), url("../../images/winding-trail.jpeg"); background-position: center right; background-size: cover; display: flex; min-height: 370px; padding: 70px 7%; }
+    .hero-content { max-width: 790px; }
+    .hero h1 { color: #08233d; font-size: 48px; line-height: 1.15; margin-bottom: 18px; }
+    .hero p { color: #1f2933; font-size: 20px; max-width: 720px; }
+    .quick-nav { background: #fffaf0; border-bottom: 1px solid rgba(16,42,67,.12); border-top: 1px solid rgba(16,42,67,.12); display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; padding: 18px 7%; }
+    .button, .quick-nav a { background: #082b49; border: 0; border-radius: 8px; color: #fff; cursor: pointer; display: inline-flex; font-family: Georgia, "Times New Roman", serif; font-size: 16px; font-weight: bold; justify-content: center; min-height: 46px; padding: 12px 20px; transition: .25s ease; }
+    .button:hover, .quick-nav a:hover { background: #0b3d66; transform: translateY(-2px); }
+    .button.gold { background: #d9b25f; color: #08233d; }
+    .button.gold:hover { background: #c89f48; color: #08233d; }
+    .layout { margin: 0 auto; max-width: 1180px; padding: 58px 7%; }
+    .section { margin-bottom: 34px; }
+    .section h2 { color: #102a43; font-size: 34px; margin-bottom: 18px; text-align: center; }
+    .panel { background: #fff; border: 1px solid rgba(16,42,67,.08); border-radius: 8px; box-shadow: 0 12px 30px rgba(16,42,67,.08); padding: 30px; }
+    .panel p { color: #3e4c59; font-size: 18px; margin-bottom: 14px; }
+    .strategy-grid { display: grid; gap: 18px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .strategy-card { background: #fffaf0; border-left: 5px solid #d9b25f; border-radius: 8px; padding: 22px; }
+    .strategy-card h3 { color: #082b49; font-size: 24px; margin-bottom: 10px; }
+    .strategy-card ul, .panel ol { color: #2d3d4d; font-size: 17px; padding-left: 22px; }
+    .strategy-card li, .panel li { margin-bottom: 10px; }
+    .map-table { border-collapse: collapse; margin-top: 18px; width: 100%; }
+    .map-table th, .map-table td { border: 1px solid #d8cdb8; padding: 12px; text-align: left; vertical-align: top; }
+    .map-table th { background: #082b49; color: #fff; }
+    .map-table td { background: #fffaf0; color: #2d3d4d; }
+    .source-list { display: grid; gap: 10px; margin-top: 16px; }
+    .source-list a { border-bottom: 2px solid #d9b25f; color: #082b49; font-weight: bold; }
+    .final-cta { background: #102a43; color: #fff; padding: 58px 7%; text-align: center; }
+    .final-cta h2 { font-size: 34px; margin-bottom: 16px; }
+    .final-cta p { color: #e5e7eb; font-size: 18px; margin: 0 auto 24px; max-width: 760px; }
+    footer { background: #081826; color: #e5e7eb; padding: 24px 7%; text-align: center; }
+    @media (max-width: 850px) { .navbar { flex-direction: column; gap: 14px; } .nav-links { gap: 18px; justify-content: center; } .hero h1 { font-size: 36px; } .strategy-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SSAT Passage Mapping & Active Reading</h1>
+      <p>Build a quick mental map of each passage, mark the author's moves, and answer with evidence instead of memory.</p>
+    </div>
+  </section>
+
+  <div class="quick-nav">
+    <a href="#method">The Method</a>
+    <a href="#map-template">Map Template</a>
+    <a href="#question-plan">Question Plan</a>
+    <a href="#practice">Practice</a>
+  </div>
+
+  <main class="layout">
+    <section id="method" class="section">
+      <h2>The Method</h2>
+      <div class="strategy-grid">
+        <article class="strategy-card">
+          <h3>1. Preview the Passage</h3>
+          <ul>
+            <li>Notice whether the passage is narrative, argument, informational, science, history, or paired text.</li>
+            <li>Predict the purpose: story conflict, explanation, comparison, or claim.</li>
+            <li>Read for structure first, not every tiny detail.</li>
+          </ul>
+        </article>
+        <article class="strategy-card">
+          <h3>2. Map Paragraph Jobs</h3>
+          <ul>
+            <li>Write a 2-5 word note for each paragraph: setting, problem, evidence, shift, example, result.</li>
+            <li>Circle transition words such as however, therefore, although, but, because, and finally.</li>
+            <li>For narrative, track who wants what and what blocks them.</li>
+          </ul>
+        </article>
+        <article class="strategy-card">
+          <h3>3. Read Actively</h3>
+          <ul>
+            <li>Ask: What changed? Why is this detail here? What does the author want me to notice?</li>
+            <li>Make a quick prediction before looking at answer choices.</li>
+            <li>Underline evidence, not entire sentences.</li>
+          </ul>
+        </article>
+        <article class="strategy-card">
+          <h3>4. Answer with Evidence</h3>
+          <ul>
+            <li>For detail questions, go back to the mapped paragraph instead of rereading randomly.</li>
+            <li>For inference questions, combine what the text says with what must logically follow.</li>
+            <li>Reject answers that are too extreme, outside the text, or true but irrelevant.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="map-template" class="section">
+      <h2>Passage Map Template</h2>
+      <div class="panel">
+        <p>Use this map in the margin. The goal is not decoration; it is fast location and clear thinking.</p>
+        <table class="map-table">
+          <thead>
+            <tr><th>Part of Passage</th><th>What to Mark</th><th>Margin Note Example</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Opening</td><td>Topic, speaker, setting, conflict, or claim</td><td>sets problem / introduces debate</td></tr>
+            <tr><td>Middle paragraphs</td><td>Evidence, examples, complications, comparison, shift</td><td>example of change / contrast</td></tr>
+            <tr><td>Final paragraph</td><td>Resolution, author's judgment, conclusion, effect</td><td>lesson / result / author's view</td></tr>
+            <tr><td>Whole passage</td><td>Main idea, tone, purpose</td><td>explains why X matters</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="question-plan" class="section">
+      <h2>Question Plan</h2>
+      <div class="panel">
+        <ol>
+          <li><strong>Main idea:</strong> answer only after you know the whole passage map.</li>
+          <li><strong>Detail:</strong> locate the mapped paragraph, then read two lines before and after the clue.</li>
+          <li><strong>Inference:</strong> choose the answer that must be true, not the answer that merely sounds interesting.</li>
+          <li><strong>Tone:</strong> look for loaded adjectives, repeated contrasts, and the author's final judgment.</li>
+          <li><strong>Vocabulary in context:</strong> replace the word with your own simple meaning before checking choices.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Research Notes</h2>
+      <div class="panel">
+        <p>This page adapts widely used test-reading principles for SSAT work: SSAT Reading asks students to interpret narrative and argument passages, passage mapping helps students locate structure and evidence, and active reading means questioning, predicting, and annotating while reading.</p>
+        <div class="source-list">
+          <a href="https://www.testprep-online.com/ssat-reading-comprehension" target="_blank" rel="noopener">SSAT Reading Comprehension overview</a>
+          <a href="https://prepmaven.com/blog/test-prep/ssat-reading-strategies/" target="_blank" rel="noopener">SSAT Reading strategies and active reading plan</a>
+          <a href="https://courses.lumenlearning.com/suny-esc-introtocollegereadingandwriting/chapter/active-vs-passive-reading/" target="_blank" rel="noopener">Active vs. passive reading</a>
+          <a href="https://admitstudio.com/undergraduate-articles/sat-reading-passage-mapping-technique/" target="_blank" rel="noopener">Passage mapping technique</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section id="practice" class="final-cta">
+    <h2>Apply the Strategy</h2>
+    <p>Use the Kaplan practice page to mark passages, circle evidence, cross out answer choices, and keep your map visible as you work.</p>
+    <a class="button gold" href="kaplan_practice_1.html">KAPLAN PRACTICE 1</a>
+  </section>
+
+  <footer>SSAT Passage Mapping & Active Reading</footer>
+</body>
+</html>
