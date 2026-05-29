@@ -164,19 +164,6 @@
       margin-bottom: 10px;
     }
 
-    .source-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .source-links a {
-      border-bottom: 2px solid #d9b25f;
-      color: #082b49;
-      font-weight: bold;
-    }
-
     .chapter-list {
       display: grid;
       gap: 16px;
@@ -303,11 +290,7 @@
     <section class="overview">
       <h2>Chapter Questions</h2>
       <p id="question-count"></p>
-      <p>Questions are based on chapter events and summary emphases found in SparkNotes and CliffsNotes, then rewritten for original classroom use.</p>
-      <div class="source-links">
-        <a href="https://www.sparknotes.com/lit/mocking/sparklets/" target="_blank" rel="noopener">SparkNotes chapter summaries</a>
-        <a href="https://www.cliffsnotes.com/literature/t/to-kill-a-mockingbird/summary-and-analysis/part-1-chapter-1" target="_blank" rel="noopener">CliffsNotes summary and analysis</a>
-      </div>
+      <p>Use these chapter-specific prompts for close reading, discussion, annotation, and written response.</p>
     </section>
 
     <section class="chapter-list" id="chapter-list"></section>
@@ -517,20 +500,383 @@
       return div.innerHTML;
     }
 
+    const questionData = {
+      1: [
+        "How does Scout's description of Maycomb make the town feel tired, slow, and socially fixed before the main conflict begins?",
+        "Why does the chapter spend time on Simon Finch, Atticus, Alexandra, Jack, Jem, Scout, Calpurnia, and Dill before telling much plot?",
+        "What does Dill's fascination with Boo Radley show about the children's boredom, curiosity, and need for adventure?",
+        "Which details in the Boo Radley rumors sound like childhood imagination, and which details suggest real adult cruelty?",
+        "How does the Radley house become a boundary between ordinary Maycomb life and the unknown?",
+        "What difference do you notice between Scout as a child in the story and Scout as the older narrator telling it?",
+        "How do family names and family histories already influence the way people in Maycomb are judged?",
+        "Why is Jem's dare to touch the Radley house important even though it seems like a small childhood game?",
+        "What early clues suggest that Boo Radley may be more complicated than the children believe?",
+        "How does Chapter 1 prepare readers for a novel about fear, rumor, social rank, and moral growth?"
+      ],
+      2: [
+        "Why is Scout excited about school, and why does that excitement disappear so quickly?",
+        "What does Miss Caroline misunderstand when she tells Scout to stop reading with Atticus?",
+        "How does the Walter Cunningham lunch-money scene reveal a gap between school rules and Maycomb knowledge?",
+        "Why does Scout think she is helping Miss Caroline, and why does Miss Caroline experience Scout as disrespectful?",
+        "What does this chapter suggest about the difference between formal education and real understanding?",
+        "How does Scout's punishment show the limits of an adult who does not know the town or its families yet?",
+        "What does the Cunningham family's refusal to take what they cannot repay reveal about pride and poverty?",
+        "How does Lee use Scout's classroom to introduce class differences without giving a direct lecture?",
+        "Where does Scout show intelligence in this chapter, and where does she still show childish impatience?",
+        "What first-day-of-school moment best shows that Maycomb's social rules are learned outside textbooks?"
+      ],
+      3: [
+        "Why does Scout attack Walter Cunningham, and what does her reaction show about her sense of justice at this age?",
+        "How does Jem's invitation to Walter complicate Scout's first impression of him?",
+        "Why is Calpurnia so angry when Scout criticizes Walter's table manners?",
+        "What does Atticus mean when he tells Scout to climb into another person's skin and walk around in it?",
+        "How is Burris Ewell's behavior at school different from Walter Cunningham's poverty?",
+        "Why does Maycomb make exceptions for the Ewells, and what does that reveal about the town's idea of law?",
+        "How does Scout's conversation with Atticus at the end of the chapter turn school trouble into a moral lesson?",
+        "What does the compromise about reading show about Atticus's parenting style?",
+        "How do Walter and Burris help readers distinguish between poverty, pride, neglect, and cruelty?",
+        "Which lesson in this chapter matters more for Scout's growth: Calpurnia's scolding or Atticus's advice? Explain."
+      ],
+      4: [
+        "Why does the gum in the Radley tree feel both exciting and frightening to Scout?",
+        "What does Jem's reaction to the gum show about how strongly the children believe the Boo stories?",
+        "Why are the Indian-head pennies important as more than just objects found in a tree?",
+        "How does Dill's return change the children's summer energy and their willingness to take risks?",
+        "What is significant about Scout landing near the Radley porch during the tire game?",
+        "How does the laughter Scout hears from inside the Radley house challenge the children's image of Boo?",
+        "Why is the Boo Radley game cruel even if the children think of it as play?",
+        "How does Atticus's interruption of the game reveal his concern for Boo's dignity?",
+        "What does Scout begin to sense about the difference between fun and wrongdoing?",
+        "How does this chapter move Boo from frightening legend toward unseen human presence?"
+      ],
+      5: [
+        "How does Miss Maudie's view of Boo Radley differ from the neighborhood gossip about him?",
+        "Why does Scout find Miss Maudie easier to talk to than many other adults in Maycomb?",
+        "What does Miss Maudie mean when she criticizes people who make religion harsh or joyless?",
+        "How does Jem and Dill's note to Boo show both curiosity and disrespect?",
+        "Why does the fishing-pole plan feel comic on the surface but serious underneath?",
+        "What boundary does Atticus draw when he tells the children to stop tormenting Boo?",
+        "How does this chapter ask readers to think about privacy?",
+        "What does Scout learn from hearing two adult views of the Radleys, Miss Maudie's and Atticus's?",
+        "How does Miss Maudie help balance the fear and superstition surrounding Boo?",
+        "Why is it important that the children's interest in Boo becomes an ethical problem, not just a mystery?"
+      ],
+      6: [
+        "Why do Jem and Dill choose the night before Dill leaves to peep into the Radley window?",
+        "How does Scout's fear during the nighttime visit differ from Jem and Dill's excitement?",
+        "What does Nathan Radley's shotgun response show about the danger behind the children's game?",
+        "Why does Jem risk returning for his pants after the escape?",
+        "How does Dill's lie protect Jem, and what does it show about Dill's quick imagination?",
+        "Why is the discovery that Jem's pants were folded and mended so unsettling?",
+        "How does Boo's likely involvement change the meaning of the Radley place?",
+        "What does Jem begin to understand that Scout does not fully grasp yet?",
+        "How does this chapter mix comedy, fear, and evidence of kindness?",
+        "Why is Jem's silence after retrieving the pants more powerful than a direct explanation?"
+      ],
+      7: [
+        "Why does Jem wait before telling Scout the full story of the mended pants?",
+        "How do the gifts in the tree create a relationship between the children and someone they cannot see?",
+        "What is especially personal about the carved soap figures of Jem and Scout?",
+        "Why do Jem and Scout decide to write a thank-you note, and what does that decision show about them?",
+        "How does Nathan Radley's cementing of the knothole change the mood of the Boo storyline?",
+        "Why does Jem ask Atticus whether the tree is dying?",
+        "What does Jem's quiet reaction to the cement suggest about his growing maturity?",
+        "How does Scout's limited understanding make Jem's sadness stand out more clearly?",
+        "What does the sealed knothole reveal about Boo's isolation?",
+        "How does this chapter turn a childish mystery into a small but genuine loss?"
+      ],
+      8: [
+        "Why is Maycomb's rare snowfall such a memorable event for Jem and Scout?",
+        "How does the snowman made from mud and snow connect playfulness with Maycomb's racial world?",
+        "What does Miss Maudie's reaction to her burning house reveal about her character?",
+        "Why do the children end up near the Radley place during the fire?",
+        "What is the significance of Scout not realizing Boo has placed a blanket on her shoulders?",
+        "How does Jem's confession about the gifts and the pants show that he now wants to protect Boo?",
+        "Why does Atticus's reaction to Boo's blanket differ from the children's fear?",
+        "How does the fire bring the neighborhood together while also exposing Boo's hidden kindness?",
+        "What does Miss Maudie's resilience teach Scout about loss?",
+        "How does this chapter make Boo feel less like a monster and more like a guardian?"
+      ],
+      9: [
+        "Why does Cecil Jacobs's insult about Atticus affect Scout so strongly?",
+        "How does Atticus explain his decision to defend Tom Robinson in terms Scout can understand?",
+        "Why does Atticus ask Scout to fight with her head instead of her fists?",
+        "How does Christmas at Finch's Landing reveal tension inside the Finch family?",
+        "Why does Francis's insult hurt Scout differently from Cecil Jacobs's insult?",
+        "What does Uncle Jack learn about fairness after he punishes Scout without hearing her side?",
+        "How does Atticus prepare his children for the ugliness that will come with the trial?",
+        "Why is Scout's overhearing of Atticus's conversation with Jack important?",
+        "How does this chapter shift the novel from neighborhood childhood conflicts toward racial injustice?",
+        "What does Atticus's conscience require of him even before the trial begins?"
+      ],
+      10: [
+        "Why do Jem and Scout think Atticus is old and unimpressive at the beginning of the chapter?",
+        "What does the air-rifle warning teach the children about power and innocence?",
+        "Why does Miss Maudie say it is a sin to kill a mockingbird?",
+        "How does Tim Johnson's appearance change the quiet rhythm of the neighborhood?",
+        "Why is Heck Tate reluctant to shoot the dog himself?",
+        "What changes for Jem when Atticus shoots Tim Johnson?",
+        "Why does Atticus keep his talent with a gun private?",
+        "How does Miss Maudie help Jem understand the difference between skill and courage?",
+        "How does the mad dog scene prepare readers for the danger of the trial?",
+        "Why is the mockingbird lesson placed in the same chapter as Atticus's hidden marksmanship?"
+      ],
+      11: [
+        "Why do Mrs. Dubose's insults make Jem lose control after he has tried to obey Atticus?",
+        "What is symbolic about Jem destroying Mrs. Dubose's camellias?",
+        "Why does Atticus make Jem read to Mrs. Dubose instead of simply paying for the damage?",
+        "How does Scout experience the reading sessions differently from Jem?",
+        "What do the alarm clock and Mrs. Dubose's fits gradually reveal?",
+        "Why does Atticus consider Mrs. Dubose courageous even though she was cruel to the children?",
+        "How does the white camellia make Jem feel, and why is that response complicated?",
+        "What does this chapter teach about courage that the mad dog chapter did not?",
+        "How does Atticus separate moral courage from being liked or admired?",
+        "Why is Mrs. Dubose's story a fitting end to Part One?"
+      ],
+      12: [
+        "How does Jem's growing up change Scout's daily life at the start of Part Two?",
+        "Why does Calpurnia take Jem and Scout to First Purchase church?",
+        "What does Lula's objection reveal about racial separation and community boundaries?",
+        "How does Reverend Sykes's welcome complicate the children's experience of being outsiders?",
+        "Why is the collection for Helen Robinson important to the chapter's view of community?",
+        "What new information do Scout and Jem learn about Tom Robinson's accusation?",
+        "Why is Scout surprised by Calpurnia's speech at church?",
+        "How does Calpurnia explain her choice to speak differently in different settings?",
+        "What does Scout learn about Calpurnia as a whole person beyond her role in the Finch home?",
+        "How does this church visit deepen the children's understanding of Maycomb's racial lines?"
+      ],
+      13: [
+        "Why does Aunt Alexandra come to live with the Finch family at this point in the novel?",
+        "How does Alexandra's idea of being a Finch differ from Atticus's values?",
+        "Why does Maycomb accept Alexandra so easily?",
+        "What does Alexandra want Scout to change about herself?",
+        "How does the chapter connect family pride with class judgment?",
+        "Why is Atticus uncomfortable when he tries to lecture Jem and Scout about their family background?",
+        "What does Scout's emotional reaction reveal about her bond with Atticus?",
+        "How does Atticus's return to his usual warmth resolve the scene?",
+        "Why does Alexandra's arrival make the Finch home feel more formal?",
+        "How does this chapter build pressure around gender, family reputation, and social status?"
+      ],
+      14: [
+        "Why does Scout's question about rape show that the trial is entering the children's private world?",
+        "What does Alexandra's wish to dismiss Calpurnia reveal about power inside the household?",
+        "Why does Atticus refuse to let Calpurnia go?",
+        "How does Jem's attempt to act like an authority figure affect Scout?",
+        "Why does Scout find Dill under her bed, and how does that discovery change the chapter's mood?",
+        "What do Dill's explanations for running away reveal about loneliness?",
+        "How does Dill use storytelling to hide pain?",
+        "Why does Jem tell Atticus that Dill is there, even though Scout sees it as betrayal?",
+        "How does Atticus handle Dill's situation differently from how many adults might?",
+        "How does this chapter connect adult conflict, childhood loyalty, and the need to feel wanted?"
+      ],
+      15: [
+        "Why do Heck Tate and the other men come to Atticus's house before the trial?",
+        "What does Atticus's decision to sit outside the jail reveal about his courage?",
+        "Why do Jem, Scout, and Dill secretly follow Atticus?",
+        "How does the group outside the jail differ from ordinary neighbors once it becomes a mob?",
+        "Why does Jem refuse to leave when Atticus tells him to go home?",
+        "How does Scout's recognition of Mr. Cunningham change the situation?",
+        "Why does Scout's talk about Walter and entailments reach Mr. Cunningham?",
+        "How does innocence become powerful in the jailhouse scene?",
+        "What does the scene reveal about how fragile justice can be before a trial even begins?",
+        "How does this chapter test Atticus's beliefs about law, decency, and human conscience?"
+      ],
+      16: [
+        "Why does Maycomb treat Tom Robinson's trial like a public event?",
+        "How do the different groups arriving at the courthouse reveal the town's social divisions?",
+        "Why does Miss Maudie refuse to attend the trial?",
+        "What does Dolphus Raymond's seating choice suggest before Scout knows his full story?",
+        "Why do Jem, Scout, and Dill end up in the balcony?",
+        "How does Reverend Sykes's help shape the children's view of the trial?",
+        "What does the balcony seating reveal about segregation inside the courthouse?",
+        "How does Judge Taylor's relaxed appearance contrast with the seriousness of the trial?",
+        "Why is Scout both curious and unaware as she enters the courtroom world?",
+        "How does this chapter turn the trial into a test of the whole town, not only Tom Robinson?"
+      ],
+      17: [
+        "Why is it important that no doctor was called to examine Mayella Ewell?",
+        "What details does Heck Tate give about Mayella's injuries?",
+        "How does Atticus use questions about right and left sides of the face to build doubt?",
+        "What impression does Bob Ewell make when he testifies?",
+        "Why does Atticus ask Bob Ewell to write his name?",
+        "How does Bob Ewell's left-handedness matter to the evidence?",
+        "What does the Ewells' living situation reveal about poverty, neglect, and contempt in Maycomb?",
+        "How do Scout and Jem begin to see the difference between rumor and evidence?",
+        "Why does Bob Ewell's confidence in court seem dangerous?",
+        "How does this chapter show Atticus beginning to dismantle the accusation piece by piece?"
+      ],
+      18: [
+        "How does Mayella Ewell's behavior on the witness stand make her both suspicious and pitiable?",
+        "Why does Mayella think Atticus's politeness is meant to mock her?",
+        "What does Atticus reveal about Mayella's loneliness and responsibilities at home?",
+        "Why is Mayella's lack of friends important to understanding her actions?",
+        "How does Tom Robinson's crippled left arm challenge Mayella's accusation?",
+        "Why does Mayella refuse to admit that her father might have beaten her?",
+        "How does Mayella have power over Tom while also being powerless in her own home?",
+        "What contradictions in Mayella's testimony would a fair jury need to consider?",
+        "How does Scout's reaction to Mayella show a more mature kind of sympathy?",
+        "Why is Mayella one of the novel's most morally complicated characters?"
+      ],
+      19: [
+        "Why does Tom Robinson say he helped Mayella Ewell with chores?",
+        "How does Tom's version of events explain Mayella's fear after Bob Ewell appears?",
+        "Why is Tom's decision to run understandable even though it hurts him in court?",
+        "What does Tom mean when he says he felt sorry for Mayella?",
+        "Why does Mr. Gilmer use Tom's pity as a weapon against him?",
+        "How does the prosecutor's treatment of Tom make Dill physically upset?",
+        "What does Dill's reaction reveal that many adults in the courtroom ignore?",
+        "How does Tom's honesty conflict with Maycomb's racist assumptions?",
+        "Why is Tom punished socially for showing compassion across racial lines?",
+        "How does this testimony expose the difference between legal truth and racial prejudice?"
+      ],
+      20: [
+        "Why does Dolphus Raymond let people believe he is drunk?",
+        "What does Dolphus Raymond understand about Maycomb that Scout is only beginning to learn?",
+        "Why does his conversation with Dill matter during a break from the courtroom?",
+        "What social code does Atticus say Mayella broke?",
+        "How does Atticus distinguish between Mayella's guilt and Tom's innocence?",
+        "Why does Atticus insist that the evidence has not proved Tom guilty?",
+        "How does Atticus appeal to the jury's conscience rather than only to legal procedure?",
+        "What does Atticus mean by equality in the courtroom?",
+        "How does this chapter contrast the truth people perform with the truth they hide?",
+        "Why is Atticus's closing argument a public act of moral courage?"
+      ],
+      21: [
+        "Why does Calpurnia come to the courthouse with a note from Alexandra?",
+        "How does Atticus respond when he discovers the children have been watching the trial?",
+        "Why does Jem believe the long jury deliberation is a hopeful sign?",
+        "How does the waiting scene build tension without much action?",
+        "Why is Scout's sleepiness an important reminder of her age?",
+        "How does the guilty verdict affect Jem's faith in fairness?",
+        "Why does the Black community stand as Atticus leaves the courtroom?",
+        "What does Reverend Sykes want Scout to understand when he tells her to stand?",
+        "How does the verdict change the children's understanding of Maycomb?",
+        "Why is the chapter's quiet ending more powerful than a dramatic courtroom reaction?"
+      ],
+      22: [
+        "Why does Jem cry after the verdict, and what belief has been broken for him?",
+        "What does the food sent to Atticus show about gratitude and respect from the Black community?",
+        "How does Atticus respond to that generosity, and why is he careful about it?",
+        "What does Miss Maudie mean when she says there are people who helped Atticus quietly?",
+        "Why does Miss Maudie's cake scene matter for Jem, Scout, and Dill?",
+        "How does Dill's idea of becoming a clown express anger at adult society?",
+        "Why does Jem struggle to understand the jury system after the trial?",
+        "What does Bob Ewell's attack on Atticus reveal about the danger that remains?",
+        "Why does Atticus refuse to answer Bob Ewell's violence with violence?",
+        "How does this chapter show both defeat and moral resistance?"
+      ],
+      23: [
+        "Why does Atticus take Bob Ewell's threat less seriously than Jem does?",
+        "What does Atticus explain about Tom Robinson's chance for appeal?",
+        "Why is Jem surprised to learn that one Cunningham wanted to acquit Tom?",
+        "How does that juror complicate the children's view of the Cunningham family?",
+        "Why does Scout want to invite Walter Cunningham home?",
+        "What does Aunt Alexandra mean when she says Walter is not their kind of folks?",
+        "How does Alexandra's class prejudice wound Scout?",
+        "Why does Jem begin dividing Maycomb into different kinds of people?",
+        "What does Jem mean when he suggests Boo Radley stays inside because he wants to?",
+        "How does Scout resist Jem's attempt to explain human behavior through social categories?"
+      ],
+      24: [
+        "Why does Scout join Aunt Alexandra's missionary circle gathering?",
+        "How does Scout try to perform the role of a young lady in this chapter?",
+        "What is hypocritical about the women's concern for people far away while they ignore injustice at home?",
+        "How does Mrs. Merriweather reveal local prejudice while speaking in polite language?",
+        "Why does Atticus interrupt the gathering, and what news does he bring?",
+        "How does Tom Robinson's death affect Atticus, Alexandra, and Miss Maudie?",
+        "Why do Alexandra and Miss Maudie return to the guests after hearing the news?",
+        "What does Scout learn from watching the women control themselves?",
+        "How does this chapter complicate Scout's ideas about femininity?",
+        "Why does Tom's death make the trial's injustice feel final rather than temporary?"
+      ],
+      25: [
+        "Why does Jem stop Scout from killing the harmless insect?",
+        "How does that small insect scene connect to the novel's mockingbird symbol?",
+        "Why does Scout remember the day Atticus and Calpurnia told Helen Robinson about Tom's death?",
+        "What does Helen's collapse show about the human cost of the verdict?",
+        "How does Mr. Underwood's editorial interpret Tom Robinson's death?",
+        "Why does Maycomb quickly treat Tom's death as predictable?",
+        "How does Scout's understanding of cruelty deepen in this chapter?",
+        "What does Bob Ewell mean when he says there are more people to get?",
+        "Why does Jem become more protective of helpless living things?",
+        "How does this chapter keep danger alive after the trial seems over?"
+      ],
+      26: [
+        "How has Scout's attitude toward the Radley house changed by the start of third grade?",
+        "Why does Scout still feel guilty about the way she and Jem treated Boo?",
+        "What does Miss Gates teach about Hitler and persecution?",
+        "Why is Scout confused by Miss Gates's lesson after hearing her comments about Tom's trial?",
+        "How does the classroom discussion expose hypocrisy in Maycomb?",
+        "Why does Jem react so sharply when Scout brings up the trial?",
+        "How does Atticus explain Jem's pain to Scout?",
+        "What does this chapter suggest about public morality versus private prejudice?",
+        "How does Scout's question about hating Hitler but mistreating people at home show growth?",
+        "Why is the school setting an effective place to revisit the novel's theme of education?"
+      ],
+      27: [
+        "Why does Bob Ewell blame Atticus after losing his WPA job?",
+        "What does the incident at Judge Taylor's house suggest about Bob Ewell's intentions?",
+        "How does Bob Ewell harass Helen Robinson after Tom's death?",
+        "Why is Link Deas's defense of Helen important?",
+        "How does the chapter balance ordinary Halloween preparations with rising danger?",
+        "Why is Scout's ham costume both comic and important to the plot?",
+        "What does Aunt Alexandra's uneasiness foreshadow?",
+        "How does Maycomb underestimate Bob Ewell?",
+        "Why does Bob Ewell's resentment survive even after the guilty verdict?",
+        "How does this chapter prepare the reader for the attack without revealing exactly what will happen?"
+      ],
+      28: [
+        "How does the dark walk to the school pageant create suspense before anything dangerous happens?",
+        "Why does Cecil Jacobs's prank matter later in the chapter?",
+        "How does Scout's missed cue at the pageant affect her walk home?",
+        "Why does the ham costume make Scout vulnerable during the attack?",
+        "How does Jem's hearing guide the scene once Scout cannot see clearly?",
+        "What details show that the attacker is serious and not another prankster?",
+        "How does Jem try to protect Scout?",
+        "Why is the rescuer mysterious at first?",
+        "What is significant about Bob Ewell being found dead after the attack?",
+        "How does this chapter transform Boo Radley from neighborhood mystery into the children's protector?"
+      ],
+      29: [
+        "Why does Scout have trouble explaining the attack clearly?",
+        "How does the ham costume shape what Scout did and did not witness?",
+        "What does Heck Tate's investigation establish about Bob Ewell's death?",
+        "How does Scout notice the man standing quietly in the corner?",
+        "Why is Scout's recognition of Boo Radley so understated?",
+        "How does Boo's silence affect the mood of the Finch house?",
+        "What does Scout's gentle treatment of Boo show about her growth?",
+        "How does Atticus respond to the attack as both a father and a man committed to law?",
+        "Why does the childhood legend of Boo disappear once Scout sees him as a person?",
+        "How does this chapter replace fear with recognition?"
+      ],
+      30: [
+        "Why does Atticus first believe Jem may have killed Bob Ewell?",
+        "Why does Atticus want the truth handled openly?",
+        "What does Heck Tate mean when he insists Bob Ewell fell on his own knife?",
+        "Why does Heck Tate believe exposing Boo Radley would be wrong?",
+        "How does Scout understand Heck Tate's decision before Atticus fully does?",
+        "Why does Scout compare public attention on Boo to killing a mockingbird?",
+        "How does this chapter define justice differently from the courtroom chapters?",
+        "What is protected by allowing Boo to remain private?",
+        "Why is Atticus able to accept Heck Tate's judgment?",
+        "How does Scout apply the novel's central moral lesson in a real situation?"
+      ],
+      31: [
+        "Why does Scout walk Boo Radley home instead of simply saying goodbye at the Finch house?",
+        "How does standing on the Radley porch change Scout's view of the neighborhood?",
+        "What moments from the novel does Scout imagine from Boo's perspective?",
+        "Why does Boo disappear back into his house after saving the children?",
+        "What does it mean that Scout never sees Boo again?",
+        "How does Atticus reading beside Jem's bed return the novel to family and childhood?",
+        "Why does Scout connect the story Atticus reads to Boo Radley?",
+        "What does Atticus mean when he says most people are nice when you finally see them?",
+        "How does the ending combine empathy with sadness?",
+        "How has Scout changed from the child who believed Boo rumors in Chapter 1?"
+      ]
+    };
+
     function makeQuestions(chapter) {
-      const f = chapter.focus;
-      return [
-        `How does the detail that ${f[0]} shape the reader's first impression of this chapter?`,
-        `What does it reveal about family, community, or authority that ${f[1]}?`,
-        `Why is it important that ${f[2]}? Connect this moment to the chapter's conflict or turning point.`,
-        `How does the fact that ${f[3]} expose a social rule, prejudice, or misunderstanding in Maycomb?`,
-        `What does the moment involving ${f[4]} reveal about Scout, Jem, Atticus, or another central character?`,
-        `How does Lee use the detail that ${f[5]} to develop the theme of ${chapter.themes[0].toLowerCase()}?`,
-        `Which detail connected to the fact that ${f[6]} would you mark as foreshadowing, and why?`,
-        `How might two characters interpret the moment when ${f[7]} differently? What would each interpretation reveal?`,
-        `Where does the chapter ask readers to judge the difference between appearance and reality, especially through the fact that ${f[8]}?`,
-        `Write a short cause-and-effect explanation connecting the fact that ${f[0]} to the fact that ${f[9]}.`
-      ];
+      return questionData[chapter.number] || [];
     }
 
     function renderChapters(filter = "") {
