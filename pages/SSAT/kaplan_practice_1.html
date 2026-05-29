@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Kaplan SSAT Practice 1 | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Georgia, "Times New Roman", serif; background: #f7f3eb; color: #1f2933; line-height: 1.6; }
+    .navbar { background: #102a43; color: white; padding: 18px 8%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { color: white; text-decoration: none; font-size: 15px; }
+    .nav-links a:hover { color: #d4af37; }
+    .page-header { background: #102a43; color: white; padding: 70px 8%; text-align: center; }
+    .page-header h1 { font-size: 42px; margin-bottom: 15px; }
+    .page-header p { font-size: 19px; color: #e5e7eb; max-width: 820px; margin: auto; }
+    .tabs { background: white; border-bottom: 1px solid #e5dccb; display: flex; gap: 12px; justify-content: center; padding: 18px 8%; position: sticky; top: 0; z-index: 50; }
+    .tab-button { background: #102a43; color: white; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 12px 18px; }
+    .tab-button.active { background: #d4af37; color: #102a43; }
+    .container { max-width: 1480px; margin: auto; padding: 36px 4%; }
+    .practice-section { display: none; }
+    .practice-section.active { display: block; }
+    .question-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 28px; }
+    .question-card h2 { color: #102a43; margin-bottom: 15px; }
+    .directions { background: #fffdf8; border-left: 5px solid #d4af37; padding: 20px; border-radius: 8px; color: #3e4c59; font-size: 17px; margin-bottom: 28px; }
+    .split-card { padding: 24px; }
+    .split-practice { display: grid; grid-template-columns: minmax(420px, 48%) minmax(460px, 1fr); gap: 24px; align-items: start; }
+    .passage-panel { position: sticky; top: 86px; max-height: calc(100vh - 116px); overflow: auto; border: 1px solid #e5dccb; border-radius: 8px; background: #fffdf8; padding: 16px; }
+    .questions-panel { padding: 2px 2px 0; }
+    .passage { background: #fffdf8; border-left: 5px solid #d4af37; padding: 22px; border-radius: 8px; color: #3e4c59; font-size: 17px; white-space: pre-line; position: relative; z-index: 1; pointer-events: none; }
+    .reader-toolbar { text-align: right; margin: 0 0 12px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    .clear-markings, .jump-button { background: #d4af37; color: #102a43; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 10px 16px; text-decoration: none; }
+    .clear-markings:hover, .jump-button:hover { background: #c19a2e; }
+    .reader-container { position: relative; background: #fffdf8; border-radius: 8px; margin: 0; }
+    .marking-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; touch-action: none; cursor: crosshair; }
+    .question-block { border-top: 1px solid #e5dccb; padding-top: 20px; margin-top: 20px; }
+    .questions-panel .question-block:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+    .question-text { font-weight: bold; color: #102a43; margin-bottom: 15px; font-size: 18px; }
+    .choices { display: grid; gap: 12px; }
+    .choice { border: 1px solid #e5dccb; background: #f7f3eb; padding: 14px 16px; border-radius: 8px; cursor: pointer; font-size: 16px; text-align: left; font-family: Georgia, "Times New Roman", serif; color: #3e4c59; }
+    .choice:hover { border-color: #d4af37; background: #fffdf8; }
+    .choice.selected { border-color: #d4af37; background: #fffdf8; box-shadow: inset 0 0 0 2px rgba(212,175,55,.35); color: #102a43; font-weight: bold; }
+    .choice.incorrect { border-color: #dc2626; background: #fff1f2; box-shadow: inset 0 0 0 2px rgba(220, 38, 38, .18); color: #991b1b; }
+    .result { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 8px; background: #fffdf8; border-left: 5px solid #d4af37; color: #102a43; font-weight: bold; }
+    .verbal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .answer-sheet { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; }
+    .answer-sheet h2 { color: #102a43; margin-bottom: 10px; text-align: center; }
+    .answer-sheet p { color: #3e4c59; text-align: center; margin-bottom: 22px; }
+    .answer-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .answer-card { background: #fffdf8; border: 1px solid #e5dccb; border-radius: 8px; padding: 12px; }
+    .answer-card.incorrect { background: #fff1f2; border-color: #dc2626; box-shadow: inset 0 0 0 1px rgba(220, 38, 38, .18); }
+    .answer-card strong { display: block; color: #102a43; margin-bottom: 8px; }
+    .bubble-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .bubble-row label { background: #f7f3eb; border: 1px solid #e5dccb; border-radius: 999px; cursor: pointer; padding: 5px 8px; font-size: 14px; }
+    .bubble-row label:has(input:checked) { background: #d4af37; color: #102a43; font-weight: bold; }
+    .bubble-row input { accent-color: #102a43; }
+    .teacher-lock { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; border-top: 5px solid #102a43; }
+    .teacher-lock h2, .teacher-key h3 { color: #102a43; text-align: center; margin-bottom: 10px; }
+    .teacher-lock p { color: #3e4c59; text-align: center; margin-bottom: 18px; }
+    .teacher-form { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .teacher-form input { border: 1px solid #d6c8ad; border-radius: 6px; color: #102a43; font-family: Georgia, "Times New Roman", serif; font-size: 16px; min-width: 240px; padding: 11px 14px; }
+    .teacher-form button { background: #102a43; color: white; border: none; border-radius: 6px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 11px 18px; }
+    .teacher-form button:hover { background: #d4af37; color: #102a43; }
+    .teacher-message { color: #9f1239; font-weight: bold; min-height: 24px; text-align: center; }
+    .teacher-key { display: none; margin-top: 24px; }
+    .teacher-key.unlocked { display: block; }
+    .key-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 10px; margin: 18px 0 30px; }
+    .key-card { background: #fffdf8; border: 1px solid #e5dccb; border-left: 4px solid #d4af37; border-radius: 8px; color: #102a43; font-weight: bold; padding: 10px; text-align: center; }
+    .key-card.student-wrong { background: #fff1f2; border-color: #dc2626; border-left-color: #dc2626; color: #991b1b; }
+    footer { background: #102a43; color: #e5e7eb; text-align: center; padding: 24px; font-size: 14px; }
+    @media (max-width: 1000px) { .split-practice { grid-template-columns: 1fr; } .passage-panel { position: relative; top: auto; max-height: 54vh; } }
+    @media (max-width: 900px) { .verbal-grid { grid-template-columns: 1fr; } .answer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .key-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+    @media (max-width: 800px) { .navbar { flex-direction: column; gap: 18px; } .nav-links { justify-content: center; } .page-header h1 { font-size: 34px; } .tabs { position: static; flex-wrap: wrap; } }
+    @media (max-width: 540px) { .answer-grid { grid-template-columns: 1fr; } .question-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <header class="page-header">
+    <h1>Kaplan SSAT Practice 1</h1>
+    <p>Clean HTML practice for the Reading and Verbal sections. Mark passages with Apple Pencil, choose answers, and review your answer sheet at the bottom.</p>
+  </header>
+  <div class="tabs">
+    <button class="tab-button active" data-target="reading-section" type="button">Reading</button>
+    <button class="tab-button" data-target="verbal-section" type="button">Verbal</button>
+    <button class="tab-button" data-target="answers-section" type="button">Answer Sheet</button>
+  </div>
+  <main class="container">
+    <section id="reading-section" class="practice-section active">
+      <div class="directions">Read each passage and answer the related questions. For each question, use the passage to decide which one of the choices best answers the question.</div>
+      <div id="reading-practice"></div>
+    </section>
+    <section id="verbal-section" class="practice-section">
+      <div class="directions">This section includes two question types: synonyms and analogies. Choose the answer choice that best completes each item.</div>
+      <div id="verbal-practice"></div>
+    </section>
+    <section id="answers-section" class="practice-section">
+      <div class="answer-sheet"><h2>Reading Answer Choices</h2><p>Questions 1-40</p><div class="answer-grid" id="reading-answers"></div></div>
+      <div class="answer-sheet"><h2>Verbal Answer Choices</h2><p>Questions 1-60</p><div class="answer-grid" id="verbal-answers"></div></div>
+      <div class="teacher-lock">
+        <h2>Teacher Answer Key</h2>
+        <p>Enter the teacher password to reveal the correct answers.</p>
+        <div class="teacher-form">
+          <input id="teacher-password" type="password" autocomplete="off" placeholder="Teacher password" />
+          <button id="unlock-teacher-key" type="button">Unlock</button>
+        </div>
+        <div class="teacher-message" id="teacher-message"></div>
+        <div class="teacher-key" id="teacher-key">
+          <h3>Reading Section</h3>
+          <div class="key-grid" id="reading-key"></div>
+          <h3>Verbal Section</h3>
+          <div class="key-grid" id="verbal-key"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>© HuskyDaddy | Kaplan SSAT Practice 1</footer>
+  <script>
+    const testData = {"readingGroups": [{"title": "Reading Passage 1: Lemurs", "passage": "Typical lemurs are primates with bodies similar to those of monkeys but with pointed muzzles and large eyes; most have long, bushy tails. Their fur is woolly and may be colored red, gray, brown, or black. The name of the lemur stems from the Latin lemures, the Roman name for vampire-like ghosts of the dead, which these large-eyed creatures were thought to resemble. Found only off the east coast of Africa on the island of Madagascar and neighboring islands, lemurs spend some time on the ground but most often are in the trees, building nests high in the branches. Besides leaves, lemurs eat eggs, fruit, insects, and small animals. They are active throughout the day and night and are reputed to be gentle, friendly creatures. Besides typical lemurs, the lemur family includes avahi, aye-aye, loris, and galago. However, contrary to popular belief, the so-called flying lemur is not even a primate, much less a true lemur; it is, in fact, a member of an altogether different order of mammals known as Dermoptera.", "questions": [[1, "The style of the passage is most like that found in a", ["biology textbook", "novel about Madagascar", "zoologist's diary", "tourist's guidebook", "personal letter"]], [2, "Which of the following would be the best title for this passage?", ["The Lemur: Friend or Foe?", "Madagascar's Loneliest Hunters", "Facts about Lemurs", "African Vampires", "The Diet of the Lemur"]], [3, "According to the passage, all of the following are true about lemurs EXCEPT", ["they spend much of their time in trees", "most have long, bushy tails", "the flying lemur is not a true lemur", "they eat only fruits and leaves", "the body of the lemur resembles the body of the monkey"]], [4, "The passage suggests that", ["the typical lemur is a member of an order of mammals known as Dermoptera", "flying lemurs are only active during the night", "the lemur is not an aggressive animal", "lemurs spend most of their time on the ground", "flying lemurs can only be found on Madagascar and neighboring islands"]], [5, "The author uses the phrase \"so-called\" to show that", ["flying lemurs resemble typical lemurs", "true lemurs are herbivores, but flying lemurs are carnivores", "lemurs' large eyes mean that lemurs come out only at night", "flying lemurs should not be classified with true lemurs", "lemurs' pointed muzzles give them an excellent sense of smell"]]]}, {"title": "Reading Passage 2: Wilson and Diplomacy", "passage": "Before a joint session of Congress in January 1918, President Woodrow Wilson outlined his plan for a post-World War I peace settlement. Known as the Fourteen Points, Wilson's plan is best remembered for its first point, which declared that international diplomacy should be conducted in the open and that quiet, unpublicized diplomacy should be made illegal. Wilson believed that public diplomacy would end the threat of war by preventing immoral national leaders from secretly plotting aggressive actions against others.\n\nAlthough Wilson was a highly intelligent and well-meaning man, he lacked insight into the complexities of international politics. Contrary to Wilson's belief, war rarely results from the behind-the-scenes plotting of unscrupulous national leaders. Rather, war usually stems from unresolved disagreements among nations--disagreements over territory, access to resources, and so forth. Even if quiet diplomacy could be eliminated, these disagreements would still remain, as would the threat of war.", "questions": [[6, "The second paragraph of this passage is primarily about", ["a post-World War I peace settlement", "diplomacy's role in international politics", "disagreements among nations", "the actual causes of war", "the first point in Wilson's Fourteen Points"]], [7, "The attitude of the writer toward the subject is", ["calculating", "suspicious", "opinionated", "cheerful", "apologetic"]], [8, "The author would most likely agree that war between country A and country B would result from which of the following situations?", ["a dispute over ownership of a piece of land bordering both countries", "an agreement by a leader in country A to tax imports from a third country", "the capture of a spy from country A in country B", "an unpublicized agreement by country A to sell weapons to country B", "a secret alliance made between country A and another country"]], [9, "Why does the author say that open diplomacy would not prevent war?", ["Quiet diplomacy will always be a part of international relations.", "War breaks out because immoral rulers make decisions in secret.", "Open diplomacy is not a solution to the problems that lead to war.", "Disagreements over territory and resources rarely lead to conflict.", "International relations are too complex to be conducted in the public eye."]], [10, "Which of the following questions CANNOT be answered using information from the passage?", ["Does the author think the Fourteen Points was a good plan?", "According to the author, why does war usually start?", "Did Wilson support public diplomacy or concealed diplomacy?", "Does the author feel he or she understands international politics better than Wilson did?", "How does the author think the threat of war could be eliminated for good?"]], [11, "Which of the following is the author most likely to discuss next?", ["Wilson's domestic policies in the post-World War I period", "the impact of import taxes on foreign trade relations", "an example of a war that resulted from a territorial or resource dispute", "the events leading up to World War I", "other examples of Wilson's intelligence"]]]}, {"title": "Reading Passage 3: The Oak", "passage": "Live thy Life,\nYoung and old,\nLike yon oak,\nBright in spring,\nLiving gold;\nSummer-rich\nThen; and then\nAutumn-changed,\nSoberer-hued\nGold again.\n\nAll his leaves\nFall'n at length,\nLook, he stands,\nTrunk and bough,\nNaked strength.\n\n\"The Oak,\" by Lord Alfred Tennyson", "questions": [[12, "In this poem, the seasons represent different", ["kinds of trees", "times of day", "stages of life", "styles of dress", "periods of history"]], [13, "In line 13, \"he\" refers to", ["the poet", "life", "the oak", "autumn", "the reader"]], [14, "What does \"Gold again\" signify?", ["the arrival of autumn", "the richness of summer", "the increased wealth of the narrator", "the color of oak trees", "the revival of the past"]], [15, "During which season is the oak referred to as \"Living gold\"?", ["spring", "summer", "autumn", "winter", "This description does not relate to a season."]], [16, "With which of the following statements about life would the speaker be most likely to agree?", ["People should live every period of their lives to the fullest.", "It is important to try to accomplish something during one's lifetime.", "Life is too short to spend time doing unpleasant things.", "The seasons are unpredictable.", "Trees are an integral part of the enjoyment of life."]], [17, "All of the following can describe the tone of the poem EXCEPT", ["optimistic", "passionate", "pompous", "hopeful", "thoughtful"]]]}, {"title": "Reading Passage 4: Tea", "passage": "Tea is consumed by more people and in greater amounts than any other beverage in the world, with the exception of water. The tea plant, from whose leaves tea is made, is native to India, China, and Japan and was first cultivated for use by the Chinese in prehistoric times. The plant, which is characterized as an evergreen, can reach a height of about thirty feet but is usually pruned down to three or four feet for cultivation. It has dark green leaves and cream-colored, fragrant blossoms.\n\nCultivation of the tea plant requires a great deal of effort. The plant must grow in a warm, wet climate in a carefully protected, well-drained area. Its leaves must be picked by hand. Cultivation in North America has been attempted, but was found to be impractical because of a shortage of cheap labor. Today, the plant is cultivated in the lands to which it is native, as well as in Sri Lanka, Indonesia, Taiwan, and South America.\n\nTea was probably first used as a vegetable relish and for medicinal purposes. In the 1400s Chinese and Japanese Buddhists developed a semireligious ceremony surrounding tea drinking. It was not until after 1700, however, that tea was first imported into Europe. Today, the United Kingdom imports more tea than does any other nation--almost one-third of the world's production. The United States is also a large importer, but Americans have seemed to prefer coffee ever since the famous Boston Tea Party in 1773.", "questions": [[18, "This passage is mainly about", ["the tea plant", "the uses of the tea plant", "tea drinking throughout history", "the tea trade", "the cultivation of the tea plant"]], [19, "According to the passage, the tea plant", ["was first cultivated in Japan in prehistoric times", "requires well-drained soil to grow properly", "is the largest import of the United Kingdom", "has odorless flowers", "is native to South America"]], [20, "Why is a large supply of cheap labor important for the cultivation of tea?", ["Since the tea plant can reach a height of thirty feet, several workers are required to harvest each plant.", "Since tea is exported all over the world, a lot of people are needed to handle trade complications.", "Since tea has been around since prehistoric times, many workers are employed to protect it.", "Since England and China are far away from each other, many workers are required to coordinate shipments.", "Since the tea plant is handpicked, many laborers are needed at harvest time."]], [21, "The style in the passage is most like that found in a", ["newspaper article", "passage in an encyclopedia", "cookbook", "journal entry", "history textbook"]], [22, "Which of the following is the author most likely to discuss next?", ["the details and aftermath of the Boston Tea Party", "other major imports of the United Kingdom and United States", "current trends in tea consumption", "other examples of plants that have a medicinal value", "a description of what China was like in prehistoric times"]], [23, "The purpose of the second paragraph is to", ["describe the role of tea in religious ceremonies", "explain why Americans prefer coffee", "discuss historical uses of tea", "describe the cultivation of tea", "question the importance of tea"]]]}, {"title": "Reading Passage 5: The Youth Waits", "passage": "There were moments of waiting. The youth thought of the village street at home before the arrival of the circus parade on a day in the spring. He remembered how he had stood, a small thrillful boy, prepared to follow the band in its faded chariot. He saw the yellow road, the lines of expectant people, and the sober houses. He particularly remembered an old fellow who used to sit upon a cracker box in front of the store and pretend to despise such exhibitions. A thousand details of color and form surged in his mind.\n\nSomeone cried, \"Here they come!\" There was rustling and muttering among the men. They displayed a feverish desire to have every possible cartridge ready to their hands. The boxes were pulled around into various positions and adjusted with great care.\n\nThe tall soldier, having prepared his rifle, produced a red handkerchief of some kind. He was engaged in knitting it about his throat with exquisite attention to its position, when the cry was repeated up and down the line in a muffled roar of sound.\n\n\"Here they come! Here they come!\" Gun locks clicked.\n\nAcross the smoke-infested fields came a brown swarm of running men who were giving shrill yells. They came on, stooping and swinging their rifles at all angles. A flag, tilted forward, sped near the front.", "questions": [[24, "In line 14, \"swarm\" most likely means", ["army", "cloud", "concentrate", "flood", "increase"]], [25, "What is meant by the exclamation \"Here they come!\"", ["A band in a chariot is approaching.", "The circus is coming to town.", "The enemy soldiers are advancing.", "A group of men selling handkerchiefs is on its way.", "The youth's family is arriving to save him."]], [26, "The mood of the passage undergoes a change from the first to the second paragraph that can best be described as a movement from", ["anger to amusement", "reminiscence to anticipation", "informality to formality", "reluctance to fear", "respect to indifference"]], [27, "The repeated phrase \"Here they come!\" is an example of", ["consonance", "alliteration", "onomatopoeia", "synecdoche", "repetition"]], [28, "In the first paragraph, the youth is primarily concerned with", ["reliving a fond childhood memory", "describing a turning point in his life", "preparing for the upcoming battle", "planning his day at the circus", "watching a soldier tie a handkerchief"]]]}, {"title": "Reading Passage 6: Acupuncture", "passage": "Acupuncture is a type of medical therapy that has been part of Chinese medicine since ancient times. It involves the insertion of thin, solid needles into specific sites on the body's surface. The belief is that the application of a needle at one particular point produces a specific response at a second point. It is based on the ancient Chinese philosophy that human beings are miniature versions of the universe and that the forces that control nature also control health. These forces are divided between two main principles called the yin and the yang, which have an opposite but complementary effect on each other. For example, one force keeps the body's temperature from rising too high, and the other keeps it from dropping too low. When they are in balance, the body maintains a constant, normal state. Disease occurs when these forces get out of balance.\n\nAlthough acupuncture had been used in Western countries during many periods, it was not until the 1970s that it gained widespread interest, when it was determined that it could be used to control pain during surgery. The mechanism for its effectiveness is still a mystery, but it has become a very popular technique in many countries for the treatment of various diseases and medical problems.", "questions": [[29, "The passage is written from the viewpoint of which of the following?", ["a researcher", "a surgeon", "a patient", "an acupuncturist", "a philosopher"]], [30, "This passage is primarily about", ["various diseases that are particularly common among the Chinese", "the meaning and use of the yin and the yang", "different types of medical therapies and their relative effectiveness", "the historical and philosophical background of acupuncture", "modern uses of acupuncture both in China and in Western countries"]], [31, "According to the passage, acupuncture is based on", ["the idea that the human body is a model of the universe and is controlled by the forces of nature", "a firm belief in the Chinese gods known as the yin and the yang", "an ancient Chinese religious ceremony involving needles", "a philosophy of health and disease that originated in China but has been totally changed by Western countries", "the ideas of an astronomer who was attempting to study the universe in ancient times"]], [32, "According to the passage, the yin and the yang are principles that represent", ["high and low extremes of temperature", "states of health and disease", "similar treatments for different diseases", "competing, balancing forces within the body", "the ideas of comfort and pain"]], [33, "The author includes the example of the yin and the yang controlling body temperature in order to", ["back up the claim that the forces within the body mirror the forces of the universe", "clarify how these forces have a complementary effect on each other", "provide proof that acupuncture is an effective medical therapy", "suggest a possible explanation for why people sometimes run high fevers", "highlight a feature of the body that acupuncture has not yet been shown to influence"]], [34, "The author's attitude in this passage could best be described as", ["critical", "admiring", "bitter", "serene", "neutral"]]]}, {"title": "Reading Passage 7: Georgia O'Keeffe", "passage": "The painter Georgia O'Keeffe was born in Wisconsin in 1887 and grew up on her family's farm. At seventeen she left for Chicago and New York, but she never lost her bond with the land. Like most painters, O'Keeffe painted the things that were most important to her, and she became famous for her simplified paintings of nature. During a visit to New Mexico in 1929, O'Keeffe was moved by the desert's stark beauty, and she began to paint many of its images. From about 1930 until her death in 1986, her true home was in the western desert, and bleached bones, barren hills, and colorful flowers were her characteristic subjects.\n\nO'Keeffe is widely considered to have been a pioneering American modernist painter. While most early modern American artists were strongly influenced by European art, O'Keeffe's position was more independent. Almost from the beginning, her work was more identifiably American--in its simplified and idealized treatment of color, light, space, and natural forms. Her paintings are generally considered \"semiabstract\" because, while they often depict recognizable images and objects, they don't present those images in a very detailed or realistic way. Rather, the colors and shapes in her paintings are often so reduced and simplified that they begin to take on a life of their own, independent from the real-life objects they are taken from.", "questions": [[35, "The author's tone in the passage can best be described as", ["exuberant", "sympathetic", "respectful", "pleading", "condemning"]], [36, "O'Keeffe's relationship to nature is most similar to", ["a photographer's relationship to a model", "a writer's relationship to a publisher", "a student's relationship to a part-time job", "a sculptor's relationship to an art dealer", "a carpenter's relationship to a hammer"]], [37, "Which of the following titles best describes the content of the passage?", ["The Realistic Use of Color and Light", "Semiabstract Everyday Objects", "Nature's Everyday Scenes", "Georgia O'Keeffe and Semiabstract Paintings", "Modernist American Painters"]], [38, "According to the passage, O'Keeffe is considered an artistic pioneer because", ["her work became influential in Europe", "she painted the American Southwest", "her paintings had a definite American style", "she painted things that were familiar to her", "her work was very abstract"]], [39, "The passage's main point about O'Keeffe is that she", ["was the best painter of her generation", "was a distinctive modern American painter", "liked to paint only what was familiar to her", "never developed fully enough as an abstract artist", "used colors and shapes that are too reduced and simple"]], [40, "It can be inferred from the passage that modern European art of the time", ["did not depict images of the desert", "was extremely abstract", "did not portray natural shapes in a simple, idealistic manner", "was not influenced by rural landscapes", "approached colors in a semi-abstract manner"]]]}], "verbalSynonyms": [{"number": 1, "stem": "PLEAD", "choices": ["strike", "cry", "tease", "beg", "try"]}, {"number": 2, "stem": "PROWL", "choices": ["growl", "sneak", "scrub", "leave", "fight"]}, {"number": 3, "stem": "VESSEL", "choices": ["blood", "decoration", "car", "account", "container"]}, {"number": 4, "stem": "APPROVE", "choices": ["command", "ignore", "pursue", "commend", "contemplate"]}, {"number": 5, "stem": "SEEP", "choices": ["ooze", "gurgle", "liquefy", "stick", "fall"]}, {"number": 6, "stem": "VEX", "choices": ["scribble", "locate", "scream", "play", "irritate"]}, {"number": 7, "stem": "DOZE", "choices": ["graze", "sleep", "refresh", "bore", "ignore"]}, {"number": 8, "stem": "WOVEN", "choices": ["barricade", "reap", "intertwined", "restriction", "bounty"]}, {"number": 9, "stem": "COARSE", "choices": ["sifted", "sticky", "unpopular", "difficult", "rough"]}, {"number": 10, "stem": "MEEK", "choices": ["submissive", "old", "tiny", "worried", "quick"]}, {"number": 11, "stem": "SATURATE", "choices": ["soak", "anger", "measure", "boil", "pour"]}, {"number": 12, "stem": "GENTEEL", "choices": ["timid", "loud", "stupid", "harmless", "refined"]}, {"number": 13, "stem": "WINSOME", "choices": ["athletic", "charming", "critical", "small", "shy"]}, {"number": 14, "stem": "REPROACH", "choices": ["retreat", "rebuke", "insist", "complain", "whine"]}, {"number": 15, "stem": "DEMONSTRATE", "choices": ["object", "show", "require", "renew", "imply"]}, {"number": 16, "stem": "CAMOUFLAGE", "choices": ["jewelry", "outfit", "disguise", "outlook", "helmet"]}, {"number": 17, "stem": "AGHAST", "choices": ["shocked", "swollen", "irritated", "nasty", "rude"]}, {"number": 18, "stem": "RECOLLECT", "choices": ["invent", "remember", "remove", "discover", "reject"]}, {"number": 19, "stem": "INITIATE", "choices": ["gather", "try", "start", "command", "celebrate"]}, {"number": 20, "stem": "SUFFOCATE", "choices": ["give instruction", "pull out", "make willing", "surround completely", "deprive of air"]}, {"number": 21, "stem": "PREVAIL", "choices": ["triumph", "predict", "entrust", "cover", "enlighten"]}, {"number": 22, "stem": "PRANCE", "choices": ["boast", "lead", "strut", "pry", "sing"]}, {"number": 23, "stem": "PROFOUND", "choices": ["stubborn", "unfounded", "perplexing", "absurd", "deep"]}, {"number": 24, "stem": "LIMBER", "choices": ["supple", "wooden", "skinny", "sober", "sociable"]}, {"number": 25, "stem": "TERMINATE", "choices": ["extend", "renew", "finalize", "sell", "end"]}, {"number": 26, "stem": "CONTEMPLATE", "choices": ["ponder", "reject", "founder", "dominate", "deserve"]}, {"number": 27, "stem": "CAPRICE", "choices": ["idea", "mistake", "whim", "decision", "guess"]}, {"number": 28, "stem": "ADAGE", "choices": ["permission", "disdain", "humor", "prevention", "proverb"]}, {"number": 29, "stem": "DIN", "choices": ["outline", "clamor", "improvement", "demonstration", "pressure"]}, {"number": 30, "stem": "EXPUNGE", "choices": ["erase", "handle", "label", "assault", "keep"]}], "verbalAnalogies": [{"number": 31, "stem": "Pilot is to airplane as", "choices": ["team is to players", "horse is to cart", "captain is to ship", "passenger is to train", "army is to country"]}, {"number": 32, "stem": "Snake is to python as dog is to", "choices": ["terrier", "canine", "pet", "mammal", "quadruped"]}, {"number": 33, "stem": "Mayor is to city as", "choices": ["governor is to state", "member is to union", "board is to district", "secretary is to committee", "citizen is to legislature"]}, {"number": 34, "stem": "Paper is to novel as", "choices": ["person is to poll", "paint is to brush", "canvas is to portrait", "back is to chair", "color is to palette"]}, {"number": 35, "stem": "Refined is to vulgar as", "choices": ["calm is to placid", "submissive is to recalcitrant", "happy is to ecstatic", "helpful is to victorious", "tranquil is to forgivable"]}, {"number": 36, "stem": "Whip is to lash as", "choices": ["stick is to throw", "shoe is to walk", "saddle is to sit", "food is to eat", "club is to beat"]}, {"number": 37, "stem": "Migrate is to swan as", "choices": ["hibernate is to groundhog", "pet is to dog", "swim is to fish", "sting is to bee", "pounce is to cat"]}, {"number": 38, "stem": "Weather is to meteorologist as vegetation is to", "choices": ["driver", "artist", "oceanographer", "hunter", "botanist"]}, {"number": 39, "stem": "Track is to horse racing as", "choices": ["circus is to elephant", "court is to tennis", "net is to basketball", "goal is to football", "air is to bird"]}, {"number": 40, "stem": "Director is to actor as coach is to", "choices": ["executive", "player", "chorus", "airplane", "officer"]}, {"number": 41, "stem": "Dessert is to meal as", "choices": ["finale is to performance", "lunch is to breakfast", "fork is to spoon", "plate is to table", "ocean is to river"]}, {"number": 42, "stem": "Confirm is to deny as", "choices": ["accept is to reject", "assert is to proclaim", "contend is to imply", "pull is to tug", "simplify is to organize"]}, {"number": 43, "stem": "Hostile is to nemesis as", "choices": ["fortified is to stronghold", "audible is to language", "harmful is to sight", "regiment is to ordered", "disciplined is to recruit"]}, {"number": 44, "stem": "Fidelity is to unfaithfulness as", "choices": ["loyalty is to honor", "friendship is to gossip", "honesty is to deceit", "laziness is to slothfulness", "intelligence is to unconcern"]}, {"number": 45, "stem": "Widespread is to limited as", "choices": ["encompassed is to surrounded", "enlarged is to big", "broad is to narrow", "unusual is to strange", "provincial is to international"]}, {"number": 46, "stem": "Saw is to carpenter as plow is to", "choices": ["banker", "surveyor", "farmer", "physician", "steelworker"]}, {"number": 47, "stem": "Racket is to tennis as glove is to", "choices": ["box", "soccer", "hockey", "baseball", "golf"]}, {"number": 48, "stem": "Encourage is to demand as", "choices": ["insinuate is to hint", "fire is to dismiss", "suggest is to order", "motivate is to undermine", "condemn is to reprimand"]}, {"number": 49, "stem": "Grin is to delight as", "choices": ["anxiety is to confusion", "frown is to dismay", "perspiration is to exhaustion", "encouragement is to happiness", "resignation is to uncertainty"]}, {"number": 50, "stem": "Mysterious is to understandable as", "choices": ["unknown is to indefinable", "doubtful is to incredulous", "skillful is to swift", "clouded is to warm", "obscure is to clear"]}, {"number": 51, "stem": "Injury is to heal as malfunction is to", "choices": ["repair", "bandage", "misinterpret", "throw", "disassemble"]}, {"number": 52, "stem": "Jog is to sprint as trot is to", "choices": ["ramble", "gallop", "roam", "saunter", "soar"]}, {"number": 53, "stem": "Bone is to body as", "choices": ["floor is to house", "motor is to boat", "driver is to car", "knob is to door", "beam is to building"]}, {"number": 54, "stem": "Amorphous is to shape as odorless is to", "choices": ["appearance", "weight", "worth", "scent", "anger"]}, {"number": 55, "stem": "Vain is to humility as", "choices": ["anxious is to boisterousness", "cantankerous is to thoughtlessness", "judicious is to leniency", "authoritative is to discourse", "extroverted is to shyness"]}, {"number": 56, "stem": "Test is to study as", "choices": ["job is to apply", "train is to practice", "play is to rehearse", "office is to employ", "income is to work"]}, {"number": 57, "stem": "Smile is to frown as cheer is to", "choices": ["heckle", "wince", "laugh", "extricate", "leap"]}, {"number": 58, "stem": "Banana is to peel as", "choices": ["egg is to crack", "carrot is to uproot", "apple is to core", "bread is to slice", "corn is to husk"]}, {"number": 59, "stem": "Touch is to tactile as", "choices": ["sound is to noise", "smell is to olfactory", "mouth is to oral", "eye is to visual", "taste is to sense"]}, {"number": 60, "stem": "Articulateness is to speech as", "choices": ["etiquette is to society", "music is to note", "ballet is to form", "legibility is to handwriting", "painting is to palette"]}]};
+    const correctAnswers = {
+      reading: "ACDCDDCACECCCAAACABEBCDACBEAADADBECADCBC",
+      verbal: "DBEDAEBCEAAEBBBCABCEACEAEACEBACAACBEAEBBAAACCCDCBEABEDECAEBD"
+    };
+    const answerKey = "kaplanCleanAnswer:";
+    const answerMemory = {};
+    let teacherUnlocked = false;
+    function choiceLabel(index, text) { return `${String.fromCharCode(65 + index)}. ${text}`; }
+    function questionNumber(question) { return Array.isArray(question) ? question[0] : question.number; }
+    function questionStem(question) { return Array.isArray(question) ? question[1] : question.stem; }
+    function questionChoices(question) { return Array.isArray(question) ? question[2] : question.choices; }
+    function questionId(section, number) { return `${section}-${number}`; }
+    function saveChoice(id, letter) {
+      answerMemory[id] = letter;
+      try { localStorage.setItem(answerKey + id, letter); } catch (error) {}
+      renderAnswerSheets();
+    }
+    function selectedChoice(id) {
+      try { return localStorage.getItem(answerKey + id) || answerMemory[id]; } catch (error) { return answerMemory[id]; }
+    }
+    function renderChoices(question, section) {
+      const number = questionNumber(question);
+      const id = questionId(section, number);
+      return questionChoices(question).map((choice, index) => {
+        const letter = String.fromCharCode(65 + index);
+        const selected = selectedChoice(id) === letter ? " selected" : "";
+        return `<button class="choice${selected}" data-question="${id}" data-letter="${letter}" type="button">${choiceLabel(index, choice)}</button>`;
+      }).join("");
+    }
+    function renderReading() {
+      document.getElementById("reading-practice").innerHTML = testData.readingGroups.map((group, index) => `
+        <article class="question-card split-card">
+          <h2>${group.title}</h2>
+          <div class="split-practice">
+            <section class="passage-panel" aria-label="${group.title} passage">
+              <div class="reader-toolbar"><button type="button" class="clear-markings">Clear Markings</button><a class="jump-button" href="#answers-section">Answer Sheet</a></div>
+              <div class="reader-container"><div class="passage">${group.passage}</div><canvas class="marking-canvas" data-mark="reading-${index}"></canvas></div>
+            </section>
+            <section class="questions-panel" aria-label="${group.title} questions">
+              ${group.questions.map(question => `<div class="question-block"><div class="question-text">${questionNumber(question)}. ${questionStem(question)}</div><div class="choices">${renderChoices(question, "reading")}</div><div class="result"></div></div>`).join("")}
+            </section>
+          </div>
+        </article>`).join("");
+    }
+    function renderVerbal() {
+      const synonyms = `<article class="question-card"><h2>Synonyms</h2><div class="verbal-grid">${testData.verbalSynonyms.map(renderVerbalQuestion).join("")}</div></article>`;
+      const analogies = `<article class="question-card"><h2>Analogies</h2><div class="verbal-grid">${testData.verbalAnalogies.map(renderVerbalQuestion).join("")}</div></article>`;
+      document.getElementById("verbal-practice").innerHTML = synonyms + analogies;
+    }
+    function renderVerbalQuestion(question) {
+      return `<div class="question-block"><div class="question-text">${question.number}. ${question.stem}</div><div class="choices">${renderChoices(question, "verbal")}</div><div class="result"></div></div>`;
+    }
+    function renderAnswerSheets() { renderAnswerGrid("reading-answers", "reading", 1, 40); renderAnswerGrid("verbal-answers", "verbal", 1, 60); }
+    function renderAnswerGrid(containerId, section, start, count) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = Array.from({length: count}, (_, i) => {
+        const number = start + i;
+        const id = questionId(section, number);
+        return `<div class="answer-card" data-question="${id}"><strong>${number}</strong><div class="bubble-row">${["A","B","C","D","E"].map(letter => `<label><input type="radio" name="answer-${containerId}-${number}" value="${letter}" ${selectedChoice(id) === letter ? "checked" : ""}> ${letter}</label>`).join("")}</div></div>`;
+      }).join("");
+      if (teacherUnlocked) gradeStudentAnswers();
+    }
+    function renderTeacherKeys() {
+      document.getElementById("reading-key").innerHTML = correctAnswers.reading.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${letter}</div>`).join("");
+      document.getElementById("verbal-key").innerHTML = correctAnswers.verbal.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${letter}</div>`).join("");
+    }
+    function setupTeacherKey() {
+      const input = document.getElementById("teacher-password");
+      const button = document.getElementById("unlock-teacher-key");
+      const message = document.getElementById("teacher-message");
+      const keyPanel = document.getElementById("teacher-key");
+      function unlock() {
+        if (input.value === "shili1979") {
+          teacherUnlocked = true;
+          keyPanel.classList.add("unlocked");
+          message.textContent = "Teacher answer key unlocked.";
+          message.style.color = "#166534";
+          input.value = "";
+          gradeStudentAnswers();
+        } else {
+          teacherUnlocked = false;
+          keyPanel.classList.remove("unlocked");
+          message.textContent = "Waiting for approval from administrator Steve Liu.";
+          message.style.color = "#9f1239";
+          clearTeacherHighlights();
+        }
+      }
+      button.addEventListener("click", unlock);
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") unlock();
+      });
+    }
+    function correctLetter(section, number) {
+      return correctAnswers[section][number - 1];
+    }
+    function clearTeacherHighlights() {
+      document.querySelectorAll(".choice.incorrect").forEach(choice => choice.classList.remove("incorrect"));
+      document.querySelectorAll(".answer-card.incorrect").forEach(card => card.classList.remove("incorrect"));
+      document.querySelectorAll(".key-card.student-wrong").forEach(card => card.classList.remove("student-wrong"));
+    }
+    function gradeStudentAnswers() {
+      if (!teacherUnlocked) return;
+      clearTeacherHighlights();
+      ["reading", "verbal"].forEach(section => {
+        const total = section === "reading" ? 40 : 60;
+        for (let number = 1; number <= total; number += 1) {
+          const id = questionId(section, number);
+          const selected = selectedChoice(id);
+          if (!selected || selected === correctLetter(section, number)) continue;
+          document.querySelectorAll(`.choice[data-question="${id}"][data-letter="${selected}"]`).forEach(choice => choice.classList.add("incorrect"));
+          document.querySelector(`.answer-card[data-question="${id}"]`)?.classList.add("incorrect");
+          document.querySelector(`#${section}-key .key-card:nth-child(${number})`)?.classList.add("student-wrong");
+        }
+      });
+    }
+    function setupClassroomGuards() {
+      document.addEventListener("contextmenu", event => event.preventDefault());
+      document.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+        const blockedShortcut =
+          event.key === "F12" ||
+          ((event.ctrlKey || event.metaKey) && key === "u") ||
+          ((event.ctrlKey || event.metaKey) && event.shiftKey && ["i", "j", "c"].includes(key));
+        if (blockedShortcut) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+    }
+    function setupSelections() {
+      document.addEventListener("click", event => {
+        const button = event.target.closest(".choice");
+        if (!button) return;
+        saveChoice(button.dataset.question, button.dataset.letter);
+        document.querySelectorAll(`.choice[data-question="${button.dataset.question}"]`).forEach(choice => choice.classList.remove("selected"));
+        button.classList.add("selected");
+        const result = button.closest(".question-block").querySelector(".result");
+        result.style.display = "block";
+        result.textContent = `You chose ${button.dataset.letter}.`;
+      });
+      document.addEventListener("change", event => {
+        if (!event.target.matches(".bubble-row input")) return;
+        const card = event.target.closest(".answer-card");
+        const id = card.dataset.question;
+        saveChoice(id, event.target.value);
+        document.querySelectorAll(`.choice[data-question="${id}"]`).forEach(choice => choice.classList.toggle("selected", choice.dataset.letter === event.target.value));
+      });
+    }
+    function setupTabs() {
+      document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-button").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".practice-section").forEach(section => section.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.target).classList.add("active");
+        document.querySelector("main").scrollIntoView({behavior: "smooth", block: "start"});
+        setTimeout(resizeAllCanvases, 80);
+      }));
+    }
+    function setupMarkingTools() { document.querySelectorAll(".question-card").forEach(setupMarkingTool); }
+    function setupMarkingTool(card) {
+      const container = card.querySelector(".reader-container");
+      const canvas = card.querySelector(".marking-canvas");
+      if (!container || !canvas) return;
+      const clearButton = card.querySelector(".clear-markings");
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+      function resizeCanvas() {
+        const saved = canvas.toDataURL();
+        const rect = container.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(rect.width * scale));
+        canvas.height = Math.max(1, Math.round(rect.height * scale));
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "red";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        if (saved && !saved.includes("AAAA")) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height); img.src = saved; }
+      }
+      function pointFromEvent(event) { const rect = canvas.getBoundingClientRect(); return {x: event.clientX - rect.left, y: event.clientY - rect.top}; }
+      resizeCanvas();
+      canvas.addEventListener("pointerdown", event => { drawing = true; canvas.setPointerCapture(event.pointerId); const p = pointFromEvent(event); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+      canvas.addEventListener("pointermove", event => { if (!drawing) return; const p = pointFromEvent(event); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+      canvas.addEventListener("pointerup", () => drawing = false);
+      canvas.addEventListener("pointercancel", () => drawing = false);
+      clearButton.addEventListener("click", () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+      canvas._resizeMarking = resizeCanvas;
+    }
+    function resizeAllCanvases() { document.querySelectorAll(".marking-canvas").forEach(canvas => canvas._resizeMarking && canvas._resizeMarking()); }
+    renderReading(); renderVerbal(); renderAnswerSheets(); renderTeacherKeys(); setupSelections(); setupTabs(); setupTeacherKey(); setupClassroomGuards(); setupMarkingTools(); window.addEventListener("resize", resizeAllCanvases);
+  </script>
+</body>
+</html>

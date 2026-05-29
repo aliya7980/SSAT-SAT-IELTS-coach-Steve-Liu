@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Course Content | HuskyDaddy</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #102a43;
+      line-height: 1.65;
+    }
+
+    a { text-decoration: none; }
+
+    #page-lock {
+      position: fixed;
+      inset: 0;
+      background: #102a43;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lock-box {
+      background: #f7f3eb;
+      padding: 42px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    }
+
+    .lock-box h2 {
+      color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .lock-box p {
+      color: #3e4c59;
+      margin-bottom: 18px;
+    }
+
+    .lock-box input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d4af37;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      font-size: 16px;
+    }
+
+    .lock-box button {
+      width: 100%;
+      padding: 13px;
+      background: #d4af37;
+      color: #102a43;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #wrong-password {
+      color: #b91c1c;
+      margin-top: 12px;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover { color: #d4af37; }
+
+    .hero {
+      min-height: 420px;
+      background:
+        linear-gradient(rgba(16, 42, 67, 0.55), rgba(16, 42, 67, 0.55)),
+        url("../images/winding-trail.jpeg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      padding: 80px 8%;
+      color: white;
+    }
+
+    .hero-content { max-width: 760px; }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #f6f8fd;
+      margin-bottom: 28px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+
+    .cta-button:hover { background: #c19a2e; }
+
+    .page-section { padding: 70px 8%; }
+
+    .container {
+      max-width: 1050px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 36px;
+      text-align: center;
+      color: #102a43;
+      margin-bottom: 35px;
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .download-card {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      border-left: 5px solid #d4af37;
+    }
+
+    .download-card i {
+      font-size: 34px;
+      color: #d4af37;
+      margin-bottom: 16px;
+    }
+
+    .download-card h3 {
+      font-size: 24px;
+      color: #102a43;
+      margin-bottom: 12px;
+    }
+
+    .download-card p {
+      color: #3e4c59;
+      font-size: 17px;
+      margin-bottom: 22px;
+    }
+
+    .file-button {
+      display: inline-block;
+      background: #102a43;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin: 6px;
+    }
+
+    .file-button:hover { background: #1f4f73; }
+
+    .practice-card {
+      margin-top: 40px;
+      background: #fffaf0;
+      border: 1px solid #ead7a0;
+      border-radius: 12px;
+      padding: 36px;
+      text-align: center;
+    }
+
+    .practice-card h3 {
+      font-size: 30px;
+      color: #102a43;
+      margin-bottom: 14px;
+    }
+
+    .practice-card p {
+      font-size: 18px;
+      color: #3e4c59;
+      margin-bottom: 24px;
+    }
+
+    footer {
+      background: #102a43;
+      color: white;
+      text-align: center;
+      padding: 28px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero h1 { font-size: 36px; }
+
+      .hero { padding: 60px 8%; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="page-lock">
+    <div class="lock-box">
+      <h2>Protected Course Page</h2>
+      <p>Please enter the class password.</p>
+      <input id="password-input" type="password" placeholder="Password">
+      <button onclick="unlockPage()">Enter</button>
+      <p id="wrong-password"></p>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy | SAT/SSAT/ACT Coach</div>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Course Content & Practice Materials</h1>
+      <p>
+        Download class notes, reading materials, and SAT practice pages designed
+        to help students build stronger skills step by step.
+      </p>
+
+      <a href="#download" class="cta-button">Download Files</a>
+      <a href="ASSETS/satpractice.html" class="cta-button">Open SAT Practice</a>
+    </div>
+  </section>
+
+  <section id="download" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Download Files</h2>
+
+      <div class="download-grid">
+
+        <div class="download-card">
+          <i class="fa-solid fa-file-pdf"></i>
+          <h3>Summary Writing Tips</h3>
+          <p>Class notes for improving summary writing skills.</p>
+          <a class="file-button" href="ASSETS/SUMMARY WRITING.pdf" download>Download PDF</a>
+        </div>
+
+        <div class="download-card">
+          <i class="fa-solid fa-book-open"></i>
+          <h3>Short Story: Identities</h3>
+          <p>Reading material for short story analysis practice.</p>
+          <a class="file-button" href="ASSETS/identities.pdf" download>Download PDF</a>
+        </div>
+
+        <div class="download-card">
+          <i class="fa-solid fa-pen-nib"></i>
+          <h3>Elements of Short Stories</h3>
+          <p>Notes on plot, character, conflict, theme, and setting.</p>
+          <a class="file-button" href="ASSETS/ELEMENTSOFSTORY.pdf" download>Download PDF</a>
+        </div>
+
+      </div>
+
+      <div class="practice-card">
+        <h3>SAT Practice Page</h3>
+        <p>Open the SAT practice page from your ASSETS folder.</p>
+
+        <a class="cta-button" href="../ASSETS/sat-practice-test-1-digital.pdf">Open SAT Practice</a>
+        <a class="file-button" href="../ASSETS/sat-practice-test-1-digital.pdf" download>Download SAT Practice HTML</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Steve Liu | HuskyDaddy Learning
+  </footer>
+
+  <script>
+    function unlockPage() {
+      const password = document.getElementById("password-input").value;
+
+      if (password === "shili1979") {
+        document.getElementById("page-lock").style.display = "none";
+        sessionStorage.setItem("coursePageUnlocked", "true");
+      } else {
+        document.getElementById("wrong-password").textContent =
+          "Incorrect password. Please try again.";
+      }
+    }
+
+    window.onload = function() {
+      if (sessionStorage.getItem("coursePageUnlocked") === "true") {
+        document.getElementById("page-lock").style.display = "none";
+      }
+    };
+  </script>
+
+</body>
+</html>

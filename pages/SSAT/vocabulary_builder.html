@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSAT Vocabulary Builder | HuskyDaddy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f8f3e8;
+      color: #102a43;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      align-items: center;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .15);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 7%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      border-bottom: 2px solid transparent;
+      color: #f7fbff;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: #d9b25f;
+      color: #d9b25f;
+    }
+
+    .hero {
+      align-items: center;
+      background: linear-gradient(90deg, rgba(248, 243, 232, .98) 0%, rgba(248, 243, 232, .86) 45%, rgba(248, 243, 232, .2) 78%), url("../../images/huskystudy.jpeg");
+      background-position: center right;
+      background-size: cover;
+      display: flex;
+      min-height: 390px;
+      padding: 72px 7%;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      color: #08233d;
+      font-size: 50px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #1f2933;
+      font-size: 20px;
+      max-width: 700px;
+    }
+
+    .quick-nav {
+      background: #fffaf0;
+      border-bottom: 1px solid rgba(16, 42, 67, .12);
+      border-top: 1px solid rgba(16, 42, 67, .12);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      padding: 20px 7%;
+    }
+
+    .quick-nav a,
+    .button {
+      background: #082b49;
+      border: 0;
+      border-radius: 30px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      font-weight: bold;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 22px;
+      transition: .25s;
+    }
+
+    .quick-nav a:hover,
+    .button:hover {
+      background: #0b3d66;
+      transform: translateY(-2px);
+    }
+
+    .button.secondary {
+      background: #d9b25f;
+      color: #08233d;
+    }
+
+    .button.secondary:hover {
+      background: #c89f48;
+      color: #08233d;
+    }
+
+    .section {
+      margin: auto;
+      max-width: 1220px;
+      padding: 68px 7%;
+    }
+
+    .section h2 {
+      color: #102a43;
+      font-size: 36px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .section-intro {
+      color: #3e4c59;
+      font-size: 19px;
+      margin: 0 auto 34px;
+      max-width: 780px;
+      text-align: center;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid rgba(16, 42, 67, .08);
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, .08);
+      padding: 28px;
+    }
+
+    .builder-layout {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+    }
+
+    .word-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    label {
+      color: #102a43;
+      display: grid;
+      font-size: 17px;
+      font-weight: bold;
+      gap: 8px;
+    }
+
+    input,
+    select,
+    textarea {
+      background: #fffaf0;
+      border: 1px solid #d8cdb8;
+      border-radius: 6px;
+      color: #102a43;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      padding: 12px 14px;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .list-manager {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .list-controls {
+      align-items: end;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .list-summary {
+      color: #3e4c59;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .form-actions,
+    .study-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .word-list {
+      display: grid;
+      gap: 12px;
+      max-height: 540px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .word-row {
+      background: #fffaf0;
+      border: 1px solid #e5dac7;
+      border-left: 5px solid #d9b25f;
+      border-radius: 8px;
+      display: grid;
+      gap: 8px;
+      padding: 16px;
+    }
+
+    .word-row h3 {
+      color: #082b49;
+      font-size: 22px;
+    }
+
+    .word-row p {
+      color: #3e4c59;
+      font-size: 16px;
+    }
+
+    .row-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .text-button {
+      background: transparent;
+      border: 0;
+      color: #0b3d66;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 4px;
+    }
+
+    .flashcard-stage {
+      align-items: center;
+      display: grid;
+      gap: 22px;
+      justify-items: center;
+    }
+
+    .flashcard {
+      background: #fff;
+      border: 1px solid rgba(16, 42, 67, .1);
+      border-radius: 8px;
+      box-shadow: 0 16px 36px rgba(16, 42, 67, .12);
+      cursor: pointer;
+      height: 310px;
+      max-width: 680px;
+      overflow: hidden;
+      padding: 0;
+      width: 100%;
+    }
+
+    .flashcard-inner {
+      display: block;
+      height: 100%;
+      width: 100%;
+    }
+
+    .flashcard-face {
+      align-items: center;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: 100%;
+      justify-content: center;
+      padding: 32px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .flashcard-back {
+      background: #fffaf0;
+      display: none;
+    }
+
+    .flashcard.is-flipped .flashcard-front {
+      display: none;
+    }
+
+    .flashcard.is-flipped .flashcard-back {
+      display: flex;
+    }
+
+    .flashcard-word {
+      color: #08233d;
+      font-size: 46px;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .flashcard-detail {
+      color: #243b53;
+      font-size: 20px;
+      max-width: 560px;
+    }
+
+    .counter {
+      color: #3e4c59;
+      font-size: 17px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .match-toolbar {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .match-status {
+      color: #3e4c59;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .match-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .match-card {
+      align-items: center;
+      aspect-ratio: 1;
+      background: #082b49;
+      border: 2px solid #082b49;
+      border-radius: 8px;
+      color: transparent;
+      cursor: pointer;
+      display: flex;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(12px, 1.3vw, 17px);
+      font-weight: bold;
+      justify-content: center;
+      line-height: 1.25;
+      overflow: hidden;
+      padding: 8px;
+      text-align: center;
+      transition: opacity .25s, transform .2s, background .2s;
+      word-break: break-word;
+    }
+
+    .match-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .match-card.revealed {
+      background: #fffaf0;
+      border-color: #d9b25f;
+      color: #102a43;
+    }
+
+    .match-card.matched {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(.9);
+    }
+
+    .match-card.free-space {
+      background: #d9b25f;
+      border-color: #d9b25f;
+      color: #08233d;
+    }
+
+    .message {
+      background: #eaf6ef;
+      border: 1px solid #b9dfc8;
+      border-radius: 8px;
+      color: #17472a;
+      display: none;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 22px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .message.is-visible {
+      display: block;
+    }
+
+    footer {
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: #fff;
+      font-size: 17px;
+      padding: 26px 7%;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        gap: 18px;
+        justify-content: center;
+      }
+
+      .hero {
+        background: linear-gradient(rgba(248, 243, 232, .94), rgba(248, 243, 232, .9)), url("../../images/huskystudy.jpeg");
+        background-position: center;
+        background-size: cover;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .builder-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .list-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .hero,
+      .section {
+        padding-left: 6%;
+        padding-right: 6%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .flashcard {
+        height: 330px;
+      }
+
+      .flashcard-word {
+        font-size: 34px;
+      }
+
+      .match-grid {
+        gap: 6px;
+      }
+
+      .match-card {
+        padding: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SSAT Vocabulary Builder</h1>
+      <p>Add your own words, turn them into flashcards, then test recall with a five by five matching challenge.</p>
+    </div>
+  </section>
+
+  <div class="quick-nav">
+    <a href="#add-words">Add Words</a>
+    <a href="#flashcards">Flashcards</a>
+    <a href="#matching">Matching Game</a>
+  </div>
+
+  <section id="add-words" class="section">
+    <h2>Add Words</h2>
+    <p class="section-intro">Build a personal SSAT vocabulary set with each word, its definition, and one or more example sentences.</p>
+    <div class="panel list-manager">
+      <div class="list-controls">
+        <label>
+          Stored lists
+          <select id="list-select"></select>
+        </label>
+        <label>
+          New list name
+          <input id="list-name-input" type="text" autocomplete="off" placeholder="Example: Week 1 SSAT Words">
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="button secondary" id="create-list" type="button">Create List</button>
+        <button class="button" id="delete-list" type="button">Delete Current List</button>
+      </div>
+      <div class="list-summary" id="list-summary"></div>
+    </div>
+    <div class="builder-layout">
+      <div class="panel">
+        <form class="word-form" id="word-form">
+          <label>
+            Word
+            <input id="word-input" type="text" autocomplete="off" required>
+          </label>
+          <label>
+            Definition
+            <textarea id="definition-input" required></textarea>
+          </label>
+          <label>
+            Example sentence
+            <textarea id="example-input" required></textarea>
+          </label>
+          <div class="form-actions">
+            <button class="button secondary" type="submit">Add Word</button>
+            <button class="button" id="clear-form" type="button">Clear Form</button>
+          </div>
+        </form>
+      </div>
+      <div class="panel">
+        <div class="word-list" id="word-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flashcards" class="section">
+    <h2>Flashcards</h2>
+    <p class="section-intro">Click the card to flip between the word and its definition with example sentences.</p>
+    <div class="panel flashcard-stage">
+      <button class="flashcard" id="flashcard" type="button" aria-label="Flip flashcard">
+        <span class="flashcard-inner">
+          <span class="flashcard-face flashcard-front">
+            <span class="counter" id="card-counter">Card 1 of 1</span>
+            <span class="flashcard-word" id="card-word"></span>
+          </span>
+          <span class="flashcard-face flashcard-back">
+            <span class="flashcard-detail" id="card-definition"></span>
+            <span class="flashcard-detail" id="card-example"></span>
+          </span>
+        </span>
+      </button>
+      <div class="study-actions">
+        <button class="button" id="prev-card" type="button">Previous</button>
+        <button class="button secondary" id="shuffle-cards" type="button">Shuffle</button>
+        <button class="button" id="next-card" type="button">Next</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="matching" class="section">
+    <h2>Matching Game</h2>
+    <p class="section-intro">Pick a hidden tile, then find its matching word or definition. Correct matches disappear from the board.</p>
+    <div class="panel">
+      <div class="match-toolbar">
+        <button class="button secondary" id="new-round" type="button">New Round</button>
+        <div class="match-status" id="match-status">Matches found: 0</div>
+      </div>
+      <div class="match-grid" id="match-grid" aria-label="Vocabulary matching board"></div>
+      <div class="message" id="completion-message">Good Job! You have completed the challenge! One more round? 🙂</div>
+    </div>
+  </section>
+
+  <footer>© HuskyDaddy | SSAT Vocabulary Builder</footer>
+
+  <script>
+    const starterWords = [
+      { word: "abundant", definition: "Existing in large quantities.", example: "The library had an abundant supply of practice books." },
+      { word: "concise", definition: "Brief but clear.", example: "Her concise answer explained the idea in one sentence." },
+      { word: "diligent", definition: "Careful and hardworking.", example: "A diligent student reviews vocabulary every night." },
+      { word: "elaborate", definition: "Detailed or carefully developed.", example: "He gave an elaborate explanation of the analogy." },
+      { word: "frugal", definition: "Careful about spending resources.", example: "The frugal traveler packed lunch instead of buying it." },
+      { word: "hinder", definition: "To slow down or make difficult.", example: "Noise can hinder concentration during a test." },
+      { word: "infer", definition: "To figure out from evidence.", example: "Readers can infer the character is nervous from her actions." },
+      { word: "lucid", definition: "Clear and easy to understand.", example: "The tutor gave a lucid explanation of context clues." },
+      { word: "meticulous", definition: "Extremely careful about details.", example: "She was meticulous when checking her answers." },
+      { word: "novel", definition: "New or unusual.", example: "The team proposed a novel way to solve the puzzle." },
+      { word: "prudent", definition: "Showing wise judgment.", example: "It is prudent to skip a hard question and return later." },
+      { word: "resilient", definition: "Able to recover quickly.", example: "The resilient student improved after each practice test." }
+    ];
+
+    const listsStorageKey = "ssatVocabularyBuilderLists";
+    const legacyStorageKey = "ssatVocabularyBuilderWords";
+    const form = document.getElementById("word-form");
+    const wordInput = document.getElementById("word-input");
+    const definitionInput = document.getElementById("definition-input");
+    const exampleInput = document.getElementById("example-input");
+    const listSelect = document.getElementById("list-select");
+    const listNameInput = document.getElementById("list-name-input");
+    const listSummary = document.getElementById("list-summary");
+    const deleteListButton = document.getElementById("delete-list");
+    const wordList = document.getElementById("word-list");
+    const flashcard = document.getElementById("flashcard");
+    const cardWord = document.getElementById("card-word");
+    const cardDefinition = document.getElementById("card-definition");
+    const cardExample = document.getElementById("card-example");
+    const cardCounter = document.getElementById("card-counter");
+    const matchGrid = document.getElementById("match-grid");
+    const matchStatus = document.getElementById("match-status");
+    const completionMessage = document.getElementById("completion-message");
+    let listState = loadListState();
+    let words = getActiveList().words;
+    let currentCardIndex = 0;
+    let selectedTiles = [];
+    let matchedPairs = 0;
+    let lockBoard = false;
+
+    function makeId() {
+      return `list-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function normalizeWords(items) {
+      if (!Array.isArray(items)) {
+        return [];
+      }
+
+      return items
+        .filter((item) => item && item.word && item.definition && item.example)
+        .map((item) => ({
+          word: String(item.word),
+          definition: String(item.definition),
+          example: String(item.example)
+        }));
+    }
+
+    function createDefaultState() {
+      const id = makeId();
+      return {
+        activeListId: id,
+        lists: [{ id, name: "SSAT Starter Words", words: starterWords }]
+      };
+    }
+
+    function loadListState() {
+      const savedLists = localStorage.getItem(listsStorageKey);
+      try {
+        if (savedLists) {
+          const parsed = JSON.parse(savedLists);
+          const lists = Array.isArray(parsed.lists)
+            ? parsed.lists.map((list) => ({
+                id: list.id || makeId(),
+                name: list.name || "Vocabulary List",
+                words: normalizeWords(list.words)
+              }))
+            : [];
+
+          if (lists.length) {
+            return {
+              activeListId: lists.some((list) => list.id === parsed.activeListId) ? parsed.activeListId : lists[0].id,
+              lists
+            };
+          }
+        }
+      } catch {
+        return createDefaultState();
+      }
+
+      try {
+        const legacyWords = JSON.parse(localStorage.getItem(legacyStorageKey));
+        const normalizedLegacyWords = normalizeWords(legacyWords);
+        if (normalizedLegacyWords.length) {
+          const id = makeId();
+          return {
+            activeListId: id,
+            lists: [{ id, name: "Saved Vocabulary", words: normalizedLegacyWords }]
+          };
+        }
+      } catch {
+        return createDefaultState();
+      }
+
+      return createDefaultState();
+    }
+
+    function getActiveList() {
+      return listState.lists.find((list) => list.id === listState.activeListId) || listState.lists[0];
+    }
+
+    function saveState() {
+      const activeList = getActiveList();
+      activeList.words = words;
+      localStorage.setItem(listsStorageKey, JSON.stringify(listState));
+    }
+
+    function setActiveList(listId) {
+      saveState();
+      listState.activeListId = listId;
+      words = getActiveList().words;
+      currentCardIndex = 0;
+      refreshAll();
+    }
+
+    function escapeText(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function renderWordList() {
+      wordList.innerHTML = words.map((item, index) => `
+        <article class="word-row">
+          <h3>${escapeText(item.word)}</h3>
+          <p><strong>Definition:</strong> ${escapeText(item.definition)}</p>
+          <p><strong>Example:</strong> ${escapeText(item.example)}</p>
+          <div class="row-actions">
+            <button class="text-button" type="button" data-edit="${index}">Edit</button>
+            <button class="text-button" type="button" data-delete="${index}">Delete</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderListManager() {
+      const activeList = getActiveList();
+      listSelect.innerHTML = listState.lists.map((list) => `
+        <option value="${list.id}" ${list.id === activeList.id ? "selected" : ""}>${escapeText(list.name)}</option>
+      `).join("");
+      listSummary.textContent = `${activeList.name}: ${words.length} ${words.length === 1 ? "word" : "words"} stored`;
+      deleteListButton.disabled = listState.lists.length <= 1;
+    }
+
+    function renderFlashcard() {
+      if (!words.length) {
+        cardCounter.textContent = "No cards yet";
+        cardWord.textContent = "Add a word to begin";
+        cardDefinition.textContent = "";
+        cardExample.textContent = "";
+        return;
+      }
+
+      currentCardIndex = (currentCardIndex + words.length) % words.length;
+      const item = words[currentCardIndex];
+      flashcard.classList.remove("is-flipped");
+      cardCounter.textContent = `Card ${currentCardIndex + 1} of ${words.length}`;
+      cardWord.textContent = item.word;
+      cardDefinition.textContent = item.definition;
+      cardExample.textContent = item.example;
+    }
+
+    function shuffle(array) {
+      const copy = [...array];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function buildMatchingRound() {
+      const roundWords = shuffle(words).slice(0, 12);
+      selectedTiles = [];
+      matchedPairs = 0;
+      lockBoard = false;
+      completionMessage.classList.remove("is-visible");
+      matchStatus.textContent = `Matches found: 0 of ${roundWords.length}`;
+
+      const tiles = roundWords.flatMap((item, pairId) => [
+        { pairId, type: "word", text: item.word },
+        { pairId, type: "definition", text: item.definition }
+      ]);
+
+      const boardTiles = shuffle(tiles);
+      boardTiles.splice(12, 0, { type: "free", text: "Free" });
+      matchGrid.innerHTML = boardTiles.map((tile, index) => {
+        if (tile.type === "free") {
+          return `<button class="match-card free-space revealed" type="button" data-free="true" aria-label="Free space">${tile.text}</button>`;
+        }
+
+        return `<button class="match-card" type="button" data-index="${index}" data-pair="${tile.pairId}" data-type="${tile.type}">${escapeText(tile.text)}</button>`;
+      }).join("");
+    }
+
+    function refreshAll() {
+      saveState();
+      renderListManager();
+      renderWordList();
+      renderFlashcard();
+      buildMatchingRound();
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const newWord = {
+        word: wordInput.value.trim(),
+        definition: definitionInput.value.trim(),
+        example: exampleInput.value.trim()
+      };
+
+      if (!newWord.word || !newWord.definition || !newWord.example) {
+        return;
+      }
+
+      words.unshift(newWord);
+      form.reset();
+      currentCardIndex = 0;
+      refreshAll();
+    });
+
+    document.getElementById("clear-form").addEventListener("click", () => form.reset());
+
+    listSelect.addEventListener("change", () => {
+      setActiveList(listSelect.value);
+    });
+
+    document.getElementById("create-list").addEventListener("click", () => {
+      const listName = listNameInput.value.trim() || `Vocabulary List ${listState.lists.length + 1}`;
+      const id = makeId();
+      saveState();
+      listState.lists.push({ id, name: listName, words: [] });
+      listState.activeListId = id;
+      words = [];
+      currentCardIndex = 0;
+      listNameInput.value = "";
+      refreshAll();
+    });
+
+    deleteListButton.addEventListener("click", () => {
+      if (listState.lists.length <= 1) {
+        return;
+      }
+
+      const activeList = getActiveList();
+      const shouldDelete = window.confirm(`Delete "${activeList.name}"?`);
+      if (!shouldDelete) {
+        return;
+      }
+
+      listState.lists = listState.lists.filter((list) => list.id !== activeList.id);
+      listState.activeListId = listState.lists[0].id;
+      words = getActiveList().words;
+      currentCardIndex = 0;
+      refreshAll();
+    });
+
+    wordList.addEventListener("click", (event) => {
+      const editIndex = event.target.dataset.edit;
+      const deleteIndex = event.target.dataset.delete;
+
+      if (editIndex !== undefined) {
+        const item = words[Number(editIndex)];
+        wordInput.value = item.word;
+        definitionInput.value = item.definition;
+        exampleInput.value = item.example;
+        words.splice(Number(editIndex), 1);
+        refreshAll();
+        wordInput.focus();
+      }
+
+      if (deleteIndex !== undefined) {
+        words.splice(Number(deleteIndex), 1);
+        currentCardIndex = 0;
+        refreshAll();
+      }
+    });
+
+    flashcard.addEventListener("click", () => {
+      if (words.length) {
+        flashcard.classList.toggle("is-flipped");
+      }
+    });
+
+    document.getElementById("prev-card").addEventListener("click", () => {
+      currentCardIndex -= 1;
+      renderFlashcard();
+    });
+
+    document.getElementById("next-card").addEventListener("click", () => {
+      currentCardIndex += 1;
+      renderFlashcard();
+    });
+
+    document.getElementById("shuffle-cards").addEventListener("click", () => {
+      words = shuffle(words);
+      currentCardIndex = 0;
+      refreshAll();
+    });
+
+    document.getElementById("new-round").addEventListener("click", buildMatchingRound);
+
+    matchGrid.addEventListener("click", (event) => {
+      const tile = event.target.closest(".match-card");
+      if (!tile || tile.dataset.free || lockBoard || tile.classList.contains("matched") || tile.classList.contains("revealed")) {
+        return;
+      }
+
+      tile.classList.add("revealed");
+      selectedTiles.push(tile);
+
+      if (selectedTiles.length < 2) {
+        return;
+      }
+
+      lockBoard = true;
+      const [first, second] = selectedTiles;
+      const isMatch = first.dataset.pair === second.dataset.pair && first.dataset.type !== second.dataset.type;
+
+      if (isMatch) {
+        setTimeout(() => {
+          first.classList.add("matched");
+          second.classList.add("matched");
+          selectedTiles = [];
+          matchedPairs += 1;
+          const totalPairs = Math.min(words.length, 12);
+          matchStatus.textContent = `Matches found: ${matchedPairs} of ${totalPairs}`;
+          lockBoard = false;
+
+          if (matchedPairs === totalPairs) {
+            completionMessage.classList.add("is-visible");
+          }
+        }, 350);
+      } else {
+        setTimeout(() => {
+          first.classList.remove("revealed");
+          second.classList.remove("revealed");
+          selectedTiles = [];
+          lockBoard = false;
+        }, 850);
+      }
+    });
+
+    refreshAll();
+  </script>
+</body>
+</html>

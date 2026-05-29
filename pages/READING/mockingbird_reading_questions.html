@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>To Kill a Mockingbird Reading Guide Questions | HuskyDaddy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #f8f3e8;
+      color: #102a43;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      align-items: center;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .15);
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 7%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      border-bottom: 2px solid transparent;
+      color: #f7fbff;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 6px;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: #d9b25f;
+      color: #d9b25f;
+    }
+
+    .hero {
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(248, 243, 232, .98), rgba(248, 243, 232, .82), rgba(248, 243, 232, .22)),
+        url("../../images/TKAM_map.jpg");
+      background-position: center right;
+      background-size: cover;
+      display: flex;
+      min-height: 370px;
+      padding: 70px 7%;
+    }
+
+    .hero-content {
+      max-width: 790px;
+    }
+
+    .hero h1 {
+      color: #08233d;
+      font-size: 46px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #1f2933;
+      font-size: 20px;
+      max-width: 720px;
+    }
+
+    .toolbar {
+      background: #fffaf0;
+      border-bottom: 1px solid rgba(16, 42, 67, .12);
+      border-top: 1px solid rgba(16, 42, 67, .12);
+      display: grid;
+      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      padding: 20px 7%;
+    }
+
+    .toolbar input {
+      background: #fff;
+      border: 1px solid #d8cdb8;
+      border-radius: 8px;
+      color: #102a43;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      min-height: 46px;
+      padding: 11px 14px;
+      width: 100%;
+    }
+
+    .button {
+      background: #082b49;
+      border: 0;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 16px;
+      font-weight: bold;
+      justify-content: center;
+      min-height: 46px;
+      padding: 12px 20px;
+      transition: .25s ease;
+    }
+
+    .button:hover {
+      background: #0b3d66;
+      transform: translateY(-2px);
+    }
+
+    .layout {
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 52px 7%;
+    }
+
+    .overview {
+      background: #fff;
+      border: 1px solid rgba(16, 42, 67, .08);
+      border-left: 6px solid #d9b25f;
+      border-radius: 8px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, .08);
+      margin-bottom: 28px;
+      padding: 28px;
+    }
+
+    .overview h2 {
+      color: #102a43;
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
+
+    .overview p {
+      color: #3e4c59;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .source-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .source-links a {
+      border-bottom: 2px solid #d9b25f;
+      color: #082b49;
+      font-weight: bold;
+    }
+
+    .chapter-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    details {
+      background: #fff;
+      border: 1px solid rgba(16, 42, 67, .08);
+      border-radius: 8px;
+      box-shadow: 0 10px 24px rgba(16, 42, 67, .07);
+      overflow: hidden;
+    }
+
+    summary {
+      color: #082b49;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+      list-style-position: inside;
+      padding: 20px 24px;
+    }
+
+    details[open] summary {
+      background: #fffaf0;
+      border-bottom: 1px solid #e5dac7;
+    }
+
+    .focus-line {
+      color: #3e4c59;
+      font-size: 16px;
+      padding: 18px 30px 0;
+    }
+
+    .questions {
+      display: grid;
+      gap: 12px;
+      padding: 22px 30px 28px 50px;
+    }
+
+    .questions li {
+      color: #2d3d4d;
+      font-size: 17px;
+      padding-left: 6px;
+    }
+
+    .empty-state {
+      background: #fff;
+      border-radius: 8px;
+      color: #3e4c59;
+      display: none;
+      font-size: 18px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .empty-state.is-visible {
+      display: block;
+    }
+
+    footer {
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: #fff;
+      font-size: 17px;
+      padding: 26px 7%;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        gap: 18px;
+        justify-content: center;
+      }
+
+      .hero {
+        background:
+          linear-gradient(rgba(248, 243, 232, .94), rgba(248, 243, 232, .9)),
+          url("../../images/TKAM_map.jpg");
+        background-position: center;
+        background-size: cover;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .toolbar {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>To Kill a Mockingbird Reading Guide Questions</h1>
+      <p>Ten chapter-by-chapter questions for close reading, discussion, annotation, and written response.</p>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <input id="chapter-search" type="search" placeholder="Search chapter number, theme, character, or event">
+    <button class="button" id="expand-all" type="button">Open All</button>
+    <button class="button" id="collapse-all" type="button">Close All</button>
+  </div>
+
+  <main class="layout">
+    <section class="overview">
+      <h2>Chapter Questions</h2>
+      <p id="question-count"></p>
+      <p>Questions are based on chapter events and summary emphases found in SparkNotes and CliffsNotes, then rewritten for original classroom use.</p>
+      <div class="source-links">
+        <a href="https://www.sparknotes.com/lit/mocking/sparklets/" target="_blank" rel="noopener">SparkNotes chapter summaries</a>
+        <a href="https://www.cliffsnotes.com/literature/t/to-kill-a-mockingbird/summary-and-analysis/part-1-chapter-1" target="_blank" rel="noopener">CliffsNotes summary and analysis</a>
+      </div>
+    </section>
+
+    <section class="chapter-list" id="chapter-list"></section>
+    <div class="empty-state" id="empty-state">No chapters match that search.</div>
+  </main>
+
+  <footer>Read closely. Notice point of view, courage, prejudice, justice, and growing up.</footer>
+
+  <script>
+    const chapterData = [
+      {
+        number: 1,
+        title: "Maycomb, the Finch Family, and Boo Radley",
+        focus: ["Scout introduces Maycomb's tired social world", "Atticus raises Jem and Scout with Calpurnia's help", "Dill arrives and becomes fascinated with Boo Radley", "the children repeat neighborhood legends about Boo", "the Radley house becomes a source of fear and curiosity", "Scout's narration mixes childhood memory with adult reflection", "Maycomb's family histories shape how people judge one another", "the children dare each other to approach the Radley place", "Atticus discourages making Boo into a game", "the chapter establishes mystery, class, race, and childhood imagination"],
+        themes: ["setting", "point of view", "rumor", "childhood"]
+      },
+      {
+        number: 2,
+        title: "Scout's First Day of School",
+        focus: ["Scout begins school with high expectations", "Miss Caroline misunderstands Scout's reading ability", "Scout is told not to read at home with Atticus", "Walter Cunningham has no lunch money", "Scout tries to explain the Cunningham family's pride", "Miss Caroline punishes Scout for speaking out", "Scout learns school rules do not always match Maycomb reality", "the class reveals differences in family background", "Scout feels frustrated by adults who do not understand her", "education becomes a conflict between rules and experience"],
+        themes: ["education", "class", "perspective", "fairness"]
+      },
+      {
+        number: 3,
+        title: "Walter Cunningham and Burris Ewell",
+        focus: ["Scout attacks Walter Cunningham after school", "Jem invites Walter home for lunch", "Calpurnia scolds Scout for mocking Walter's table manners", "Atticus teaches Scout to consider another person's point of view", "Burris Ewell insults Miss Caroline and leaves school", "the Ewells are treated differently from other families", "Scout asks Atticus if she can stop going to school", "Atticus makes a compromise about reading at home", "Maycomb's class system becomes clearer", "Scout begins learning empathy through embarrassment"],
+        themes: ["empathy", "class", "manners", "moral education"]
+      },
+      {
+        number: 4,
+        title: "Gifts in the Tree and the Radley Game",
+        focus: ["Scout finds chewing gum in the Radley tree", "Jem worries the gum might be dangerous", "the children discover two polished Indian-head pennies", "Dill returns to Maycomb for the summer", "the tire game accidentally rolls Scout near the Radley porch", "Scout hears laughter from inside the Radley house", "the children invent the Boo Radley game", "Atticus catches them acting out Radley gossip", "Scout senses the game may be wrong", "Boo shifts from monster to possible hidden observer"],
+        themes: ["curiosity", "imagination", "privacy", "foreshadowing"]
+      },
+      {
+        number: 5,
+        title: "Miss Maudie and the Attempted Note",
+        focus: ["Scout spends more time with Miss Maudie", "Miss Maudie gives a kinder view of Boo Radley", "Miss Maudie explains that some people turn religion into cruelty", "Jem and Dill plan to send Boo a note", "the children use a fishing pole to reach a Radley window", "Atticus catches the plan", "Atticus tells them to stop tormenting Boo", "Scout learns adults disagree about the Radleys", "Miss Maudie becomes a voice of humane judgment", "the children's curiosity begins to raise ethical questions"],
+        themes: ["compassion", "religious hypocrisy", "boundaries", "moral judgment"]
+      },
+      {
+        number: 6,
+        title: "The Radley Fence at Night",
+        focus: ["Jem and Dill decide to peep into the Radley window", "Scout joins despite her fear", "Nathan Radley fires a shotgun in the dark", "Jem loses his pants while escaping under the fence", "the neighborhood assumes a prowler was in the yard", "Dill lies to protect Jem", "Jem returns alone to retrieve his pants", "Jem finds the pants folded and mended", "Boo's secret kindness becomes harder to ignore", "Jem begins to understand the Radley mystery differently"],
+        themes: ["fear", "risk", "secrecy", "kindness"]
+      },
+      {
+        number: 7,
+        title: "The Knothole Is Sealed",
+        focus: ["Jem tells Scout his pants were mysteriously mended", "the children find more gifts in the tree", "the soap figures resemble Scout and Jem", "Jem and Scout plan to leave a thank-you note", "Nathan Radley fills the knothole with cement", "Nathan claims the tree is dying", "Jem asks Atticus and learns the tree looks healthy", "Jem quietly grieves the blocked connection", "Scout does not fully understand Jem's sadness", "Boo's communication with the children is cut off"],
+        themes: ["loss", "connection", "innocence", "isolation"]
+      },
+      {
+        number: 8,
+        title: "Snow, Fire, and Boo's Blanket",
+        focus: ["Maycomb experiences rare snow", "Jem and Scout build a mixed mud-and-snow figure", "Miss Maudie's house catches fire at night", "the children stand near the Radley place during the fire", "someone places a blanket around Scout's shoulders", "Atticus realizes Boo gave Scout the blanket", "Jem reveals the gifts and the mended pants to Atticus", "Miss Maudie responds to loss with resilience", "Boo quietly protects Scout without being seen", "the chapter turns fear of Boo into evidence of compassion"],
+        themes: ["kindness", "resilience", "community", "hidden goodness"]
+      },
+      {
+        number: 9,
+        title: "Atticus Takes Tom Robinson's Case",
+        focus: ["Scout hears insults about Atticus defending Tom Robinson", "Atticus explains why he must take the case", "Scout struggles not to fight Cecil Jacobs", "the family visits Finch's Landing for Christmas", "Francis insults Atticus and repeats racist language", "Scout fights Francis and is punished", "Uncle Jack learns he did not hear Scout's side", "Atticus wants his children to face ugliness without hatred", "Scout overhears Atticus speaking about the coming trial", "the trial begins entering the children's private world"],
+        themes: ["conscience", "racism", "family", "courage"]
+      },
+      {
+        number: 10,
+        title: "The Mad Dog and the Mockingbird Lesson",
+        focus: ["Scout and Jem think Atticus is old and unimpressive", "Atticus gives them air rifles but warns them not to kill mockingbirds", "Miss Maudie explains why mockingbirds are innocent", "Tim Johnson appears sick on the street", "Heck Tate asks Atticus to shoot the mad dog", "Atticus reveals his skill as One-Shot Finch", "Jem sees his father differently", "Miss Maudie explains Atticus does not boast about his talent", "courage is separated from violence and pride", "the mockingbird symbol is introduced directly"],
+        themes: ["innocence", "humility", "courage", "moral restraint"]
+      },
+      {
+        number: 11,
+        title: "Mrs. Dubose and Real Courage",
+        focus: ["Mrs. Dubose insults Scout, Jem, and Atticus", "Jem destroys Mrs. Dubose's camellias in anger", "Atticus makes Jem read to Mrs. Dubose as punishment", "Scout accompanies Jem to the reading sessions", "Mrs. Dubose struggles through withdrawal from morphine", "Mrs. Dubose dies free of her addiction", "Atticus calls Mrs. Dubose an example of real courage", "Jem receives a white camellia after her death", "Jem learns courage can look ugly and painful", "Part One closes with a harder definition of bravery"],
+        themes: ["courage", "anger", "discipline", "moral complexity"]
+      },
+      {
+        number: 12,
+        title: "Calpurnia's Church",
+        focus: ["Jem begins acting older and distancing himself from Scout", "Atticus leaves for the state legislature", "Calpurnia takes Jem and Scout to First Purchase church", "Lula objects to white children attending the Black church", "Reverend Sykes welcomes the children", "the congregation collects money for Helen Robinson", "Scout learns Tom Robinson is accused by Bob Ewell", "Calpurnia speaks differently at church than at the Finch home", "Scout sees Calpurnia as part of a larger community", "the children confront Maycomb's racial separation more directly"],
+        themes: ["community", "code-switching", "race", "growing awareness"]
+      },
+      {
+        number: 13,
+        title: "Aunt Alexandra Comes to Stay",
+        focus: ["Aunt Alexandra arrives to live with the Finch family", "Alexandra wants Scout to behave like a proper Finch lady", "she emphasizes family background and social status", "Maycomb welcomes Alexandra easily", "Atticus awkwardly tries to lecture the children about family pride", "Scout cries after Atticus repeats Alexandra's values", "Atticus returns to his natural warmth", "Scout feels pressure from gender expectations", "the Finch household becomes more formal", "family identity becomes a source of tension"],
+        themes: ["family pride", "gender roles", "class", "identity"]
+      },
+      {
+        number: 14,
+        title: "Dill Runs Away",
+        focus: ["Scout asks Atticus about rape and the trial", "Alexandra wants Atticus to dismiss Calpurnia", "Atticus refuses to remove Calpurnia from the household", "Scout and Jem argue about Jem's new authority", "Scout discovers Dill hiding under her bed", "Dill says he ran away because he felt unwanted", "Dill invents stories to cover emotional pain", "Jem tells Atticus that Dill is there", "Dill is allowed to stay for the night", "the chapter connects childhood loneliness with adult conflict"],
+        themes: ["family", "belonging", "authority", "truth and invention"]
+      },
+      {
+        number: 15,
+        title: "The Jailhouse Confrontation",
+        focus: ["Heck Tate and other men warn Atticus about danger to Tom Robinson", "Atticus sits outside the jail alone", "Jem, Scout, and Dill secretly follow him", "a group of men arrives to confront Atticus", "Scout recognizes Mr. Cunningham in the crowd", "Scout talks to Mr. Cunningham about Walter and entailments", "Mr. Cunningham tells the men to leave", "Scout's innocence interrupts mob violence", "Jem refuses to abandon Atticus", "the children see how fragile law and safety can be"],
+        themes: ["mob mentality", "innocence", "moral courage", "community pressure"]
+      },
+      {
+        number: 16,
+        title: "The Trial Begins",
+        focus: ["Maycomb gathers at the courthouse for Tom Robinson's trial", "Dolphus Raymond sits with the Black community", "Jem, Scout, and Dill observe the town's excitement", "Miss Maudie refuses to attend the trial as entertainment", "the children cannot find seats downstairs", "Reverend Sykes gives them seats in the balcony", "Scout notices the racial division inside the courthouse", "Judge Taylor appears informal but serious", "the trial becomes both public spectacle and moral test", "the children enter a new adult world of law and prejudice"],
+        themes: ["justice", "spectacle", "segregation", "moral witnessing"]
+      },
+      {
+        number: 17,
+        title: "Heck Tate and Bob Ewell Testify",
+        focus: ["Heck Tate describes Mayella's injuries", "Atticus establishes that no doctor was called", "Mayella's right side was badly bruised", "Bob Ewell behaves rudely in court", "Atticus has Bob write his name", "Bob is shown to be left-handed", "the evidence suggests a left-handed attacker", "the Ewells' poverty and anger become visible", "Atticus begins exposing weaknesses in the accusation", "Scout and Jem start seeing how evidence can challenge prejudice"],
+        themes: ["evidence", "prejudice", "truth", "courtroom strategy"]
+      },
+      {
+        number: 18,
+        title: "Mayella Ewell Testifies",
+        focus: ["Mayella appears frightened and hostile on the witness stand", "Atticus treats Mayella politely and she mistrusts him", "Mayella describes a lonely life caring for younger children", "Atticus shows Mayella has no friends", "Mayella claims Tom attacked her", "Tom's left arm is revealed to be crippled", "Mayella refuses to admit her father beat her", "the courtroom sees contradictions in her story", "Mayella is both victimized and harmful", "Scout begins to understand loneliness across social lines"],
+        themes: ["loneliness", "truth", "power", "gender and race"]
+      },
+      {
+        number: 19,
+        title: "Tom Robinson's Testimony",
+        focus: ["Tom explains that he often helped Mayella with chores", "Tom says Mayella asked him to come inside", "Mayella kissed Tom and said she had never kissed a grown man", "Bob Ewell saw Mayella and threatened her", "Tom ran because he was afraid", "Tom says he felt sorry for Mayella", "Mr. Gilmer uses Tom's pity against him", "Dill becomes sickened by the prosecutor's treatment of Tom", "Tom's honesty clashes with racist assumptions", "the trial exposes how dangerous compassion can be in Maycomb"],
+        themes: ["compassion", "racism", "testimony", "injustice"]
+      },
+      {
+        number: 20,
+        title: "Dolphus Raymond and Atticus's Closing",
+        focus: ["Dill and Scout meet Dolphus Raymond outside the courtroom", "Dolphus reveals he only pretends to be drunk", "Dolphus explains that people need a reason for his choices", "Scout sees how society punishes people who cross racial lines", "Atticus argues that Mayella broke a social code", "Atticus says the evidence does not prove Tom's guilt", "Atticus challenges the jury to act justly", "Atticus points to equality in the courtroom", "the chapter contrasts performance with truth", "Scout watches moral courage become public argument"],
+        themes: ["justice", "social codes", "performance", "moral courage"]
+      },
+      {
+        number: 21,
+        title: "The Verdict",
+        focus: ["Calpurnia brings a note that the children are missing", "Atticus lets the children return after supper", "the jury stays out for a long time", "Jem believes the delay means acquittal is possible", "Scout falls asleep during the wait", "the jury convicts Tom Robinson", "Jem is crushed by the verdict", "the Black community stands as Atticus leaves", "Reverend Sykes tells Scout to stand", "the chapter turns courtroom hope into moral disappointment"],
+        themes: ["injustice", "respect", "hope", "disillusionment"]
+      },
+      {
+        number: 22,
+        title: "After the Trial",
+        focus: ["Jem cries over the unfair verdict", "the Black community sends food to Atticus", "Miss Maudie comforts the children with cautious hope", "Miss Maudie says some people helped Atticus in quiet ways", "Dill says he wants to be a clown who laughs at people", "Jem struggles to understand Maycomb's justice system", "Bob Ewell spits in Atticus's face", "Atticus refuses to respond violently", "the children see that the trial's danger is not over", "Maycomb's conscience appears divided"],
+        themes: ["grief", "gratitude", "moral resistance", "aftermath"]
+      },
+      {
+        number: 23,
+        title: "Jem Rethinks Maycomb",
+        focus: ["Atticus explains Bob Ewell's threat without panic", "Jem worries about Atticus's safety", "Atticus discusses the jury and possible appeal", "Jem learns one Cunningham wanted acquittal", "Scout wants to invite Walter Cunningham home", "Aunt Alexandra says Walter is not their kind of folks", "Scout is hurt by Alexandra's class prejudice", "Jem proposes that Boo stays inside because he wants to", "Jem begins sorting Maycomb into social groups", "Scout resists Jem's explanations of human divisions"],
+        themes: ["class", "justice", "prejudice", "maturity"]
+      },
+      {
+        number: 24,
+        title: "The Missionary Circle and Tom's Death",
+        focus: ["Aunt Alexandra hosts the missionary circle", "Scout tries to act like a lady at the gathering", "the women discuss distant suffering while ignoring local injustice", "Mrs. Merriweather criticizes the Black community indirectly", "Atticus announces that Tom Robinson has been killed", "Tom was shot while trying to escape prison", "Alexandra and Miss Maudie steady themselves and return to the guests", "Scout sees a model of adult female composure", "the chapter exposes hypocrisy in polite society", "Tom's death confirms the cost of Maycomb's prejudice"],
+        themes: ["hypocrisy", "gender roles", "injustice", "composure"]
+      },
+      {
+        number: 25,
+        title: "Maycomb Reacts to Tom's Death",
+        focus: ["Jem stops Scout from killing a harmless insect", "Scout recalls Dill and Jem meeting Atticus on the road", "Atticus and Calpurnia tell Helen Robinson about Tom's death", "Helen collapses before Atticus can fully explain", "Mr. Underwood writes an editorial comparing Tom's death to killing songbirds", "Maycomb treats Tom's death as predictable", "Scout recognizes the meaning of the mockingbird symbol more deeply", "Bob Ewell says Tom's death makes one down and about two more to go", "Jem's sensitivity toward helpless creatures grows", "danger remains after the trial"],
+        themes: ["mockingbird symbol", "cruelty", "grief", "threat"]
+      },
+      {
+        number: 26,
+        title: "School Lessons and Maycomb Hypocrisy",
+        focus: ["Scout is in third grade and passes the Radley house less fearfully", "Scout still thinks about Boo with curiosity and guilt", "Miss Gates teaches about Hitler and persecution", "the class condemns prejudice in Germany", "Scout remembers Miss Gates speaking harshly after Tom's trial", "Scout is confused by the gap between public lessons and local racism", "Jem becomes upset when Scout mentions the trial", "Atticus tells Scout not to force Jem to talk", "the chapter shows how hypocrisy can hide inside moral language", "Scout's understanding of prejudice becomes more complicated"],
+        themes: ["hypocrisy", "education", "prejudice", "memory"]
+      },
+      {
+        number: 27,
+        title: "Bob Ewell's Threats",
+        focus: ["Bob Ewell gets and loses a WPA job", "Bob blames Atticus for his troubles", "Judge Taylor hears someone prowling around his house", "Helen Robinson is harassed by Bob Ewell on her way to work", "Link Deas publicly defends Helen", "Maycomb prepares for Halloween", "Scout is assigned to be a ham in the school pageant", "Aunt Alexandra senses uneasiness before the pageant", "Bob Ewell's resentment keeps resurfacing", "ordinary town events are shadowed by threat"],
+        themes: ["revenge", "threat", "community protection", "foreshadowing"]
+      },
+      {
+        number: 28,
+        title: "The Halloween Attack",
+        focus: ["Scout and Jem walk to the school pageant at night", "Cecil Jacobs frightens them on the way", "Scout misses her cue in the pageant", "Scout keeps her ham costume on for the walk home", "Jem hears someone following them", "Bob Ewell attacks the children in the dark", "Jem's arm is broken", "a mysterious man carries Jem home", "Bob Ewell is found dead", "Boo Radley enters the story as rescuer rather than monster"],
+        themes: ["danger", "rescue", "fear", "reversal"]
+      },
+      {
+        number: 29,
+        title: "Scout Recognizes Boo",
+        focus: ["Scout explains the attack to Heck Tate and Atticus", "Scout's ham costume limited what she could see", "Heck Tate identifies Bob Ewell as dead", "Scout notices the strange man in the corner", "Scout realizes the man is Boo Radley", "Boo is shy and silent in the Finch house", "Scout treats Boo gently", "Atticus processes the attack as a father and lawyer", "Scout's childhood mystery becomes a real human presence", "recognition replaces fear"],
+        themes: ["recognition", "empathy", "childhood imagination", "protection"]
+      },
+      {
+        number: 30,
+        title: "Heck Tate Protects Boo",
+        focus: ["Atticus thinks Jem may have killed Bob Ewell", "Heck Tate insists Bob fell on his own knife", "Atticus wants the truth handled openly", "Heck Tate argues that exposing Boo would be cruel", "Scout understands that making Boo a public hero would harm him", "Scout compares exposing Boo to killing a mockingbird", "Atticus accepts Heck Tate's decision", "justice is shown as mercy rather than publicity", "Boo's innocence is protected", "Scout applies the novel's central moral lesson"],
+        themes: ["justice", "mercy", "innocence", "moral judgment"]
+      },
+      {
+        number: 31,
+        title: "Standing on Boo Radley's Porch",
+        focus: ["Scout walks Boo home", "Scout stands on the Radley porch", "Scout imagines the neighborhood from Boo's point of view", "Scout sees herself and Jem as Boo may have seen them", "Boo disappears back into his house", "Scout never sees Boo again", "Atticus reads to Scout beside Jem's bed", "Scout says the story's misunderstood character was actually nice", "Atticus says most people are nice when you finally see them", "the novel ends with empathy, protection, and loss of innocence"],
+        themes: ["empathy", "perspective", "closure", "coming of age"]
+      }
+    ];
+
+    const chapterList = document.getElementById("chapter-list");
+    const searchInput = document.getElementById("chapter-search");
+    const emptyState = document.getElementById("empty-state");
+    const questionCount = document.getElementById("question-count");
+
+    function escapeText(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function makeQuestions(chapter) {
+      const f = chapter.focus;
+      return [
+        `How does the detail that ${f[0]} shape the reader's first impression of this chapter?`,
+        `What does it reveal about family, community, or authority that ${f[1]}?`,
+        `Why is it important that ${f[2]}? Connect this moment to the chapter's conflict or turning point.`,
+        `How does the fact that ${f[3]} expose a social rule, prejudice, or misunderstanding in Maycomb?`,
+        `What does the moment involving ${f[4]} reveal about Scout, Jem, Atticus, or another central character?`,
+        `How does Lee use the detail that ${f[5]} to develop the theme of ${chapter.themes[0].toLowerCase()}?`,
+        `Which detail connected to the fact that ${f[6]} would you mark as foreshadowing, and why?`,
+        `How might two characters interpret the moment when ${f[7]} differently? What would each interpretation reveal?`,
+        `Where does the chapter ask readers to judge the difference between appearance and reality, especially through the fact that ${f[8]}?`,
+        `Write a short cause-and-effect explanation connecting the fact that ${f[0]} to the fact that ${f[9]}.`
+      ];
+    }
+
+    function renderChapters(filter = "") {
+      const normalizedFilter = filter.trim().toLowerCase();
+      const matchingChapters = chapterData.filter(({ title, number, themes, focus }) => {
+        const haystack = `chapter ${number} ${title} ${themes.join(" ")} ${focus.join(" ")}`.toLowerCase();
+        return haystack.includes(normalizedFilter);
+      });
+
+      chapterList.innerHTML = matchingChapters.map((chapter) => {
+        const questionItems = makeQuestions(chapter)
+          .map((question) => `<li>${escapeText(question)}</li>`)
+          .join("");
+        const focusLine = `<p class="focus-line"><strong>Focus:</strong> ${escapeText(chapter.themes.join(", "))}</p>`;
+
+        return `
+          <details>
+            <summary>Chapter ${chapter.number}. ${escapeText(chapter.title)}</summary>
+            ${focusLine}
+            <ol class="questions">${questionItems}</ol>
+          </details>
+        `;
+      }).join("");
+
+      emptyState.classList.toggle("is-visible", matchingChapters.length === 0);
+      questionCount.textContent = `${chapterData.length} chapters. ${chapterData.length * 10} total reading questions.`;
+    }
+
+    searchInput.addEventListener("input", () => renderChapters(searchInput.value));
+
+    document.getElementById("expand-all").addEventListener("click", () => {
+      document.querySelectorAll("details").forEach((chapter) => {
+        chapter.open = true;
+      });
+    });
+
+    document.getElementById("collapse-all").addEventListener("click", () => {
+      document.querySelectorAll("details").forEach((chapter) => {
+        chapter.open = false;
+      });
+    });
+
+    renderChapters();
+  </script>
+</body>
+</html>

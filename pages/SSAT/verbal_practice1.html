@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HuskyDaddy | SSAT Verbal Practice Test 1</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:Georgia,"Times New Roman",serif;background:#f8f3e8;color:#102a43;line-height:1.65}a{text-decoration:none}.navbar{width:100%;background:linear-gradient(90deg,#071f36,#0b3455);color:#fff;padding:15px 7%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 4px 18px rgba(0,0,0,.15)}.logo{font-size:30px;font-weight:bold}.nav-links{list-style:none;display:flex;align-items:center;gap:28px;flex-wrap:wrap}.nav-links a{color:#f7fbff;font-size:16px;font-weight:600;padding-bottom:6px;border-bottom:2px solid transparent;transition:.25s}.nav-links a:hover{color:#d9b25f;border-bottom:2px solid #d9b25f}.hero{min-height:430px;background:linear-gradient(90deg,rgba(248,243,232,.97) 0%,rgba(248,243,232,.82) 45%,rgba(248,243,232,.18) 75%),url("../images/winding-trail.jpeg");background-size:cover;background-position:center right;display:flex;align-items:center;padding:75px 7%}.hero-content{max-width:760px}.hero h1{font-size:50px;line-height:1.15;margin-bottom:18px;color:#08233d}.hero p{font-size:20px;color:#1f2933;max-width:690px;margin-bottom:14px}.divider{display:flex;align-items:center;gap:16px;margin:22px 0;color:#b99041;font-size:22px}.divider:before,.divider:after{content:"";width:70px;height:1px;background:#b99041}.quick-nav{background:#fffaf0;border-top:1px solid rgba(16,42,67,.12);border-bottom:1px solid rgba(16,42,67,.12);padding:20px 7%;display:flex;justify-content:center;gap:18px;flex-wrap:wrap}.quick-nav a{background:#082b49;color:#fff;padding:12px 22px;border-radius:30px;font-weight:bold;transition:.25s}.quick-nav a:hover{background:#0b3d66;transform:translateY(-2px)}.section{padding:70px 7%;max-width:1250px;margin:auto}.section h2{font-size:38px;color:#102a43;text-align:center;margin-bottom:12px}.section-intro{max-width:820px;margin:0 auto 38px;text-align:center;font-size:19px;color:#3e4c59}.directions{background:#fff;padding:28px;border-radius:24px;box-shadow:0 12px 30px rgba(16,42,67,.08);border-left:6px solid #d9b25f;margin-bottom:35px}.directions h2{text-align:left;font-size:28px;margin-bottom:12px}.directions p{font-size:18px;color:#2d3d4d;margin-bottom:8px}.question-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.question-card{background:#fff;border-radius:24px;padding:26px;box-shadow:0 12px 30px rgba(16,42,67,.08);border:1px solid rgba(16,42,67,.08);transition:.25s}.question-card:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(16,42,67,.12)}.question-number{color:#b99041;font-weight:bold;margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;font-size:13px}.question-card h3{color:#102a43;font-size:22px;margin-bottom:16px}.options{display:grid;gap:10px}.options label{display:block;background:#fffaf0;border:1px solid #e5dac7;border-radius:14px;padding:11px 13px;color:#2f3f4f;cursor:pointer;transition:.2s}.options label:hover{background:#e8f3f8;border-color:#b7cfdd}.options input{margin-right:8px}.options span{font-weight:bold;color:#082b49;margin-right:4px}.quote-strip{background:linear-gradient(90deg,#071f36,#0b3455);color:#fff;text-align:center;padding:54px 8%;font-size:28px;font-style:italic;line-height:1.45}footer{padding:28px 7%;color:white;text-align:center;background:linear-gradient(90deg,#071f36,#0b3455);font-size:18px}@media(max-width:900px){.navbar{flex-direction:column;gap:14px}.nav-links{justify-content:center;gap:18px}.hero{background:linear-gradient(rgba(248,243,232,.92),rgba(248,243,232,.88)),url("../images/winding-trail.jpeg");background-size:cover;background-position:center}.hero h1{font-size:38px}.question-grid{grid-template-columns:1fr}}@media(max-width:600px){.logo{font-size:25px}.hero{padding:60px 6%}.hero h1{font-size:31px}.hero p{font-size:18px}.section{padding:55px 6%}.question-card{padding:22px}}
+
+.answer-sheet-wrap {
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(16,42,67,.08);
+  padding: 30px;
+  border-left: 6px solid #d9b25f;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.answer-box {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 14px;
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: bold;
+  color: #102a43;
+}
+
+.answer-box .qnum {
+  display: block;
+  color: #b99041;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.answer-box .choice {
+  display: block;
+  font-size: 20px;
+  color: #082b49;
+}
+
+.answer-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.answer-actions button {
+  border: none;
+  background: #082b49;
+  color: white;
+  padding: 13px 24px;
+  border-radius: 30px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.answer-actions button:hover {
+  background: #0b3d66;
+  transform: translateY(-2px);
+}
+
+#answer-summary {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 18px;
+  color: #3e4c59;
+  font-weight: bold;
+}
+
+@media(max-width:900px) {
+  .answer-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media(max-width:600px) {
+  .answer-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+</style>
+</head>
+<body>
+<nav class="navbar"><div class="logo">🐾 HuskyDaddy</div><ul class="nav-links"><li><a href="/SSAT-SAT-IELTS-coach-Steve-Liu/index.html">Home</a></li><li><a href="../services.html">Test Prep</a></li><li><a href="../readingtips.html">Reading</a></li><li><a href="../reading_summary.html">Homework</a></li><li><a href="../clients.html">Clients</a></li><li><a href="../contact.html">Contact</a></li></ul></nav>
+<section class="hero"><div class="hero-content"><h1>SSAT Verbal Practice Test 1</h1><div class="divider">🐾</div><p>Sixty verbal questions for synonym and analogy practice. Work steadily, mark your uncertainty, and return to the trail until the pattern becomes clear.</p><p><strong>Suggested time:</strong> 30 minutes.</p></div></section>
+<div class="quick-nav"><a href="#directions">Directions</a><a href="#synonyms">Synonyms 1–30</a><a href="#analogies">Analogies 31–60</a><a href="#answer-sheet">Answer Sheet</a></div>
+<section id="directions" class="section"><div class="directions"><h2>Directions</h2><p>The synonym questions ask you to find the most appropriate synonym to the question word.</p><p>The analogy questions ask you to find the most appropriate analogy to the question. Select the answer that best matches the question.</p></div></section>
+<section id="synonyms" class="section"><h2>Synonym Questions 1–30</h2><p class="section-intro">Choose the word or phrase closest in meaning to the question word.</p><div class="question-grid"><article class="question-card"><div class="question-number">Question 1</div><h3>LATER</h3><div class="options"><label><input type="radio" name="q1" value="A"><span>A</span> subsequent</label><label><input type="radio" name="q1" value="B"><span>B</span> latent</label><label><input type="radio" name="q1" value="C"><span>C</span> earlier</label><label><input type="radio" name="q1" value="D"><span>D</span> lament</label><label><input type="radio" name="q1" value="E"><span>E</span> durable</label></div></article>
+<article class="question-card"><div class="question-number">Question 2</div><h3>EXPLOIT</h3><div class="options"><label><input type="radio" name="q2" value="A"><span>A</span> explore</label><label><input type="radio" name="q2" value="B"><span>B</span> utilize</label><label><input type="radio" name="q2" value="C"><span>C</span> help</label><label><input type="radio" name="q2" value="D"><span>D</span> expunge</label><label><input type="radio" name="q2" value="E"><span>E</span> brave</label></div></article>
+<article class="question-card"><div class="question-number">Question 3</div><h3>ACCOUNT</h3><div class="options"><label><input type="radio" name="q3" value="A"><span>A</span> perjury</label><label><input type="radio" name="q3" value="B"><span>B</span> report</label><label><input type="radio" name="q3" value="C"><span>C</span> countenance</label><label><input type="radio" name="q3" value="D"><span>D</span> defy</label><label><input type="radio" name="q3" value="E"><span>E</span> harsh</label></div></article>
+<article class="question-card"><div class="question-number">Question 4</div><h3>ABUNDANCE</h3><div class="options"><label><input type="radio" name="q4" value="A"><span>A</span> lack</label><label><input type="radio" name="q4" value="B"><span>B</span> dearth</label><label><input type="radio" name="q4" value="C"><span>C</span> abusive</label><label><input type="radio" name="q4" value="D"><span>D</span> inundation</label><label><input type="radio" name="q4" value="E"><span>E</span> plentiful</label></div></article>
+<article class="question-card"><div class="question-number">Question 5</div><h3>CONSEQUENCE</h3><div class="options"><label><input type="radio" name="q5" value="A"><span>A</span> frustrate</label><label><input type="radio" name="q5" value="B"><span>B</span> publish</label><label><input type="radio" name="q5" value="C"><span>C</span> result</label><label><input type="radio" name="q5" value="D"><span>D</span> cause</label><label><input type="radio" name="q5" value="E"><span>E</span> reason</label></div></article>
+<article class="question-card"><div class="question-number">Question 6</div><h3>PREVAIL</h3><div class="options"><label><input type="radio" name="q6" value="A"><span>A</span> dominant</label><label><input type="radio" name="q6" value="B"><span>B</span> defeat</label><label><input type="radio" name="q6" value="C"><span>C</span> avail</label><label><input type="radio" name="q6" value="D"><span>D</span> trample on</label><label><input type="radio" name="q6" value="E"><span>E</span> lift</label></div></article>
+<article class="question-card"><div class="question-number">Question 7</div><h3>SUBSTANTIAL</h3><div class="options"><label><input type="radio" name="q7" value="A"><span>A</span> submissive</label><label><input type="radio" name="q7" value="B"><span>B</span> insignificant</label><label><input type="radio" name="q7" value="C"><span>C</span> heave</label><label><input type="radio" name="q7" value="D"><span>D</span> delayed</label><label><input type="radio" name="q7" value="E"><span>E</span> significant</label></div></article>
+<article class="question-card"><div class="question-number">Question 8</div><h3>VAST</h3><div class="options"><label><input type="radio" name="q8" value="A"><span>A</span> extensive</label><label><input type="radio" name="q8" value="B"><span>B</span> minute</label><label><input type="radio" name="q8" value="C"><span>C</span> convincing</label><label><input type="radio" name="q8" value="D"><span>D</span> origin</label><label><input type="radio" name="q8" value="E"><span>E</span> promote</label></div></article>
+<article class="question-card"><div class="question-number">Question 9</div><h3>COMPELLING</h3><div class="options"><label><input type="radio" name="q9" value="A"><span>A</span> impelling</label><label><input type="radio" name="q9" value="B"><span>B</span> boring</label><label><input type="radio" name="q9" value="C"><span>C</span> final</label><label><input type="radio" name="q9" value="D"><span>D</span> huge</label><label><input type="radio" name="q9" value="E"><span>E</span> disoriented</label></div></article>
+<article class="question-card"><div class="question-number">Question 10</div><h3>DISPERSE</h3><div class="options"><label><input type="radio" name="q10" value="A"><span>A</span> distribute</label><label><input type="radio" name="q10" value="B"><span>B</span> start</label><label><input type="radio" name="q10" value="C"><span>C</span> enormous</label><label><input type="radio" name="q10" value="D"><span>D</span> gather</label><label><input type="radio" name="q10" value="E"><span>E</span> forceful</label></div></article>
+<article class="question-card"><div class="question-number">Question 11</div><h3>INITIATE</h3><div class="options"><label><input type="radio" name="q11" value="A"><span>A</span> first</label><label><input type="radio" name="q11" value="B"><span>B</span> in the end</label><label><input type="radio" name="q11" value="C"><span>C</span> accurate</label><label><input type="radio" name="q11" value="D"><span>D</span> through</label><label><input type="radio" name="q11" value="E"><span>E</span> progress</label></div></article>
+<article class="question-card"><div class="question-number">Question 12</div><h3>ADVOCATE</h3><div class="options"><label><input type="radio" name="q12" value="A"><span>A</span> dissuade</label><label><input type="radio" name="q12" value="B"><span>B</span> promote</label><label><input type="radio" name="q12" value="C"><span>C</span> ultimate</label><label><input type="radio" name="q12" value="D"><span>D</span> in the end</label><label><input type="radio" name="q12" value="E"><span>E</span> greatly</label></div></article>
+<article class="question-card"><div class="question-number">Question 13</div><h3>INADVERTENT</h3><div class="options"><label><input type="radio" name="q13" value="A"><span>A</span> unintentional</label><label><input type="radio" name="q13" value="B"><span>B</span> ironic</label><label><input type="radio" name="q13" value="C"><span>C</span> premeditated</label><label><input type="radio" name="q13" value="D"><span>D</span> in time</label><label><input type="radio" name="q13" value="E"><span>E</span> retard</label></div></article>
+<article class="question-card"><div class="question-number">Question 14</div><h3>INTRIGUE</h3><div class="options"><label><input type="radio" name="q14" value="A"><span>A</span> flaw</label><label><input type="radio" name="q14" value="B"><span>B</span> fascinate</label><label><input type="radio" name="q14" value="C"><span>C</span> bland</label><label><input type="radio" name="q14" value="D"><span>D</span> without interest</label><label><input type="radio" name="q14" value="E"><span>E</span> chance</label></div></article>
+<article class="question-card"><div class="question-number">Question 15</div><h3>ULTIMATE</h3><div class="options"><label><input type="radio" name="q15" value="A"><span>A</span> consequential</label><label><input type="radio" name="q15" value="B"><span>B</span> ultimatum</label><label><input type="radio" name="q15" value="C"><span>C</span> initiate</label><label><input type="radio" name="q15" value="D"><span>D</span> ready</label><label><input type="radio" name="q15" value="E"><span>E</span> willing</label></div></article>
+<article class="question-card"><div class="question-number">Question 16</div><h3>PROLIFERATE</h3><div class="options"><label><input type="radio" name="q16" value="A"><span>A</span> surprise</label><label><input type="radio" name="q16" value="B"><span>B</span> wizen</label><label><input type="radio" name="q16" value="C"><span>C</span> constant</label><label><input type="radio" name="q16" value="D"><span>D</span> increase</label><label><input type="radio" name="q16" value="E"><span>E</span> attentive</label></div></article>
+<article class="question-card"><div class="question-number">Question 17</div><h3>SUSTENANCE</h3><div class="options"><label><input type="radio" name="q17" value="A"><span>A</span> food</label><label><input type="radio" name="q17" value="B"><span>B</span> hunger</label><label><input type="radio" name="q17" value="C"><span>C</span> favor</label><label><input type="radio" name="q17" value="D"><span>D</span> sublime</label><label><input type="radio" name="q17" value="E"><span>E</span> suspense</label></div></article>
+<article class="question-card"><div class="question-number">Question 18</div><h3>VIRTUALLY</h3><div class="options"><label><input type="radio" name="q18" value="A"><span>A</span> fabricated</label><label><input type="radio" name="q18" value="B"><span>B</span> artificially</label><label><input type="radio" name="q18" value="C"><span>C</span> multiple</label><label><input type="radio" name="q18" value="D"><span>D</span> nearly</label><label><input type="radio" name="q18" value="E"><span>E</span> numerously</label></div></article>
+<article class="question-card"><div class="question-number">Question 19</div><h3>ADJACENT</h3><div class="options"><label><input type="radio" name="q19" value="A"><span>A</span> neighboring</label><label><input type="radio" name="q19" value="B"><span>B</span> far</label><label><input type="radio" name="q19" value="C"><span>C</span> distant</label><label><input type="radio" name="q19" value="D"><span>D</span> attentive</label><label><input type="radio" name="q19" value="E"><span>E</span> adverse</label></div></article>
+<article class="question-card"><div class="question-number">Question 20</div><h3>DURABLE</h3><div class="options"><label><input type="radio" name="q20" value="A"><span>A</span> long-lasting</label><label><input type="radio" name="q20" value="B"><span>B</span> worn-out</label><label><input type="radio" name="q20" value="C"><span>C</span> complete</label><label><input type="radio" name="q20" value="D"><span>D</span> dubious</label><label><input type="radio" name="q20" value="E"><span>E</span> draconian</label></div></article>
+<article class="question-card"><div class="question-number">Question 21</div><h3>PROMINENCE</h3><div class="options"><label><input type="radio" name="q21" value="A"><span>A</span> pivotal</label><label><input type="radio" name="q21" value="B"><span>B</span> standout</label><label><input type="radio" name="q21" value="C"><span>C</span> less-known</label><label><input type="radio" name="q21" value="D"><span>D</span> notorious</label><label><input type="radio" name="q21" value="E"><span>E</span> dangerous</label></div></article>
+<article class="question-card"><div class="question-number">Question 22</div><h3>COMPRISE</h3><div class="options"><label><input type="radio" name="q22" value="A"><span>A</span> convene</label><label><input type="radio" name="q22" value="B"><span>B</span> disassemble</label><label><input type="radio" name="q22" value="C"><span>C</span> be made of</label><label><input type="radio" name="q22" value="D"><span>D</span> outstanding</label><label><input type="radio" name="q22" value="E"><span>E</span> heterogeneous</label></div></article>
+<article class="question-card"><div class="question-number">Question 23</div><h3>DECIMATE</h3><div class="options"><label><input type="radio" name="q23" value="A"><span>A</span> decree</label><label><input type="radio" name="q23" value="B"><span>B</span> decisive</label><label><input type="radio" name="q23" value="C"><span>C</span> liberate</label><label><input type="radio" name="q23" value="D"><span>D</span> destroy</label><label><input type="radio" name="q23" value="E"><span>E</span> reach</label></div></article>
+<article class="question-card"><div class="question-number">Question 24</div><h3>INDUCE</h3><div class="options"><label><input type="radio" name="q24" value="A"><span>A</span> bring about</label><label><input type="radio" name="q24" value="B"><span>B</span> complicate</label><label><input type="radio" name="q24" value="C"><span>C</span> industrious</label><label><input type="radio" name="q24" value="D"><span>D</span> consider</label><label><input type="radio" name="q24" value="E"><span>E</span> feed</label></div></article>
+<article class="question-card"><div class="question-number">Question 25</div><h3>INTACT</h3><div class="options"><label><input type="radio" name="q25" value="A"><span>A</span> broken</label><label><input type="radio" name="q25" value="B"><span>B</span> taciturn</label><label><input type="radio" name="q25" value="C"><span>C</span> tactile</label><label><input type="radio" name="q25" value="D"><span>D</span> unaffected</label><label><input type="radio" name="q25" value="E"><span>E</span> stimulate</label></div></article>
+<article class="question-card"><div class="question-number">Question 26</div><h3>MODIFY</h3><div class="options"><label><input type="radio" name="q26" value="A"><span>A</span> mode</label><label><input type="radio" name="q26" value="B"><span>B</span> fashion</label><label><input type="radio" name="q26" value="C"><span>C</span> fix</label><label><input type="radio" name="q26" value="D"><span>D</span> change</label><label><input type="radio" name="q26" value="E"><span>E</span> prosper</label></div></article>
+<article class="question-card"><div class="question-number">Question 27</div><h3>PHENOMENAL</h3><div class="options"><label><input type="radio" name="q27" value="A"><span>A</span> extraordinary</label><label><input type="radio" name="q27" value="B"><span>B</span> philistine</label><label><input type="radio" name="q27" value="C"><span>C</span> extremely normal</label><label><input type="radio" name="q27" value="D"><span>D</span> wired</label><label><input type="radio" name="q27" value="E"><span>E</span> appearance</label></div></article>
+<article class="question-card"><div class="question-number">Question 28</div><h3>UNIQUE</h3><div class="options"><label><input type="radio" name="q28" value="A"><span>A</span> heterogeneous</label><label><input type="radio" name="q28" value="B"><span>B</span> distinct</label><label><input type="radio" name="q28" value="C"><span>C</span> ubiquitous</label><label><input type="radio" name="q28" value="D"><span>D</span> similar</label><label><input type="radio" name="q28" value="E"><span>E</span> union</label></div></article>
+<article class="question-card"><div class="question-number">Question 29</div><h3>EXCLUSIVELY</h3><div class="options"><label><input type="radio" name="q29" value="A"><span>A</span> sharing</label><label><input type="radio" name="q29" value="B"><span>B</span> inclusively</label><label><input type="radio" name="q29" value="C"><span>C</span> exalt</label><label><input type="radio" name="q29" value="D"><span>D</span> entirely</label><label><input type="radio" name="q29" value="E"><span>E</span> separately</label></div></article>
+<article class="question-card"><div class="question-number">Question 30</div><h3>FLOURISH</h3><div class="options"><label><input type="radio" name="q30" value="A"><span>A</span> flower</label><label><input type="radio" name="q30" value="B"><span>B</span> shrink</label><label><input type="radio" name="q30" value="C"><span>C</span> flow</label><label><input type="radio" name="q30" value="D"><span>D</span> prosper</label><label><input type="radio" name="q30" value="E"><span>E</span> revolutionary</label></div></article></div></section>
+<div class="quote-strip">“Vocabulary grows the way a husky crosses snow: one focused step after another.”</div>
+<section id="analogies" class="section"><h2>Analogy Questions 31–60</h2><p class="section-intro">Identify the relationship in the first pair, then choose the answer choice with the same relationship.</p><div class="question-grid"><article class="question-card"><div class="question-number">Question 31</div><h3>Cattle is to cow as</h3><div class="options"><label><input type="radio" name="q31" value="A"><span>A</span> dancing is to dancer</label><label><input type="radio" name="q31" value="B"><span>B</span> star is to constellation</label><label><input type="radio" name="q31" value="C"><span>C</span> pencil is to pen</label><label><input type="radio" name="q31" value="D"><span>D</span> cat is to mice</label><label><input type="radio" name="q31" value="E"><span>E</span> fingers is to gloves</label></div></article>
+<article class="question-card"><div class="question-number">Question 32</div><h3>Pill is to doctor</h3><div class="options"><label><input type="radio" name="q32" value="A"><span>A</span> signs is to baseball coach</label><label><input type="radio" name="q32" value="B"><span>B</span> eraser is to pencil</label><label><input type="radio" name="q32" value="C"><span>C</span> water is to thirsty</label><label><input type="radio" name="q32" value="D"><span>D</span> bullet is to gun</label><label><input type="radio" name="q32" value="E"><span>E</span> pastor is to preach</label></div></article>
+<article class="question-card"><div class="question-number">Question 33</div><h3>Motel is to guests as</h3><div class="options"><label><input type="radio" name="q33" value="A"><span>A</span> cup is to coffee</label><label><input type="radio" name="q33" value="B"><span>B</span> register is to university</label><label><input type="radio" name="q33" value="C"><span>C</span> announcer is to microphone</label><label><input type="radio" name="q33" value="D"><span>D</span> stadium is to crowd</label><label><input type="radio" name="q33" value="E"><span>E</span> police station is to police</label></div></article>
+<article class="question-card"><div class="question-number">Question 34</div><h3>Stanza is to line as</h3><div class="options"><label><input type="radio" name="q34" value="A"><span>A</span> alcohol is to drink</label><label><input type="radio" name="q34" value="B"><span>B</span> fight is to setting</label><label><input type="radio" name="q34" value="C"><span>C</span> paragraph is to sentence</label><label><input type="radio" name="q34" value="D"><span>D</span> word is to grammar</label><label><input type="radio" name="q34" value="E"><span>E</span> comma is to punctuation</label></div></article>
+<article class="question-card"><div class="question-number">Question 35</div><h3>Sadness is to anguish as</h3><div class="options"><label><input type="radio" name="q35" value="A"><span>A</span> dog is to poppy</label><label><input type="radio" name="q35" value="B"><span>B</span> adult is to infant</label><label><input type="radio" name="q35" value="C"><span>C</span> joy is to exultation</label><label><input type="radio" name="q35" value="D"><span>D</span> punch is to kill</label><label><input type="radio" name="q35" value="E"><span>E</span> bear is to cub</label></div></article>
+<article class="question-card"><div class="question-number">Question 36</div><h3>Lunar is to Moon as</h3><div class="options"><label><input type="radio" name="q36" value="A"><span>A</span> star is to constellation</label><label><input type="radio" name="q36" value="B"><span>B</span> Solar is to Sun</label><label><input type="radio" name="q36" value="C"><span>C</span> Planet is to satellite</label><label><input type="radio" name="q36" value="D"><span>D</span> Rain is to Snow</label><label><input type="radio" name="q36" value="E"><span>E</span> Air is to water</label></div></article>
+<article class="question-card"><div class="question-number">Question 37</div><h3>Adherent is to follower as</h3><div class="options"><label><input type="radio" name="q37" value="A"><span>A</span> boss is to demagogue</label><label><input type="radio" name="q37" value="B"><span>B</span> chairman is to employee</label><label><input type="radio" name="q37" value="C"><span>C</span> apology is forgiven</label><label><input type="radio" name="q37" value="D"><span>D</span> split is to fissure</label><label><input type="radio" name="q37" value="E"><span>E</span> criminal is to lie</label></div></article>
+<article class="question-card"><div class="question-number">Question 38</div><h3>Ambition is to achieve as</h3><div class="options"><label><input type="radio" name="q38" value="A"><span>A</span> Court is to appeal</label><label><input type="radio" name="q38" value="B"><span>B</span> politician is to election</label><label><input type="radio" name="q38" value="C"><span>C</span> school is to graduation</label><label><input type="radio" name="q38" value="D"><span>D</span> money is bank</label><label><input type="radio" name="q38" value="E"><span>E</span> lazy is to fail</label></div></article>
+<article class="question-card"><div class="question-number">Question 39</div><h3>Arid is to desert as</h3><div class="options"><label><input type="radio" name="q39" value="A"><span>A</span> friend is to loyal</label><label><input type="radio" name="q39" value="B"><span>B</span> priest is to patience</label><label><input type="radio" name="q39" value="C"><span>C</span> apprehension is to determination</label><label><input type="radio" name="q39" value="D"><span>D</span> humid is to swamp</label><label><input type="radio" name="q39" value="E"><span>E</span> oasis is to desert</label></div></article>
+<article class="question-card"><div class="question-number">Question 40</div><h3>awe is to celebrity as</h3><div class="options"><label><input type="radio" name="q40" value="A"><span>A</span> calf is to cry</label><label><input type="radio" name="q40" value="B"><span>B</span> cat is to rat</label><label><input type="radio" name="q40" value="C"><span>C</span> firefighter is to fire</label><label><input type="radio" name="q40" value="D"><span>D</span> pen is to pencil</label><label><input type="radio" name="q40" value="E"><span>E</span> milk is to cow</label></div></article>
+<article class="question-card"><div class="question-number">Question 41</div><h3>Wound is to heal as malfunction is to</h3><div class="options"><label><input type="radio" name="q41" value="A"><span>A</span> ignore</label><label><input type="radio" name="q41" value="B"><span>B</span> repair</label><label><input type="radio" name="q41" value="C"><span>C</span> diagnose</label><label><input type="radio" name="q41" value="D"><span>D</span> build</label><label><input type="radio" name="q41" value="E"><span>E</span> finish</label></div></article>
+<article class="question-card"><div class="question-number">Question 42</div><h3>Handcuff is to arrest as</h3><div class="options"><label><input type="radio" name="q42" value="A"><span>A</span> ripe is to pick</label><label><input type="radio" name="q42" value="B"><span>B</span> fun is to laugh</label><label><input type="radio" name="q42" value="C"><span>C</span> late is to scold</label><label><input type="radio" name="q42" value="D"><span>D</span> tame is to train</label><label><input type="radio" name="q42" value="E"><span>E</span> lamp is to light</label></div></article>
+<article class="question-card"><div class="question-number">Question 43</div><h3>Arrogant is to humble</h3><div class="options"><label><input type="radio" name="q43" value="A"><span>A</span> fragile is to break</label><label><input type="radio" name="q43" value="B"><span>B</span> King is to mercy</label><label><input type="radio" name="q43" value="C"><span>C</span> vocabulary is to memorize</label><label><input type="radio" name="q43" value="D"><span>D</span> fruit is to abundant</label><label><input type="radio" name="q43" value="E"><span>E</span> forget is remember</label></div></article>
+<article class="question-card"><div class="question-number">Question 44</div><h3>Legible is to articulate</h3><div class="options"><label><input type="radio" name="q44" value="A"><span>A</span> Teacher is to teach</label><label><input type="radio" name="q44" value="B"><span>B</span> leg is to art</label><label><input type="radio" name="q44" value="C"><span>C</span> evolve is to demolish</label><label><input type="radio" name="q44" value="D"><span>D</span> excel is to good</label><label><input type="radio" name="q44" value="E"><span>E</span> speak is to write</label></div></article>
+<article class="question-card"><div class="question-number">Question 45</div><h3>Newspaper is to typo as personality is to</h3><div class="options"><label><input type="radio" name="q45" value="A"><span>A</span> psycho</label><label><input type="radio" name="q45" value="B"><span>B</span> extrovert</label><label><input type="radio" name="q45" value="C"><span>C</span> introvert</label><label><input type="radio" name="q45" value="D"><span>D</span> perfect</label><label><input type="radio" name="q45" value="E"><span>E</span> flaw</label></div></article>
+<article class="question-card"><div class="question-number">Question 46</div><h3>Discrepancy is to difference as equivalent is to</h3><div class="options"><label><input type="radio" name="q46" value="A"><span>A</span> equanimity</label><label><input type="radio" name="q46" value="B"><span>B</span> equestrian</label><label><input type="radio" name="q46" value="C"><span>C</span> similar</label><label><input type="radio" name="q46" value="D"><span>D</span> equal</label><label><input type="radio" name="q46" value="E"><span>E</span> ambiguous</label></div></article>
+<article class="question-card"><div class="question-number">Question 47</div><h3>Equivocal is to equal society as egalitarian is to</h3><div class="options"><label><input type="radio" name="q47" value="A"><span>A</span> clear</label><label><input type="radio" name="q47" value="B"><span>B</span> noise</label><label><input type="radio" name="q47" value="C"><span>C</span> equal</label><label><input type="radio" name="q47" value="D"><span>D</span> unclear</label><label><input type="radio" name="q47" value="E"><span>E</span> suitable</label></div></article>
+<article class="question-card"><div class="question-number">Question 48</div><h3>Eruption is to volcano</h3><div class="options"><label><input type="radio" name="q48" value="A"><span>A</span> building is to explosion</label><label><input type="radio" name="q48" value="B"><span>B</span> pioneer is to cultivate</label><label><input type="radio" name="q48" value="C"><span>C</span> water is to river</label><label><input type="radio" name="q48" value="D"><span>D</span> dynamite is to danger</label><label><input type="radio" name="q48" value="E"><span>E</span> spring is to well</label></div></article>
+<article class="question-card"><div class="question-number">Question 49</div><h3>Faction is to union as</h3><div class="options"><label><input type="radio" name="q49" value="A"><span>A</span> cold is hot</label><label><input type="radio" name="q49" value="B"><span>B</span> helmet is to protect</label><label><input type="radio" name="q49" value="C"><span>C</span> chilly is to frozen</label><label><input type="radio" name="q49" value="D"><span>D</span> element is to problem</label><label><input type="radio" name="q49" value="E"><span>E</span> habitat is to oyster</label></div></article>
+<article class="question-card"><div class="question-number">Question 50</div><h3>Futile is to harvest as</h3><div class="options"><label><input type="radio" name="q50" value="A"><span>A</span> bathroom is to bedroom</label><label><input type="radio" name="q50" value="B"><span>B</span> disaster is to flood</label><label><input type="radio" name="q50" value="C"><span>C</span> dam is to water</label><label><input type="radio" name="q50" value="D"><span>D</span> arid is to plantation</label><label><input type="radio" name="q50" value="E"><span>E</span> fertile is to fruit</label></div></article>
+<article class="question-card"><div class="question-number">Question 51</div><h3>Goods is to factory as</h3><div class="options"><label><input type="radio" name="q51" value="A"><span>A</span> Painting is to art center</label><label><input type="radio" name="q51" value="B"><span>B</span> school is to student</label><label><input type="radio" name="q51" value="C"><span>C</span> farm is to produce</label><label><input type="radio" name="q51" value="D"><span>D</span> sauna is to sweat</label><label><input type="radio" name="q51" value="E"><span>E</span> heat is to fire</label></div></article>
+<article class="question-card"><div class="question-number">Question 52</div><h3>Habit is to innate as</h3><div class="options"><label><input type="radio" name="q52" value="A"><span>A</span> Practice is to talent</label><label><input type="radio" name="q52" value="B"><span>B</span> GPS is to compass</label><label><input type="radio" name="q52" value="C"><span>C</span> river is to stream</label><label><input type="radio" name="q52" value="D"><span>D</span> forward is to backward</label><label><input type="radio" name="q52" value="E"><span>E</span> wind is to sun</label></div></article>
+<article class="question-card"><div class="question-number">Question 53</div><h3>Genre is to romance as Organism is to</h3><div class="options"><label><input type="radio" name="q53" value="A"><span>A</span> base</label><label><input type="radio" name="q53" value="B"><span>B</span> cell</label><label><input type="radio" name="q53" value="C"><span>C</span> body</label><label><input type="radio" name="q53" value="D"><span>D</span> physical</label><label><input type="radio" name="q53" value="E"><span>E</span> health</label></div></article>
+<article class="question-card"><div class="question-number">Question 54</div><h3>Gentle is to praise as</h3><div class="options"><label><input type="radio" name="q54" value="A"><span>A</span> hoax is to fake</label><label><input type="radio" name="q54" value="B"><span>B</span> knowledge is to wisdom</label><label><input type="radio" name="q54" value="C"><span>C</span> good is to quality</label><label><input type="radio" name="q54" value="D"><span>D</span> diligent is to success</label><label><input type="radio" name="q54" value="E"><span>E</span> Lady is to charm</label></div></article>
+<article class="question-card"><div class="question-number">Question 55</div><h3>Ignite is to abrasion as</h3><div class="options"><label><input type="radio" name="q55" value="A"><span>A</span> disease is to cancer</label><label><input type="radio" name="q55" value="B"><span>B</span> plan is to success</label><label><input type="radio" name="q55" value="C"><span>C</span> practice is to win</label><label><input type="radio" name="q55" value="D"><span>D</span> failure is to mistake</label><label><input type="radio" name="q55" value="E"><span>E</span> idiom is to word</label></div></article>
+<article class="question-card"><div class="question-number">Question 56</div><h3>Ink cartridge is to printer as</h3><div class="options"><label><input type="radio" name="q56" value="A"><span>A</span> candle is to cake</label><label><input type="radio" name="q56" value="B"><span>B</span> seat is to theater</label><label><input type="radio" name="q56" value="C"><span>C</span> employee is to staff</label><label><input type="radio" name="q56" value="D"><span>D</span> tomato is to banana</label><label><input type="radio" name="q56" value="E"><span>E</span> cellphone is to battery</label></div></article>
+<article class="question-card"><div class="question-number">Question 57</div><h3>Immense is to narrow as</h3><div class="options"><label><input type="radio" name="q57" value="A"><span>A</span> exercise is to healthy</label><label><input type="radio" name="q57" value="B"><span>B</span> dancing is to cheer</label><label><input type="radio" name="q57" value="C"><span>C</span> sad movie is to parody</label><label><input type="radio" name="q57" value="D"><span>D</span> cure is to healing</label><label><input type="radio" name="q57" value="E"><span>E</span> princess is to Royal</label></div></article>
+<article class="question-card"><div class="question-number">Question 58</div><h3>Improvisation is to preparation as</h3><div class="options"><label><input type="radio" name="q58" value="A"><span>A</span> improvement is to goal</label><label><input type="radio" name="q58" value="B"><span>B</span> hostility is to sympathy</label><label><input type="radio" name="q58" value="C"><span>C</span> handsome is to growth</label><label><input type="radio" name="q58" value="D"><span>D</span> formula is to equation</label><label><input type="radio" name="q58" value="E"><span>E</span> steal is to kill</label></div></article>
+<article class="question-card"><div class="question-number">Question 59</div><h3>Unique is to original as</h3><div class="options"><label><input type="radio" name="q59" value="A"><span>A</span> manipulate is to lie</label><label><input type="radio" name="q59" value="B"><span>B</span> makeshift is to stoppage</label><label><input type="radio" name="q59" value="C"><span>C</span> strong is to weak</label><label><input type="radio" name="q59" value="D"><span>D</span> radio is to T.V.</label><label><input type="radio" name="q59" value="E"><span>E</span> elegant is to attractive</label></div></article>
+<article class="question-card"><div class="question-number">Question 60</div><h3>Marvel is to myth as</h3><div class="options"><label><input type="radio" name="q60" value="A"><span>A</span> history is to fact</label><label><input type="radio" name="q60" value="B"><span>B</span> true story is to biography</label><label><input type="radio" name="q60" value="C"><span>C</span> idea is to develop</label><label><input type="radio" name="q60" value="D"><span>D</span> anecdote is to personal</label><label><input type="radio" name="q60" value="E"><span>E</span> letter is to journal</label></div></article></div></section>
+
+
+
+<section id="answer-sheet" class="section">
+  <h2>Student Answer Sheet</h2>
+  <p class="section-intro">
+    As students choose answers above, this sheet records their choices automatically.
+    Use it for quick checking, review, or discussion after practice.
+  </p>
+
+  <div class="answer-sheet-wrap">
+    <div class="answer-grid">
+      <div class="answer-box" id="answer-box-1"><span class="qnum">1</span><span class="choice" id="answer-1">—</span></div>
+<div class="answer-box" id="answer-box-2"><span class="qnum">2</span><span class="choice" id="answer-2">—</span></div>
+<div class="answer-box" id="answer-box-3"><span class="qnum">3</span><span class="choice" id="answer-3">—</span></div>
+<div class="answer-box" id="answer-box-4"><span class="qnum">4</span><span class="choice" id="answer-4">—</span></div>
+<div class="answer-box" id="answer-box-5"><span class="qnum">5</span><span class="choice" id="answer-5">—</span></div>
+<div class="answer-box" id="answer-box-6"><span class="qnum">6</span><span class="choice" id="answer-6">—</span></div>
+<div class="answer-box" id="answer-box-7"><span class="qnum">7</span><span class="choice" id="answer-7">—</span></div>
+<div class="answer-box" id="answer-box-8"><span class="qnum">8</span><span class="choice" id="answer-8">—</span></div>
+<div class="answer-box" id="answer-box-9"><span class="qnum">9</span><span class="choice" id="answer-9">—</span></div>
+<div class="answer-box" id="answer-box-10"><span class="qnum">10</span><span class="choice" id="answer-10">—</span></div>
+<div class="answer-box" id="answer-box-11"><span class="qnum">11</span><span class="choice" id="answer-11">—</span></div>
+<div class="answer-box" id="answer-box-12"><span class="qnum">12</span><span class="choice" id="answer-12">—</span></div>
+<div class="answer-box" id="answer-box-13"><span class="qnum">13</span><span class="choice" id="answer-13">—</span></div>
+<div class="answer-box" id="answer-box-14"><span class="qnum">14</span><span class="choice" id="answer-14">—</span></div>
+<div class="answer-box" id="answer-box-15"><span class="qnum">15</span><span class="choice" id="answer-15">—</span></div>
+<div class="answer-box" id="answer-box-16"><span class="qnum">16</span><span class="choice" id="answer-16">—</span></div>
+<div class="answer-box" id="answer-box-17"><span class="qnum">17</span><span class="choice" id="answer-17">—</span></div>
+<div class="answer-box" id="answer-box-18"><span class="qnum">18</span><span class="choice" id="answer-18">—</span></div>
+<div class="answer-box" id="answer-box-19"><span class="qnum">19</span><span class="choice" id="answer-19">—</span></div>
+<div class="answer-box" id="answer-box-20"><span class="qnum">20</span><span class="choice" id="answer-20">—</span></div>
+<div class="answer-box" id="answer-box-21"><span class="qnum">21</span><span class="choice" id="answer-21">—</span></div>
+<div class="answer-box" id="answer-box-22"><span class="qnum">22</span><span class="choice" id="answer-22">—</span></div>
+<div class="answer-box" id="answer-box-23"><span class="qnum">23</span><span class="choice" id="answer-23">—</span></div>
+<div class="answer-box" id="answer-box-24"><span class="qnum">24</span><span class="choice" id="answer-24">—</span></div>
+<div class="answer-box" id="answer-box-25"><span class="qnum">25</span><span class="choice" id="answer-25">—</span></div>
+<div class="answer-box" id="answer-box-26"><span class="qnum">26</span><span class="choice" id="answer-26">—</span></div>
+<div class="answer-box" id="answer-box-27"><span class="qnum">27</span><span class="choice" id="answer-27">—</span></div>
+<div class="answer-box" id="answer-box-28"><span class="qnum">28</span><span class="choice" id="answer-28">—</span></div>
+<div class="answer-box" id="answer-box-29"><span class="qnum">29</span><span class="choice" id="answer-29">—</span></div>
+<div class="answer-box" id="answer-box-30"><span class="qnum">30</span><span class="choice" id="answer-30">—</span></div>
+<div class="answer-box" id="answer-box-31"><span class="qnum">31</span><span class="choice" id="answer-31">—</span></div>
+<div class="answer-box" id="answer-box-32"><span class="qnum">32</span><span class="choice" id="answer-32">—</span></div>
+<div class="answer-box" id="answer-box-33"><span class="qnum">33</span><span class="choice" id="answer-33">—</span></div>
+<div class="answer-box" id="answer-box-34"><span class="qnum">34</span><span class="choice" id="answer-34">—</span></div>
+<div class="answer-box" id="answer-box-35"><span class="qnum">35</span><span class="choice" id="answer-35">—</span></div>
+<div class="answer-box" id="answer-box-36"><span class="qnum">36</span><span class="choice" id="answer-36">—</span></div>
+<div class="answer-box" id="answer-box-37"><span class="qnum">37</span><span class="choice" id="answer-37">—</span></div>
+<div class="answer-box" id="answer-box-38"><span class="qnum">38</span><span class="choice" id="answer-38">—</span></div>
+<div class="answer-box" id="answer-box-39"><span class="qnum">39</span><span class="choice" id="answer-39">—</span></div>
+<div class="answer-box" id="answer-box-40"><span class="qnum">40</span><span class="choice" id="answer-40">—</span></div>
+<div class="answer-box" id="answer-box-41"><span class="qnum">41</span><span class="choice" id="answer-41">—</span></div>
+<div class="answer-box" id="answer-box-42"><span class="qnum">42</span><span class="choice" id="answer-42">—</span></div>
+<div class="answer-box" id="answer-box-43"><span class="qnum">43</span><span class="choice" id="answer-43">—</span></div>
+<div class="answer-box" id="answer-box-44"><span class="qnum">44</span><span class="choice" id="answer-44">—</span></div>
+<div class="answer-box" id="answer-box-45"><span class="qnum">45</span><span class="choice" id="answer-45">—</span></div>
+<div class="answer-box" id="answer-box-46"><span class="qnum">46</span><span class="choice" id="answer-46">—</span></div>
+<div class="answer-box" id="answer-box-47"><span class="qnum">47</span><span class="choice" id="answer-47">—</span></div>
+<div class="answer-box" id="answer-box-48"><span class="qnum">48</span><span class="choice" id="answer-48">—</span></div>
+<div class="answer-box" id="answer-box-49"><span class="qnum">49</span><span class="choice" id="answer-49">—</span></div>
+<div class="answer-box" id="answer-box-50"><span class="qnum">50</span><span class="choice" id="answer-50">—</span></div>
+<div class="answer-box" id="answer-box-51"><span class="qnum">51</span><span class="choice" id="answer-51">—</span></div>
+<div class="answer-box" id="answer-box-52"><span class="qnum">52</span><span class="choice" id="answer-52">—</span></div>
+<div class="answer-box" id="answer-box-53"><span class="qnum">53</span><span class="choice" id="answer-53">—</span></div>
+<div class="answer-box" id="answer-box-54"><span class="qnum">54</span><span class="choice" id="answer-54">—</span></div>
+<div class="answer-box" id="answer-box-55"><span class="qnum">55</span><span class="choice" id="answer-55">—</span></div>
+<div class="answer-box" id="answer-box-56"><span class="qnum">56</span><span class="choice" id="answer-56">—</span></div>
+<div class="answer-box" id="answer-box-57"><span class="qnum">57</span><span class="choice" id="answer-57">—</span></div>
+<div class="answer-box" id="answer-box-58"><span class="qnum">58</span><span class="choice" id="answer-58">—</span></div>
+<div class="answer-box" id="answer-box-59"><span class="qnum">59</span><span class="choice" id="answer-59">—</span></div>
+<div class="answer-box" id="answer-box-60"><span class="qnum">60</span><span class="choice" id="answer-60">—</span></div>
+    </div>
+
+    <div id="answer-summary">Answered: 0 / 60</div>
+
+    <div class="answer-actions">
+      <button type="button" onclick="copyAnswers()">Copy Answer Sheet</button>
+      <button type="button" onclick="clearAnswers()">Clear Answers</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function updateAnswerSheet() {
+    let answered = 0;
+
+    for (let i = 1; i <= 60; i++) {
+      const selected = document.querySelector('input[name="q' + i + '"]:checked');
+      const answerSlot = document.getElementById('answer-' + i);
+
+      if (selected) {
+        answerSlot.textContent = selected.value;
+        answered++;
+      } else {
+        answerSlot.textContent = '—';
+      }
+    }
+
+    document.getElementById('answer-summary').textContent = 'Answered: ' + answered + ' / 60';
+  }
+
+  document.querySelectorAll('input[type="radio"]').forEach(function(input) {
+    input.addEventListener('change', updateAnswerSheet);
+  });
+
+  function copyAnswers() {
+    let output = [];
+
+    for (let i = 1; i <= 60; i++) {
+      const selected = document.querySelector('input[name="q' + i + '"]:checked');
+      output.push(i + '. ' + (selected ? selected.value : '—'));
+    }
+
+    navigator.clipboard.writeText(output.join('\n')).then(function() {
+      alert('Answer sheet copied!');
+    });
+  }
+
+  function clearAnswers() {
+    document.querySelectorAll('input[type="radio"]').forEach(function(input) {
+      input.checked = false;
+    });
+
+    updateAnswerSheet();
+  }
+
+  updateAnswerSheet();
+</script>
+
+<footer>Stay the course. Review your mistakes. Every hard question leaves a useful footprint. 🐾</footer>
+</body></html>

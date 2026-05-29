@@ -1,0 +1,741 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Reading Practice | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .question-card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .question-card h2 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .passage {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 20px;
+      border-radius: 8px;
+      color: #3e4c59;
+      font-size: 17px;
+      white-space: pre-line;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .reader-toolbar {
+      text-align: right;
+      margin: 18px 0 10px;
+    }
+
+    .clear-markings {
+      background: #d4af37;
+      color: #102a43;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 10px 16px;
+    }
+
+    .clear-markings:hover {
+      background: #c19a2e;
+    }
+
+    .reader-container {
+      position: relative;
+      background: #fffdf8;
+      border-radius: 8px;
+      margin: 0 0 18px;
+    }
+
+    .marking-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      touch-action: none;
+      cursor: crosshair;
+    }
+
+    .question-text {
+      font-weight: bold;
+      color: #102a43;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 12px;
+    }
+
+    .choice {
+      border: 1px solid #e5dccb;
+      background: #f7f3eb;
+      padding: 14px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      text-align: left;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #3e4c59;
+    }
+
+    .choice:hover {
+      border-color: #d4af37;
+      background: #fffdf8;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      color: #102a43;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="index.html">About</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="miscellaneous.html">Miscellaneous</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Reading Practice</h1>
+    <p>
+      Practice identifying main ideas, topic sentences, supporting details, and irrelevant sentences.
+      Choose an answer to reveal the answer key.
+    </p>
+  </header>
+
+  <main class="container" id="quiz"></main>
+
+  <footer>
+    © HuskyDaddy | SSAT Reading Practice
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        passage: `The best recipes for clam chowder all include onions and a bay leaf. The onions add a sharpness and zest to the blandness of the clams, and also help remove their slimy texture. The bay leaf complements the onion’s strong flavor.`,
+        question: `1. This paragraph best supports the statement that`,
+        choices: [
+          "A. onions were once thought to be poisonous.",
+          "B. bay leaves are essential in many soups.",
+          "C. clam chowder is very nutritious.",
+          "D. onions and bay leaves go well with clams.",
+          "E. clams should not be overcooked."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `One New York publisher has estimated that 50,000 to 60,000 people in the United States want an anthology that includes the complete works of William Shakespeare. And what accounts for this renewed interest in Shakespeare? As scholars point out, the psychological insights he portrays in both male and female characters are amazing even today.`,
+        question: `2. This paragraph best supports the statement that`,
+        choices: [
+          "A. Shakespeare’s characters are more interesting than fictional characters today.",
+          "B. people today are interested in Shakespeare’s work because of the characters.",
+          "C. academic scholars are putting together an anthology of Shakespeare’s work.",
+          "D. New Yorkers have a renewed interest in the work of Shakespeare.",
+          "E. Shakespeare was a psychiatrist as well as a playwright."
+        ],
+        answer: "B"
+      },
+      {
+        passage: `Critical reading is a demanding process. To read critically, you must slow down your reading and, with pencil in hand, perform specific operations on the text. Mark up the text with your reactions, conclusions, and questions. When you read, become an active participant.`,
+        question: `3. This paragraph best supports the statement that`,
+        choices: [
+          "A. critical reading is a slow, dull, but essential process.",
+          "B. the best critical reading happens at critical times in a person’s life.",
+          "C. readers should get in the habit of questioning the truth of what they read.",
+          "D. critical reading requires thoughtful and careful attention.",
+          "E. critical reading should take place at the same time each day."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `There are no effective boundaries when it comes to pollutants. Studies have shown that toxic insecticides that have been banned in many countries are riding the wind from countries where they remain legal. Compounds such as DDT and toxaphene have been found in remote places like the Yukon and other Arctic regions.`,
+        question: `4. This paragraph best supports the statement that`,
+        choices: [
+          "A. toxic insecticides such as DDT have not been banned throughout the world.",
+          "B. more pollutants find their way into polar climates than they do into warmer areas.",
+          "C. studies have proven that many countries have ignored their own anti-pollution laws.",
+          "D. DDT and toxaphene are the two most toxic insecticides in the world.",
+          "E. even a worldwide ban on toxic insecticides would not stop the spread of DDT pollution."
+        ],
+        answer: "A"
+      },
+      {
+        passage: `The Fourth Amendment to the Constitution protects citizens against unreasonable searches and seizures. No search of a person’s home or personal effects may be conducted without a written search warrant issued on probable cause. This means that a neutral judge must approve the factual basis justifying a search before it can be conducted.`,
+        question: `5. This paragraph best supports the statement that the police cannot search a person’s home or private papers unless they have`,
+        choices: [
+          "A. legal authorization.",
+          "B. direct evidence of a crime.",
+          "C. read the person his or her constitutional rights.",
+          "D. a reasonable belief that a crime has occurred.",
+          "E. requested that a judge be present."
+        ],
+        answer: "A"
+      },
+      {
+        passage: `Mathematics allows us to expand our consciousness. Mathematics tells us about economic trends, patterns of disease, and the growth of populations. Math is good at exposing the truth, but it can also perpetuate misunderstandings and untruths. Figures have the power to mislead people.`,
+        question: `6. This paragraph best supports the statement that`,
+        choices: [
+          "A. the study of mathematics is dangerous.",
+          "B. words are more truthful than figures.",
+          "C. the study of mathematics is more important than other disciplines.",
+          "D. the power of numbers is that they cannot lie.",
+          "E. figures are sometimes used to deceive people."
+        ],
+        answer: "E"
+      },
+      {
+        passage: `Black-and-white camera film, in the old days of film photography, was very sensitive to blue light but not to red light. Blue skies would often show very little detail, because the film couldn’t record all that it was seeing. To compensate, photographers would put a red filter on the lens, darkening the sky enough that the film could record its fluffy clouds.`,
+        question: `7. This paragraph best supports the statement that`,
+        choices: [
+          "A. red filters were very popular in the old days of photography.",
+          "B. infrared rays are invisible to the naked eye.",
+          "C. black-and-white photography used to be very popular.",
+          "D. red filters cut out some blue light on black and white film.",
+          "E. blue filters cut out red light."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `Today’s postal service is more efficient than ever. Mail that once took months to move by horse and foot now moves around the country in days or hours by truck, train, and plane. If your letter or package is urgent, the U.S. Postal Service offers Priority Mail and Express Mail services. Priority Mail is guaranteed to go anywhere in the United States in two days or less. Express Mail will get your package there overnight.`,
+        question: `8. This paragraph best supports the statement that`,
+        choices: [
+          "A. more people use the post office for urgent deliveries than any other delivery service.",
+          "B. Express Mail is a good way to send urgent mail.",
+          "C. Priority Mail usually takes two days or less.",
+          "D. mail service today is more effective and dependable.",
+          "E. mail was once delivered by horse and foot."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `Reality TV shows will have an adverse effect on traditional dramas and comedies. As reality TV increases in popularity, network executives will begin canceling more traditional programs and replacing them with the latest in reality TV.`,
+        question: `9. This paragraph best supports the statement that`,
+        choices: [
+          "A. reality TV is low quality.",
+          "B. reality TV shows get the highest ratings.",
+          "C. more and more people love to watch and participate in reality TV.",
+          "D. as reality TV gets more popular, more traditional television shows may be threatened.",
+          "E. network executives make hasty and unwise decisions."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `When winding an old clock, it is important not to overwind it. Overwinding occurs when the mainspring is almost fully wound, but the operator continues to turn the winding key. This causes the mainspring to coil too tightly, and might even break it.`,
+        question: `10. This paragraph best supports the statement that`,
+        choices: [
+          "A. clocks have changed over the years.",
+          "B. old-fashioned clocks become fragile with age.",
+          "C. old-fashioned clocks were operated by an internal spring.",
+          "D. overwinding clocks used to be a common mistake.",
+          "E. time flies when you’re having fun."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `The term spices is a pleasant one, whether it connotes fine French cuisine or a down-home, cinnamon-flavored apple pie. ____________. In the past, individuals traveled the world seeking exotic spices for profit and, in searching, have changed the course of history. Indeed, to gain control of lands harboring new spices, nations have actually gone to war.`,
+        question: `11. Choose the topic sentence that best fits the paragraph.`,
+        choices: [
+          "A. The taste and aroma of spices are the main elements that make food such a source of fascination and pleasure.",
+          "B. The term might equally bring to mind Indian curry made thousands of miles away and those delicious barbecued ribs sold on the corner.",
+          "C. It is exciting to find a good cookbook and experiment with spices from other lands—indeed, it is one way to travel around the globe!",
+          "D. The history of spices, however, is another matter altogether, and at times, it can be filled with danger and intrigue."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `It weighs less than three pounds and is hardly more interesting to look at than an overly ripe cauliflower. ___________________________. It has created poetry and music, planned and executed horrific wars, and devised intricate scientific theories. It thinks and dreams, plots and schemes, and easily holds more information than all the libraries on Earth.`,
+        question: `12. Choose the topic sentence that best fits the paragraph.`,
+        choices: [
+          "A. The human brain is made of gelatinous matter and contains no nerve endings.",
+          "B. The science of neurology has found a way to map the most important areas of the human brain.",
+          "C. Nevertheless, the human brain is the most mysterious and complex object on Earth.",
+          "D. However, scientists say that each person uses only 10% of his or her brain over the course of a lifetime!"
+        ],
+        answer: "C"
+      },
+      {
+        passage: `___________________. It rained in April; it rained in May. It rained in the mornings; it rained in the afternoons. It poured, it drizzled, it showered, it misted—but always it rained. But the good news is we won’t have a drought this summer.`,
+        question: `13. Choose the topic sentence that best fits the paragraph.`,
+        choices: [
+          "A. The rain makes me gloomy.",
+          "B. This spring was the rainiest on record.",
+          "C. Rain is nice, but I prefer sunshine.",
+          "D. Scientists know very little about the global climate."
+        ],
+        answer: "B"
+      },
+      {
+        passage: `A fireplace should be lined with special fire bricks to prevent heat transfer.`,
+        question: `14. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Normal bricks are not dense enough to withstand excessive heat.",
+          "B. Fire codes also require a smoke alarm in every room.",
+          "C. Good up-drafts can make a pleasant fire, however.",
+          "D. Modern houses don’t use as much lumber as older homes did."
+        ],
+        answer: "A"
+      },
+      {
+        passage: `Cosmetic plastic surgery is one of the fastest-growing segments of U.S. medicine.`,
+        question: `15. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Cosmetic plastic surgery can have dangerous side effects, some of which can be fatal.",
+          "B. Americans are eager to make their bodies as perfect as possible and to minimize the visible signs of aging.",
+          "C. The price of cosmetic plastic surgery is also on the rise.",
+          "D. This increase in cosmetic plastic surgery says something quite disturbing about our culture."
+        ],
+        answer: "B"
+      },
+      {
+        passage: `If a car suddenly begins to skid on ice, a driver’s instinctive reaction might be the wrong one.`,
+        question: `16. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Skids can be a terrifying experience.",
+          "B. Cars can be very unpredictable on ice.",
+          "C. Many people instinctively turn the wheel in the wrong direction, making the skid worse.",
+          "D. New tires can help reduce the risk of skidding on ice."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `The “lead” inside the common pencil is actually not lead at all.`,
+        question: `17. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Lead is commonly mined in Africa.",
+          "B. Pencils were invented in 1603 by William Ledbelly.",
+          "C. Even when sharpened, a pencil may not write as well as a pen.",
+          "D. The substance used in pencils today is graphite."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `The Greek ideal of the hero most closely resembles today’s free-agent superstar.`,
+        question: `18. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. A superstar is an athlete who commands a great salary based on his individual skills.",
+          "B. The Greek warrior’s focus was on grasping at immortality, and he did this by ensuring that his name would live on, long after he died.",
+          "C. The Greek hero valued self-interest above loyalty to a cause, his king, or to his army, just as the free-agent superstar values his contract salary above any special team, coach, or the game.",
+          "D. The Greek hero was impressive in his performance on the battlefield as well as in the sports arena."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `There is no instruction by the old bird in the movements of flight; no conscious imitation by the young.`,
+        question: `19. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. The most obvious way in which birds differ from humans in behavior is that they can do all that they have to do, without ever being taught.",
+          "B. More extraordinary than the fact that a bird is able to fly untaught, is that it is able to build a nest untaught.",
+          "C. Young birds frequently make their first flights with their parents out of sight.",
+          "D. Young birds brought up in artificial environments will build the proper kind of nest for their species when the time comes."
+        ],
+        answer: "A"
+      },
+      {
+        passage: `Parents play an important role in their children’s academic success.`,
+        question: `20. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Video games have a negative impact on children’s academic success.",
+          "B. Studies show that children of parents who regularly assist with homework and show an active interest in their child’s studies bring home better grades.",
+          "C. Studies show that watching less television and spending less time playing video games help children get better grades.",
+          "D. Children who are avid readers get much better grades than their peers."
+        ],
+        answer: "B"
+      },
+      {
+        passage: `In special cases, needy people who have nowhere else to go are permitted to enter the United States as refugees.`,
+        question: `21. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Other people, however, enter the United States illegally.",
+          "B. The total number of newcomers was over one million.",
+          "C. United States immigration laws put limits on the number of people permitted to enter the United States.",
+          "D. As many as 12 million people may be living in the United States illegally."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `Most common weed killers work by poisoning the root of the plant.`,
+        question: `22. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Weed killer can be dangerous to pets.",
+          "B. Some weeds can grow even during drought.",
+          "C. When using weed killer, always wear gloves.",
+          "D. The poison is absorbed by the leaves and carried down to the roots."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `More and more people are eating organically grown fruits and vegetables.`,
+        question: `23. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Organic food is usually more expensive than non-organic food.",
+          "B. A wide variety of organic chocolate products are now available in stores.",
+          "C. Raw foods are enjoying increasing popularity, now that people are discovering how a raw-foods diet leaves you feeling and looking great.",
+          "D. Fresh organic produce contains more vitamins, minerals, and enzymes than non-organic produce."
+        ],
+        answer: "D"
+      },
+      {
+        passage: `In Oklahoma, a girl is forbidden to take a bite from her date’s hamburger.`,
+        question: `24. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. It’s illegal for teenagers to take a bath during the winter in Clinton, Indiana.",
+          "B. Youngsters may not spin Yo-Yos on Sunday in Memphis, Tennessee.",
+          "C. It may be hard to believe, but these types of strange laws are still on the books!",
+          "D. It is illegal to parade an elephant down Main Street in Austin, Texas."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `A cat’s whiskers are among the most perfect organs of touch.`,
+        question: `25. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. The hairs themselves are very sensitive.",
+          "B. Whiskers are generally white in color.",
+          "C. Touch is very important to a cat.",
+          "D. Dogs have very sensitive noses."
+        ],
+        answer: "A"
+      },
+      {
+        passage: `French explorers probably taught the Inuit Eskimos how to play dominoes.`,
+        question: `26. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. It was known in 181 A.D. in China.",
+          "B. Also, it was played during the eighteenth century in Italy.",
+          "C. The game of dominoes has been popular for centuries.",
+          "D. From Italy, it was then introduced to the rest of the world."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `People are now living longer than ever before for many different reasons.`,
+        question: `27. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Some people in the Soviet Union’s Caucasus Mountains live to be over 100 years of age.",
+          "B. No one seems to understand this phenomenon.",
+          "C. Advances in medical science have done wonders for longevity.",
+          "D. The people in this region do not seem to gain anything from medical science."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `For 16 years, he spread violence and death throughout the west.`,
+        question: `28. Choose the sentence that best develops or supports the topic sentence.`,
+        choices: [
+          "A. Jesse was gunned down on April 3, 1882.",
+          "B. He left a trail of train and bank robberies.",
+          "C. His crimes were committed during the late 1860s.",
+          "D. Jesse Woodson James was the most legendary of all American outlaws."
+        ],
+        answer: "B"
+      },
+      {
+        passage: `In ancient Greece, honor was not just the domain of the warrior.`,
+        question: `29. Choose the sentence that does NOT support the given topic sentence.`,
+        choices: [
+          "A. A great orator, who could sway the public with his logic and wit, was greatly respected.",
+          "B. A revered poet’s name lived on long after he died.",
+          "C. Great wealth was characteristic of the truly great kings.",
+          "D. A warrior’s quest for the esteem of his peers would bring him great prizes, which would secure a long-lasting reputation."
+        ],
+        answer: "C"
+      },
+      {
+        passage: `In Moby Dick, Herman Melville wrote that the whale men were “enveloped in whale lines,” that each man relied on the others during moments of danger.`,
+        question: `30. Choose the sentence that does NOT support the given topic sentence.`,
+        choices: [
+          "A. The small boats that pursued the whales left the whaling ship far behind; each man in a boat had to depend on the others to stay alive.",
+          "B. Once the whale was harpooned, the whale line unraveled so fast that water had to be poured on it to keep it from smoking.",
+          "C. The whale line was the rope, dozens of yards long, that attached to the harpoon; it was raveled under the seats of all the men, metaphorically connecting each man to the next.",
+          "D. One wrong move and the line would snap a man right out of the boat; thus, his life depended on whether the crew would cut the whale loose to save him, or leave him in the ocean during the heat of the hunt."
+        ],
+        answer: "B"
+      }
+    ];
+
+    const quiz = document.getElementById("quiz");
+
+    questions.forEach((q, index) => {
+      const card = document.createElement("div");
+      card.className = "question-card";
+
+      card.innerHTML = `
+        <h2>Question ${index + 1}</h2>
+        <div class="reader-toolbar">
+          <button type="button" class="clear-markings">Clear Markings</button>
+        </div>
+        <div class="reader-container">
+          <div class="passage">${q.passage}</div>
+          <canvas class="marking-canvas"></canvas>
+        </div>
+        <div class="question-text">${q.question}</div>
+        <div class="choices">
+          ${q.choices.map(choice => `<button class="choice">${choice}</button>`).join("")}
+        </div>
+        <div class="result"></div>
+      `;
+
+      const buttons = card.querySelectorAll(".choice");
+      const result = card.querySelector(".result");
+
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const selected = button.textContent.trim().charAt(0);
+          result.style.display = "block";
+          result.textContent = `You chose ${selected}. Correct Answer: ${q.answer}`;
+        });
+      });
+
+      quiz.appendChild(card);
+      setupMarkingTool(card);
+    });
+
+    function setupMarkingTool(card) {
+      const container = card.querySelector(".reader-container");
+      const canvas = card.querySelector(".marking-canvas");
+      const clearButton = card.querySelector(".clear-markings");
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+
+      function resizeCanvas() {
+        const rect = container.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(rect.width * scale));
+        canvas.height = Math.max(1, Math.round(rect.height * scale));
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "red";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+      }
+
+      function pointFromEvent(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+      }
+
+      resizeCanvas();
+
+      canvas.addEventListener("pointerdown", event => {
+        drawing = true;
+        canvas.setPointerCapture(event.pointerId);
+        const point = pointFromEvent(event);
+        ctx.beginPath();
+        ctx.moveTo(point.x, point.y);
+      });
+
+      canvas.addEventListener("pointermove", event => {
+        if (!drawing) return;
+        const point = pointFromEvent(event);
+        ctx.lineTo(point.x, point.y);
+        ctx.stroke();
+      });
+
+      canvas.addEventListener("pointerup", () => {
+        drawing = false;
+      });
+
+      canvas.addEventListener("pointercancel", () => {
+        drawing = false;
+      });
+
+      clearButton.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+
+      window.addEventListener("resize", resizeCanvas);
+    }
+  </script>
+
+</body>
+
+
+</html>
+
+<section class="card final-cta">
+  <h2>🐾 More Exercises 🐾</h2>
+  <p>Ready to sharpen your skimming and scanning skills with longer passages?</p>
+
+  <a class="exercise-button" href="../SSAT/skim&scan2_exs.html">
+    Longer Passages for Skimming & Scanning
+    <span>→</span>
+  </a>
+  <style>
+.final-cta {
+  text-align: center;
+  background: linear-gradient(135deg, #f7f3eb, #fffaf0);
+  border: 1px solid #d4af37;
+  border-radius: 18px;
+  padding: 36px 24px;
+  margin: 40px auto;
+  max-width: 760px;
+  box-shadow: 0 10px 24px rgba(16, 42, 67, 0.12);
+}
+
+.final-cta h2 {
+  color: #102a43;
+  margin-bottom: 12px;
+  font-size: 28px;
+}
+
+.final-cta p {
+  color: #334e68;
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.exercise-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #102a43;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
+  box-shadow: 0 6px 16px rgba(16, 42, 67, 0.25);
+  transition: 0.25s ease;
+}
+
+.exercise-button:hover {
+  background: #d4af37;
+  color: #102a43;
+  transform: translateY(-3px);
+}
+
+.exercise-button span {
+  font-size: 20px;
+}
+</style>
+</section>

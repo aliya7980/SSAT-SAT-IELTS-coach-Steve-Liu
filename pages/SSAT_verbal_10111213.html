@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSAT Vocabulary Practice - Set 10</title>
+  <style>
+    :root {
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #2563eb;
+      --bg: #f6f8fc;
+      --card: #ffffff;
+      --line: #e5e7eb;
+      --soft: #eff6ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    .wrap {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+      color: white;
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.22);
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+    }
+
+    .hero p {
+      margin: 0;
+      opacity: 0.95;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px;
+      margin: 20px 0;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #111827;
+    }
+
+    .word-bank {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .word-bank li {
+      background: var(--soft);
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 700;
+    }
+
+    .exercise-list li {
+      margin-bottom: 12px;
+    }
+
+    .blank {
+      display: inline-block;
+      min-width: 120px;
+      border-bottom: 2px solid #111827;
+      margin: 0 4px;
+    }
+
+    .story {
+      background: #f9fafb;
+      border-left: 5px solid #93c5fd;
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 17px;
+    }
+
+    .highlight {
+      font-weight: 800;
+      color: #1d4ed8;
+    }
+
+    .answer-key {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+    }
+
+    details {
+      margin-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: #9a3412;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #111827;
+      color: white;
+    }
+
+    button.secondary {
+      background: white;
+      color: #111827;
+      border: 1px solid var(--line);
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .toolbar {
+        display: none;
+      }
+
+      .card,
+      .hero {
+        box-shadow: none;
+      }
+
+      details,
+      .answer-key {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>SSAT Vocabulary Practice</h1>
+      <p>Word Set 10: approbation, appropriate, expropriate, aptitude, arbiter, arbitrate, arbitrary, arcane, archaic, audacious</p>
+    </header>
+
+    <div class="toolbar">
+      <button onclick="window.print()">Print Worksheet</button>
+      <button class="secondary" onclick="toggleAnswers()">Show / Hide Answer Key</button>
+    </div>
+
+    <section class="card">
+      <h2>Word Bank</h2>
+      <ul class="word-bank">
+        <li>approbation</li>
+        <li>appropriate (v.)</li>
+        <li>expropriate</li>
+        <li>aptitude</li>
+        <li>arbiter</li>
+        <li>arbitrate</li>
+        <li>arbitrary</li>
+        <li>arcane</li>
+        <li>archaic</li>
+        <li>audacious</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>1. Matching Exercise</h2>
+      <p>Match each word with the correct definition.</p>
+
+      <p><strong>Words</strong></p>
+      <ol type="A">
+        <li>approbation</li>
+        <li>appropriate (v.)</li>
+        <li>expropriate</li>
+        <li>aptitude</li>
+        <li>arbiter</li>
+        <li>arbitrate</li>
+        <li>arbitrary</li>
+        <li>arcane</li>
+        <li>archaic</li>
+        <li>audacious</li>
+      </ol>
+
+      <p><strong>Definitions</strong></p>
+      <ol class="exercise-list">
+        <li>_____ bold or daring</li>
+        <li>_____ based on random choice or personal whim</li>
+        <li>_____ very old-fashioned or outdated</li>
+        <li>_____ to take something for public use, especially by authority</li>
+        <li>_____ a person who settles disputes</li>
+        <li>_____ approval or praise</li>
+        <li>_____ to settle a dispute formally</li>
+        <li>_____ requiring secret or specialized knowledge</li>
+        <li>_____ natural ability or talent</li>
+        <li>_____ to take something for one’s own use</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>2. Gap-Fill Exercise</h2>
+      <p>Choose the best word from the word bank to complete each sentence.</p>
+
+      <ol class="exercise-list">
+        <li>The teacher gave her <span class="blank"></span> after seeing the student’s improvement.</li>
+        <li>The government may <span class="blank"></span> land to build public infrastructure.</li>
+        <li>He showed a strong <span class="blank"></span> for learning languages.</li>
+        <li>The judge was asked to <span class="blank"></span> the disagreement between the two companies.</li>
+        <li>As an impartial <span class="blank"></span>, she made a fair decision.</li>
+        <li>The rule seemed <span class="blank"></span> and unfair to many students.</li>
+        <li>His explanation was filled with <span class="blank"></span> terminology that few understood.</li>
+        <li>The use of such <span class="blank"></span> language made the text difficult to read.</li>
+        <li>It was <span class="blank"></span> of her to challenge the decision openly.</li>
+        <li>The manager tried to <span class="blank"></span> unused office supplies for personal use.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>3. Paragraph Practice</h2>
+      <p>Read the paragraph. Then underline or highlight each vocabulary word.</p>
+
+      <div class="story">
+        The committee sought an experienced <span class="highlight">arbiter</span> to <span class="highlight">arbitrate</span> the dispute, hoping to avoid an <span class="highlight">arbitrary</span> decision. Their choice earned widespread <span class="highlight">approbation</span>, as the arbiter was known for fairness rather than relying on <span class="highlight">arcane</span> reasoning or <span class="highlight">archaic</span> rules. Meanwhile, a developer attempted to <span class="highlight">expropriate</span> nearby land, claiming public benefit, though critics argued he merely wanted to <span class="highlight">appropriate</span> it for profit. Among the observers was a young intern whose <span class="highlight">aptitude</span> for negotiation was evident; her <span class="highlight">audacious</span> suggestion ultimately helped resolve the conflict.
+      </div>
+    </section>
+
+    <section class="card answer-key" id="answerKey" style="display: none;">
+      <h2>Answer Key</h2>
+
+      <details open>
+        <summary>Matching Answers</summary>
+        <p>1. J &nbsp; 2. G &nbsp; 3. I &nbsp; 4. C &nbsp; 5. E &nbsp; 6. A &nbsp; 7. F &nbsp; 8. H &nbsp; 9. D &nbsp; 10. B</p>
+      </details>
+
+      <details open>
+        <summary>Gap-Fill Answers</summary>
+        <ol>
+          <li>approbation</li>
+          <li>expropriate</li>
+          <li>aptitude</li>
+          <li>arbitrate</li>
+          <li>arbiter</li>
+          <li>arbitrary</li>
+          <li>arcane</li>
+          <li>archaic</li>
+          <li>audacious</li>
+          <li>appropriate</li>
+        </ol>
+      </details>
+    </section>
+  </div>
+
+  <script>
+    function toggleAnswers() {
+      const key = document.getElementById("answerKey");
+      key.style.display = key.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>
+
+<li>
+    <a href="SSAT_verbal_111213.html">
+      Practice List 11-13
+    </a>
+  </li>

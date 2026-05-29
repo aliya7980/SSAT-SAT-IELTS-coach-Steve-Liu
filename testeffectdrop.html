@@ -1,0 +1,254 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Dropdown Menu (One Page)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+
+    html {
+      height: 100%;
+      background-color: #f8f8f8;
+    }
+
+    body {
+      height: 100%;
+      margin: 0 auto;
+      background-color: #ffffff;
+      font-family: "Roboto", sans-serif;
+      color: #555555;
+      max-width: 900px;
+      padding: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    * { box-sizing: border-box; }
+
+    :root { --menu-width: 150px; }
+
+    /* Horizontal list */
+    .hList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    /* Each menu block */
+    .menu {
+      position: relative;
+      width: var(--menu-width);
+    }
+
+    /* Title button */
+    .menu-title {
+      display: block;
+      width: var(--menu-width);
+      height: 40px;
+      padding-top: 12px;
+      background: #9dc852;
+      text-align: center;
+      color: #ffffff;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: 0.3s background-color;
+      position: relative;
+      user-select: none;
+    }
+
+    /* Top triangle */
+    .menu-title::before {
+      content: "";
+      display: block;
+      height: 0;
+      border-top: 5px solid #9dc852;
+      border-left: calc(var(--menu-width) / 2) solid transparent;
+      border-right: calc(var(--menu-width) / 2) solid transparent;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 101;
+      transition: 0.2s 0.2s border-top ease-out, 0.3s border-top-color;
+    }
+
+    /* Bottom triangle */
+    .menu-title::after {
+      content: "";
+      display: block;
+      height: 0;
+      border-left: calc(var(--menu-width) / 2) solid transparent;
+      border-right: calc(var(--menu-width) / 2) solid transparent;
+      border-bottom: 0 solid #ebebeb;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 101;
+      transition: 0.2s border-bottom ease-in;
+    }
+
+    .menu:hover > .menu-title::after {
+      border-bottom-width: 5px;
+      transition: 0.2s 0.2s border-bottom-width ease-out;
+    }
+
+    .menu-title:hover { background: #8db842; }
+    .menu-title:hover::before { border-top-color: #8db842; }
+
+    .menu:hover > .menu-title::before {
+      border-top-width: 0;
+      transition: 0.2s border-top-width ease-in, 0.3s border-top-color;
+    }
+
+    /* Color variants */
+    .menu-title_2nd { background: #4e96b3; }
+    .menu-title_2nd:hover { background: #3e86a3; }
+    .menu-title_2nd::before { border-top-color: #4e96b3; }
+    .menu-title_2nd:hover::before { border-top-color: #3e86a3; }
+
+    .menu-title_3rd { background: #c97676; }
+    .menu-title_3rd:hover { background: #b96666; }
+    .menu-title_3rd::before { border-top-color: #c97676; }
+    .menu-title_3rd:hover::before { border-top-color: #b96666; }
+
+    .menu-title_4th { background: #dbab58; }
+    .menu-title_4th:hover { background: #cb9b48; }
+    .menu-title_4th::before { border-top-color: #dbab58; }
+    .menu-title_4th:hover::before { border-top-color: #cb9b48; }
+
+    /* Dropdown panel */
+    .menu-dropdown {
+      list-style: none;
+      margin: 0;
+      padding: 15px 0;
+      min-width: 100%;
+      position: absolute;
+      left: 0;
+      top: 40px;
+      background: #ebebeb;
+      z-index: 100;
+      transition: 0.5s padding, 0.5s background;
+    }
+
+    /* Dropdown bottom triangle */
+    .menu-dropdown::after {
+      content: "";
+      display: block;
+      height: 0;
+      border-top: 5px solid #ebebeb;
+      border-left: calc(var(--menu-width) / 2) solid transparent;
+      border-right: calc(var(--menu-width) / 2) solid transparent;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 101;
+      transition: 0.5s border-top;
+    }
+
+    /* Items */
+    .menu-dropdown li a {
+      display: block;
+      height: 30px;
+      padding: 5px 10px;
+      white-space: nowrap;
+      transition: 0.2s background-color;
+    }
+
+    .menu-dropdown li a:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    /* Collapsed state */
+    .menu:not(:hover) > .menu-dropdown {
+      padding: 4px 0;
+      background: #dddddd;
+      z-index: 99;
+    }
+
+    .menu:not(:hover) > .menu-dropdown::after {
+      border-top-color: #dddddd;
+    }
+
+    .menu:not(:hover) > .menu-title::after {
+      border-bottom-color: #dddddd;
+    }
+
+    .menu:not(:hover) > .menu-dropdown li a {
+      visibility: hidden;
+      height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      color: rgba(25,25,25,0);
+    }
+
+    /* Demo content box */
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MENU -->
+  <ul class="hList">
+    <li class="menu">
+      <a href="#animals" class="menu-title">Novels</a>
+      <ul class="menu-dropdown">
+        <li><a href="#cat">Dracula</a></li>
+        <li><a href="#dog">A Tale of Two Cities</a></li>
+        <li><a href="#horse">To Kill a Mockingbird</a></li>
+        <li><a href="#cow">Lord of the Flies</a></li>
+        <li><a href="#pig">Charlotte's Web</a></li>
+      </ul>
+    </li>
+
+    <li class="menu">
+      <a href="#names" class="menu-title menu-title_2nd">Poetry</a>
+      <ul class="menu-dropdown">
+        <li><a href="#kevin">Kevin</a></li>
+        <li><a href="#jim">Jim</a></li>
+        <li><a href="#andy">Andy</a></li>
+      </ul>
+    </li>
+
+    <li class="menu">
+      <a href="#things" class="menu-title menu-title_3rd">Shakespeare</a>
+      <ul class="menu-dropdown">
+        <li><a href="#bench">bench</a></li>
+        <li><a href="#pizza">pizza</a></li>
+        <li><a href="#honda">Honda CB125</a></li>
+        <li><a href="#space">space</a></li>
+        <li><a href="#black-matter">black matter</a></li>
+        <li><a href="#apple">apple</a></li>
+        <li><a href="#philodendron">philodendron</a></li>
+        <li><a href="#liver">liver</a></li>
+        <li><a href="#brass">brass</a></li>
+      </ul>
+    </li>
+
+    <li class="menu">
+      <a href="#movies" class="menu-title menu-title_4th">Others</a>
+      <ul class="menu-dropdown">
+        <li><a href="#godzilla">Godzilla</a></li>
+        <li><a href="#man-on-wire">Man on Wire</a></li>
+        <li><a href="#spirited-away">Spirited Away</a></li>
+        <li><a href="#interstellar">Interstellar</a></li>
+      </ul>
+    </li>
+  </ul>
+
+</body>
+</html>
+

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAT Cross-Text Connections | Steve Liu</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.65;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover { color: #d4af37; }
+
+    .hero {
+      background: linear-gradient(rgba(16, 42, 67, 0.84), rgba(16, 42, 67, 0.84)),
+                  url("../index image.jpg");
+      background-size: cover;
+      background-position: center;
+      min-height: 440px;
+      display: flex;
+      align-items: center;
+      padding: 80px 8%;
+      color: white;
+    }
+
+    .hero-content { max-width: 780px; }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      font-size: 20px;
+      max-width: 720px;
+      margin-bottom: 32px;
+      color: #f3f4f6;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 14px 28px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .cta-button:hover { background: #c19a2e; }
+
+    .page-section { padding: 70px 8%; }
+
+    .container {
+      max-width: 1120px;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 36px;
+      color: #102a43;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    .intro-card,
+    .content-card,
+    .example-card {
+      background: white;
+      padding: 42px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 32px;
+    }
+
+    .intro-card { border-left: 5px solid #d4af37; }
+
+    .intro-card p,
+    .content-card p,
+    .example-card p {
+      font-size: 18px;
+      color: #3e4c59;
+      margin-bottom: 16px;
+    }
+
+    .content-card h3,
+    .example-card h3 {
+      font-size: 28px;
+      color: #102a43;
+      margin-bottom: 16px;
+    }
+
+    .steps-list {
+      list-style: none;
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .steps-list li {
+      background: #f7f3eb;
+      padding: 18px;
+      border-left: 4px solid #d4af37;
+      font-size: 17px;
+      color: #243b53;
+    }
+
+    .steps-list strong { color: #102a43; }
+
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .mini-card {
+      background: #fffaf0;
+      border-top: 5px solid #d4af37;
+      padding: 24px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(16, 42, 67, 0.06);
+    }
+
+    .mini-card i {
+      color: #102a43;
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .mini-card h4 {
+      color: #102a43;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .mini-card p {
+      color: #3e4c59;
+      font-size: 16px;
+      margin: 0;
+    }
+
+    .text-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 22px 0;
+    }
+
+    .text-box {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 20px;
+      border-radius: 6px;
+    }
+
+    .text-box h4 {
+      color: #102a43;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      background: #102a43;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .question p {
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .choices {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .choices li {
+      padding: 8px 0;
+      color: #f3f4f6;
+      font-size: 17px;
+    }
+
+    details {
+      background: #fffaf0;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      margin-top: 18px;
+      border-radius: 6px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: #102a43;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    details p { margin-top: 12px; }
+
+    .formula {
+      background: #102a43;
+      color: white;
+      text-align: center;
+      padding: 26px;
+      border-radius: 10px;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    .warning {
+      background: #fffaf0;
+      border-left: 5px solid #d4af37;
+      padding: 20px;
+      margin-top: 20px;
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .final-cta {
+      background: #102a43;
+      color: white;
+      text-align: center;
+      padding: 70px 8%;
+    }
+
+    .final-cta h2 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .final-cta p {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    footer {
+      background: #081826;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .strategy-grid,
+      .text-pair { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero h1 { font-size: 36px; }
+
+      .hero {
+        min-height: 380px;
+        padding: 60px 8%;
+      }
+
+      .intro-card,
+      .content-card,
+      .example-card { padding: 28px; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../pages/">Test Prep</a></li>
+      <li><a href="../pages/">Reading</a></li>
+      <li><a href="../pages/">Homework</a></li>
+      <li><a href="../pages/">Clients</a></li>
+      <li><a href="../pages/">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>SAT Cross-Text Connections</h1>
+      <p>
+        Learn how to compare two short texts, identify each author’s view, and choose
+        the answer that accurately explains their relationship.
+      </p>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">What Are Cross-Text Connections?</h2>
+
+      <div class="intro-card">
+        <p>
+          Cross-Text Connections questions appear in the Craft and Structure area of the SAT
+          Reading and Writing section. They give students two short texts, usually labeled
+          <strong>Text 1</strong> and <strong>Text 2</strong>, and ask how the two texts relate to each other.
+        </p>
+
+        <p>
+          Most questions ask students to compare the two authors’ points of view. The relationship
+          may be agreement, disagreement, qualification, support, challenge, or a difference in emphasis.
+        </p>
+
+        <div class="formula">
+          Text 1 View + Text 2 View = Relationship
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="steps" class="page-section">
+    <div class="container">
+      <h2 class="section-title">Step-by-Step Method</h2>
+
+      <div class="content-card">
+        <h3>How to Work Through the Question</h3>
+
+        <ul class="steps-list">
+          <li><strong>Step 1: Read the question first.</strong> Decide whether the question asks for agreement, disagreement, support, challenge, or overall relationship.</li>
+          <li><strong>Step 2: Read Text 1 and write a 3–5 word summary.</strong> Focus on the author’s claim, not every detail.</li>
+          <li><strong>Step 3: Read Text 2 and write another 3–5 word summary.</strong> Ask: Is Text 2 agreeing, disagreeing, adding evidence, or narrowing the idea?</li>
+          <li><strong>Step 4: Compare viewpoints.</strong> Do not simply compare topics. Compare what each author thinks about the topic.</li>
+          <li><strong>Step 5: Predict the relationship before reading the choices.</strong> For example: “Text 2 supports Text 1 but adds a limitation.”</li>
+          <li><strong>Step 6: Eliminate extreme or distorted answers.</strong> Wrong answers often exaggerate, reverse the relationship, or mention ideas found in only one text.</li>
+          <li><strong>Step 7: Choose the answer that describes both texts accurately.</strong> The correct answer must fit Text 1 and Text 2 at the same time.</li>
+        </ul>
+
+        <div class="warning">
+          <strong>Teacher Tip:</strong> The biggest mistake is choosing an answer that sounds true for one text only.
+          A correct Cross-Text answer must explain the connection between both texts.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Common Relationship Types</h2>
+
+      <div class="strategy-grid">
+        <div class="mini-card">
+          <i class="fas fa-handshake"></i>
+          <h4>Agreement</h4>
+          <p>Both texts make similar claims, though they may use different examples or evidence.</p>
+        </div>
+
+        <div class="mini-card">
+          <i class="fas fa-exchange-alt"></i>
+          <h4>Disagreement</h4>
+          <p>Text 2 challenges, questions, or presents evidence against the claim in Text 1.</p>
+        </div>
+
+        <div class="mini-card">
+          <i class="fas fa-layer-group"></i>
+          <h4>Qualification</h4>
+          <p>Text 2 partly agrees with Text 1 but adds a condition, limitation, or complication.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="container">
+      <h2 class="section-title">Practice Examples</h2>
+
+      <div class="example-card">
+        <h3>Example 1: Agreement</h3>
+
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>
+              Some researchers argue that students remember material better when they take notes by hand.
+              Because handwriting is slower than typing, students must select and organize the most important
+              ideas instead of recording everything word for word.
+            </p>
+          </div>
+
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>
+              A classroom study found that students using laptops produced more complete notes, but students
+              using notebooks wrote more concise summaries and performed better on questions requiring conceptual
+              understanding.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p><strong>Question:</strong> How would the author of Text 2 most likely respond to the claim in Text 1?</p>
+          <ul class="choices">
+            <li>A. By rejecting it because laptop notes are always more detailed</li>
+            <li>B. By supporting it with evidence that handwritten notes may improve conceptual learning</li>
+            <li>C. By arguing that handwriting is useful only for artistic subjects</li>
+            <li>D. By suggesting that note-taking has no effect on memory</li>
+          </ul>
+        </div>
+
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Correct Answer: B.</strong> Text 1 claims handwriting can improve learning because it forces students to process ideas. Text 2 supports this by showing that notebook users performed better on conceptual questions.</p>
+        </details>
+      </div>
+
+      <div class="example-card">
+        <h3>Example 2: Disagreement</h3>
+
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>
+              Urban green roofs are mainly valuable because they beautify buildings. Their environmental benefits
+              are often exaggerated, since a single roof garden is too small to change a city’s temperature or air quality.
+            </p>
+          </div>
+
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>
+              A recent review of green roof projects found that individual roof gardens may have limited effects,
+              but networks of green roofs across a city can reduce heat, absorb rainwater, and support insect habitats.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p><strong>Question:</strong> What is the main relationship between the two texts?</p>
+          <ul class="choices">
+            <li>A. Text 2 challenges Text 1 by suggesting that green roofs can have environmental value when used widely.</li>
+            <li>B. Text 2 agrees with Text 1 that green roofs are useful only for decoration.</li>
+            <li>C. Text 2 explains why roof gardens are too expensive for most buildings.</li>
+            <li>D. Text 2 claims that green roofs are harmful to urban insects.</li>
+          </ul>
+        </div>
+
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Correct Answer: A.</strong> Text 1 minimizes the environmental value of green roofs. Text 2 challenges that view by arguing that many green roofs together can produce meaningful environmental benefits.</p>
+        </details>
+      </div>
+
+      <div class="example-card">
+        <h3>Example 3: Qualification</h3>
+
+        <div class="text-pair">
+          <div class="text-box">
+            <h4>Text 1</h4>
+            <p>
+              Reading fiction can strengthen empathy because readers practice imagining the thoughts and emotions
+              of characters whose lives differ from their own.
+            </p>
+          </div>
+
+          <div class="text-box">
+            <h4>Text 2</h4>
+            <p>
+              Fiction may encourage empathy, but the effect depends on how actively readers engage with the text.
+              Students who simply rush through a story may remember plot events without reflecting on the characters’
+              inner lives.
+            </p>
+          </div>
+        </div>
+
+        <div class="question">
+          <p><strong>Question:</strong> How does Text 2 relate to Text 1?</p>
+          <ul class="choices">
+            <li>A. It completely rejects Text 1’s claim about fiction and empathy.</li>
+            <li>B. It agrees with Text 1 but adds that the effect depends on the reader’s level of engagement.</li>
+            <li>C. It argues that nonfiction is more enjoyable than fiction.</li>
+            <li>D. It claims that plot is the only important element in fiction.</li>
+          </ul>
+        </div>
+
+        <details>
+          <summary>Answer and Explanation</summary>
+          <p><strong>Correct Answer: B.</strong> Text 2 does not deny that fiction can build empathy. Instead, it qualifies the claim by explaining that readers must engage thoughtfully for that benefit to occur.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Build the Habit: Claim → Viewpoint → Relationship</h2>
+    <p>
+      Cross-Text Connections become easier when students stop reading for isolated details
+      and start reading for each author’s position.
+    </p>
+    <a href="../pages/practice_cross_text_connections.html" class="cta-button" target="_blank">Further Practice</a>
+    <a href="contact.html" class="cta-button" style="margin-left: 12px;">Book a SAT Reading Lesson</a>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Steve Liu. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

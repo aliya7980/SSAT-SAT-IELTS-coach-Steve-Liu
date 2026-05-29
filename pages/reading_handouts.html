@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Reading PDF Handouts | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f8f3e8;
+      color: #102a43;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .navbar {
+      width: 100%;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      color: white;
+      padding: 15px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: #f7fbff;
+      font-size: 16px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      border-bottom: 2px solid transparent;
+      transition: 0.25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: #d9b25f;
+      border-bottom-color: #d9b25f;
+    }
+
+    .hero {
+      min-height: 340px;
+      background:
+        linear-gradient(90deg, rgba(248,243,232,0.97), rgba(248,243,232,0.78), rgba(248,243,232,0.25)),
+        url("../images/winding-trail.jpeg");
+      background-size: cover;
+      background-position: center right;
+      display: flex;
+      align-items: center;
+      padding: 70px 7%;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      color: #08233d;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #1f2933;
+      max-width: 680px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 20px 0;
+      color: #b99041;
+      font-size: 22px;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      width: 70px;
+      height: 1px;
+      background: #b99041;
+    }
+
+    .layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 52px 7%;
+    }
+
+    .intro {
+      background: white;
+      border-left: 6px solid #d9b25f;
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 30px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+    }
+
+    .intro p {
+      color: #2d3d4d;
+      font-size: 18px;
+    }
+
+    .handout-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 34px;
+    }
+
+    .handout-card {
+      background: white;
+      border: 1px solid rgba(16, 42, 67, 0.08);
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+    }
+
+    .handout-card h2 {
+      color: #102a43;
+      font-size: 23px;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .handout-card p {
+      color: #3e4c59;
+      font-size: 16.5px;
+      margin-bottom: 20px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 18px;
+      border-radius: 6px;
+      background: #082b49;
+      color: white;
+      font-weight: bold;
+      transition: 0.25s ease;
+    }
+
+    .button:hover {
+      background: #0b3d66;
+      transform: translateY(-2px);
+    }
+
+    .button.secondary {
+      background: #fffaf0;
+      color: #102a43;
+      border: 1px solid #d9b25f;
+    }
+
+    .button.secondary:hover {
+      background: #e8f3f8;
+      border-color: #b7cfdd;
+    }
+
+    .preview {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+      border: 1px solid rgba(16, 42, 67, 0.08);
+    }
+
+    .preview h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: #102a43;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      min-height: 620px;
+      border: 1px solid #ccd6dd;
+      border-radius: 8px;
+      background: #fffaf0;
+    }
+
+    footer {
+      padding: 28px 7%;
+      color: white;
+      text-align: center;
+      background: linear-gradient(90deg, #071f36, #0b3455);
+      font-size: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .navbar {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 18px;
+      }
+
+      .hero {
+        background:
+          linear-gradient(rgba(248,243,232,0.92), rgba(248,243,232,0.88)),
+          url("../images/winding-trail.jpeg");
+        background-size: cover;
+        background-position: center;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .pdf-frame {
+        min-height: 480px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .logo {
+        font-size: 25px;
+      }
+
+      .hero {
+        padding: 60px 6%;
+      }
+
+      .hero h1 {
+        font-size: 31px;
+      }
+
+      .layout {
+        padding: 40px 6%;
+      }
+
+      .intro,
+      .handout-card,
+      .preview {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">🐾 HuskyDaddy</div>
+
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_handouts.html" aria-current="page">PDFs</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="clients.html">Clients</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Reading PDF Handouts</h1>
+
+      <div class="divider">🐾</div>
+
+      <p>
+        Download or preview the class PDFs for short story reading, summary writing,
+        essay planning, and close-reading practice.
+      </p>
+    </div>
+  </section>
+
+  <main class="layout">
+    <section class="intro">
+      <p>
+        These handouts are loaded from the ASSETS folder, so they will stay connected
+        when the site is published.
+      </p>
+    </section>
+
+    <section class="handout-grid" aria-label="PDF handouts">
+      <article class="handout-card">
+        <h2>Summary Writing</h2>
+        <p>A student handout for building clear, focused summaries after reading.</p>
+        <div class="actions">
+          <a class="button" href="ASSETS/SUMMARY%20WRITING.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="button secondary" href="ASSETS/SUMMARY%20WRITING.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="handout-card">
+        <h2>Elements of Story</h2>
+        <p>A guide to setting, character, conflict, climax, resolution, and theme.</p>
+        <div class="actions">
+          <a class="button" href="ASSETS/ELEMENTSOFSTORY.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="button secondary" href="ASSETS/ELEMENTSOFSTORY.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="handout-card">
+        <h2>Identities</h2>
+        <p>A short story PDF for reading, annotation, discussion, and written response.</p>
+        <div class="actions">
+          <a class="button" href="ASSETS/identities.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="button secondary" href="ASSETS/identities.pdf" download>Download</a>
+        </div>
+      </article>
+
+      <article class="handout-card">
+        <h2>Essay Outline Template</h2>
+        <p>A planning sheet for turning reading notes into organized writing.</p>
+        <div class="actions">
+          <a class="button" href="ASSETS/ESSAY%20Outline%20Template.pdf" target="_blank" rel="noopener">Open</a>
+          <a class="button secondary" href="ASSETS/ESSAY%20Outline%20Template.pdf" download>Download</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="preview">
+      <h2>Preview: Summary Writing</h2>
+      <iframe
+        class="pdf-frame"
+        src="ASSETS/SUMMARY%20WRITING.pdf"
+        title="Summary Writing PDF preview"
+      ></iframe>
+    </section>
+  </main>
+
+  <footer>
+    Read, annotate, summarize, and write with confidence. 🐾
+  </footer>
+</body>
+</html>
