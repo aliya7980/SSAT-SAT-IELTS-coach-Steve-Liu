@@ -165,6 +165,81 @@
       font-size: 18px;
     }
 
+    .cat-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #fffaf0 100%);
+      border-left: 6px solid #d9b25f;
+    }
+
+    .cat-feature p {
+      margin-bottom: 16px;
+    }
+
+    .cat-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .cat-button {
+      display: inline-block;
+      background: #08233d;
+      color: white;
+      border-radius: 999px;
+      padding: 11px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: 0.25s ease;
+    }
+
+    .cat-button:hover {
+      background: #0b4f71;
+      transform: translateY(-2px);
+    }
+
+    .cat-button.secondary {
+      background: #d9b25f;
+      color: #08233d;
+    }
+
+    .cat-preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .cat-preview {
+      min-height: 154px;
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      background: #102a43;
+      box-shadow: 0 12px 26px rgba(16, 42, 67, 0.12);
+    }
+
+    .cat-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cat-preview span {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      background: rgba(8, 35, 61, 0.86);
+      color: white;
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
     .life-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -256,6 +331,10 @@
       .hero h1 {
         font-size: 38px;
       }
+
+      .cat-feature {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 600px) {
@@ -283,6 +362,10 @@
       .intro,
       .quiet-comments {
         padding: 24px;
+      }
+
+      .cat-preview-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -333,6 +416,45 @@
         imagination. Animals teach patience and loyalty. Nature gives us space to think.
         Hobbies keep curiosity alive.
       </p>
+    </div>
+
+    <div class="card cat-feature">
+      <div>
+        <h2>New Cat Blog</h2>
+        <p>
+          I added a warm little cat-writing corner with short blog pieces about the bond
+          between humans and cats, how cats show affection, and a photo essay featuring
+          tuxedo cats, calicos, tabbies, and gingers.
+        </p>
+        <p>
+          The writing is gentle and personal, with research-backed ideas about attachment,
+          companionship, slow blinking, purring, and the quiet rituals that make cats feel
+          like family.
+        </p>
+        <div class="cat-actions">
+          <a class="cat-button" href="miscellaneous/index.html">Open Cat Blog</a>
+          <a class="cat-button secondary" href="miscellaneous/cat-coat-characters.html">See Cat Gallery</a>
+        </div>
+      </div>
+
+      <div class="cat-preview-grid">
+        <a class="cat-preview" href="miscellaneous/human-cat-bond.html">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/A_Calico_cat.jpg" alt="A calico cat portrait" />
+          <span>Human + Cat Love</span>
+        </a>
+        <a class="cat-preview" href="miscellaneous/cat-coat-characters.html">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/TUXEDO_CAT.jpg" alt="A tuxedo cat sitting on a chair" />
+          <span>Tuxedo Cats</span>
+        </a>
+        <a class="cat-preview" href="miscellaneous/cat-coat-characters.html">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tabby-cat.jpg" alt="A tabby cat" />
+          <span>Tabbies</span>
+        </a>
+        <a class="cat-preview" href="miscellaneous/cat-love-language.html">
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Red_tabby_cat.jpg" alt="A ginger tabby cat" />
+          <span>Cat Love Language</span>
+        </a>
+      </div>
     </div>
 
     <div class="card">
