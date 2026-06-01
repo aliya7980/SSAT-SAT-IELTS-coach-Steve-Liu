@@ -1,0 +1,4 @@
+Task mode: create
+Primary deck-profile: appendix-heavy
+Audience: SAT students in a tutor-led review session
+QA gates: readable question text, one pattern label per question, no answer key.

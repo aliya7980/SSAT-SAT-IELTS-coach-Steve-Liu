@@ -1,0 +1,5 @@
+Task mode: create
+Primary deck-profile: appendix-heavy
+Audience: SAT students
+Visual style: dark green blackboard, chalk accents
+QA gates: readable text, source-safe paraphrase, one complete lesson arc.

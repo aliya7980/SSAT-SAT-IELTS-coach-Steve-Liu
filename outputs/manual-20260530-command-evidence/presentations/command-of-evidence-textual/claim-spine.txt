@@ -1,0 +1,2 @@
+Thesis: Command of Evidence: Textual questions are solved by matching evidence to the exact claim.
+Arc: define the task, split the two forms, teach a three-step method, model literary/scientific logic, practice, close with checklist.
