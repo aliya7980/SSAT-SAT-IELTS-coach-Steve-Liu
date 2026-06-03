@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Middle Practice Test 1 | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Georgia, "Times New Roman", serif; background: #f7f3eb; color: #1f2933; line-height: 1.6; }
+    .navbar { background: #102a43; color: white; padding: 18px 8%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { color: white; text-decoration: none; font-size: 15px; }
+    .nav-links a:hover { color: #d4af37; }
+    .page-header { background: #102a43; color: white; padding: 70px 8%; text-align: center; }
+    .page-header h1 { font-size: 42px; margin-bottom: 15px; }
+    .page-header p { font-size: 19px; color: #e5e7eb; max-width: 820px; margin: auto; }
+    .tabs { background: white; border-bottom: 1px solid #e5dccb; display: flex; gap: 12px; justify-content: center; padding: 18px 8%; position: sticky; top: 0; z-index: 50; }
+    .tab-button { background: #102a43; color: white; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 12px 18px; }
+    .tab-button.active { background: #d4af37; color: #102a43; }
+    .container { max-width: 1480px; margin: auto; padding: 36px 4%; }
+    .practice-section { display: none; }
+    .practice-section.active { display: block; }
+    .question-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 28px; }
+    .question-card h2 { color: #102a43; margin-bottom: 15px; }
+    .directions { background: #fffdf8; border-left: 5px solid #d4af37; padding: 20px; border-radius: 8px; color: #3e4c59; font-size: 17px; margin-bottom: 28px; }
+    .split-card { padding: 24px; }
+    .split-practice { display: grid; grid-template-columns: minmax(420px, 48%) minmax(460px, 1fr); gap: 24px; align-items: start; }
+    .passage-panel { position: sticky; top: 86px; max-height: calc(100vh - 116px); overflow: auto; border: 1px solid #e5dccb; border-radius: 8px; background: #fffdf8; padding: 16px; }
+    .questions-panel { padding: 2px 2px 0; }
+    .passage { background: #fffdf8; border-left: 5px solid #d4af37; padding: 22px; border-radius: 8px; color: #3e4c59; font-size: 17px; white-space: pre-line; position: relative; z-index: 1; pointer-events: none; }
+    .reader-toolbar { text-align: right; margin: 0 0 12px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    .clear-markings, .jump-button { background: #d4af37; color: #102a43; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 10px 16px; text-decoration: none; }
+    .clear-markings:hover, .jump-button:hover { background: #c19a2e; }
+    .reader-container { position: relative; background: #fffdf8; border-radius: 8px; margin: 0; }
+    .marking-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; touch-action: none; cursor: crosshair; }
+    .question-block { border-top: 1px solid #e5dccb; padding-top: 20px; margin-top: 20px; }
+    .questions-panel .question-block:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+    .question-text { font-weight: bold; color: #102a43; margin-bottom: 15px; font-size: 18px; }
+    .choices { display: grid; gap: 12px; }
+    .choice { border: 1px solid #e5dccb; background: #f7f3eb; padding: 14px 16px; border-radius: 8px; cursor: pointer; font-size: 16px; text-align: left; font-family: Georgia, "Times New Roman", serif; color: #3e4c59; }
+    .choice:hover { border-color: #d4af37; background: #fffdf8; }
+    .choice.selected { border-color: #d4af37; background: #fffdf8; box-shadow: inset 0 0 0 2px rgba(212,175,55,.35); color: #102a43; font-weight: bold; }
+    .choice.incorrect { border-color: #dc2626; background: #fff1f2; box-shadow: inset 0 0 0 2px rgba(220, 38, 38, .18); color: #991b1b; }
+    .result { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 8px; background: #fffdf8; border-left: 5px solid #d4af37; color: #102a43; font-weight: bold; }
+    .verbal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .answer-sheet { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; }
+    .answer-sheet h2 { color: #102a43; margin-bottom: 10px; text-align: center; }
+    .answer-sheet p { color: #3e4c59; text-align: center; margin-bottom: 22px; }
+    .answer-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .answer-card { background: #fffdf8; border: 1px solid #e5dccb; border-radius: 8px; padding: 12px; }
+    .answer-card.incorrect { background: #fff1f2; border-color: #dc2626; box-shadow: inset 0 0 0 1px rgba(220, 38, 38, .18); }
+    .answer-card strong { display: block; color: #102a43; margin-bottom: 8px; }
+    .bubble-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .bubble-row label { background: #f7f3eb; border: 1px solid #e5dccb; border-radius: 999px; cursor: pointer; padding: 5px 8px; font-size: 14px; }
+    .bubble-row label:has(input:checked) { background: #d4af37; color: #102a43; font-weight: bold; }
+    .bubble-row input { accent-color: #102a43; }
+    .teacher-lock { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; border-top: 5px solid #102a43; }
+    .teacher-lock h2, .teacher-key h3 { color: #102a43; text-align: center; margin-bottom: 10px; }
+    .teacher-lock p { color: #3e4c59; text-align: center; margin-bottom: 18px; }
+    .teacher-form { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .teacher-form input { border: 1px solid #d6c8ad; border-radius: 6px; color: #102a43; font-family: Georgia, "Times New Roman", serif; font-size: 16px; min-width: 240px; padding: 11px 14px; }
+    .teacher-form button { background: #102a43; color: white; border: none; border-radius: 6px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 11px 18px; }
+    .teacher-form button:hover { background: #d4af37; color: #102a43; }
+    .teacher-message { color: #9f1239; font-weight: bold; min-height: 24px; text-align: center; }
+    .teacher-key { display: none; margin-top: 24px; }
+    .teacher-key.unlocked { display: block; }
+    .key-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 10px; margin: 18px 0 30px; }
+    .key-card { background: #fffdf8; border: 1px solid #e5dccb; border-left: 4px solid #d4af37; border-radius: 8px; color: #102a43; font-weight: bold; padding: 10px; text-align: center; }
+    .key-card.student-wrong { background: #fff1f2; border-color: #dc2626; border-left-color: #dc2626; color: #991b1b; }
+    footer { background: #102a43; color: #e5e7eb; text-align: center; padding: 24px; font-size: 14px; }
+    @media (max-width: 1000px) { .split-practice { grid-template-columns: 1fr; } .passage-panel { position: relative; top: auto; max-height: 54vh; } }
+    @media (max-width: 900px) { .verbal-grid { grid-template-columns: 1fr; } .answer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .key-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+    @media (max-width: 800px) { .navbar { flex-direction: column; gap: 18px; } .nav-links { justify-content: center; } .page-header h1 { font-size: 34px; } .tabs { position: static; flex-wrap: wrap; } }
+    @media (max-width: 540px) { .answer-grid { grid-template-columns: 1fr; } .question-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <header class="page-header">
+    <h1>SSAT Middle Practice Test 1</h1>
+    <p>Reading and Verbal practice extracted from SSAT Middle Practice Test 1. Some scan-cropped items are marked for teacher review.</p>
+  </header>
+  <div class="tabs">
+    <button class="tab-button active" data-target="reading-section" type="button">Reading</button>
+    <button class="tab-button" data-target="verbal-section" type="button">Verbal</button>
+    <button class="tab-button" data-target="answers-section" type="button">Answer Sheet</button>
+  </div>
+  <main class="container">
+    <section id="reading-section" class="practice-section active">
+      <div class="directions">Read each passage and answer the related questions. For each question, use the passage to decide which one of the choices best answers the question.</div>
+      <div id="reading-practice"></div>
+    </section>
+    <section id="verbal-section" class="practice-section">
+      <div class="directions">This section includes two question types: synonyms and analogies. Choose the answer choice that best completes each item.</div>
+      <div id="verbal-practice"></div>
+    </section>
+    <section id="answers-section" class="practice-section">
+      <div class="answer-sheet"><h2>Reading Answer Choices</h2><p>Questions 1-40</p><div class="answer-grid" id="reading-answers"></div></div>
+      <div class="answer-sheet"><h2>Verbal Answer Choices</h2><p>Questions 1-60</p><div class="answer-grid" id="verbal-answers"></div></div>
+      <div class="teacher-lock">
+        <h2>Teacher Answer Key</h2>
+        <p>Enter the teacher password to reveal the correct answers.</p>
+        <div class="teacher-form">
+          <input id="teacher-password" type="password" autocomplete="off" placeholder="Teacher password" />
+          <button id="unlock-teacher-key" type="button">Unlock</button>
+        </div>
+        <div class="teacher-message" id="teacher-message"></div>
+        <div class="teacher-key" id="teacher-key">
+          <h3>Reading Section</h3>
+          <div class="key-grid" id="reading-key"></div>
+          <h3>Verbal Section</h3>
+          <div class="key-grid" id="verbal-key"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>© HuskyDaddy | SSAT Middle Practice Test 1</footer>
+  <script>
+    const testData = {"readingGroups": [{"title": "Reading Passage 1: Air Currents", "passage": "The sun shines with different degrees of heating power at different parts of the world. Where its effect is greatest, the air is hottest. Now, imagine that at a certain time the air all around the globe is at one temperature. Then suddenly the sun heats the air at one point until it is much warmer than the surrounding air. The heated air rises, and spreads out above the cold air. But because a certain volume of hot air has less weight than an equal volume of cold air, the cold air starts to rush toward that point and squeeze the rest of the warm air out. You can picture the atmosphere as made up of a number of colder currents passing along the surface of the earth to replace warm air rising and spreading over the upper surface of the cold air.", "questions": [[1, "What is the author's main topic in this passage?", ["the temperature of the sun", "the elements that make up air", "how air currents form", "the weight of sunlight", "the shape of the atmosphere"]], [2, "Source scan unclear: question 2 is cropped/missing in the PDF image.", ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]], [3, "According to the passage, cold air currents", ["travel lower than hot air currents", "travel higher than hot air currents", "are faster than hot air currents", "are caused by snow", "cause storms"]], [4, "What topic would the author most likely discuss next?", ["why hot air is less dense than cold air", "the type of weather in different regions of the world", "qualities of the atmospheres on other planets", "the importance of sunlight for plant growth", "other factors affecting air currents on the earth"]]]}, {"title": "Reading Passage 2: The Strange Lady", "passage": "In an arm-chair, with an elbow resting on the table and her head leaning on that hand, sat the strangest lady I have ever seen, or shall ever see.\n\nShe was dressed in rich materials--satins, lace, and silks--all of white. Her shoes were white. She had a long white veil dependent from her hair, and she had bridal flowers in her hair, but her hair was white. Some bright jewels sparkled on her neck and on her hands, and half-packed trunks were scattered about. Her watch and chain were not put on, and some lace for her bosom lay with those trinkets, and with her handkerchief, gloves, some flowers, and a Prayer-Book, all confusedly heaped about the looking-glass.\n\nI saw that everything within my view which ought to be white had been white long ago, and had lost its luster, and was faded and yellow. I saw that the bride within the bridal dress had withered like the dress, and like the flowers, and had no brightness left but the brightness of her sunken eyes. I saw that the dress had been put upon the rounded figure of a young woman, and that the figure upon which it now hung loose had shrunk to skin and bone.", "questions": [[5, "As it is used in line 10, the word \"luster\" most closely means", ["money", "brightness", "softness", "dirt", "flowers"]], [6, "The mood of the passage can best be described as", ["eerie", "playful", "bland", "cheerful", "formal"]], [7, "Which of the following is NOT listed as one of the objects in the room?", ["white gloves", "a wedding dress", "a book", "an old woman", "a white bird"]], [8, "The author most likely describes the skeleton and waxwork in order to", ["provide comic relief", "distract the reader", "tell the reader where the woman came from", "build a feeling of suspense and horror", "give a history lesson"]], [9, "When the author states that \"the bride within the bridal dress had withered like the dress,\" he means that", ["the woman has grown very old", "the woman is living in squalor", "the woman is shy", "the woman and her dress have been dug out of a vault", "the woman's beauty is immortal"]]]}, {"title": "Reading Passage 3: Carrots and Night Vision", "passage": "Lack of vitamin A can cause poor vision, including poor night vision, and vision can be restored by adding the vitamin back into the diet. Some people even believe that eating large quantities of carrots will allow one to see in the dark. This misconception developed from stories of British gunners in World War II, who were able to shoot down German planes in the darkness of night thanks to recent advances in radar technology. In an attempt to hide the effective use of radar in engaging enemy planes, the British Air Force spread the rumor that eating carrots enabled their pilots to see German planes in the dark. This exploited existing German fears, and it helped encourage carrot consumption among Britons hoping to improve their night vision during blackouts.", "questions": [[10, "It can be inferred from the passage that", ["vegetables have no effect on vision", "eating meat will hurt your ability to see in the dark", "carrots are a source of vitamin A", "carrots are the healthiest vegetable", "animals that have good night vision eat a lot of carrots"]], [11, "Which statement best explains how the carrot night-vision rumor spread during World War II?", ["The Germans discovered this property of carrots.", "The British Air Force spread the rumor to the Germans.", "The Germans tried to stop this rumor from spreading.", "The British Air Force told the rumor only to justify pilot rations.", "The British Air Force heard the rumor and encouraged pilots to eat carrots."]], [12, "According to the passage, British gunners were able to shoot down German planes at night because", ["carrots gave them better eyesight than the Germans", "German pilots were easy to see", "their planes flew lower than German planes", "the British outnumbered the Germans", "the British used radar technologies to find the planes"]], [13, "Which of the following would be a good title for this passage?", ["The Discovery of Vitamin A", "Carrots and Night Vision: Fact and Fiction", "British Air Tactics in World War II", "How to Grow Carrots", "The Use of Propaganda in Great Britain"]]]}, {"title": "Reading Passage 4: Montgomery, Alabama", "passage": "Montgomery, Alabama, is located in a beautiful spot on the Alabama River, near the center of the state. Its position at the head of navigation on the Alabama River, its connection by railway with important points, and the rich agricultural country with which it is surrounded make it a great commercial center, and the second largest city in the state in terms of population. It is the capital, and consequently attracts many learned men and great statesmen, giving it a society of the highest rank, and making it the social center of the state.\n\nFrom 1858 to 1860, the South enjoyed great prosperity. \"Cotton was king,\" and millions of dollars were poured into the country to purchase it. A fair share of that money made its way to Montgomery.\n\nWhen planters from the surrounding towns had gathered their crops, such as tobacco and rice, they sent them away to the city of Montgomery to be sold, and the proceeds were deposited in its banks. During their busy season, they had hardly any social life outside their own families. However, when their crops were gathered, they left their plantations and went with their families, where they gave themselves up to enjoyment, spending their money in a most lavish manner.", "questions": [[14, "The primary topic of this passage is", ["how cotton is grown", "plantations in Alabama", "the origins of Southern society", "slavery in Montgomery", "Montgomery's history of prosperity"]], [15, "The author claims that Montgomery: I. has the largest population in Alabama; II. is the social center of the state.", ["I only", "II only", "I and II", "Neither I nor II", "Source scan unclear"]], [16, "According to the passage, Montgomery was prosperous for all of the following reasons EXCEPT", ["access to transportation, such as rivers and railways", "good agricultural land", "wealthy planters", "gold mines", "tobacco production"]], [17, "When the author states that \"Cotton was king,\" he likely means that", ["cotton was a very important crop", "the king of Montgomery was named Cotton", "farmers were only allowed to grow cotton", "Montgomery was the only place that grew cotton", "the mayor of Montgomery was required by law to be a farmer"]], [18, "According to the passage, Alabama planters went to Montgomery mainly to", ["get away from their families", "gather their crops", "educate their children and families", "enjoy themselves after their busy season was over", "purchase cotton"]], [19, "The author of the passage would most likely agree that", ["cotton had little effect on Montgomery's development", "Montgomery's position and trade helped make it socially and commercially important", "no Northern city can compare to Montgomery", "learned men are more likely to be found in a university town than in a state capital", "the cotton trade was immoral"]]]}, {"title": "Reading Passage 5: The Man in the Arena", "passage": "It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly, who errs, who comes short again and again, because there is no effort without error and shortcoming; but who does actually strive to do the deeds; who knows great enthusiasms, great devotions; who spends himself in a worthy cause; who at the best knows the triumph of high achievement, and who at the worst, if he fails, at least fails while daring greatly, so that his place shall never be with those cold and timid souls who neither know victory nor defeat.", "questions": [[20, "Which of the following best expresses the main idea of this passage?", ["It is better to try and risk failure than never to try at all.", "One should only attempt to do something if one is sure of success.", "Criticism does not help anyone.", "Critics are the most productive people.", "Victory is always more important than effort."]], [21, "The tone of the passage can best be described as", ["sarcastic", "detached", "hesitant", "humorous", "emphatic"]], [22, "The author suggests that a man who attempts difficult things is like", ["a person in an arena", "an army", "a mountain climber", "a careless critic", "a timid soul"]], [23, "What is the speaker's primary purpose in this passage?", ["to criticize athletes", "to explain strategic thinking", "to warn of the dangers of failure", "to praise risk-takers", "to encourage skepticism"]], [24, "The speaker would most likely NOT admire someone who", ["tries to scale a dangerous mountain but dies along the way", "hunts down a notorious criminal but never finds him", "campaigns for office with enthusiasm and integrity but loses", "complains about the food in a restaurant but has never tried to cook a meal", "runs a marathon but comes in last place"]]]}, {"title": "Reading Passage 6: Love and Friendship", "passage": "Love is like the wild rose-briar;\nFriendship like the holly-tree.\nThe holly is dark when the rose-briar blooms,\nBut which will bloom most constantly?\n\nThe wild rose-briar is sweet in spring,\nIts summer blossoms scent the air;\nYet wait till winter comes again,\nAnd who will call the wild-briar fair?\n\nThen, scorn the silly rose-wreath now,\nAnd deck thee with the holly's sheen,\nThat, when December blights thy brow,\nHe still may leave thy garland green.", "questions": [[25, "Which of the following would be the best title for this passage?", ["The Fickle Friend", "Cruel December", "Love and Friendship", "The Seasons", "A Rose for Remembrance"]], [26, "Which of the following best expresses the main idea of this poem?", ["Keep your friends close and your enemies closer.", "When decorating, choose long-lasting plants.", "Roses are not as colorful as holly.", "Love always lasts longer than friendship.", "Friendship is more constant than love."]], [27, "The speaker suggests that in the winter, the wild rose-briar", ["will bloom beautifully", "will have sharp thorns", "loses its beautiful, scented blossoms", "is green and shiny", "can be used to make bouquets but not wreaths"]], [28, "The poem suggests that just as holly stays dark and green throughout the year, friendship", ["can become bitter during the winter", "can withstand the tests of time", "grows stale and tired", "is more fun during the holidays", "is never as fulfilling as love"]], [29, "What does the author mean when she advises the reader to \"scorn the silly rose-wreath now, and deck thee with the holly's sheen\"?", ["Place importance in friendship rather than love.", "Tell your loved ones what you think of them now, before they get old.", "Throw away any roses in your house.", "Invite people over for a holiday party.", "Protect yourself from people who want to take advantage of you."]]]}, {"title": "Reading Passage 7: Cary Grant and the Studio System", "passage": "During the Golden Age of Hollywood--from the early 1920s through the early 1950s--Hollywood movies were produced and distributed through what is known as the studio system. The term refers to two important practices of large motion picture studios at the time: they produced movies primarily on their own filmmaking lots with creative personnel under long-term contracts; and they owned, or effectively controlled, the movie theaters to which they distributed their films. These two practices helped the top studios maximize profits and maintain control of the industry.\n\nStudios controlled almost completely what jobs the actors under contract could or could not do, which was understandably frustrating for some actors. In the late 1930s, Cary Grant became the first Hollywood star to \"go independent\" after his studio contract. By leaving the studio system, Grant gained control over much of his career, although he also ran the risk of that career dwindling because no studio had a long-term interest in promoting it. For Grant, the risk paid off. Now able to decide which films he was going to appear in, he often had personal choice of his directors and co-stars. At times he even negotiated a share of the gross revenue, something rare at the time. Grant received more than $700,000 for his 10% of the gross profits for To Catch a Thief, while Alfred Hitchcock received less than $50,000 for directing and producing it.", "questions": [[30, "Which of the following would be the best title for this passage?", ["Cary Grant Catches $700,000 for To Catch a Thief", "The Greed of Motion Picture Studios", "The Birth of Hollywood", "Cary Grant and the Studio System", "How to Be a Star"]], [31, "According to the passage, which factors contributed to the strength of the major motion picture studios in the 1920s-1950s? I. long-term contracts with actors; II. ownership of the lots where they made films; III. independent stars like Cary Grant", ["I only", "II only", "III only", "I and II only", "I, II, and III"]], [32, "According to the passage, Cary Grant and other actors decided to \"go independent\" because", ["they wanted to own movie theaters and filmmaking lots", "they wanted to maximize their profits", "they wanted control over what jobs they could do", "they wanted to work with Alfred Hitchcock", "they wanted to direct and produce their own films"]], [33, "According to the passage, when Cary Grant left the studio system, he ran the risk of", ["choosing bad roles to play in future films", "losing the favor of audiences loyal to the studio system", "bankrupting the motion picture industry", "his career suffering without the support of a studio", "losing control over his career"]], [34, "Which of the following questions is NOT answered by information in the passage?", ["Who was the first Hollywood star to leave the studio system?", "What was one way studios maintained control?", "About how much money was made by the movie To Catch a Thief?", "When was the Golden Age of Hollywood?", "Who was Cary Grant's favorite director?"]], [35, "The author of the passage would most likely agree that", ["actors want to be able to choose their roles", "Cary Grant was Hollywood's most talented actor", "the Supreme Court overstepped its bounds by ruling against the studio system", "Hollywood movies in the 1920s were not very good", "actors today have too much power"]]]}, {"title": "Reading Passage 8: Anne's Room", "passage": "One June evening, when the orchards were pink blossomed again, when the frogs were singing silverly sweet in the marshes about the head of the Lake of Shining Waters, and the air was full of the savor of clover fields and balsamic fir woods, Anne had fallen into reverie, looking out past the boughs of the Snow Queen, once more bestarred with blossom.\n\nIn all essential respects the little gable chamber was unchanged. The bed was the same, the pincushion as hard, the chairs as stiffly and yellowly upright as ever. Yet the whole character of the room was altered. Anne thought that it was full of a new vital, pulsing life that seemed to pervade it. It was as if all the dreams, sleeping and waking, of its occupant had taken a visible although unmaterial form and had tapestried the bare walls with splendid filmy tissues of rainbow and moonshine.", "questions": [[36, "Which of the following best describes the mood of this scene?", ["suspenseful", "gloomy", "mystical", "cynical", "uproarious"]], [37, "Source scan unclear: question 37's stem and part of answer choice A are cropped/missing in the PDF image.", ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]], [38, "In the context of the passage, the \"Snow Queen\" in line 4 most likely refers to", ["a tree", "an imaginary friend", "a sorceress", "a hill", "a dog"]], [39, "When the author states that \"the whole character of the room was altered,\" she means that", ["Anne had decorated the room with brightly colored cloth", "the room appeared different to Anne because of her dreams", "the Snow Queen had enchanted the room", "a prism in the window was casting rainbows on the walls", "the room had been newly painted white"]], [40, "Based on the passage, Anne can be best described as", ["realistic", "imaginative", "fearful", "domineering", "immature"]]]}], "verbalSynonyms": [{"number": 1, "stem": "RIGID", "choices": ["not flexible", "thorough", "not direct", "cold", "sympathetic"]}, {"number": 2, "stem": "REFLEX", "choices": ["muscular", "new abilities", "a natural response", "food", "reaction"]}, {"number": 3, "stem": "DENY", "choices": ["refuse", "remain silent", "lie", "encourage", "respond"]}, {"number": 4, "stem": "MOPE", "choices": ["polish", "sleep", "pace", "smile", "pout"]}, {"number": 5, "stem": "EAGER", "choices": ["thoughtful", "bored", "inspired", "overjoyed", "enthusiastic"]}, {"number": 6, "stem": "SIMPLE", "choices": ["boring", "silent", "nice", "plain", "pretty"]}, {"number": 7, "stem": "QUAKE", "choices": ["shake", "stake", "fall", "slam", "laugh"]}, {"number": 8, "stem": "SIGNAL", "choices": ["acknowledge", "obscure", "indicate", "assail", "assume"]}, {"number": 9, "stem": "AUTHORIZE", "choices": ["demand", "refill", "attempt", "permit", "decorate"]}, {"number": 10, "stem": "LEGISLATE", "choices": ["take control", "make into law", "select leaders", "read aloud", "platform"]}, {"number": 11, "stem": "Source scan unclear: synonym item 11 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 12, "stem": "PROCLAIM", "choices": ["dance", "announce", "protect", "cheer up", "insult"]}, {"number": 13, "stem": "EXCLUDE", "choices": ["prop up", "destroy", "keep out", "trick", "cease-fire"]}, {"number": 14, "stem": "TRUCE", "choices": ["argument", "victory", "retreat", "trick", "cease-fire"]}, {"number": 15, "stem": "DEBRIS", "choices": ["exposure", "rubble", "fighters", "surplus", "platform"]}, {"number": 16, "stem": "PROBABLE", "choices": ["likely", "refutable", "distinct", "detestable", "soft"]}, {"number": 17, "stem": "SEVERITY", "choices": ["drought", "division", "wound", "lie", "harshness"]}, {"number": 18, "stem": "LISTLESS", "choices": ["garbled", "asleep", "tireless", "spread out", "without energy"]}, {"number": 19, "stem": "SAGE", "choices": ["spicy", "wise", "mossy", "false", "cold"]}, {"number": 20, "stem": "RESTRAINT", "choices": ["pressure", "repetition", "exhaustion", "reserve", "rescue"]}, {"number": 21, "stem": "WARBLE", "choices": ["sing", "record", "celebrate", "subtract", "conceal"]}, {"number": 22, "stem": "RECOIL", "choices": ["escape", "braid", "withdraw", "unbind", "slither"]}, {"number": 23, "stem": "ENVELOP", "choices": ["entrust", "cut off", "freeze", "enclose", "inside"]}, {"number": 24, "stem": "CREED", "choices": ["practice", "belief", "guilt", "admiration", "creation"]}, {"number": 25, "stem": "VARIABLE", "choices": ["changeable", "vertical", "capable", "colorful", "possible"]}, {"number": 26, "stem": "ANNUL", "choices": ["cancel", "record", "celebrate", "subtract", "conceal"]}, {"number": 27, "stem": "SURLY", "choices": ["bad-tempered", "sweet", "robust", "untidy", "lazy"]}, {"number": 28, "stem": "MERCILESS", "choices": ["passionate", "insecure", "aggressive", "cynical", "ruthless"]}, {"number": 29, "stem": "PUNGENT", "choices": ["unlikely", "peripheral", "wet", "smelly", "wicked"]}, {"number": 30, "stem": "Source scan unclear: synonym item 30 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}], "verbalAnalogies": [{"number": 31, "stem": "Canary is to yellow as", "choices": ["crow is to purple", "sparrow is to hungry", "robin's egg is to blue", "tiger is to stripes", "green is to envy"]}, {"number": 32, "stem": "Principal is to teacher as", "choices": ["editor is to author", "doctor is to patient", "athlete is to trainer", "manager is to employee", "lawyer is to client"]}, {"number": 33, "stem": "Source scan unclear: analogy item 33 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 34, "stem": "Thoroughbred is to horse as", "choices": ["terrier is to dog", "flavor is to ice cream", "feline is to tiger", "ewe is to sheep", "gaggle is to goose"]}, {"number": 35, "stem": "Bean is to sprout as", "choices": ["sapling is to sequoia", "petal is to pedal", "root is to leaf", "bulb is to shoot", "cap is to mushroom"]}, {"number": 36, "stem": "Stethoscope is to doctor as", "choices": ["bat is to pitcher", "gavel is to judge", "scrubs are to nurse", "gyroscope is to electrician", "telescope is to astronomer"]}, {"number": 37, "stem": "Relish is to pickles as", "choices": ["honey is to bees", "mustard is to hot dog", "salsa is to tomatoes", "jam is to jar", "mash is to potatoes"]}, {"number": 38, "stem": "Lion is to horse as", "choices": ["bear is to wolf", "claw is to hoof", "yellow is to brown", "zoo is to circus", "king is to villager"]}, {"number": 39, "stem": "Roe is to salmon as", "choices": ["foe is to haddock", "scale is to boat", "bill is to duck", "bark is to tree", "egg is to chicken"]}, {"number": 40, "stem": "Break is to promise as rescind is to", "choices": ["friendship", "adventure", "qualification", "offer", "refrain"]}, {"number": 41, "stem": "Source scan unclear: analogy item 41 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 42, "stem": "Rabbit is to hutch as", "choices": ["pig is to sty", "wolf is to pack", "caterpillar is to cocoon", "cow is to farm", "gerbil is to wheel"]}, {"number": 43, "stem": "Source scan unclear: analogy item 43 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 44, "stem": "Source scan unclear: analogy item 44 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 45, "stem": "Series is to episode as", "choices": ["comic book is to cartoon", "tournament is to game", "television is to movies", "incident is to fall", "refrain is to song"]}, {"number": 46, "stem": "Emissary is to message as", "choices": ["paperboy is to newspaper", "statistician is to numbers", "prophet is to danger", "contender is to argument", "pioneer is to invention"]}, {"number": 47, "stem": "Flight attendant is to plane as", "choices": ["captain is to ship", "passenger is to taxi", "waiter is to restaurant", "hydrogen is to blimp", "cashier is to register"]}, {"number": 48, "stem": "Twins are to triplets as", "choices": ["siblings are to cousins", "singles are to couples", "duets are to trios", "twenties are to fifties", "mirrors are to kaleidoscopes"]}, {"number": 49, "stem": "Thorn is to rose as", "choices": ["knot is to wood", "quill is to porcupine", "wart is to toad", "shell is to snail", "needle is to spindle"]}, {"number": 50, "stem": "Banana is to peel as", "choices": ["corn is to kernel", "peach is to skin", "pod is to peas", "apple is to orange", "lemon is to wedge"]}, {"number": 51, "stem": "Source scan unclear: analogy item 51 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 52, "stem": "Reclusive is to sociable as", "choices": ["hermetic is to happy", "quiet is to nice", "friendly is to likeable", "angry is to impressive", "taciturn is to chatty"]}, {"number": 53, "stem": "Source scan unclear: analogy item 53 is cropped/missing", "choices": ["Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed", "Source scan unclear - teacher review needed"]}, {"number": 54, "stem": "Aimless is to direction as reckless is to", "choices": ["speed", "energy", "anger", "hope", "caution"]}, {"number": 55, "stem": "Planet is to solar system as", "choices": ["horse is to carousel", "duck is to pond", "leaves are to tree", "students are to school", "molecule is to atom"]}, {"number": 56, "stem": "Brush is to painter as", "choices": ["paper is to draftsman", "essay is to academic", "bow is to violinist", "shoes are to dancer", "clay is to sculpture"]}, {"number": 57, "stem": "Zesty is to flavor as", "choices": ["zero is to favor", "zippy is to energy", "zebra is to fur", "zodiac is to ecology", "zap is to fire"]}, {"number": 58, "stem": "Root is to tree as", "choices": ["switch is to appliance", "petal is to flower", "branch is to canopy", "leg is to arm", "foundation is to building"]}, {"number": 59, "stem": "Silk is to wool as", "choices": ["taffeta is to gingham", "plaid is to paisley", "orange is to red", "silkworm is to sheep", "sun is to snow"]}, {"number": 60, "stem": "Violet is to vanilla as", "choices": ["fuchsia is to red", "tangy is to mild", "sound is to smell", "rose is to cinnamon", "sound is to color"]}]};
+    const correctAnswers = {
+      reading: "C?AEBAEDACBEBEBDADBAEADDCECBADDCDEAC?ABB",
+      verbal: "AEAEEDACDB?BCEBAEEBDACDBAAAED?CA?ADBBBED?A??BACCBB?E?EDCBEDD"
+    };
+    const answerKey = "ssatMiddlePractice1Answer:";
+    const answerMemory = {};
+    let teacherUnlocked = false;
+    function choiceLabel(index, text) { return `${String.fromCharCode(65 + index)}. ${text}`; }
+    function questionNumber(question) { return Array.isArray(question) ? question[0] : question.number; }
+    function questionStem(question) { return Array.isArray(question) ? question[1] : question.stem; }
+    function questionChoices(question) { return Array.isArray(question) ? question[2] : question.choices; }
+    function questionId(section, number) { return `${section}-${number}`; }
+    function saveChoice(id, letter) {
+      answerMemory[id] = letter;
+      try { localStorage.setItem(answerKey + id, letter); } catch (error) {}
+      renderAnswerSheets();
+    }
+    function selectedChoice(id) {
+      try { return localStorage.getItem(answerKey + id) || answerMemory[id]; } catch (error) { return answerMemory[id]; }
+    }
+    function renderChoices(question, section) {
+      const number = questionNumber(question);
+      const id = questionId(section, number);
+      return questionChoices(question).map((choice, index) => {
+        const letter = String.fromCharCode(65 + index);
+        const selected = selectedChoice(id) === letter ? " selected" : "";
+        return `<button class="choice${selected}" data-question="${id}" data-letter="${letter}" type="button">${choiceLabel(index, choice)}</button>`;
+      }).join("");
+    }
+    function renderReading() {
+      document.getElementById("reading-practice").innerHTML = testData.readingGroups.map((group, index) => `
+        <article class="question-card split-card">
+          <h2>${group.title}</h2>
+          <div class="split-practice">
+            <section class="passage-panel" aria-label="${group.title} passage">
+              <div class="reader-toolbar"><button type="button" class="clear-markings">Clear Markings</button><a class="jump-button" href="#answers-section">Answer Sheet</a></div>
+              <div class="reader-container"><div class="passage">${group.passage}</div><canvas class="marking-canvas" data-mark="reading-${index}"></canvas></div>
+            </section>
+            <section class="questions-panel" aria-label="${group.title} questions">
+              ${group.questions.map(question => `<div class="question-block"><div class="question-text">${questionNumber(question)}. ${questionStem(question)}</div><div class="choices">${renderChoices(question, "reading")}</div><div class="result"></div></div>`).join("")}
+            </section>
+          </div>
+        </article>`).join("");
+    }
+    function renderVerbal() {
+      const synonyms = `<article class="question-card"><h2>Synonyms</h2><div class="verbal-grid">${testData.verbalSynonyms.map(renderVerbalQuestion).join("")}</div></article>`;
+      const analogies = `<article class="question-card"><h2>Analogies</h2><div class="verbal-grid">${testData.verbalAnalogies.map(renderVerbalQuestion).join("")}</div></article>`;
+      document.getElementById("verbal-practice").innerHTML = synonyms + analogies;
+    }
+    function renderVerbalQuestion(question) {
+      return `<div class="question-block"><div class="question-text">${question.number}. ${question.stem}</div><div class="choices">${renderChoices(question, "verbal")}</div><div class="result"></div></div>`;
+    }
+    function renderAnswerSheets() { renderAnswerGrid("reading-answers", "reading", 1, 40); renderAnswerGrid("verbal-answers", "verbal", 1, 60); }
+    function renderAnswerGrid(containerId, section, start, count) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = Array.from({length: count}, (_, i) => {
+        const number = start + i;
+        const id = questionId(section, number);
+        return `<div class="answer-card" data-question="${id}"><strong>${number}</strong><div class="bubble-row">${["A","B","C","D","E"].map(letter => `<label><input type="radio" name="answer-${containerId}-${number}" value="${letter}" ${selectedChoice(id) === letter ? "checked" : ""}> ${letter}</label>`).join("")}</div></div>`;
+      }).join("");
+      if (teacherUnlocked) gradeStudentAnswers();
+    }
+    function renderTeacherKeys() {
+      document.getElementById("reading-key").innerHTML = correctAnswers.reading.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${/[A-E]/.test(letter) ? letter : "Review"}</div>`).join("");
+      document.getElementById("verbal-key").innerHTML = correctAnswers.verbal.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${/[A-E]/.test(letter) ? letter : "Review"}</div>`).join("");
+    }
+    function setupTeacherKey() {
+      const input = document.getElementById("teacher-password");
+      const button = document.getElementById("unlock-teacher-key");
+      const message = document.getElementById("teacher-message");
+      const keyPanel = document.getElementById("teacher-key");
+      function unlock() {
+        if (input.value === "shili1979") {
+          teacherUnlocked = true;
+          keyPanel.classList.add("unlocked");
+          message.textContent = "Teacher answer key unlocked.";
+          message.style.color = "#166534";
+          input.value = "";
+          gradeStudentAnswers();
+        } else {
+          teacherUnlocked = false;
+          keyPanel.classList.remove("unlocked");
+          message.textContent = "Waiting for approval from administrator Steve Liu.";
+          message.style.color = "#9f1239";
+          clearTeacherHighlights();
+        }
+      }
+      button.addEventListener("click", unlock);
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") unlock();
+      });
+    }
+    function correctLetter(section, number) {
+      return correctAnswers[section][number - 1];
+    }
+    function clearTeacherHighlights() {
+      document.querySelectorAll(".choice.incorrect").forEach(choice => choice.classList.remove("incorrect"));
+      document.querySelectorAll(".answer-card.incorrect").forEach(card => card.classList.remove("incorrect"));
+      document.querySelectorAll(".key-card.student-wrong").forEach(card => card.classList.remove("student-wrong"));
+    }
+    function gradeStudentAnswers() {
+      if (!teacherUnlocked) return;
+      clearTeacherHighlights();
+      ["reading", "verbal"].forEach(section => {
+        const total = section === "reading" ? 40 : 60;
+        for (let number = 1; number <= total; number += 1) {
+          const id = questionId(section, number);
+          const selected = selectedChoice(id);
+          const correct = correctLetter(section, number);
+          if (!/[A-E]/.test(correct) || !selected || selected === correct) continue;
+          document.querySelectorAll(`.choice[data-question="${id}"][data-letter="${selected}"]`).forEach(choice => choice.classList.add("incorrect"));
+          document.querySelector(`.answer-card[data-question="${id}"]`)?.classList.add("incorrect");
+          document.querySelector(`#${section}-key .key-card:nth-child(${number})`)?.classList.add("student-wrong");
+        }
+      });
+    }
+    function setupClassroomGuards() {
+      document.addEventListener("contextmenu", event => event.preventDefault());
+      document.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+        const blockedShortcut =
+          event.key === "F12" ||
+          ((event.ctrlKey || event.metaKey) && key === "u") ||
+          ((event.ctrlKey || event.metaKey) && event.shiftKey && ["i", "j", "c"].includes(key));
+        if (blockedShortcut) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+    }
+    function setupSelections() {
+      document.addEventListener("click", event => {
+        const button = event.target.closest(".choice");
+        if (!button) return;
+        saveChoice(button.dataset.question, button.dataset.letter);
+        document.querySelectorAll(`.choice[data-question="${button.dataset.question}"]`).forEach(choice => choice.classList.remove("selected"));
+        button.classList.add("selected");
+        const result = button.closest(".question-block").querySelector(".result");
+        result.style.display = "block";
+        result.textContent = `You chose ${button.dataset.letter}.`;
+      });
+      document.addEventListener("change", event => {
+        if (!event.target.matches(".bubble-row input")) return;
+        const card = event.target.closest(".answer-card");
+        const id = card.dataset.question;
+        saveChoice(id, event.target.value);
+        document.querySelectorAll(`.choice[data-question="${id}"]`).forEach(choice => choice.classList.toggle("selected", choice.dataset.letter === event.target.value));
+      });
+    }
+    function setupTabs() {
+      document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-button").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".practice-section").forEach(section => section.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.target).classList.add("active");
+        document.querySelector("main").scrollIntoView({behavior: "smooth", block: "start"});
+        setTimeout(resizeAllCanvases, 80);
+      }));
+    }
+    function setupMarkingTools() { document.querySelectorAll(".question-card").forEach(setupMarkingTool); }
+    function setupMarkingTool(card) {
+      const container = card.querySelector(".reader-container");
+      const canvas = card.querySelector(".marking-canvas");
+      if (!container || !canvas) return;
+      const clearButton = card.querySelector(".clear-markings");
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+      function resizeCanvas() {
+        const saved = canvas.toDataURL();
+        const rect = container.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(rect.width * scale));
+        canvas.height = Math.max(1, Math.round(rect.height * scale));
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "red";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        if (saved && !saved.includes("AAAA")) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height); img.src = saved; }
+      }
+      function pointFromEvent(event) { const rect = canvas.getBoundingClientRect(); return {x: event.clientX - rect.left, y: event.clientY - rect.top}; }
+      resizeCanvas();
+      canvas.addEventListener("pointerdown", event => { drawing = true; canvas.setPointerCapture(event.pointerId); const p = pointFromEvent(event); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+      canvas.addEventListener("pointermove", event => { if (!drawing) return; const p = pointFromEvent(event); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+      canvas.addEventListener("pointerup", () => drawing = false);
+      canvas.addEventListener("pointercancel", () => drawing = false);
+      clearButton.addEventListener("click", () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+      canvas._resizeMarking = resizeCanvas;
+    }
+    function resizeAllCanvases() { document.querySelectorAll(".marking-canvas").forEach(canvas => canvas._resizeMarking && canvas._resizeMarking()); }
+    renderReading(); renderVerbal(); renderAnswerSheets(); renderTeacherKeys(); setupSelections(); setupTabs(); setupTeacherKey(); setupClassroomGuards(); setupMarkingTools(); window.addEventListener("resize", resizeAllCanvases);
+  </script>
+</body>
+</html>
