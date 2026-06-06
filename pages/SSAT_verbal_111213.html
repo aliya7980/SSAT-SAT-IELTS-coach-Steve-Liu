@@ -1,85 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SSAT Vocabulary Practice - Set 11</title>
-  <style>
-    :root {
-      --ink: #1f2937;
-      --muted: #6b7280;
-      --brand: #2563eb;
-      --bg: #f6f8fc;
-      --card: #ffffff;
-      --line: #e5e7eb;
-      --soft: #eff6ff;
-    }
+  <meta charset="utf-8" />
+  <title>SSAT Vocabulary Practice | A Words Set 11 | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    * {
-      box-sizing: border-box;
-    }
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.65;
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
     }
 
-    .wrap {
-      max-width: 950px;
-      margin: 0 auto;
-      padding: 28px 18px 80px;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #1d4ed8, #38bdf8);
+    .navbar {
+      background: #102a43;
       color: white;
-      border-radius: 24px;
-      padding: 30px;
-      margin-bottom: 24px;
-      box-shadow: 0 16px 40px rgba(37, 99, 235, 0.22);
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .hero h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
     }
 
-    .hero p {
-      margin: 0;
-      opacity: 0.95;
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
     }
 
     .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 24px;
-      margin: 20px 0;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
     }
 
-    h2 {
-      margin-top: 0;
-      color: #111827;
+    .card h2 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #102a43;
+      margin: 18px 0 10px;
+    }
+
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .word-item {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #102a43;
+      font-weight: bold;
+    }
+
+    .definition {
+      color: #3e4c59;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin-top: 5px;
     }
 
     .word-bank {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 10px;
-      padding: 0;
-      list-style: none;
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+      color: #3e4c59;
     }
 
-    .word-bank li {
-      background: var(--soft);
-      border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      padding: 10px 12px;
-      font-weight: 700;
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 18px;
+    }
+
+    .exercise-list {
+      margin-left: 22px;
+      margin-top: 15px;
     }
 
     .exercise-list li {
@@ -87,191 +145,219 @@
     }
 
     .blank {
-      display: inline-block;
+      font-weight: bold;
+      color: #102a43;
+      border-bottom: 2px solid #d4af37;
+      padding: 0 6px;
       min-width: 120px;
-      border-bottom: 2px solid #111827;
-      margin: 0 4px;
+      display: inline-block;
     }
 
-    .story {
-      background: #f9fafb;
-      border-left: 5px solid #93c5fd;
-      padding: 18px;
-      border-radius: 12px;
+    .paragraph-box {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 22px;
+      border-radius: 8px;
+      margin-top: 18px;
       font-size: 17px;
+      color: #3e4c59;
     }
 
-    .highlight {
-      font-weight: 800;
-      color: #1d4ed8;
-    }
-
-    .answer-key {
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
+    .paragraph-box strong {
+      color: #102a43;
     }
 
     details {
-      margin-top: 12px;
+      margin-top: 18px;
+      background: #f7f3eb;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5dccb;
     }
 
     summary {
       cursor: pointer;
-      font-weight: 800;
-      color: #9a3412;
+      font-weight: bold;
+      color: #102a43;
     }
 
-    .toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 18px 0;
+    .next-link {
+      text-align: center;
     }
 
-    button {
-      border: 0;
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-weight: 700;
-      cursor: pointer;
-      background: #111827;
-      color: white;
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    button.secondary {
-      background: white;
-      color: #111827;
-      border: 1px solid var(--line);
+    .button:hover {
+      background: #c19a2e;
     }
 
-    @media print {
-      body {
-        background: white;
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
       }
 
-      .toolbar {
-        display: none;
+      .nav-links {
+        justify-content: center;
       }
 
-      .card,
-      .hero {
-        box-shadow: none;
+      .page-header h1 {
+        font-size: 34px;
       }
 
-      details,
-      .answer-key {
-        display: none !important;
+      .matching-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="hero">
-      <h1>SSAT Vocabulary Practice</h1>
-      <p>Word Set 11: archetype, ardent, arduous, aristocratic, artful, artifice, ascendancy, ascetic, assiduous, assimilate, assuage, astute, attrition, audacity, augment, auspicious, austere, autocratic, autonomous, avarice, avow, avuncular, awry, axiom</p>
-    </header>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="services.html">Test Prep</a></li>
+      <li><a href="readingtips.html">Reading</a></li>
+      <li><a href="reading_summary.html">Homework</a></li>
+      <li><a href="clients.html">Success Stories</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
 
-    <div class="toolbar">
-      <button onclick="window.print()">Print Worksheet</button>
-      <button class="secondary" onclick="toggleAnswers()">Show / Hide Answer Key</button>
-    </div>
+  <header class="page-header">
+    <h1>SSAT Vocabulary Practice</h1>
+    <p>Word Set 11: archetype, ardent, arduous, aristocratic, artful, artifice, ascendancy, ascetic, assiduous, assimilate, assuage, astute, attrition, audacity, augment, auspicious, austere, autocratic, autonomous, avarice, avow, avuncular, awry, axiom</p>
+  </header>
 
+  <main class="container">
     <section class="card">
-      <h2>Word Bank</h2>
-      <ul class="word-bank">
-        <li>archetype</li>
-        <li>ardent</li>
-        <li>arduous</li>
-        <li>aristocratic</li>
-        <li>artful</li>
-        <li>artifice</li>
-        <li>ascendancy</li>
-        <li>ascetic</li>
-        <li>assiduous</li>
-        <li>assimilate</li>
-        <li>assuage</li>
-        <li>astute</li>
-        <li>attrition</li>
-        <li>audacity</li>
-        <li>augment</li>
-        <li>auspicious</li>
-        <li>austere</li>
-        <li>autocratic</li>
-        <li>autonomous</li>
-        <li>avarice</li>
-        <li>avow</li>
-        <li>avuncular</li>
-        <li>awry</li>
-        <li>axiom</li>
-      </ul>
+      <h2>Vocabulary List</h2>
+      <p>Review each word and definition before completing the practice exercises.</p>
+
+      <div class="word-grid">
+        <div class="word-item">archetype<span class="definition">A typical example or model.</span></div>
+        <div class="word-item">ardent<span class="definition">Passionate or enthusiastic.</span></div>
+        <div class="word-item">arduous<span class="definition">Difficult and requiring great effort.</span></div>
+        <div class="word-item">aristocratic<span class="definition">Relating to nobility or a high social class.</span></div>
+        <div class="word-item">artful<span class="definition">Clever or skillful, sometimes in a deceptive way.</span></div>
+        <div class="word-item">artifice<span class="definition">Deception or trickery.</span></div>
+        <div class="word-item">ascendancy<span class="definition">Dominance or controlling influence.</span></div>
+        <div class="word-item">ascetic<span class="definition">Practicing strict self-denial.</span></div>
+        <div class="word-item">assiduous<span class="definition">Hardworking and persistent.</span></div>
+        <div class="word-item">assimilate<span class="definition">To absorb or integrate into a group or culture.</span></div>
+        <div class="word-item">assuage<span class="definition">To relieve or make less severe.</span></div>
+        <div class="word-item">astute<span class="definition">Shrewd and perceptive.</span></div>
+        <div class="word-item">attrition<span class="definition">Gradual weakening or reduction.</span></div>
+        <div class="word-item">audacity<span class="definition">Boldness or daring.</span></div>
+        <div class="word-item">augment<span class="definition">To increase or add to.</span></div>
+        <div class="word-item">auspicious<span class="definition">Favorable or promising.</span></div>
+        <div class="word-item">austere<span class="definition">Simple, plain, and strict.</span></div>
+        <div class="word-item">autocratic<span class="definition">Ruling with absolute power.</span></div>
+        <div class="word-item">autonomous<span class="definition">Self-governing or independent.</span></div>
+        <div class="word-item">avarice<span class="definition">Extreme greed.</span></div>
+        <div class="word-item">avow<span class="definition">To declare openly.</span></div>
+        <div class="word-item">avuncular<span class="definition">Friendly and kind, like an uncle.</span></div>
+        <div class="word-item">awry<span class="definition">Going wrong or not as planned.</span></div>
+        <div class="word-item">axiom<span class="definition">A self-evident truth.</span></div>
+      </div>
     </section>
 
     <section class="card">
       <h2>1. Matching Exercise</h2>
       <p>Match each word with the correct definition.</p>
 
-      <p><strong>Words</strong></p>
-      <ol type="A">
-        <li>archetype</li>
-        <li>ardent</li>
-        <li>arduous</li>
-        <li>aristocratic</li>
-        <li>artful</li>
-        <li>artifice</li>
-        <li>ascendancy</li>
-        <li>ascetic</li>
-        <li>assiduous</li>
-        <li>assimilate</li>
-        <li>assuage</li>
-        <li>astute</li>
-        <li>attrition</li>
-        <li>audacity</li>
-        <li>augment</li>
-        <li>auspicious</li>
-        <li>austere</li>
-        <li>autocratic</li>
-        <li>autonomous</li>
-        <li>avarice</li>
-        <li>avow</li>
-        <li>avuncular</li>
-        <li>awry</li>
-        <li>axiom</li>
-      </ol>
+      <div class="matching-grid">
+        <div>
+          <h3>Words</h3>
+          <ol type="A" class="exercise-list">
+            <li>archetype</li>
+            <li>ardent</li>
+            <li>arduous</li>
+            <li>aristocratic</li>
+            <li>artful</li>
+            <li>artifice</li>
+            <li>ascendancy</li>
+            <li>ascetic</li>
+            <li>assiduous</li>
+            <li>assimilate</li>
+            <li>assuage</li>
+            <li>astute</li>
+            <li>attrition</li>
+            <li>audacity</li>
+            <li>augment</li>
+            <li>auspicious</li>
+            <li>austere</li>
+            <li>autocratic</li>
+            <li>autonomous</li>
+            <li>avarice</li>
+            <li>avow</li>
+            <li>avuncular</li>
+            <li>awry</li>
+            <li>axiom</li>
+          </ol>
+        </div>
 
-      <p><strong>Definitions</strong></p>
-      <ol class="exercise-list">
-        <li>_____ a typical example or model</li>
-        <li>_____ passionate or enthusiastic</li>
-        <li>_____ difficult and requiring great effort</li>
-        <li>_____ relating to nobility or a high social class</li>
-        <li>_____ clever or skillful, sometimes in a deceptive way</li>
-        <li>_____ deception or trickery</li>
-        <li>_____ dominance or controlling influence</li>
-        <li>_____ practicing strict self-denial</li>
-        <li>_____ hardworking and persistent</li>
-        <li>_____ to absorb or integrate into a group or culture</li>
-        <li>_____ to relieve or make less severe</li>
-        <li>_____ shrewd and perceptive</li>
-        <li>_____ gradual weakening or reduction</li>
-        <li>_____ boldness or daring</li>
-        <li>_____ to increase or add to</li>
-        <li>_____ favorable or promising</li>
-        <li>_____ simple, plain, and strict in appearance</li>
-        <li>_____ ruling with absolute power</li>
-        <li>_____ self-governing or independent</li>
-        <li>_____ extreme greed</li>
-        <li>_____ to declare openly</li>
-        <li>_____ friendly and kind, like an uncle</li>
-        <li>_____ going wrong or not as planned</li>
-        <li>_____ a self-evident truth</li>
-      </ol>
+        <div>
+          <h3>Definitions</h3>
+          <ol class="exercise-list">
+            <li>_____ a typical example or model</li>
+            <li>_____ passionate or enthusiastic</li>
+            <li>_____ difficult and requiring great effort</li>
+            <li>_____ relating to nobility or a high social class</li>
+            <li>_____ clever or skillful, sometimes in a deceptive way</li>
+            <li>_____ deception or trickery</li>
+            <li>_____ dominance or controlling influence</li>
+            <li>_____ practicing strict self-denial</li>
+            <li>_____ hardworking and persistent</li>
+            <li>_____ to absorb or integrate into a group or culture</li>
+            <li>_____ to relieve or make less severe</li>
+            <li>_____ shrewd and perceptive</li>
+            <li>_____ gradual weakening or reduction</li>
+            <li>_____ boldness or daring</li>
+            <li>_____ to increase or add to</li>
+            <li>_____ favorable or promising</li>
+            <li>_____ simple, plain, and strict in appearance</li>
+            <li>_____ ruling with absolute power</li>
+            <li>_____ self-governing or independent</li>
+            <li>_____ extreme greed</li>
+            <li>_____ to declare openly</li>
+            <li>_____ friendly and kind, like an uncle</li>
+            <li>_____ going wrong or not as planned</li>
+            <li>_____ a self-evident truth</li>
+          </ol>
+        </div>
+      </div>
+
+      <details>
+        <summary>Matching Answer Key</summary>
+        <p>1. A &nbsp; 2. B &nbsp; 3. C &nbsp; 4. D &nbsp; 5. E &nbsp; 6. F &nbsp; 7. G &nbsp; 8. H &nbsp; 9. I &nbsp; 10. J &nbsp; 11. K &nbsp; 12. L &nbsp; 13. M &nbsp; 14. N &nbsp; 15. O &nbsp; 16. P &nbsp; 17. Q &nbsp; 18. R &nbsp; 19. S &nbsp; 20. T &nbsp; 21. U &nbsp; 22. V &nbsp; 23. W &nbsp; 24. X</p>
+      </details>
     </section>
 
     <section class="card">
       <h2>2. Gap-Fill Exercise</h2>
       <p>Choose the best word from the word bank to complete each sentence.</p>
+
+      <div class="word-bank">
+        archetype | ardent | arduous | aristocratic | artful | artifice | ascendancy | ascetic | assiduous | assimilate | assuage | astute | attrition | audacity | augment | auspicious | austere | autocratic | autonomous | avarice | avow | avuncular | awry | axiom
+      </div>
 
       <ol class="exercise-list">
         <li>The project was <span class="blank"></span> and required weeks of effort.</li>
@@ -283,45 +369,22 @@
         <li>The company aims to <span class="blank"></span> its resources by hiring more staff.</li>
         <li>Her <span class="blank"></span> thinking helped her solve the problem quickly.</li>
         <li>The long conflict led to the <span class="blank"></span> of both sides.</li>
-        <li>The teacher tried to <span class="blank"></span> the students’ fears before the exam.</li>
+        <li>The teacher tried to <span class="blank"></span> the students' fears before the exam.</li>
         <li>His <span class="blank"></span> lifestyle avoided luxury and comfort.</li>
         <li>She had the <span class="blank"></span> to challenge the unfair rule openly.</li>
         <li>The hero became an <span class="blank"></span> of courage in the story.</li>
         <li>His <span class="blank"></span> nature made him warm and approachable.</li>
         <li>The beginning of the project seemed <span class="blank"></span> and likely to succeed.</li>
-        <li>The villain’s <span class="blank"></span> led him to value wealth over friendship.</li>
+        <li>The villain's <span class="blank"></span> led him to value wealth over friendship.</li>
         <li>The child began to <span class="blank"></span> into the new school environment.</li>
         <li>The politician used <span class="blank"></span> to manipulate the public.</li>
-        <li>The principle that “actions have consequences” is an <span class="blank"></span>.</li>
+        <li>The principle that "actions have consequences" is an <span class="blank"></span>.</li>
         <li>The region became <span class="blank"></span> after gaining independence.</li>
       </ol>
-    </section>
 
-    <section class="card">
-      <h2>3. Paragraph Practice</h2>
-      <p>Read the paragraph. Then underline or highlight each vocabulary word.</p>
-
-      <div class="story">
-        The young leader, though not from an <span class="highlight">aristocratic</span> background, quickly gained <span class="highlight">ascendancy</span> through her <span class="highlight">astute</span> and <span class="highlight">assiduous</span> work ethic. Her rise was not easy; the journey was <span class="highlight">arduous</span>, and several plans went <span class="highlight">awry</span> because of unforeseen obstacles. Yet her <span class="highlight">ardent</span> belief in her mission never faded. Unlike her <span class="highlight">autocratic</span> predecessor, she encouraged an <span class="highlight">autonomous</span> approach among her team, allowing them to <span class="highlight">assimilate</span> new ideas freely. Though some critics accused her of using political <span class="highlight">artifice</span>, her <span class="highlight">artful</span> strategies often led to <span class="highlight">auspicious</span> outcomes. She chose to <span class="highlight">avow</span> her principles openly, treating colleagues with an <span class="highlight">avuncular</span> warmth that helped <span class="highlight">assuage</span> tensions. Rejecting <span class="highlight">avarice</span>, she lived an almost <span class="highlight">ascetic</span> life, embracing <span class="highlight">austere</span> conditions to focus on her goals. Over time, despite the <span class="highlight">attrition</span> of resources, she continued to <span class="highlight">augment</span> her influence, proving that bold <span class="highlight">audacity</span>, when guided by sound <span class="highlight">axioms</span>, could redefine the <span class="highlight">archetype</span> of leadership.
-      </div>
-    </section>
-
-    <section class="card answer-key" id="answerKey" style="display: none;">
-      <h2>Answer Key</h2>
-
-      <details open>
-        <summary>Matching Answers</summary>
-        <p>
-          1. A &nbsp; 2. B &nbsp; 3. C &nbsp; 4. D &nbsp; 5. E &nbsp; 6. F &nbsp;
-          7. G &nbsp; 8. H &nbsp; 9. I &nbsp; 10. J &nbsp; 11. K &nbsp; 12. L &nbsp;
-          13. M &nbsp; 14. N &nbsp; 15. O &nbsp; 16. P &nbsp; 17. Q &nbsp; 18. R &nbsp;
-          19. S &nbsp; 20. T &nbsp; 21. U &nbsp; 22. V &nbsp; 23. W &nbsp; 24. X
-        </p>
-      </details>
-
-      <details open>
-        <summary>Gap-Fill Answers</summary>
-        <ol>
+      <details>
+        <summary>Gap-Fill Answer Key</summary>
+        <ol class="exercise-list">
           <li>arduous</li>
           <li>ardent</li>
           <li>autocratic</li>
@@ -345,19 +408,25 @@
         </ol>
       </details>
     </section>
-  </div>
 
-  <script>
-    function toggleAnswers() {
-      const key = document.getElementById("answerKey");
-      key.style.display = key.style.display === "none" ? "block" : "none";
-    }
-  </script>
+    <section class="card">
+      <h2>3. Paragraph Practice</h2>
+      <p>Read the paragraph. Then underline or highlight each vocabulary word.</p>
+
+      <div class="paragraph-box">
+        The young leader, though not from an <strong>aristocratic</strong> background, quickly gained <strong>ascendancy</strong> through her <strong>astute</strong> and <strong>assiduous</strong> work ethic. Her rise was not easy; the journey was <strong>arduous</strong>, and several plans went <strong>awry</strong> because of unforeseen obstacles. Yet her <strong>ardent</strong> belief in her mission never faded. Unlike her <strong>autocratic</strong> predecessor, she encouraged an <strong>autonomous</strong> approach among her team, allowing them to <strong>assimilate</strong> new ideas freely. Though some critics accused her of using political <strong>artifice</strong>, her <strong>artful</strong> strategies often led to <strong>auspicious</strong> outcomes. She chose to <strong>avow</strong> her principles openly, treating colleagues with an <strong>avuncular</strong> warmth that helped <strong>assuage</strong> tensions. Rejecting <strong>avarice</strong>, she lived an almost <strong>ascetic</strong> life, embracing <strong>austere</strong> conditions to focus on her goals. Over time, despite the <strong>attrition</strong> of resources, she continued to <strong>augment</strong> her influence, proving that bold <strong>audacity</strong>, when guided by sound <strong>axioms</strong>, could redefine the <strong>archetype</strong> of leadership.
+      </div>
+    </section>
+
+    <section class="card next-link">
+      <h2>Continue Practice</h2>
+      <p>Move to the connected practice page for SSAT vocabulary list 11-13.</p>
+      <a class="button" href="SSAT_verbal_b.html">Practice List 11-13</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 HuskyDaddy. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
-
-<li>
-  <a href="SSAT_verbal_b.html">
-    Practice List 11-13
-  </a>
-</li>
