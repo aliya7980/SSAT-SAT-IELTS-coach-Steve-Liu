@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Arduino LED Basics | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="arduino.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../../index.html">Home</a></li>
+      <li><a href="../../services.html">Test Prep</a></li>
+      <li><a href="../../readingtips.html">Reading</a></li>
+      <li><a href="../../reading_summary.html">Miscellaneous</a></li>
+      <li><a href="../../clients.html">Clients</a></li>
+      <li><a href="../../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <h1>Arduino LED Basics</h1>
+      <p>
+        This lesson teaches the first essential Arduino output project: turning an LED on and off,
+        then using loops to create repeated blinking patterns.
+      </p>
+      <div class="button-row">
+        <a class="button" href="index.html">Arduino Introduction</a>
+        <a class="button secondary" href="#code">Jump to Code</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h2>Lesson Goals</h2>
+      <ul>
+        <li>Understand LED direction: long leg is positive, short leg is negative.</li>
+        <li>Use a resistor to protect the LED.</li>
+        <li>Control an output pin with <code>digitalWrite()</code>.</li>
+        <li>Use <code>for</code> loops to repeat actions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="page-wrap">
+    <section class="card">
+      <h2>Parts Needed</h2>
+      <div class="parts-list">
+        <div class="part">Arduino Uno or compatible board</div>
+        <div class="part">USB cable</div>
+        <div class="part">Breadboard</div>
+        <div class="part">1 LED</div>
+        <div class="part">1 resistor, usually 220 ohms or 330 ohms</div>
+        <div class="part">2 jumper wires</div>
+      </div>
+
+      <div class="note">
+        Use a resistor with the LED. Connecting an LED directly to a pin can damage the LED or the board.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>LED Wiring Map</h2>
+      <p>Connect Arduino pin 13 to the resistor, then to the LED long leg. Connect the LED short leg to GND.</p>
+
+      <div class="wiring-map" aria-label="Arduino LED wiring diagram">
+        <svg viewBox="0 0 900 420" role="img">
+          <rect x="40" y="48" width="270" height="320" rx="22" fill="#0b3455" />
+          <rect x="62" y="76" width="226" height="54" rx="10" fill="#e8f3f8" />
+          <text x="175" y="111" text-anchor="middle" font-size="24" font-weight="700" fill="#08233d">Arduino Uno</text>
+          <circle cx="285" cy="176" r="13" fill="#d9b25f" />
+          <text x="238" y="183" font-size="18" fill="#ffffff">Pin 13</text>
+          <circle cx="285" cy="292" r="13" fill="#d9b25f" />
+          <text x="245" y="299" font-size="18" fill="#ffffff">GND</text>
+
+          <rect x="505" y="56" width="300" height="292" rx="20" fill="#fffaf0" stroke="#d9b25f" stroke-width="4" />
+          <text x="655" y="96" text-anchor="middle" font-size="24" font-weight="700" fill="#08233d">Breadboard</text>
+
+          <line x1="285" y1="176" x2="390" y2="176" stroke="#d14b3f" stroke-width="8" stroke-linecap="round" />
+          <polyline points="390,176 410,156 430,196 450,156 470,196 490,156 510,176" fill="none" stroke="#725129" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+          <text x="449" y="136" text-anchor="middle" font-size="18" fill="#725129">220 ohm resistor</text>
+
+          <line x1="510" y1="176" x2="610" y2="176" stroke="#d14b3f" stroke-width="8" stroke-linecap="round" />
+          <circle cx="660" cy="176" r="42" fill="#f25555" stroke="#982f2f" stroke-width="5" />
+          <path d="M642 176 L678 176 M660 154 L660 198" stroke="#fffaf0" stroke-width="6" stroke-linecap="round" />
+          <text x="660" y="246" text-anchor="middle" font-size="18" fill="#08233d">LED</text>
+          <text x="615" y="151" font-size="16" fill="#102a43">long leg +</text>
+          <text x="693" y="151" font-size="16" fill="#102a43">short leg -</text>
+
+          <line x1="702" y1="176" x2="770" y2="176" stroke="#4f5d75" stroke-width="8" stroke-linecap="round" />
+          <line x1="770" y1="176" x2="770" y2="292" stroke="#4f5d75" stroke-width="8" stroke-linecap="round" />
+          <line x1="770" y1="292" x2="285" y2="292" stroke="#4f5d75" stroke-width="8" stroke-linecap="round" />
+
+          <text x="455" y="324" font-size="18" fill="#102a43">Current path: Pin 13 -> resistor -> LED -> GND</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card" id="code">
+      <h2>Code 1: Basic On and Off</h2>
+      <p>This code turns the LED on for one second, then off for one second. Arduino repeats <code>loop()</code> forever.</p>
+
+      <pre class="code-block"><code>int ledPin = 13;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(1000);
+
+  digitalWrite(ledPin, LOW);
+  delay(1000);
+}</code></pre>
+
+      <h3>Teaching Points</h3>
+      <ol class="lesson-steps">
+        <li><code>int ledPin = 13;</code> stores the pin number in a variable.</li>
+        <li><code>setup()</code> runs once when the board starts.</li>
+        <li><code>pinMode(ledPin, OUTPUT);</code> tells pin 13 to send electricity out.</li>
+        <li><code>digitalWrite(ledPin, HIGH);</code> turns the LED on.</li>
+        <li><code>digitalWrite(ledPin, LOW);</code> turns the LED off.</li>
+        <li><code>delay(1000);</code> waits for 1000 milliseconds, which is 1 second.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Code 2: Faster Blink</h2>
+      <p>Changing the delay changes the rhythm. A smaller number makes the LED blink faster.</p>
+
+      <pre class="code-block"><code>int ledPin = 13;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(ledPin, HIGH);
+  delay(250);
+
+  digitalWrite(ledPin, LOW);
+  delay(250);
+}</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Code 3: Basic Loop Knowledge</h2>
+      <p>A <code>for</code> loop repeats a block of code a fixed number of times. This example makes three quick flashes, pauses, and repeats.</p>
+
+      <pre class="code-block"><code>int ledPin = 13;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+}
+
+void loop() {
+  for (int count = 0; count &lt; 3; count++) {
+    digitalWrite(ledPin, HIGH);
+    delay(150);
+
+    digitalWrite(ledPin, LOW);
+    delay(150);
+  }
+
+  delay(1000);
+}</code></pre>
+
+      <h3>How the <code>for</code> Loop Works</h3>
+      <ol class="lesson-steps">
+        <li><code>int count = 0</code> creates a counting variable that starts at 0.</li>
+        <li><code>count &lt; 3</code> means the loop keeps running while count is less than 3.</li>
+        <li><code>count++</code> adds 1 after each repeat.</li>
+        <li>The code inside the braces runs three times.</li>
+      </ol>
+
+      <div class="note">
+        Student challenge: change the number 3 to 5, then change the delay values to design a new blink pattern.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Classroom Checklist</h2>
+      <ol class="lesson-steps">
+        <li>Check the LED direction before uploading code.</li>
+        <li>Check that the resistor is in the same row as the LED long leg.</li>
+        <li>Check that the short leg connects to GND.</li>
+        <li>Upload the basic blink code first.</li>
+        <li>Change only one number at a time when experimenting.</li>
+      </ol>
+
+      <div class="button-row">
+        <a class="button" href="index.html">Back to Arduino Basics</a>
+        <a class="button secondary" href="../../reading_summary.html">Back to Miscellaneous</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © HuskyDaddy | Learning, resilience, and life beyond the classroom <span>Arduino</span>
+  </footer>
+</body>
+</html>

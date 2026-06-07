@@ -240,6 +240,53 @@
       font-weight: 700;
     }
 
+    .maker-feature {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #eef7f5 100%);
+      border-left: 6px solid #0b4f71;
+    }
+
+    .maker-feature p {
+      margin-bottom: 16px;
+    }
+
+    .maker-panel {
+      background: #08233d;
+      border-radius: 24px;
+      padding: 26px;
+      color: white;
+      min-height: 260px;
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      box-shadow: 0 14px 32px rgba(16, 42, 67, 0.16);
+    }
+
+    .maker-panel h3 {
+      color: #d9b25f;
+      font-size: 24px;
+    }
+
+    .maker-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      background: #0b4f71;
+      border: 4px solid #ffffff;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .maker-dot {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #d9b25f;
+      box-shadow: 0 0 0 4px rgba(217, 178, 95, 0.22);
+    }
+
     .life-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -333,6 +380,10 @@
       }
 
       .cat-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .maker-feature {
         grid-template-columns: 1fr;
       }
     }
@@ -457,6 +508,39 @@
       </div>
     </div>
 
+    <div class="card maker-feature">
+      <div>
+        <h2>Arduino Maker Corner</h2>
+        <p>
+          I added a beginner Arduino section for hands-on technology lessons. Students can learn
+          what an Arduino board is, how circuits work, and how code can control real objects.
+        </p>
+        <p>
+          The first lesson introduces LEDs with a wiring map, basic on/off code, faster blinking,
+          and simple loop patterns for classroom practice.
+        </p>
+        <div class="cat-actions">
+          <a class="cat-button" href="miscellaneous/arduino/index.html">Open Arduino Basics</a>
+          <a class="cat-button secondary" href="miscellaneous/arduino/led-basics.html">Start LED Lesson</a>
+        </div>
+      </div>
+
+      <div class="maker-panel">
+        <h3>First Project: Blink an LED</h3>
+        <div class="maker-board" aria-label="Decorative Arduino board dots">
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+          <span class="maker-dot"></span>
+        </div>
+        <p>Wire it. Upload it. Change the timing. Watch code become action.</p>
+      </div>
+    </div>
+
     <div class="card">
       <h2>Pieces of My Life</h2>
 
@@ -503,6 +587,13 @@
             Music, technology, reading projects, and creative interests keep life colourful.
           </p>
         </div>
+
+        <a class="small-card" href="miscellaneous/arduino/index.html">
+          <h3>Arduino</h3>
+          <p>
+            Simple circuits and coding projects help students turn curiosity into hands-on learning.
+          </p>
+        </a>
 
       </div>
     </div>

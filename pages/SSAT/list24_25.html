@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Vocabulary Practice | CON Words | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .card h2,
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .word-item {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #102a43;
+      font-weight: bold;
+    }
+
+    .word-item em {
+      color: #6b7280;
+      display: block;
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .definition {
+      color: #3e4c59;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin-top: 5px;
+    }
+
+    .exercise-list {
+      margin-left: 22px;
+      margin-top: 15px;
+    }
+
+    .exercise-list li {
+      margin-bottom: 12px;
+    }
+
+    .blank {
+      font-weight: bold;
+      color: #102a43;
+      border-bottom: 2px solid #d4af37;
+      padding: 0 6px;
+    }
+
+    .word-bank {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+      color: #3e4c59;
+    }
+
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 18px;
+    }
+
+    .paragraph-box {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 22px;
+      border-radius: 8px;
+      margin-top: 18px;
+    }
+
+    details {
+      margin-top: 18px;
+      background: #f7f3eb;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5dccb;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #102a43;
+    }
+
+    .next-link {
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 6px;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Vocabulary Practice: CON Words</h1>
+    <p>List 24-25 practice for agreement, gathering, judgment, and dedication words.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Vocabulary List 24-25</h2>
+      <div class="word-grid">
+        <div class="word-item">1. Concord<em>noun</em><span class="definition">Harmony, agreement, or peaceful relations.</span></div>
+        <div class="word-item">2. Concurrent<em>adjective</em><span class="definition">Happening at the same time.</span></div>
+        <div class="word-item">3. Condescend<em>verb</em><span class="definition">To act as if one is superior; to lower oneself to do something.</span></div>
+        <div class="word-item">4. Condone<em>verb</em><span class="definition">To overlook, excuse, or appear to approve wrongdoing.</span></div>
+        <div class="word-item">5. Conducive<em>adjective</em><span class="definition">Helpful; making a result more likely.</span></div>
+        <div class="word-item">6. Confluence<em>noun</em><span class="definition">A coming together; a meeting point, especially of rivers or ideas.</span></div>
+        <div class="word-item">7. Congenial<em>adjective</em><span class="definition">Pleasant, friendly, or well suited to one's nature.</span></div>
+        <div class="word-item">8. Congenital<em>adjective</em><span class="definition">Present from birth.</span></div>
+        <div class="word-item">9. Congregate<em>verb</em><span class="definition">To gather together in a group.</span></div>
+        <div class="word-item">10. Conjecture<em>noun / verb</em><span class="definition">A guess based on incomplete evidence; to make such a guess.</span></div>
+        <div class="word-item">11. Conjure<em>verb</em><span class="definition">To summon, imagine, or make something appear as if by magic.</span></div>
+        <div class="word-item">12. Connoisseur<em>noun</em><span class="definition">An expert judge in matters of taste, such as art, food, or music.</span></div>
+        <div class="word-item">13. Consecrate<em>verb</em><span class="definition">To make sacred or dedicate to a special purpose.</span></div>
+        <div class="word-item">14. Consensus<em>noun</em><span class="definition">General agreement among a group.</span></div>
+        <div class="word-item">15. Consonant<em>adjective</em><span class="definition">In agreement or harmony with something.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 1: Matching</h2>
+      <p>Match each word with the correct definition.</p>
+
+      <div class="matching-grid">
+        <div>
+          <h3>Words</h3>
+          <ol class="exercise-list">
+            <li>Concord _____</li>
+            <li>Concurrent _____</li>
+            <li>Condescend _____</li>
+            <li>Condone _____</li>
+            <li>Conducive _____</li>
+            <li>Confluence _____</li>
+            <li>Congenial _____</li>
+            <li>Congenital _____</li>
+            <li>Congregate _____</li>
+            <li>Conjecture _____</li>
+            <li>Conjure _____</li>
+            <li>Connoisseur _____</li>
+            <li>Consecrate _____</li>
+            <li>Consensus _____</li>
+            <li>Consonant _____</li>
+          </ol>
+        </div>
+
+        <div class="word-bank">
+          A. helpful; making a result more likely<br>
+          B. to gather together in a group<br>
+          C. present from birth<br>
+          D. general agreement among a group<br>
+          E. to act as if one is superior<br>
+          F. happening at the same time<br>
+          G. harmony, agreement, or peaceful relations<br>
+          H. to overlook or excuse wrongdoing<br>
+          I. a meeting or coming together<br>
+          J. an expert judge of taste<br>
+          K. pleasant, friendly, or well suited<br>
+          L. to make sacred or dedicate<br>
+          M. in agreement or harmony<br>
+          N. a guess based on incomplete evidence<br>
+          O. to summon, imagine, or make appear
+        </div>
+      </div>
+
+      <details>
+        <summary>Show Matching Answer Key</summary>
+        <p>1-G, 2-F, 3-E, 4-H, 5-A, 6-I, 7-K, 8-C, 9-B, 10-N, 11-O, 12-J, 13-L, 14-D, 15-M</p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 2: Gap Filling</h2>
+      <p>Choose the best word from the word bank to complete each sentence.</p>
+
+      <div class="word-bank">
+        concord, concurrent, condescend, condone, conducive, confluence,
+        congenial, congenital, congregate, conjecture, conjure,
+        connoisseur, consecrate, consensus, consonant
+      </div>
+
+      <ol class="exercise-list">
+        <li>The quiet library was <span class="blank">_____</span> to careful study.</li>
+        <li>The doctors determined that the condition was <span class="blank">_____</span>, not caused by a recent injury.</li>
+        <li>After a long discussion, the committee reached a <span class="blank">_____</span> about the new rule.</li>
+        <li>The two rivers meet at a famous <span class="blank">_____</span> near the old trading post.</li>
+        <li>The principal would not <span class="blank">_____</span> cheating, even if the student apologized.</li>
+        <li>Students began to <span class="blank">_____</span> near the bulletin board after the results were posted.</li>
+        <li>The museum asked a painting <span class="blank">_____</span> to judge whether the work was authentic.</li>
+        <li>His theory was only a <span class="blank">_____</span> because he had very little evidence.</li>
+        <li>The coach refused to <span class="blank">_____</span> to the younger players or talk down to them.</li>
+        <li>The school held two <span class="blank">_____</span> assemblies in different buildings at the same hour.</li>
+        <li>The magician seemed to <span class="blank">_____</span> a coin from the empty cup.</li>
+        <li>The treaty restored <span class="blank">_____</span> between the neighboring towns.</li>
+        <li>Her warm smile and easy conversation made her a <span class="blank">_____</span> host.</li>
+        <li>The ceremony will <span class="blank">_____</span> the garden as a memorial to former students.</li>
+        <li>The proposal was <span class="blank">_____</span> with the school's mission of service.</li>
+      </ol>
+
+      <details>
+        <summary>Show Gap Filling Answer Key</summary>
+        <p>
+          1. conducive, 2. congenital, 3. consensus, 4. confluence,
+          5. condone, 6. congregate, 7. connoisseur, 8. conjecture,
+          9. condescend, 10. concurrent, 11. conjure, 12. concord,
+          13. congenial, 14. consecrate, 15. consonant
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 3: Paragraph Using All Words</h2>
+      <p>Read the paragraph and notice how each vocabulary word is used in context.</p>
+
+      <div class="paragraph-box">
+        <p>
+          The student council wanted <strong>concord</strong> after weeks of argument, but two
+          <strong>concurrent</strong> meetings made communication difficult. Ms. Rivera refused to
+          <strong>condescend</strong> to younger students, and she would not <strong>condone</strong>
+          rude behavior from older ones. She created a setting <strong>conducive</strong> to honest
+          discussion, where the <strong>confluence</strong> of ideas from athletes, artists, and
+          volunteers produced a better plan. Because the room felt <strong>congenial</strong>, even
+          quiet students spoke. One student discussed a <strong>congenital</strong> condition that made
+          crowded events difficult, so the council asked people not to <strong>congregate</strong> near
+          the exits. At first, every solution was only <strong>conjecture</strong>, but the group began
+          to <strong>conjure</strong> a practical design. A music <strong>connoisseur</strong> suggested
+          a quieter performance space, and the class voted to <strong>consecrate</strong> part of the
+          courtyard as a reflection garden. By the end, a strong <strong>consensus</strong> emerged, and
+          the final plan was <strong>consonant</strong> with the school's promise to welcome everyone.
+        </p>
+      </div>
+    </section>
+
+    <section class="card next-link">
+      <a class="button" href="list22_23.html">Back to Vocabulary List 22-23</a>
+    </section>
+  </main>
+
+  <footer>
+    © HuskyDaddy | SSAT Vocabulary Practice
+  </footer>
+</body>
+</html>
