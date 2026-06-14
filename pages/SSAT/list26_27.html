@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Vocabulary Practice | CON & COV Words | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: white;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: #102a43;
+      color: white;
+      padding: 70px 8%;
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .page-header p {
+      font-size: 19px;
+      color: #e5e7eb;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 8%;
+    }
+
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 28px;
+    }
+
+    .card h2,
+    .card h3 {
+      color: #102a43;
+      margin-bottom: 15px;
+    }
+
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .word-item {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #102a43;
+      font-weight: bold;
+    }
+
+    .word-item em {
+      color: #6b7280;
+      display: block;
+      font-size: 14px;
+      font-weight: normal;
+      margin-top: 2px;
+    }
+
+    .definition {
+      color: #3e4c59;
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin-top: 5px;
+    }
+
+    .exercise-list {
+      margin-left: 22px;
+      margin-top: 15px;
+    }
+
+    .exercise-list li {
+      margin-bottom: 12px;
+    }
+
+    .blank {
+      font-weight: bold;
+      color: #102a43;
+      border-bottom: 2px solid #d4af37;
+      padding: 0 6px;
+    }
+
+    .word-bank {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 18px;
+      border-radius: 8px;
+      margin: 18px 0;
+      color: #3e4c59;
+    }
+
+    .matching-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 18px;
+    }
+
+    .paragraph-box {
+      background: #fffdf8;
+      border-left: 5px solid #d4af37;
+      padding: 22px;
+      border-radius: 8px;
+      margin-top: 18px;
+    }
+
+    details {
+      margin-top: 18px;
+      background: #f7f3eb;
+      padding: 18px;
+      border-radius: 8px;
+      border: 1px solid #e5dccb;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      color: #102a43;
+    }
+
+    .next-link {
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      color: #102a43;
+      padding: 13px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 6px;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    footer {
+      background: #102a43;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        justify-content: center;
+      }
+
+      .page-header h1 {
+        font-size: 34px;
+      }
+
+      .matching-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-header">
+    <h1>SSAT Vocabulary Practice: CON & COV Words</h1>
+    <p>List 26-27 practice for interpretation, agreement, hidden action, and desire words.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Vocabulary List 26-27</h2>
+      <div class="word-grid">
+        <div class="word-item">1. Construe<em>verb</em><span class="definition">To interpret or understand in a particular way.</span></div>
+        <div class="word-item">2. Consummate<em>adjective / verb</em><span class="definition">Complete or perfect; to bring something to completion.</span></div>
+        <div class="word-item">3. Contentious<em>adjective</em><span class="definition">Likely to cause argument; quarrelsome.</span></div>
+        <div class="word-item">4. Contiguous<em>adjective</em><span class="definition">Touching or sharing a border; next to each other.</span></div>
+        <div class="word-item">5. Contingent<em>adjective</em><span class="definition">Dependent on something else; possible but not certain.</span></div>
+        <div class="word-item">6. Contrite<em>adjective</em><span class="definition">Deeply sorry for wrongdoing.</span></div>
+        <div class="word-item">7. Contrived<em>adjective</em><span class="definition">Artificial, forced, or not natural.</span></div>
+        <div class="word-item">8. Conventional<em>adjective</em><span class="definition">Traditional, ordinary, or following accepted customs.</span></div>
+        <div class="word-item">9. Convivial<em>adjective</em><span class="definition">Friendly, lively, and enjoyable.</span></div>
+        <div class="word-item">10. Copious<em>adjective</em><span class="definition">Abundant; present in large amounts.</span></div>
+        <div class="word-item">11. Corollary<em>noun</em><span class="definition">A natural result or consequence.</span></div>
+        <div class="word-item">12. Corroborate<em>verb</em><span class="definition">To confirm or support with evidence.</span></div>
+        <div class="word-item">13. Cosmopolitan<em>adjective</em><span class="definition">Worldly, sophisticated, or familiar with many cultures.</span></div>
+        <div class="word-item">14. Countenance<em>noun / verb</em><span class="definition">A facial expression; to approve or tolerate.</span></div>
+        <div class="word-item">15. Coup<em>noun</em><span class="definition">A sudden, successful action, often a seizure of power.</span></div>
+        <div class="word-item">16. Covenant<em>noun</em><span class="definition">A formal agreement or promise.</span></div>
+        <div class="word-item">17. Covert<em>adjective</em><span class="definition">Hidden, secret, or disguised.</span></div>
+        <div class="word-item">18. Covet<em>verb</em><span class="definition">To strongly desire something that belongs to someone else.</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 1: Matching</h2>
+      <p>Match each word with the correct definition.</p>
+
+      <div class="matching-grid">
+        <div>
+          <h3>Words</h3>
+          <ol class="exercise-list">
+            <li>Construe _____</li>
+            <li>Consummate _____</li>
+            <li>Contentious _____</li>
+            <li>Contiguous _____</li>
+            <li>Contingent _____</li>
+            <li>Contrite _____</li>
+            <li>Contrived _____</li>
+            <li>Conventional _____</li>
+            <li>Convivial _____</li>
+            <li>Copious _____</li>
+            <li>Corollary _____</li>
+            <li>Corroborate _____</li>
+            <li>Cosmopolitan _____</li>
+            <li>Countenance _____</li>
+            <li>Coup _____</li>
+            <li>Covenant _____</li>
+            <li>Covert _____</li>
+            <li>Covet _____</li>
+          </ol>
+        </div>
+
+        <div class="word-bank">
+          A. deeply sorry for wrongdoing<br>
+          B. hidden, secret, or disguised<br>
+          C. to interpret or understand in a certain way<br>
+          D. a formal agreement or promise<br>
+          E. traditional or ordinary<br>
+          F. dependent on something else<br>
+          G. abundant; in large amounts<br>
+          H. worldly or familiar with many cultures<br>
+          I. likely to cause argument<br>
+          J. to confirm with evidence<br>
+          K. a sudden, successful action or seizure of power<br>
+          L. touching or sharing a border<br>
+          M. a facial expression; approval or tolerance<br>
+          N. a natural result or consequence<br>
+          O. complete or perfect; to bring to completion<br>
+          P. friendly, lively, and enjoyable<br>
+          Q. artificial, forced, or not natural<br>
+          R. to strongly desire another person's possession
+        </div>
+      </div>
+
+      <details>
+        <summary>Show Matching Answer Key</summary>
+        <p>1-C, 2-O, 3-I, 4-L, 5-F, 6-A, 7-Q, 8-E, 9-P, 10-G, 11-N, 12-J, 13-H, 14-M, 15-K, 16-D, 17-B, 18-R</p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 2: Gap Filling</h2>
+      <p>Choose the best word from the word bank to complete each sentence.</p>
+
+      <div class="word-bank">
+        construe, consummate, contentious, contiguous, contingent, contrite,
+        contrived, conventional, convivial, copious, corollary, corroborate,
+        cosmopolitan, countenance, coup, covenant, covert, covet
+      </div>
+
+      <ol class="exercise-list">
+        <li>The lawyer warned the jury not to <span class="blank">_____</span> the witness's silence as guilt.</li>
+        <li>Admission to the program is <span class="blank">_____</span> on completing all prerequisite courses.</li>
+        <li>The apology sounded sincere because the student looked genuinely <span class="blank">_____</span>.</li>
+        <li>The two farms are <span class="blank">_____</span>, sharing a long wooden fence.</li>
+        <li>The film's ending felt <span class="blank">_____</span>, as if the writer forced every problem to disappear.</li>
+        <li>After the rain, the garden produced <span class="blank">_____</span> amounts of mint and basil.</li>
+        <li>The ambassador's <span class="blank">_____</span> background helped her feel comfortable in many countries.</li>
+        <li>The second witness was able to <span class="blank">_____</span> the driver's account of the accident.</li>
+        <li>The debate became <span class="blank">_____</span> when the students argued about school uniforms.</li>
+        <li>The club signed a <span class="blank">_____</span> promising to share the library space fairly.</li>
+        <li>The general led a swift <span class="blank">_____</span> and took control of the capital before dawn.</li>
+        <li>The rule was a simple <span class="blank">_____</span> of the school's promise to protect student safety.</li>
+        <li>The principal would not <span class="blank">_____</span> bullying, even when popular students were involved.</li>
+        <li>They held a <span class="blank">_____</span> meeting so no one would learn about the surprise party.</li>
+        <li>The host created a <span class="blank">_____</span> atmosphere with music, food, and easy conversation.</li>
+        <li>The ceremony followed a <span class="blank">_____</span> format, with speeches before the awards.</li>
+        <li>Many students <span class="blank">_____</span> the captain's confidence, but few saw how hard she practiced.</li>
+        <li>Her <span class="blank">_____</span> skill as a pianist impressed even the strictest judge.</li>
+      </ol>
+
+      <details>
+        <summary>Show Gap Filling Answer Key</summary>
+        <p>
+          1. construe, 2. contingent, 3. contrite, 4. contiguous,
+          5. contrived, 6. copious, 7. cosmopolitan, 8. corroborate,
+          9. contentious, 10. covenant, 11. coup, 12. corollary,
+          13. countenance, 14. covert, 15. convivial, 16. conventional,
+          17. covet, 18. consummate
+        </p>
+      </details>
+    </section>
+
+    <section class="card">
+      <h2>Exercise 3: Paragraph Using All Words</h2>
+      <p>Read the paragraph and notice how each vocabulary word is used in context.</p>
+
+      <div class="paragraph-box">
+        <p>
+          At first, the committee did not know how to <strong>construe</strong> the mayor's
+          brief announcement, but the plan became clear after a <strong>consummate</strong>
+          negotiator explained it. The issue was <strong>contentious</strong> because two
+          <strong>contiguous</strong> neighborhoods wanted the same park, and funding was
+          <strong>contingent</strong> on their cooperation. After making a rude accusation,
+          one council member looked <strong>contrite</strong>, while another offered a
+          <strong>contrived</strong> excuse that convinced no one. Instead of following a
+          <strong>conventional</strong> meeting format, the chair created a <strong>convivial</strong>
+          discussion with <strong>copious</strong> maps, surveys, and student letters. A natural
+          <strong>corollary</strong> of the evidence was that both areas needed access, and several
+          residents came forward to <strong>corroborate</strong> that claim. The city's
+          <strong>cosmopolitan</strong> mayor would not <strong>countenance</strong> secret deals,
+          even after a failed political <strong>coup</strong> by rival leaders. In the end, both
+          sides signed a <strong>covenant</strong> to share the park, ending the <strong>covert</strong>
+          rivalry that had begun when each neighborhood started to <strong>covet</strong> the other's
+          resources.
+        </p>
+      </div>
+    </section>
+
+    <section class="card next-link">
+      <a class="button" href="list24_25.html">Back to Vocabulary List 24-25</a>
+    </section>
+  </main>
+
+  <footer>
+    © HuskyDaddy | SSAT Vocabulary Practice
+  </footer>
+</body>
+</html>
