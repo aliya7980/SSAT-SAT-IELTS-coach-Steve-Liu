@@ -222,6 +222,23 @@
       font-weight: bold;
     }
 
+    .import-panel {
+      display: grid;
+      gap: 14px;
+    }
+
+    .csv-help {
+      color: #3e4c59;
+      font-size: 16px;
+    }
+
+    .import-status {
+      color: #17472a;
+      font-size: 16px;
+      font-weight: bold;
+      min-height: 24px;
+    }
+
     .form-actions,
     .study-actions {
       display: flex;
@@ -524,6 +541,7 @@
 
   <div class="quick-nav">
     <a href="#add-words">Add Words</a>
+    <a href="#csv-import">Import CSV</a>
     <a href="#flashcards">Flashcards</a>
     <a href="#matching">Matching Game</a>
   </div>
@@ -547,6 +565,18 @@
         <button class="button" id="delete-list" type="button">Delete Current List</button>
       </div>
       <div class="list-summary" id="list-summary"></div>
+    </div>
+    <div class="panel import-panel" id="csv-import">
+      <h3>Import CSV List</h3>
+      <p class="csv-help">Upload a CSV with columns named word, definition, and example. These words will be added to the current stored list and used in flashcards and matching games.</p>
+      <label>
+        CSV file
+        <input id="csv-upload" type="file" accept=".csv,text/csv">
+      </label>
+      <div class="form-actions">
+        <button class="button secondary" id="import-csv" type="button">Import CSV</button>
+      </div>
+      <div class="import-status" id="import-status"></div>
     </div>
     <div class="builder-layout">
       <div class="panel">
@@ -640,6 +670,9 @@
     const listNameInput = document.getElementById("list-name-input");
     const listSummary = document.getElementById("list-summary");
     const deleteListButton = document.getElementById("delete-list");
+    const csvUpload = document.getElementById("csv-upload");
+    const importCsvButton = document.getElementById("import-csv");
+    const importStatus = document.getElementById("import-status");
     const wordList = document.getElementById("word-list");
     const flashcard = document.getElementById("flashcard");
     const cardWord = document.getElementById("card-word");
@@ -747,6 +780,69 @@
       return div.innerHTML;
     }
 
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let value = "";
+      let insideQuotes = false;
+
+      for (let index = 0; index < text.length; index += 1) {
+        const char = text[index];
+        const next = text[index + 1];
+
+        if (char === '"' && insideQuotes && next === '"') {
+          value += '"';
+          index += 1;
+        } else if (char === '"') {
+          insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+          row.push(value);
+          value = "";
+        } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+          if (char === "\r" && next === "\n") {
+            index += 1;
+          }
+          row.push(value);
+          if (row.some((cell) => cell.trim())) {
+            rows.push(row);
+          }
+          row = [];
+          value = "";
+        } else {
+          value += char;
+        }
+      }
+
+      row.push(value);
+      if (row.some((cell) => cell.trim())) {
+        rows.push(row);
+      }
+
+      return rows;
+    }
+
+    function importedWordsFromCsv(text) {
+      const rows = parseCsv(text);
+      if (!rows.length) {
+        return [];
+      }
+
+      const header = rows[0].map((cell) => cell.trim().toLowerCase());
+      const hasHeader = header.includes("word") && header.includes("definition");
+      const dataRows = hasHeader ? rows.slice(1) : rows;
+      const wordIndex = hasHeader ? header.indexOf("word") : 0;
+      const definitionIndex = hasHeader ? header.indexOf("definition") : 1;
+      const exampleIndex = hasHeader
+        ? Math.max(header.indexOf("example"), header.indexOf("example sentence"))
+        : 2;
+
+      return dataRows.map((row) => ({
+        word: (row[wordIndex] || "").trim(),
+        definition: (row[definitionIndex] || "").trim(),
+        example: (row[exampleIndex] || "").trim()
+      })).filter((item) => item.word && item.definition);
+    }
+
     function renderWordList() {
       wordList.innerHTML = words.map((item, index) => `
         <article class="word-row">
@@ -848,6 +944,32 @@
     });
 
     document.getElementById("clear-form").addEventListener("click", () => form.reset());
+
+    importCsvButton.addEventListener("click", () => {
+      const file = csvUpload.files && csvUpload.files[0];
+      if (!file) {
+        importStatus.textContent = "Choose a CSV file first.";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        const importedWords = importedWordsFromCsv(String(reader.result || ""));
+        if (!importedWords.length) {
+          importStatus.textContent = "No usable words found. Use columns: word, definition, example.";
+          return;
+        }
+
+        const existingWords = new Set(words.map((item) => item.word.trim().toLowerCase()));
+        const newWords = importedWords.filter((item) => !existingWords.has(item.word.trim().toLowerCase()));
+        words = [...newWords, ...words];
+        currentCardIndex = 0;
+        csvUpload.value = "";
+        importStatus.textContent = `Imported ${newWords.length} ${newWords.length === 1 ? "word" : "words"} into ${getActiveList().name}.`;
+        refreshAll();
+      });
+      reader.readAsText(file);
+    });
 
     listSelect.addEventListener("change", () => {
       setActiveList(listSelect.value);
