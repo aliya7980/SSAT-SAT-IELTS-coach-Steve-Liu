@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSAT Middle Practice Test 2 | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: Georgia, "Times New Roman", serif; background: #f7f3eb; color: #1f2933; line-height: 1.6; }
+    .navbar { background: #102a43; color: white; padding: 18px 8%; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 22px; font-weight: bold; }
+    .nav-links { list-style: none; display: flex; gap: 28px; flex-wrap: wrap; }
+    .nav-links a { color: white; text-decoration: none; font-size: 15px; }
+    .nav-links a:hover { color: #d4af37; }
+    .page-header { background: #102a43; color: white; padding: 70px 8%; text-align: center; }
+    .page-header h1 { font-size: 42px; margin-bottom: 15px; }
+    .page-header p { font-size: 19px; color: #e5e7eb; max-width: 820px; margin: auto; }
+    .tabs { background: white; border-bottom: 1px solid #e5dccb; display: flex; gap: 12px; justify-content: center; padding: 18px 8%; position: sticky; top: 0; z-index: 50; }
+    .tab-button { background: #102a43; color: white; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 12px 18px; }
+    .tab-button.active { background: #d4af37; color: #102a43; }
+    .container { max-width: 1480px; margin: auto; padding: 36px 4%; }
+    .practice-section { display: none; }
+    .practice-section.active { display: block; }
+    .question-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 28px; }
+    .question-card h2 { color: #102a43; margin-bottom: 15px; }
+    .directions { background: #fffdf8; border-left: 5px solid #d4af37; padding: 20px; border-radius: 8px; color: #3e4c59; font-size: 17px; margin-bottom: 28px; }
+    .split-card { padding: 24px; }
+    .split-practice { display: grid; grid-template-columns: minmax(420px, 48%) minmax(460px, 1fr); gap: 24px; align-items: start; }
+    .passage-panel { position: sticky; top: 86px; max-height: calc(100vh - 116px); overflow: auto; border: 1px solid #e5dccb; border-radius: 8px; background: #fffdf8; padding: 16px; }
+    .questions-panel { padding: 2px 2px 0; }
+    .passage { background: #fffdf8; border-left: 5px solid #d4af37; padding: 22px; border-radius: 8px; color: #3e4c59; font-size: 17px; white-space: pre-line; position: relative; z-index: 1; pointer-events: none; }
+    .reader-toolbar { text-align: right; margin: 0 0 12px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    .clear-markings, .jump-button { background: #d4af37; color: #102a43; border: none; border-radius: 4px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 10px 16px; text-decoration: none; }
+    .clear-markings:hover, .jump-button:hover { background: #c19a2e; }
+    .reader-container { position: relative; background: #fffdf8; border-radius: 8px; margin: 0; }
+    .marking-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; touch-action: none; cursor: crosshair; }
+    .question-block { border-top: 1px solid #e5dccb; padding-top: 20px; margin-top: 20px; }
+    .questions-panel .question-block:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+    .question-text { font-weight: bold; color: #102a43; margin-bottom: 15px; font-size: 18px; }
+    .choices { display: grid; gap: 12px; }
+    .choice { border: 1px solid #e5dccb; background: #f7f3eb; padding: 14px 16px; border-radius: 8px; cursor: pointer; font-size: 16px; text-align: left; font-family: Georgia, "Times New Roman", serif; color: #3e4c59; }
+    .choice:hover { border-color: #d4af37; background: #fffdf8; }
+    .choice.selected { border-color: #d4af37; background: #fffdf8; box-shadow: inset 0 0 0 2px rgba(212,175,55,.35); color: #102a43; font-weight: bold; }
+    .choice.incorrect { border-color: #dc2626; background: #fff1f2; box-shadow: inset 0 0 0 2px rgba(220, 38, 38, .18); color: #991b1b; }
+    .result { display: none; margin-top: 14px; padding: 12px 16px; border-radius: 8px; background: #fffdf8; border-left: 5px solid #d4af37; color: #102a43; font-weight: bold; }
+    .verbal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    .answer-sheet { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; }
+    .answer-sheet h2 { color: #102a43; margin-bottom: 10px; text-align: center; }
+    .answer-sheet p { color: #3e4c59; text-align: center; margin-bottom: 22px; }
+    .answer-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+    .answer-card { background: #fffdf8; border: 1px solid #e5dccb; border-radius: 8px; padding: 12px; }
+    .answer-card.incorrect { background: #fff1f2; border-color: #dc2626; box-shadow: inset 0 0 0 1px rgba(220, 38, 38, .18); }
+    .answer-card strong { display: block; color: #102a43; margin-bottom: 8px; }
+    .bubble-row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .bubble-row label { background: #f7f3eb; border: 1px solid #e5dccb; border-radius: 999px; cursor: pointer; padding: 5px 8px; font-size: 14px; }
+    .bubble-row label:has(input:checked) { background: #d4af37; color: #102a43; font-weight: bold; }
+    .bubble-row input { accent-color: #102a43; }
+    .teacher-lock { background: white; padding: 32px; border-radius: 10px; box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08); margin-bottom: 32px; border-top: 5px solid #102a43; }
+    .teacher-lock h2, .teacher-key h3 { color: #102a43; text-align: center; margin-bottom: 10px; }
+    .teacher-lock p { color: #3e4c59; text-align: center; margin-bottom: 18px; }
+    .teacher-form { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .teacher-form input { border: 1px solid #d6c8ad; border-radius: 6px; color: #102a43; font-family: Georgia, "Times New Roman", serif; font-size: 16px; min-width: 240px; padding: 11px 14px; }
+    .teacher-form button { background: #102a43; color: white; border: none; border-radius: 6px; cursor: pointer; font-family: Georgia, "Times New Roman", serif; font-size: 15px; font-weight: bold; padding: 11px 18px; }
+    .teacher-form button:hover { background: #d4af37; color: #102a43; }
+    .teacher-message { color: #9f1239; font-weight: bold; min-height: 24px; text-align: center; }
+    .teacher-key { display: none; margin-top: 24px; }
+    .teacher-key.unlocked { display: block; }
+    .key-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 10px; margin: 18px 0 30px; }
+    .key-card { background: #fffdf8; border: 1px solid #e5dccb; border-left: 4px solid #d4af37; border-radius: 8px; color: #102a43; font-weight: bold; padding: 10px; text-align: center; }
+    .key-card.student-wrong { background: #fff1f2; border-color: #dc2626; border-left-color: #dc2626; color: #991b1b; }
+    footer { background: #102a43; color: #e5e7eb; text-align: center; padding: 24px; font-size: 14px; }
+    @media (max-width: 1000px) { .split-practice { grid-template-columns: 1fr; } .passage-panel { position: relative; top: auto; max-height: 54vh; } }
+    @media (max-width: 900px) { .verbal-grid { grid-template-columns: 1fr; } .answer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .key-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+    @media (max-width: 800px) { .navbar { flex-direction: column; gap: 18px; } .nav-links { justify-content: center; } .page-header h1 { font-size: 34px; } .tabs { position: static; flex-wrap: wrap; } }
+    @media (max-width: 540px) { .answer-grid { grid-template-columns: 1fr; } .question-card { padding: 22px; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">About</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../reading_summary.html">Homework</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+  <header class="page-header">
+    <h1>SSAT Middle Practice Test 2</h1>
+    <p>Reading and Verbal practice from SSAT Middle Level Practice 2, styled for classroom work with marking, answer saving, and teacher-only review.</p>
+  </header>
+  <div class="tabs">
+    <button class="tab-button active" data-target="reading-section" type="button">Reading</button>
+    <button class="tab-button" data-target="verbal-section" type="button">Verbal</button>
+    <button class="tab-button" data-target="answers-section" type="button">Answer Sheet</button>
+  </div>
+  <main class="container">
+    <section id="reading-section" class="practice-section active">
+      <div class="directions">Read each passage and answer the related questions. For each question, use the passage to decide which one of the choices best answers the question.</div>
+      <div id="reading-practice"></div>
+    </section>
+    <section id="verbal-section" class="practice-section">
+      <div class="directions">This section includes two question types: synonyms and analogies. Choose the answer choice that best completes each item.</div>
+      <div id="verbal-practice"></div>
+    </section>
+    <section id="answers-section" class="practice-section">
+      <div class="answer-sheet"><h2>Reading Answer Choices</h2><p>Questions 1-40</p><div class="answer-grid" id="reading-answers"></div></div>
+      <div class="answer-sheet"><h2>Verbal Answer Choices</h2><p>Questions 1-60</p><div class="answer-grid" id="verbal-answers"></div></div>
+      <div class="teacher-lock">
+        <h2>Teacher Answer Key</h2>
+        <p>Enter the teacher password to reveal the correct answers.</p>
+        <div class="teacher-form">
+          <input id="teacher-password" type="password" autocomplete="off" placeholder="Teacher password" />
+          <button id="unlock-teacher-key" type="button">Unlock</button>
+        </div>
+        <div class="teacher-message" id="teacher-message"></div>
+        <div class="teacher-key" id="teacher-key">
+          <h3>Reading Section</h3>
+          <div class="key-grid" id="reading-key"></div>
+          <h3>Verbal Section</h3>
+          <div class="key-grid" id="verbal-key"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>© HuskyDaddy | SSAT Middle Practice Test 2</footer>
+  <script>
+    const testData = {"readingGroups":[{"title":"Reading Passage 1: Falconry","passage":"Falconry--the practice of hunting with trained birds of prey--was for many ages one of the main sports of the richer classes. Since many more efficient methods of hunting have always existed, falconry has probably always been considered a pure sport rather than a practical method of hunting. Falconry is very ancient. It was probably introduced into England from continental Europe about A.D. 860, and from that time to the middle of the 17th century, falconry excited more enthusiasm than has any other English sport, even fox-hunting. Stringent laws, notably during the reigns of William the Conqueror, Edward III, Henry VIII and Elizabeth, were passed from time to time to regulate falconry. Varieties of falcon and hawk were allotted to men according to rank and station--for instance, to the emperor the eagle and vulture, to royalty the jerfalcons, to an earl the peregrine, to a yeoman the goshawk, and to a servant the useless kestrel.","questions":[[1,"The main purpose of this passage is to",["criticize the inefficient practice of using falcons to capture game","provide some historical information about falconry","describe sporting life under the reign of William the Conqueror","argue that falconry is the best sport","rank varieties of falcon and hawk"]],[2,"As it is used in the passage, \"a pure sport\" is probably",["a sport that only the wealthy engage in","a sport that is favored and regulated by British monarchs","a sport that is engaged in for entertainment and not out of necessity","a very popular sport","a very old sport"]],[3,"According to the passage, falconry most likely spread to England",["in the middle of the 17th century","during the reign of Queen Elizabeth","during the reign of King Henry VIII","around A.D. 860","in order to help identify rank"]],[4,"The passage suggests that fox-hunting",["has been extremely popular in England","is a cruel sport","is the most effective way of capturing game","is older than falconry","has been banned by Elizabeth II"]],[5,"Which of these puts the falcons and hawks in correct order of rank, from lowest to highest?",["kestrel, vulture, goshawk, peregrine","eagle, peregrine, kestrel, jerfalcon","eagle, vulture, goshawk, peregrine","kestrel, peregrine, jerfalcon, eagle","kestrel, eagle, jerfalcon, vulture"]]]},{"title":"Reading Passage 2: Names and Superstition","passage":"Names should always be carefully chosen. They are apt to influence friendships or to excite prejudices according to their significance. We Chinese are very particular in this matter. When a son is born the father or the grandfather chooses a name for the infant boy which, according to his horoscope, is likely to insure him success. Hence such names as \"happiness,\" \"prosperity,\" \"longevity,\" \"success,\" and others are common in China. Girls' names are generally selected from flowers, fruits, or trees. Particular care is taken not to use a name which has a bad meaning. In Washington I once met a man in an elevator whose name was \"Coffin.\" Was I to be blamed for wondering if the elevator would be my coffin? On another occasion I met a man whose name was \"Death,\" and as soon as I heard his name I felt inclined to run away, for I did not wish to die. I am not superstitious. I have frequently taken dinner with thirteen persons at the table, and I do not hesitate to start on a journey on a Friday. I often do things which would not be done by superstitious persons in China. But to meet a man calling himself \"Coffin\" or \"Death\" was too much for me, and with all my disbelief in superstition I could not help showing some aversion to those who bore such names.","questions":[[6,"A good title for this passage might be",["A Man Named \"Death\"","The Importance of Names","Cultural Differences between America and China","Leaving on a Friday","The Fear of Elevators"]],[7,"As it is used in the passage, the word \"insure\" most likely means",["protect","guarantee","predict","highlight","prohibit"]],[8,"The speaker claims that he is: I. from America; II. from China; III. always superstitious",["I only","II only","I and III only","II and III only","None of these"]],[9,"When the speaker met a man named \"Coffin,\" he was",["unconcerned, although he knew that he was in danger","carefree, although he did not normally ride in elevators","frightened, although he was not normally superstitious","friendly, although he did not normally talk to strangers","furious, although he did not normally lose his temper"]],[10,"It can be inferred from the passage that starting a trip on a Friday",["is rude to the people you dine with that night","is against the law in China","is considered by some to invite bad luck","counteracts the bad luck incurred by dining with twelve other people","means you won't reach China before Monday"]]]},{"title":"Reading Passage 3: Belyaev's Foxes","passage":"In 1959, scientists in the Soviet Union who were interested in the process by which wolves became domesticated dogs initiated a breeding experiment using silver foxes. The experiment was led by Dmitri Belyaev.\n\nBelyaev believed that in the ancestral past of dogs, wolves with less fear of humans were more likely to live near them and eat scraps of their food. These wolves, he thought, must have interbred, passing down their tolerance of humans to their descendants, who eventually became domestic dogs. To mimic this process, he acquired a population of silver foxes and bred only those that had \"low flight distance\" - that is, the ones that he could get quite close to before they ran away from him.\n\nSince behavior is rooted in biology, by choosing foxes that behaved in a certain way, Belyaev was choosing foxes that shared certain biological traits governing that behavior. After several generations of foxes chosen for breeding based on their \"flight distance,\" Russian scientists now have a number of domesticated foxes, the descendants of Belyaev's original population. These domestic foxes are not only more comfortable around humans than their wild forebears, but also have important physical differences, such as spotted fur and raised tails - traits that are common in domestic dogs.","questions":[[11,"This passage answers all of the following questions EXCEPT:",["During which year did Belyaev begin his silver fox experiment?","Why were silver foxes chosen for the experiment rather than wolves?","What did Belyaev believe was the process by which wolves became dogs?","How did Belyaev choose which foxes to breed?","Are there any differences between the domesticated foxes and their wild ancestors?"]],[12,"When the author states that \"behavior is rooted in biology,\" he most likely means that",["biological traits strongly influence how an animal acts","eating certain plants can change an animal's temperament","it is in the nature of all foxes to be fearful of humans","there is no relationship between biological makeup and behavior","choosing foxes to breed in the way Belyaev did will never result in changes in biology"]],[13,"If one of Belyaev's foxes ran away from him as soon as it noticed him, Belyaev would",["sell it to the Department of Fur Animal Breeding","coax it back with rabbit meat","not use it to breed the next generation of foxes","lose track of it in the lab","breed it with a fox that had equally high \"flight\" distance"]],[14,"This passage suggests that Belyaev's breeding experiment",["was a risky experiment","has created foxes that are somewhat dog-like","is unfair to the foxes","is almost over","failed to produce significant results"]]]},{"title":"Reading Passage 4: Birt's Bargain","passage":"To buy a horse was Birt's greatest ambition. His father died; and as misfortunes seldom come singly, the horse on which the family depended to till their scanty fields died shortly after its owner. Whenever the spring arrived, their one chance to plant a crop was to hire a mule from their nearest neighbor, the tanner. Birt was the eldest son, and his mother had only his work to offer in payment. The tanner always greeted this proposition coldly. The mule was needed to haul up piles of bark from the depths of the woods to the tanyard. Then, too, he had his own crops to plant. Although the mule was a multifarious animal that ploughed and worked in the bark-mill, and hauled bark from the woods, and took long journeys with the wagon or under the saddle, it was impossible for her to be in all the places in which she was urgently needed at the same time. Therefore, to hire her out hardly seemed to benefit her master. Nevertheless, this bargain was struck every spring. The poverty-stricken widow always congratulated herself upon it, and it never occurred to her that the amount of work that Birt did in the tanyard was more than enough payment for the few days that the tanner's mule ploughed their little fields.","questions":[[15,"When did Birt's family's horse die?",["in the spring","before his father died","after his father died","while it was plowing the field","after Birt died"]],[16,"What deal was struck every spring?",["The tanner gave Birt's mother some bark, and Birt's mother lent him their horse.","Birt drove the tanner's wagon, and the tanner helped Birt's mother in the field.","Birt gave the tanner his crops, and the tanner gave Birt's mother a horse.","The tanner lent Birt's mother his mule, and Birt did work for the tanner.","Birt hauled bark from the woods, and Birt's mother rode the tanner's mule to town."]],[17,"What is the most likely reason that Birt's family always struck this deal in the spring?",["The spring was the time of year when they needed to till their fields to plant a crop.","Their old horse died in the spring.","The spring was the time of year when the tanner didn't need to use the mule.","Birt was busy at home for the rest of the year.","It was too cold to walk to the tanner's house during any other time of year."]],[18,"The passage answers all of the following questions EXCEPT:",["Did Birt have an older brother?","What did Birt's family need the mule for?","Why did the tanner need the mule?","What did Birt want more than anything?","How many siblings did Birt have?"]],[19,"In the last sentence of the passage, the author suggests that",["Birt's mother didn't really need the mule","Birt enjoyed his work for the tanner and spent as much time with him as possible","Birt's mother didn't realize that the deal with the tanner was uneven","Birt's mother was a professional bargainer","Birt worked so hard for the tanner that he gave them the mule"]],[20,"Every time Birt's mother made her yearly deal with the farmer, she felt",["pleased and proud","warm-hearted and generous","foolish and mistaken","careless and forgetful","pretty and young"]]]},{"title":"Reading Passage 5: Castells","passage":"Proudly raising four fingers - representing the four stripes of the Catalan flag - the enxaneta is greeted by uproarious applause, which he or she can usually enjoy only for a moment before scrambling down the other side of the human tower known as a castell. \"Castell\" is the Catalan word for, as an English-speaker might guess, \"castle.\" Castells are a Catalan tradition dating back to the 18th century, when they were first built during local festivals in the city of Valls. Today, castell teams - or colles - build elaborate human towers during festivals throughout Catalonia as well as in competition.\n\nWhile castell teams were traditionally all-male, today's colles are as diverse as the communities they come from, uniting men and women of all ages in a feat that is bigger than themselves. Each level of the castell is formed by two to five people standing on the shoulders of those in the level below. The enxaneta is the brave soul, almost always a child, who climbs to the top of a castell to mark its completion. Then begins the treacherous process of dismantling the many levels, as many as ten, of castellers who make up the tower. But the danger is not quite as great as it might seem: hundreds of supporters form a pinya, or base, for the castell, cushioning the fall of the castellers in case of collapse.","questions":[[21,"A good title for this passage might be",["A Brief History of Catalonia","The Journey of the Enxaneta","Castells: Human Towers of Catalonia","Castles of Spain and France","The Fight for Catalonian Independence"]],[22,"The author would probably agree with all of the following EXCEPT:",["the completion of a castell is an exciting moment for the audience","today's castell teams are better than those of the 18th century","building a castell is an impressive achievement","climbing to the top of a castell seems scary","castellers are actually safer than their audience might imagine"]],[23,"Which best summarizes the history of castells and castell teams?",["Building castells started in the 18th century all over Catalonia as an activity that brought men and women together.","Castells were first built by all-male teams in 18th century Valls; today, men, women, and children build them together all over Catalonia.","Castells were once popular throughout Catalonia but today are mainly built by the inhabitants of Valls.","In the 18th century, castells were mainly a children's game during festivals, but today men and women of all ages can participate.","Building castells is a new sport that was designed to heal social rifts by uniting diverse groups in pursuit of a common goal."]],[24,"According to the passage, what is the role of the pinya?",["The pinya is the final layer of the castell.","The pinya is a crowd of fans that will cheer the castellers even if they fail.","If the castellers lose their balance and fall, the supporters in the pinya will help them back onto their feet.","If the castellers lose their balance and fall, they will fall safely onto the pinya instead of hitting the ground.","The pinya is the child who goes to the top of the castell to signal its completion."]],[25,"The attitude of the author towards castells is best described as",["alarmed","bored","critical","disbelieving","admiring"]]]},{"title":"Reading Passage 6: Andrew Provost","passage":"There was sarcasm in the voice. Andrew Provost resented the tone. He had never liked Mr. Raymond overmuch, though they had met on more than one planet and had dined together frequently. Besides, it raised his hackles to have his family insulted. He knew his niece to be a young woman worth trusting. If she said she could do this thing, then she could.\n\n\"By golly, I'll give her the opportunity!\" he cried.\n\n\"Your money would be wasted,\" Mr. Raymond replied curtly. \"Build a spaceship in that time, with workers inexperienced in such an endeavor - a ship, moreover, of almost unlimited range! You are dreaming!\"\n\n\"I am all seriousness,\" said Mr. Provost's niece. \"If I had the means I would construct this ship, and prove its capacity to you. It would go where you wished; no corner of the galaxy would be too far.\"\n\n\"And I back her up in what she says,\" cried Andrew warmly.","questions":[[26,"It can be inferred from the passage that Andrew Provost",["is an expert engineer","has traveled widely","is not particularly wealthy","was once close friends with Mr. Raymond","has no children of his own"]],[27,"Why does Mr. Raymond feel that the project in the passage would be a waste of money?",["He thinks that Mr. Provost already has enough spaceships.","He thinks that space travel is impossible.","He has never met Mr. Provost before.","He thinks that the scope of the project is unrealistic.","He thinks that spaceships are always bad investments."]],[28,"As portrayed in the passage, Mr. Raymond might be described as",["friendly","skeptical","unreasonable","fatherly","optimistic"]],[29,"What is special about the ship that Mr. Provost's niece wants to build?",["It will be able to travel anywhere in the galaxy.","It will be possible to replicate it cheaply and quickly.","It will be able to carry thousands of passengers.","It will withstand attack better than any other ship.","It will have the capacity to become invisible."]],[30,"This passage is most likely to be found in",["a history of space travel","a book of traditional legends","a science fiction novel","a guide to building a spaceship","a play about young inventors"]]]},{"title":"Reading Passage 7: Meant to Be Read","passage":"When you say that a book was \"meant to be read,\" you mean, for one thing, that it was not meant to be studied. You do not study a good story, or a haunting poem, or a battle song, or a love ballad, or any moving narrative, whether it be out of history or out of fiction. You do not have to study these things; they reveal themselves to you. They remain with you, and will not be forgotten. They cling like personal experience, and become the mind's close friends.\n\nYou devour a book \"meant to be read,\" not because you are anxious to be nourished, but because it contains such stuff as makes the mind hungry. Nor do you read it to kill time, but rather to lengthen time, to live more abundantly while it lasts, adding another's life and thoughts to your own.","questions":[[31,"Which of these would the author most likely think was NOT \"meant to be read\"?",["a poem about memories of a long-ago time","a story about an exciting adventure","an instruction manual for a piece of equipment","a narrative about a historical figure","a novel with memorable characters"]],[32,"According to the passage, books that are \"meant to be read\"",["are good for momentary entertainment, but will be forgotten soon after","are always fictional","must be carefully studied","make you eager to read more","contain important information"]],[33,"As used in the passage, \"to live more abundantly\" most likely means",["to live carefully, watching out for danger","to live richly, taking in an array of thoughts and experiences","to live dangerously, risking your life for cheap thrills","to live humbly, putting others first","to live diligently, working at every moment"]],[34,"The tone of this passage is",["resentful","passionate","humorous","bored","indifferent"]]]},{"title":"Reading Passage 8: Japanese Tea Ceremony","passage":"The guests arrive a little before the appointed time and enter an interior waiting room, where they store unneeded items such as coats, and put on fresh tabi - special socks worn with traditional Japanese sandals. In an alcove in the waiting room hangs a beautiful scroll with watercolors or calligraphy alluding to the season or some other appropriate theme for the ceremony. When all the guests have arrived and finished their preparations, they proceed to the outdoor waiting bench in a simple garden outside the teahouse, where they remain until summoned by the host.\n\nFollowing a silent bow between host and guests, the guests proceed in order to a stone basin where they ritually purify themselves by washing their hands and rinsing their mouths with water. They remove their sandals and enter the tea room, where they sit seiza-style on the tatami mats in order of prestige. Here, too, there is a hanging scroll in an alcove.\n\nThe chaji, or tea ceremony, begins in the cool months with the laying of the charcoal fire which will be used to heat the water. Following this, guests are served a meal in several courses accompanied by rice wine and followed by a small sweet. After the meal there is a break, during which the guests return to the garden while the host replaces the scroll with a flower arrangement, opens the tea room's shutters, and makes preparations for making and serving the tea.","questions":[[35,"This passage is primarily about Japanese",["manners","food","religion","tea ceremonies","gardens"]],[36,"According to the passage, the guests at a Japanese tea ceremony remove their sandals",["before entering the waiting room","before entering the garden","before greeting their host","before entering the tea room","before washing their hands"]],[37,"The mood of a Japanese tea ceremony could best be described as",["tense","casual","dark","formal","celebratory"]],[38,"This passage would likely be found in",["a cookbook","a novel","a newspaper","a personal letter","a guidebook"]],[39,"It can be inferred from the passage that during the meal",["the host is not present","the guests eat too much","the host gets very tired","the shutters of the tea room are shut","night is falling outside"]],[40,"The author will most likely continue by",["comparing the Japanese tea ceremony to British high tea","explaining what is on the scrolls in greater detail","describing the next step in the tea ceremony","listing prominent figures in the history of the tea ceremony","complaining about how long and boring the tea ceremony is"]]]}],"verbalSynonyms":[{"number":1,"stem":"DAWDLE","choices":["draw","delay","hurry","trip","return"]},{"number":2,"stem":"IMMEDIATE","choices":["newsworthy","late","prompt","invisible","unexpected"]},{"number":3,"stem":"DISTINGUISHED","choices":["decayed","damp","invincible","friendly","dignified"]},{"number":4,"stem":"SOLEMN","choices":["miserable","boring","magnificent","serious","difficult"]},{"number":5,"stem":"BEHOLD","choices":["cradle","observe","stop","arrest","borrow"]},{"number":6,"stem":"VANITY","choices":["pride","greed","ruthlessness","imagination","disobedience"]},{"number":7,"stem":"MODERATE","choices":["partisan","not extreme","not warm","careless","condescending"]},{"number":8,"stem":"SEIZE","choices":["attack","refuse","count","capture","destroy"]},{"number":9,"stem":"AMBITIOUS","choices":["bold","perfect","lazy","careful","elite"]},{"number":10,"stem":"IMMUNITY","choices":["disrespect","ability","protection","dirtiness","conscience"]},{"number":11,"stem":"VAST","choices":["empty","high","sweater","grassy","expansive"]},{"number":12,"stem":"FORLORN","choices":["lonely","short","evil","hidden","respectable"]},{"number":13,"stem":"OVERWHELM","choices":["overcook","overlook","overpower","overthink","oversee"]},{"number":14,"stem":"ADJUST","choices":["judge","try","carry","cease","tweak"]},{"number":15,"stem":"SQUALL","choices":["air","wave","storm","fish","moment"]},{"number":16,"stem":"BURLY","choices":["clumsy","muscular","angry","dour","sloppy"]},{"number":17,"stem":"QUASH","choices":["lull","suppress","cushion","avoid","ignore"]},{"number":18,"stem":"INSCRUTABLE","choices":["entertaining","affordable","mysterious","impaired","alive"]},{"number":19,"stem":"CURTAIL","choices":["circle","rejoice","limit","frown","mistake"]},{"number":20,"stem":"EVADE","choices":["murder","exile","empty","catch","escape"]},{"number":21,"stem":"MISCHIEVOUS","choices":["smiling","young","troublemaking","ridiculous","unwise"]},{"number":22,"stem":"GUARANTEE","choices":["offer","imprison","restrain","assure","dictate"]},{"number":23,"stem":"RELENTLESS","choices":["impure","unyielding","incomplete","soft","irrelevant"]},{"number":24,"stem":"EXTRANEOUS","choices":["accelerated","fascinating","uncertain","irrelevant","impudent"]},{"number":25,"stem":"MALIGNANT","choices":["indignant","evil","boring","frustrated","empirical"]},{"number":26,"stem":"CIVILITY","choices":["politeness","conflict","corruption","activism","charity"]},{"number":27,"stem":"REPUGNANT","choices":["stunted","hungry","disgusting","unlucky","insane"]},{"number":28,"stem":"FRUITLESS","choices":["abandoned","unproductive","ripe","protracted","undone"]},{"number":29,"stem":"SERENITY","choices":["madness","slumber","peace","foolishness","joy"]},{"number":30,"stem":"CARESS","choices":["stroke","smile","laugh","push","tap"]}],"verbalAnalogies":[{"number":31,"stem":"Actor is to ensemble as","choices":["captain is to crew","character is to plot","character is to play","player is to team","jockey is to horse"]},{"number":32,"stem":"Skyscraper is to building as","choices":["bank is to supermarket","redwood is to tree","house is to home","limousine is to rowboat","sidewalk is to street"]},{"number":33,"stem":"Lopsided is to symmetrical as","choices":["mirror is to reflection","upside-down is to flat","invisible is to ordinary","gray is to black","fractured is to whole"]},{"number":34,"stem":"Ravenous is to hungry as","choices":["parched is to thirsty","awake is to tired","sympathetic is to concerned","pleased is to happy","reserved is to vicious"]},{"number":35,"stem":"Recording is to voice as","choices":["microphone is to mouth","computer is to foot","scale is to body","photograph is to face","scissors are to hair"]},{"number":36,"stem":"Dalmatian is to canine as","choices":["Yorkie is to bulldog","bird is to parrot","tabby is to feline","lion is to bear","amphibian is to reptile"]},{"number":37,"stem":"Galoshes are to wet as","choices":["dress is to sunny","mittens are to cold","sponge is to water","slicker is to dry","slippers are to feet"]},{"number":38,"stem":"Unkempt is to tidy as","choices":["sterile is to clean","unavoidable is to problematic","unschooled is to educated","consumable is to organic","liberated is to dreary"]},{"number":39,"stem":"Paperclip is to staple as","choices":["paper is to glue","white-out is to mark","zipper is to rubber-band","pen is to cap","clips is to pierces"]},{"number":40,"stem":"Gridlock is to traffic as","choices":["deadlock is to negotiation","wheel is to car","lock is to chain","right is to left","stoplight is to bus"]},{"number":41,"stem":"Core is to apple as","choices":["segment is to orange","filling is to pie","fruit is to yogurt","pit is to peach","banana is to peel"]},{"number":42,"stem":"Island is to archipelago as","choices":["boat is to canal","typewriter is to key","link is to chain","dragon is to fantasy","character is to story"]},{"number":43,"stem":"Literary is to writing as","choices":["planetary is to traveling","culinary is to cooking","superfluous is to water","cerebral is to academic","scientific is to myth"]},{"number":44,"stem":"Cheetah is to fast as","choices":["coyote is to industrious","dog is to friendly","blue whale is to large","hamster is to quiet","sparrow is to rare"]},{"number":45,"stem":"Seashell is to beach as pinecone is to","choices":["desert","forest","plain","glacier","tundra"]},{"number":46,"stem":"Canopy is to forest as","choices":["crust is to earth","tent is to jungle","mountain is to apex","atmosphere is to air","head is to shoulders"]},{"number":47,"stem":"Snout is to pig as muzzle is to","choices":["rooster","mask","fish","dog","human"]},{"number":48,"stem":"Fabricate is to make as","choices":["describe is to imagine","destroy is to build","celebrate is to create","control is to observe","disassemble is to take apart"]},{"number":49,"stem":"Moon is to planet as planet is to","choices":["star","galaxy","world","sky","stratosphere"]},{"number":50,"stem":"Drop is to scatter as","choices":["up is to over","down is to around","under is to through","in is to away","beside is to beneath"]},{"number":51,"stem":"Paint is to wall as","choices":["varnish is to floor","cushion is to chair","pane is to window","drawer is to credenza","sconce is to pillar"]},{"number":52,"stem":"Album is to song as","choices":["lyric is to music","paragraph is to text","menu is to dish","page is to novel","items is to list"]},{"number":53,"stem":"Simplify is to complexity as","choices":["accessorize is to jewelry","vanquish is to obscurity","refine is to impurity","elect is to position","glorify is to renown"]},{"number":54,"stem":"Month is to year as","choices":["year is to decade","day is to week","yard is to mile","inch is to foot","minute is to hour"]},{"number":55,"stem":"Glasses are to sight as","choices":["spice is to taste","gloves are to touch","earplugs are to hearing","nose is to smell","cane is to mobility"]},{"number":56,"stem":"Freeze is to ice as","choices":["water is to shower","frost is to snow","cold is to winter","boil is to steam","sun is to warm"]},{"number":57,"stem":"Bay is to sea as","choices":["gulf is to ocean","water is to peninsula","current is to air","bridge is to bank","path is to forest"]},{"number":58,"stem":"Summarize is to analyze as","choices":["classify is to categorize","list is to combine","record is to measure","describe is to research","shorten is to understand"]},{"number":59,"stem":"Mumble is to speak as","choices":["chuckle is to laugh","nap is to dream","wail is to cry","grumble is to moan","snore is to sniffle"]},{"number":60,"stem":"Slide is to stairs as","choices":["elevator is to escalator","pole is to ladder","monkey bars are to sprinkler","playground is to bank","straw is to spoon"]}]};
+    const correctAnswers = {
+      reading: "BCDADBBBCCBACBCDAECACBBDEBDBACCDBBDDDEDC",
+      verbal: "BCEDBABDACEACECBBCCECDBDBACBCADBEADCBCEADCBCBADEABACCBEDAEAB"
+    };
+    const answerKey = "ssatMiddlePractice2Answer:";
+    const answerMemory = {};
+    let teacherUnlocked = false;
+    function choiceLabel(index, text) { return `${String.fromCharCode(65 + index)}. ${text}`; }
+    function questionNumber(question) { return Array.isArray(question) ? question[0] : question.number; }
+    function questionStem(question) { return Array.isArray(question) ? question[1] : question.stem; }
+    function questionChoices(question) { return Array.isArray(question) ? question[2] : question.choices; }
+    function questionId(section, number) { return `${section}-${number}`; }
+    function saveChoice(id, letter) {
+      answerMemory[id] = letter;
+      try { localStorage.setItem(answerKey + id, letter); } catch (error) {}
+      renderAnswerSheets();
+    }
+    function selectedChoice(id) {
+      try { return localStorage.getItem(answerKey + id) || answerMemory[id]; } catch (error) { return answerMemory[id]; }
+    }
+    function renderChoices(question, section) {
+      const number = questionNumber(question);
+      const id = questionId(section, number);
+      return questionChoices(question).map((choice, index) => {
+        const letter = String.fromCharCode(65 + index);
+        const selected = selectedChoice(id) === letter ? " selected" : "";
+        return `<button class="choice${selected}" data-question="${id}" data-letter="${letter}" type="button">${choiceLabel(index, choice)}</button>`;
+      }).join("");
+    }
+    function renderReading() {
+      document.getElementById("reading-practice").innerHTML = testData.readingGroups.map((group, index) => `
+        <article class="question-card split-card">
+          <h2>${group.title}</h2>
+          <div class="split-practice">
+            <section class="passage-panel" aria-label="${group.title} passage">
+              <div class="reader-toolbar"><button type="button" class="clear-markings">Clear Markings</button><a class="jump-button" href="#answers-section">Answer Sheet</a></div>
+              <div class="reader-container"><div class="passage">${group.passage}</div><canvas class="marking-canvas" data-mark="reading-${index}"></canvas></div>
+            </section>
+            <section class="questions-panel" aria-label="${group.title} questions">
+              ${group.questions.map(question => `<div class="question-block"><div class="question-text">${questionNumber(question)}. ${questionStem(question)}</div><div class="choices">${renderChoices(question, "reading")}</div><div class="result"></div></div>`).join("")}
+            </section>
+          </div>
+        </article>`).join("");
+    }
+    function renderVerbal() {
+      const synonyms = `<article class="question-card"><h2>Synonyms</h2><div class="verbal-grid">${testData.verbalSynonyms.map(renderVerbalQuestion).join("")}</div></article>`;
+      const analogies = `<article class="question-card"><h2>Analogies</h2><div class="verbal-grid">${testData.verbalAnalogies.map(renderVerbalQuestion).join("")}</div></article>`;
+      document.getElementById("verbal-practice").innerHTML = synonyms + analogies;
+    }
+    function renderVerbalQuestion(question) {
+      return `<div class="question-block"><div class="question-text">${question.number}. ${question.stem}</div><div class="choices">${renderChoices(question, "verbal")}</div><div class="result"></div></div>`;
+    }
+    function renderAnswerSheets() { renderAnswerGrid("reading-answers", "reading", 1, 40); renderAnswerGrid("verbal-answers", "verbal", 1, 60); }
+    function renderAnswerGrid(containerId, section, start, count) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = Array.from({length: count}, (_, i) => {
+        const number = start + i;
+        const id = questionId(section, number);
+        return `<div class="answer-card" data-question="${id}"><strong>${number}</strong><div class="bubble-row">${["A","B","C","D","E"].map(letter => `<label><input type="radio" name="answer-${containerId}-${number}" value="${letter}" ${selectedChoice(id) === letter ? "checked" : ""}> ${letter}</label>`).join("")}</div></div>`;
+      }).join("");
+      if (teacherUnlocked) gradeStudentAnswers();
+    }
+    function renderTeacherKeys() {
+      document.getElementById("reading-key").innerHTML = correctAnswers.reading.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${/[A-E]/.test(letter) ? letter : "Review"}</div>`).join("");
+      document.getElementById("verbal-key").innerHTML = correctAnswers.verbal.split("").map((letter, index) => `<div class="key-card">${index + 1}. ${/[A-E]/.test(letter) ? letter : "Review"}</div>`).join("");
+    }
+    function setupTeacherKey() {
+      const input = document.getElementById("teacher-password");
+      const button = document.getElementById("unlock-teacher-key");
+      const message = document.getElementById("teacher-message");
+      const keyPanel = document.getElementById("teacher-key");
+      function unlock() {
+        if (input.value === "shili1979") {
+          teacherUnlocked = true;
+          keyPanel.classList.add("unlocked");
+          message.textContent = "Teacher answer key unlocked.";
+          message.style.color = "#166534";
+          input.value = "";
+          gradeStudentAnswers();
+        } else {
+          teacherUnlocked = false;
+          keyPanel.classList.remove("unlocked");
+          message.textContent = "Waiting for approval from administrator Steve Liu.";
+          message.style.color = "#9f1239";
+          clearTeacherHighlights();
+        }
+      }
+      button.addEventListener("click", unlock);
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") unlock();
+      });
+    }
+    function correctLetter(section, number) {
+      return correctAnswers[section][number - 1];
+    }
+    function clearTeacherHighlights() {
+      document.querySelectorAll(".choice.incorrect").forEach(choice => choice.classList.remove("incorrect"));
+      document.querySelectorAll(".answer-card.incorrect").forEach(card => card.classList.remove("incorrect"));
+      document.querySelectorAll(".key-card.student-wrong").forEach(card => card.classList.remove("student-wrong"));
+    }
+    function gradeStudentAnswers() {
+      if (!teacherUnlocked) return;
+      clearTeacherHighlights();
+      ["reading", "verbal"].forEach(section => {
+        const total = section === "reading" ? 40 : 60;
+        for (let number = 1; number <= total; number += 1) {
+          const id = questionId(section, number);
+          const selected = selectedChoice(id);
+          const correct = correctLetter(section, number);
+          if (!/[A-E]/.test(correct) || !selected || selected === correct) continue;
+          document.querySelectorAll(`.choice[data-question="${id}"][data-letter="${selected}"]`).forEach(choice => choice.classList.add("incorrect"));
+          document.querySelector(`.answer-card[data-question="${id}"]`)?.classList.add("incorrect");
+          document.querySelector(`#${section}-key .key-card:nth-child(${number})`)?.classList.add("student-wrong");
+        }
+      });
+    }
+    function setupClassroomGuards() {
+      document.addEventListener("contextmenu", event => event.preventDefault());
+      document.addEventListener("keydown", event => {
+        const key = event.key.toLowerCase();
+        const blockedShortcut =
+          event.key === "F12" ||
+          ((event.ctrlKey || event.metaKey) && key === "u") ||
+          ((event.ctrlKey || event.metaKey) && event.shiftKey && ["i", "j", "c"].includes(key));
+        if (blockedShortcut) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      });
+    }
+    function setupSelections() {
+      document.addEventListener("click", event => {
+        const button = event.target.closest(".choice");
+        if (!button) return;
+        saveChoice(button.dataset.question, button.dataset.letter);
+        document.querySelectorAll(`.choice[data-question="${button.dataset.question}"]`).forEach(choice => choice.classList.remove("selected"));
+        button.classList.add("selected");
+        const result = button.closest(".question-block").querySelector(".result");
+        result.style.display = "block";
+        result.textContent = `You chose ${button.dataset.letter}.`;
+      });
+      document.addEventListener("change", event => {
+        if (!event.target.matches(".bubble-row input")) return;
+        const card = event.target.closest(".answer-card");
+        const id = card.dataset.question;
+        saveChoice(id, event.target.value);
+        document.querySelectorAll(`.choice[data-question="${id}"]`).forEach(choice => choice.classList.toggle("selected", choice.dataset.letter === event.target.value));
+      });
+    }
+    function setupTabs() {
+      document.querySelectorAll(".tab-button").forEach(button => button.addEventListener("click", () => {
+        document.querySelectorAll(".tab-button").forEach(tab => tab.classList.remove("active"));
+        document.querySelectorAll(".practice-section").forEach(section => section.classList.remove("active"));
+        button.classList.add("active");
+        document.getElementById(button.dataset.target).classList.add("active");
+        document.querySelector("main").scrollIntoView({behavior: "smooth", block: "start"});
+        setTimeout(resizeAllCanvases, 80);
+      }));
+    }
+    function setupMarkingTools() { document.querySelectorAll(".question-card").forEach(setupMarkingTool); }
+    function setupMarkingTool(card) {
+      const container = card.querySelector(".reader-container");
+      const canvas = card.querySelector(".marking-canvas");
+      if (!container || !canvas) return;
+      const clearButton = card.querySelector(".clear-markings");
+      const ctx = canvas.getContext("2d");
+      let drawing = false;
+      function resizeCanvas() {
+        const saved = canvas.toDataURL();
+        const rect = container.getBoundingClientRect();
+        const scale = window.devicePixelRatio || 1;
+        canvas.width = Math.max(1, Math.round(rect.width * scale));
+        canvas.height = Math.max(1, Math.round(rect.height * scale));
+        canvas.style.width = rect.width + "px";
+        canvas.style.height = rect.height + "px";
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "red";
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        if (saved && !saved.includes("AAAA")) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, rect.width, rect.height); img.src = saved; }
+      }
+      function pointFromEvent(event) { const rect = canvas.getBoundingClientRect(); return {x: event.clientX - rect.left, y: event.clientY - rect.top}; }
+      resizeCanvas();
+      canvas.addEventListener("pointerdown", event => { drawing = true; canvas.setPointerCapture(event.pointerId); const p = pointFromEvent(event); ctx.beginPath(); ctx.moveTo(p.x, p.y); });
+      canvas.addEventListener("pointermove", event => { if (!drawing) return; const p = pointFromEvent(event); ctx.lineTo(p.x, p.y); ctx.stroke(); });
+      canvas.addEventListener("pointerup", () => drawing = false);
+      canvas.addEventListener("pointercancel", () => drawing = false);
+      clearButton.addEventListener("click", () => ctx.clearRect(0, 0, canvas.width, canvas.height));
+      canvas._resizeMarking = resizeCanvas;
+    }
+    function resizeAllCanvases() { document.querySelectorAll(".marking-canvas").forEach(canvas => canvas._resizeMarking && canvas._resizeMarking()); }
+    renderReading(); renderVerbal(); renderAnswerSheets(); renderTeacherKeys(); setupSelections(); setupTabs(); setupTeacherKey(); setupClassroomGuards(); setupMarkingTools(); window.addEventListener("resize", resizeAllCanvases);
+  </script>
+</body>
+</html>
