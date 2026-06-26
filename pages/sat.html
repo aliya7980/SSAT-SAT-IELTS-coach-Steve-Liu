@@ -5,8 +5,238 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SAT Practice | Steve Liu</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background: #f7f3eb;
+      color: #1f2933;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: #102a43;
+      color: #fff;
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+      position: static;
+      width: auto;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #fff;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .page-header {
+      background: linear-gradient(rgba(16, 42, 67, 0.82), rgba(16, 42, 67, 0.82)),
+                  url("../sat image.jpg");
+      background-position: center;
+      background-size: cover;
+      color: #fff;
+      min-height: 430px;
+      padding: 90px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .page-header h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      max-width: 760px;
+    }
+
+    .page-header p {
+      color: #f3f4f6;
+      font-size: 20px;
+      max-width: 680px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 8%;
+    }
+
+    .card {
+      background: white;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 32px;
+      padding: 42px;
+    }
+
+    .card h2 {
+      color: #102a43;
+      font-size: 32px;
+      margin-bottom: 22px;
+    }
+
+    .clean-list {
+      margin-left: 20px;
+    }
+
+    .clean-list li {
+      color: #243b53;
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #d4af37;
+      border-radius: 4px;
+      color: #102a43;
+      font-weight: 700;
+      margin-top: 8px;
+      padding: 12px 20px;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    .course-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px 0 28px;
+    }
+
+    .course-tab {
+      background: #f7f3eb;
+      border: 1px solid #d9c9a7;
+      border-radius: 4px;
+      color: #102a43;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 700;
+      padding: 12px 16px;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .course-tab.active {
+      background: #102a43;
+      border-color: #102a43;
+      color: white;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .content-block {
+      background: white;
+      border-top: 5px solid #d4af37;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      padding: 34px;
+    }
+
+    .content-block h3 {
+      color: #102a43;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+
+    .content-block p {
+      color: #3e4c59;
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    .content-block a:not(.button) {
+      border-bottom: 2px solid #d4af37;
+      color: #102a43;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .content-block a:not(.button):hover {
+      color: #d4af37;
+    }
+
+    .final-cta {
+      background: #102a43;
+      color: white;
+      text-align: center;
+    }
+
+    .final-cta h2 {
+      color: white;
+    }
+
+    .final-cta p {
+      color: #e5e7eb;
+      font-size: 19px;
+      margin-bottom: 22px;
+    }
+
+    footer {
+      background: #081826;
+      color: #e5e7eb;
+      text-align: center;
+      padding: 24px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .page-header {
+        min-height: 400px;
+        padding: 60px 8%;
+      }
+
+      .page-header h1 {
+        font-size: 36px;
+      }
+
+      .card,
+      .content-block {
+        padding: 28px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -14,7 +244,7 @@
     <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
 
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
+      <li><a href="../index.html">Home</a></li>
       <li><a href="services.html">Test Prep</a></li>
       <li><a href="readingtips.html">Reading</a></li>
       <li><a href="reading_summary.html">Homework</a></li>
@@ -43,10 +273,17 @@
     <section class="card">
       <h2>Course Content</h2>
 
-      <div class="content-block">
+      <div class="course-tabs" role="tablist" aria-label="SAT course content">
+        <button class="course-tab active" type="button" role="tab" aria-selected="true" aria-controls="reading-writing" id="tab-reading-writing" data-tab="reading-writing">Reading & Writing</button>
+        <button class="course-tab" type="button" role="tab" aria-selected="false" aria-controls="math" id="tab-math" data-tab="math">Math</button>
+        <button class="course-tab" type="button" role="tab" aria-selected="false" aria-controls="digital-strategies" id="tab-digital-strategies" data-tab="digital-strategies">Digital SAT</button>
+      </div>
+
+      <div class="tab-panel active content-block" id="reading-writing" role="tabpanel" aria-labelledby="tab-reading-writing">
         <h3>Reading & Writing Section</h3>
         <ul class="clean-list">
           <li>Reading comprehension for literature, history, social science, and science passages</li>
+          <li><a href="SAT/word_in_context_tips.html">Word-in-context tips</a></li>
           <li><a href="word_in_context.html">Word-in-context and command of evidence strategies</a></li>
           <li><a href="text_structure_and_purpose.html">Text structure and purpose</a></li>
           <li><a href="cross_text_connections.html">Cross text connections</a></li>
@@ -55,7 +292,7 @@
         </ul>
       </div>
 
-      <div class="content-block">
+      <div class="tab-panel content-block" id="math" role="tabpanel" aria-labelledby="tab-math">
         <h3>Math Section</h3>
         <ul class="clean-list">
           <li>Algebra, advanced math, problem-solving, and data analysis</li>
@@ -65,7 +302,7 @@
         </ul>
       </div>
 
-      <div class="content-block">
+      <div class="tab-panel content-block" id="digital-strategies" role="tabpanel" aria-labelledby="tab-digital-strategies">
         <h3>Digital SAT Strategies</h3>
         <ul class="clean-list">
           <li>Adaptive test format and question-level strategy</li>
@@ -90,5 +327,22 @@
   <footer>
     <p>&copy; 2025 Steve Liu. All rights reserved.</p>
   </footer>
+  <script>
+    document.querySelectorAll(".course-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.tab;
+
+        document.querySelectorAll(".course-tab").forEach((button) => {
+          const isActive = button === tab;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-selected", String(isActive));
+        });
+
+        document.querySelectorAll(".tab-panel").forEach((panel) => {
+          panel.classList.toggle("active", panel.id === target);
+        });
+      });
+    });
+  </script>
 </body>
 </html>

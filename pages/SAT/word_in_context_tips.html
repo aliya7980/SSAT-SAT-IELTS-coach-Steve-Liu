@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT Word-in-Context Tips | HuskyDaddy</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f7f3eb;
+      color: #1f2933;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      align-items: center;
+      background: #102a43;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 8%;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: white;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: #d4af37;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(16, 42, 67, 0.82), rgba(16, 42, 67, 0.82)),
+                  url("../../sat image.jpg");
+      background-position: center;
+      background-size: cover;
+      color: white;
+      min-height: 420px;
+      padding: 90px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      max-width: 760px;
+    }
+
+    .hero p {
+      color: #f3f4f6;
+      font-size: 20px;
+      max-width: 720px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 70px 8%;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
+      margin-bottom: 32px;
+      padding: 42px;
+    }
+
+    .card h2 {
+      color: #102a43;
+      font-size: 32px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      color: #102a43;
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    .card p,
+    .card li {
+      color: #3e4c59;
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .label {
+      background: #f7f3eb;
+      border-left: 4px solid #d4af37;
+      color: #243b53;
+      display: inline-block;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+    }
+
+    .example-box,
+    .tip-box {
+      background: #f7f3eb;
+      border-left: 5px solid #d4af37;
+      margin-top: 20px;
+      padding: 22px;
+    }
+
+    .choices {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+      list-style: none;
+      margin-top: 16px;
+      padding: 0;
+    }
+
+    .choices li {
+      background: white;
+      border: 1px solid #e4d8c2;
+      border-radius: 4px;
+      color: #243b53;
+      margin: 0;
+      padding: 12px;
+    }
+
+    .choices strong {
+      color: #102a43;
+      margin-right: 6px;
+    }
+
+    .steps,
+    .tips {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 22px;
+    }
+
+    .tips {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tip-box {
+      margin-top: 0;
+    }
+
+    .tip-box strong {
+      color: #102a43;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .button {
+      background: #d4af37;
+      border-radius: 4px;
+      color: #102a43;
+      display: inline-block;
+      font-weight: bold;
+      margin-top: 12px;
+      padding: 12px 20px;
+      text-decoration: none;
+    }
+
+    .button:hover {
+      background: #c19a2e;
+    }
+
+    footer {
+      background: #081826;
+      color: #e5e7eb;
+      font-size: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        min-height: 360px;
+        padding: 60px 8%;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .card {
+        padding: 28px;
+      }
+
+      .choices,
+      .steps,
+      .tips {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Steve Liu | SAT/SSAT/ACT Coach</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../sat.html">SAT</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <h1>SAT Word-in-Context Tips</h1>
+    <p>Learn how to use clues, tone, and sentence structure to choose the most precise word on the Digital SAT.</p>
+  </section>
+
+  <main class="container">
+    <section class="card">
+      <span class="label">SAT Reading and Writing · Craft and Structure</span>
+      <h2>What Are Word-in-Context Questions?</h2>
+      <p>
+        Word-in-context questions ask you to select the most logical and precise word or phrase for a sentence.
+        The correct answer fits the meaning of the passage exactly. It does not merely sound good.
+      </p>
+      <p>
+        These questions test reading comprehension as much as vocabulary. Your job is to understand what the
+        sentence is saying, then choose the word that reinforces that meaning.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>SAT-Style Example</h2>
+      <div class="example-box">
+        <p>
+          In recommending Bao Phi's collection <em>Song I Sing</em>, a librarian noted that pieces by the
+          spoken-word poet do not lose their ______ nature when printed: the language has the same pleasant
+          musical quality on the page as it does when performed.
+        </p>
+        <p><strong>Which choice completes the text with the most logical and precise word?</strong></p>
+        <ul class="choices">
+          <li><strong>A.</strong>jarring</li>
+          <li><strong>B.</strong>scholarly</li>
+          <li><strong>C.</strong>melodic</li>
+          <li><strong>D.</strong>personal</li>
+        </ul>
+      </div>
+      <p>
+        The clue is "pleasant musical quality." The word that best matches that clue is <strong>melodic</strong>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>How to Approach These Questions</h2>
+      <div class="steps">
+        <div class="tip-box">
+          <strong>1. Summarize the sentence</strong>
+          Put the sentence into simpler words before looking too closely at the answers.
+        </div>
+        <div class="tip-box">
+          <strong>2. Find the clue</strong>
+          Look for a nearby synonym, restatement, colon, or transition that explains the blank.
+        </div>
+        <div class="tip-box">
+          <strong>3. Match the meaning</strong>
+          Pick the word that supports the passage. Eliminate choices that add a new idea or change the tone.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Top Tips</h2>
+      <div class="tips">
+        <div class="tip-box">
+          <strong>Check the charge</strong>
+          Decide whether the sentence feels positive, negative, or neutral. The answer should match that tone.
+        </div>
+        <div class="tip-box">
+          <strong>Reuse the text</strong>
+          Search for words or phrases in the passage that say the same idea in a different way.
+        </div>
+        <div class="tip-box">
+          <strong>Pay attention to colons</strong>
+          A colon often introduces an explanation. If the blank comes before a colon, the clue may come after it.
+        </div>
+        <div class="tip-box">
+          <strong>Lean on transitions</strong>
+          Words like "however," "although," and "regardless" signal contrast. The answer may need to reverse the first idea.
+        </div>
+        <div class="tip-box">
+          <strong>Do not choose hard words just because</strong>
+          An unfamiliar answer is not automatically correct. Use the words you know to eliminate bad choices first.
+        </div>
+        <div class="tip-box">
+          <strong>Look for roots</strong>
+          If a word is unfamiliar, check whether you know a related form of the word.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Your Turn</h2>
+      <p>
+        The following text is from F. Scott Fitzgerald's 1925 novel <em>The Great Gatsby</em>.
+      </p>
+      <div class="example-box">
+        <p>
+          Gatsby's restless movement was continually breaking through his punctilious manner.
+        </p>
+        <p><strong>As used in the text, what does "quality" most nearly mean?</strong></p>
+        <ul class="choices">
+          <li><strong>A.</strong>Characteristic</li>
+          <li><strong>B.</strong>Standard</li>
+          <li><strong>C.</strong>Prestige</li>
+          <li><strong>D.</strong>Accomplishment</li>
+        </ul>
+      </div>
+      <a class="button" href="../word_in_context.html">Practice Word-in-Context Questions</a>
+      <a class="button" href="../sat.html">Back to SAT Course</a>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Steve Liu. All rights reserved.
+  </footer>
+</body>
+</html>
