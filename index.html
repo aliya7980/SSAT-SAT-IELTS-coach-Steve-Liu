@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>HuskyDaddy | SAT, SSAT, Reading & Writing Tutor</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personalized SSAT, SAT, English reading, and math tutoring with Steve Liu.">
+  <title>HuskyDaddy | SSAT, SAT, English Reading & Math</title>
   <style>
     :root {
-      --navy: #102a43;
-      --navy-deep: #071f36;
-      --blue: #1d4f73;
-      --frost: #7db7d8;
-      --silver: #c9d8e4;
-      --cream: #eef6fb;
-      --snow: #ffffff;
-      --paper: #ffffff;
-      --ice: #e3f0f7;
-      --sage: #6d8f9b;
-      --ink: #1f2933;
-      --muted: #52606d;
-      --line: rgba(16, 42, 67, 0.14);
-      --shadow: 0 18px 45px rgba(16, 42, 67, 0.13);
+      --navy: #0a2942;
+      --navy-deep: #061b2d;
+      --blue: #17658b;
+      --ice: #eaf4f8;
+      --white: #ffffff;
+      --ink: #1d2b36;
+      --muted: #526370;
+      --gold: #d3a84b;
+      --line: rgba(10, 41, 66, 0.14);
+      --shadow: 0 18px 42px rgba(10, 41, 66, 0.14);
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
@@ -35,10 +30,10 @@
     }
 
     body {
-      font-family: Georgia, "Times New Roman", serif;
-      background: var(--snow);
-      color: var(--navy);
-      line-height: 1.65;
+      background: var(--white);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
     }
 
     a {
@@ -47,881 +42,502 @@
     }
 
     .navbar {
-      width: 100%;
-      background: rgba(7, 31, 54, 0.98);
-      color: white;
-      padding: 16px 7%;
+      align-items: center;
+      background: var(--navy-deep);
+      color: var(--white);
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      min-height: 72px;
+      padding: 12px 7%;
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+      z-index: 10;
     }
 
-    .logo {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
+    .brand strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
       letter-spacing: 0.2px;
     }
 
-    .logo strong {
-      font-size: 28px;
-    }
-
-    .logo span {
-      color: #dbe7ef;
-      font-size: 13px;
-      margin-top: 4px;
+    .brand span {
+      color: #cfe0ea;
+      display: block;
+      font-size: 12px;
+      margin-top: 2px;
     }
 
     .nav-links {
-      list-style: none;
-      display: flex;
       align-items: center;
-      gap: 28px;
-      flex-wrap: wrap;
+      display: flex;
+      gap: 24px;
+      list-style: none;
     }
 
     .nav-links a {
-      color: #f7fbff;
+      color: #f4f9fb;
       font-size: 15px;
       font-weight: 700;
-      padding-bottom: 6px;
-      border-bottom: 2px solid transparent;
-      transition: 0.2s ease;
     }
 
-    .nav-links a:hover {
-      color: var(--frost);
-      border-bottom-color: var(--frost);
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: #8fd0ed;
     }
 
     .hero {
-      min-height: 660px;
       background:
-        linear-gradient(90deg, rgba(239,247,252,0.99) 0%, rgba(239,247,252,0.88) 44%, rgba(239,247,252,0.08) 68%),
-        url("images/husky-sled-hero.jpeg");
-      background-size: cover;
-      background-position: center right;
-      display: flex;
-      align-items: center;
-      padding: 82px 7% 56px;
+        linear-gradient(90deg, rgba(6, 27, 45, 0.97) 0%, rgba(6, 27, 45, 0.88) 45%, rgba(6, 27, 45, 0.18) 72%),
+        url("./assets/images/content/huskystudy.jpeg") center / cover no-repeat;
+      min-height: 440px;
+      padding: 62px 7% 52px;
     }
 
     .hero-content {
-      max-width: 720px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--blue);
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 42px;
-      height: 2px;
-      background: var(--frost);
-    }
-
-    .hero h1 {
-      color: var(--navy-deep);
-      font-size: 56px;
-      line-height: 1.08;
-      margin-bottom: 24px;
       max-width: 680px;
     }
 
-    .hero p {
-      color: var(--ink);
-      font-size: 21px;
-      max-width: 620px;
-      margin-bottom: 28px;
-    }
-
-    .mission-line {
-      color: #173b5a;
-      font-size: 19px;
+    .eyebrow {
+      color: #efc875;
+      font-size: 14px;
       font-weight: 800;
-      margin: -8px 0 28px;
-      padding-left: 18px;
-      border-left: 4px solid var(--frost);
+      letter-spacing: 1.3px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
     }
 
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
+    h1 {
+      color: var(--white);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 5vw, 62px);
+      line-height: 1.06;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #e2edf3;
+      font-size: 20px;
+      margin-bottom: 24px;
+      max-width: 600px;
     }
 
     .button {
-      display: inline-flex;
       align-items: center;
+      background: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: 7px;
+      color: var(--white);
+      display: inline-flex;
+      font-weight: 800;
       justify-content: center;
       min-height: 48px;
-      padding: 13px 24px;
-      border-radius: 4px;
-      font-weight: 800;
-      transition: 0.2s ease;
-      border: 1px solid transparent;
+      padding: 11px 21px;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
-    .button-primary {
-      background: var(--navy);
-      color: white;
-      box-shadow: 0 12px 24px rgba(16, 42, 67, 0.22);
-    }
-
-    .button-primary:hover {
-      background: #0d3a5b;
+    .button:hover,
+    .button:focus-visible {
+      background: var(--blue);
+      border-color: var(--blue);
       transform: translateY(-2px);
     }
 
-    .button-secondary {
-      background: rgba(255, 255, 255, 0.72);
-      color: var(--navy);
-      border-color: rgba(16, 42, 67, 0.22);
+    .services {
+      margin: -34px auto 0;
+      max-width: 1240px;
+      padding: 0 4% 64px;
+      position: relative;
     }
 
-    .button-secondary:hover {
-      border-color: var(--frost);
-      color: #0d3a5b;
-    }
-
-    .hero-proof {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(150px, 1fr));
-      gap: 14px;
-      max-width: 700px;
-    }
-
-    .proof-item {
-      background: rgba(255, 255, 255, 0.88);
-      border: 1px solid rgba(16, 42, 67, 0.12);
-      border-left: 4px solid var(--frost);
-      padding: 15px 18px;
-      box-shadow: 0 10px 24px rgba(16, 42, 67, 0.08);
-    }
-
-    .proof-item strong {
-      display: block;
-      color: var(--navy-deep);
-      font-size: 22px;
-      line-height: 1.2;
-    }
-
-    .proof-item span {
-      color: var(--muted);
-      display: block;
-      font-size: 14px;
-      margin-top: 4px;
-    }
-
-    .section {
-      padding: 76px 7%;
-    }
-
-    .section-inner {
-      max-width: 1180px;
-      margin: 0 auto;
+    .services-panel {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 30px;
     }
 
     .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 28px;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
+      text-align: center;
     }
 
     .section-heading h2 {
       color: var(--navy-deep);
-      font-size: 36px;
-      line-height: 1.2;
-      max-width: 620px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(29px, 3vw, 39px);
+      margin-bottom: 6px;
     }
 
     .section-heading p {
       color: var(--muted);
       font-size: 17px;
-      max-width: 430px;
     }
 
-    .programs {
-      background: #ffffff;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .mission {
-      background: var(--navy-deep);
-      color: white;
-      padding-top: 72px;
-      padding-bottom: 76px;
-    }
-
-    .mission .section-heading h2 {
-      color: white;
-    }
-
-    .mission .section-heading p {
-      color: #c9d8e4;
-    }
-
-    .mission-grid {
+    .service-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr 0.9fr;
       gap: 18px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .mission-card {
-      position: relative;
-      min-height: 360px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #102a43;
-      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.28);
+    .service-card {
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--gold);
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      min-height: 218px;
+      padding: 23px 20px 20px;
     }
 
-    .mission-card img {
-      position: absolute;
-      inset: 0;
+    .service-card h3 {
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      margin-bottom: 9px;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 18px;
+    }
+
+    .service-card .button {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: saturate(0.95) contrast(1.05);
     }
 
-    .mission-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(7,31,54,0.12), rgba(7,31,54,0.86));
+    .quick-info {
+      align-items: center;
+      background: var(--ice);
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      padding: 34px 7%;
+      text-align: center;
     }
 
-    .mission-card-large {
-      min-height: 470px;
-      grid-row: span 2;
-    }
-
-    .mission-copy {
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 24px;
-      z-index: 2;
-    }
-
-    .mission-copy span {
-      display: inline-block;
-      color: #bde6fb;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 1.3px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    .mission-copy h3 {
-      font-size: 30px;
-      line-height: 1.14;
-      margin-bottom: 8px;
-    }
-
-    .mission-card:not(.mission-card-large) .mission-copy h3 {
+    .quick-info strong {
+      color: var(--navy);
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
       font-size: 24px;
     }
 
-    .mission-copy p {
-      color: #e7eef5;
-      font-size: 16px;
-      max-width: 530px;
-    }
-
-    .program-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .program-card {
-      background: var(--paper);
-      border: 1px solid rgba(16, 42, 67, 0.12);
-      border-top: 4px solid var(--frost);
-      border-radius: 8px;
-      padding: 24px;
-      min-height: 220px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .program-card::before {
-      content: "";
-      display: block;
-      height: 5px;
-      width: 72px;
-      background: var(--ice);
-      margin-bottom: 16px;
-    }
-
-    .program-card h3 {
-      color: var(--navy-deep);
-      font-size: 23px;
-      margin-bottom: 12px;
-    }
-
-    .program-card p {
-      color: #35495c;
-      font-size: 16px;
-      margin-bottom: 18px;
-    }
-
-    .program-card a {
-      color: #0d4d78;
-      font-weight: 800;
-      border-bottom: 1px solid rgba(13, 77, 120, 0.28);
-    }
-
-    .result-band {
-      background: var(--navy);
-      color: white;
-    }
-
-    .result-layout {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 42px;
-      align-items: center;
-    }
-
-    .result-copy .eyebrow {
-      color: #bde6fb;
-    }
-
-    .result-copy h2 {
-      font-size: 38px;
-      line-height: 1.2;
-      margin-bottom: 18px;
-      max-width: 640px;
-    }
-
-    .result-copy p {
-      color: #e5edf3;
-      font-size: 18px;
-      margin-bottom: 18px;
-      max-width: 650px;
-    }
-
-    .result-copy .button {
-      margin-top: 8px;
-      background: #d8eef9;
-      color: #102a43;
-    }
-
-    .score-preview {
-      background: white;
-      border-radius: 8px;
-      padding: 10px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-    }
-
-    .score-preview img {
-      display: block;
-      width: 100%;
-      border-radius: 4px;
-      filter: grayscale(1) contrast(1.08) brightness(1.02);
+    .quick-info span {
+      color: var(--muted);
+      font-size: 14px;
     }
 
     .about {
-      background: #ffffff;
+      padding: 72px 7%;
     }
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 300px 1fr;
-      gap: 48px;
+    .about-inner {
       align-items: center;
+      display: grid;
+      gap: clamp(34px, 6vw, 76px);
+      grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+      margin: 0 auto;
+      max-width: 1120px;
+    }
+
+    .about-photo-wrap {
+      position: relative;
+    }
+
+    .about-photo-wrap::before {
+      background: var(--gold);
+      border-radius: 12px;
+      content: "";
+      inset: 18px -18px -18px 18px;
+      opacity: 0.3;
+      position: absolute;
     }
 
     .about-photo {
-      width: 300px;
-      height: 300px;
-      border-radius: 8px;
-      object-fit: cover;
+      aspect-ratio: 4 / 5;
+      border-radius: 12px;
       box-shadow: var(--shadow);
+      display: block;
+      object-fit: cover;
+      object-position: center 28%;
+      position: relative;
+      width: 100%;
+    }
+
+    .about-copy .eyebrow {
+      color: var(--blue);
     }
 
     .about-copy h2 {
-      font-size: 36px;
       color: var(--navy-deep);
-      margin-bottom: 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.12;
+      margin-bottom: 18px;
     }
 
     .about-copy p {
-      color: #334e68;
-      font-size: 18px;
-      margin-bottom: 16px;
-      max-width: 760px;
-    }
-
-    .teaching-points {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 26px;
-    }
-
-    .teaching-point {
-      background: var(--paper);
-      border: 1px solid rgba(16, 42, 67, 0.12);
-      border-radius: 8px;
-      padding: 20px;
-    }
-
-    .teaching-point strong {
-      color: var(--navy-deep);
-      display: block;
-      font-size: 17px;
-      margin-bottom: 6px;
-    }
-
-    .teaching-point span {
       color: var(--muted);
-      font-size: 15px;
-    }
-
-    .method {
-      background:
-        linear-gradient(rgba(248,251,253,0.90), rgba(248,251,253,0.92)),
-        url("images/husky-resting.jpeg");
-      background-size: cover;
-      background-position: center;
-      border-top: 1px solid var(--line);
-    }
-
-    .method-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .method-card {
-      background: rgba(255, 255, 255, 0.94);
-      border: 1px solid rgba(16, 42, 67, 0.12);
-      border-radius: 8px;
-      padding: 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .method-card h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: var(--navy-deep);
-    }
-
-    .method-card p {
-      color: #35495c;
-      font-size: 16px;
-    }
-
-    .cta {
-      background:
-        linear-gradient(90deg, rgba(7,31,54,0.9), rgba(16,42,67,0.72)),
-        url("images/unwaveringhuskies.jpeg");
-      background-size: cover;
-      background-position: center;
-      border-top: 1px solid var(--line);
-      text-align: center;
-      color: white;
-    }
-
-    .cta h2 {
-      color: white;
-      font-size: 36px;
-      margin-bottom: 14px;
-    }
-
-    .cta p {
-      color: #e7eef5;
       font-size: 18px;
-      max-width: 680px;
-      margin: 0 auto 24px;
+      margin-bottom: 15px;
+    }
+
+    .about-highlights {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin: 25px 0;
+    }
+
+    .about-highlight {
+      background: var(--ice);
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      padding: 14px 16px;
+    }
+
+    .about-highlight strong {
+      color: var(--navy);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .about-highlight span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact {
+      padding: 54px 7%;
+      text-align: center;
+    }
+
+    .contact h2 {
+      color: var(--navy-deep);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 3vw, 38px);
+      margin-bottom: 10px;
+    }
+
+    .contact p {
+      color: var(--muted);
+      margin: 0 auto 20px;
+      max-width: 580px;
     }
 
     footer {
-      padding: 28px 7%;
-      color: white;
-      text-align: center;
       background: var(--navy-deep);
-      font-size: 16px;
+      color: #d6e3eb;
+      padding: 24px 7%;
+      text-align: center;
     }
 
-    .visitor-card {
-      margin-top: 10px;
-      color: #dbe7ef;
-      font-size: 13px;
-    }
-
-    @media (max-width: 1050px) {
-      .navbar {
-        flex-direction: column;
-        gap: 14px;
-      }
-
-      .nav-links {
-        justify-content: center;
-        gap: 18px;
+    @media (max-width: 900px) {
+      .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .hero {
         background:
-          linear-gradient(rgba(239,247,252,0.93), rgba(239,247,252,0.9)),
-          url("images/husky-sled-hero.jpeg");
-        background-size: cover;
-        background-position: center;
+          linear-gradient(rgba(6, 27, 45, 0.84), rgba(6, 27, 45, 0.9)),
+          url("./assets/images/content/huskystudy.jpeg") center / cover no-repeat;
       }
 
-      .program-grid,
-      .method-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .mission-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .mission-card-large {
-        grid-column: span 2;
-        grid-row: auto;
-      }
-
-      .result-layout,
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about-photo {
-        width: 240px;
-        height: 240px;
+      .about-inner {
+        grid-template-columns: 0.8fr 1.2fr;
       }
     }
 
-    @media (max-width: 700px) {
-      .hero {
-        min-height: auto;
-        padding: 58px 6%;
+    @media (max-width: 640px) {
+      .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
       }
 
-      .hero h1 {
-        font-size: 38px;
+      .nav-links {
+        gap: 15px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        width: 100%;
+      }
+
+      .hero {
+        min-height: 380px;
+        padding: 50px 6% 58px;
       }
 
       .hero p {
         font-size: 18px;
       }
 
-      .hero-proof,
-      .program-grid,
-      .method-grid,
-      .teaching-points,
-      .mission-grid {
+      .services {
+        padding-left: 5%;
+        padding-right: 5%;
+      }
+
+      .services-panel {
+        padding: 22px 16px;
+      }
+
+      .service-grid {
         grid-template-columns: 1fr;
       }
 
-      .mission-card,
-      .mission-card-large {
-        min-height: 330px;
-        grid-column: auto;
+      .service-card {
+        min-height: 190px;
       }
 
-      .section {
+      .quick-info {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .about {
         padding: 56px 6%;
       }
 
-      .section-heading {
-        display: block;
+      .about-inner {
+        grid-template-columns: 1fr;
       }
 
-      .section-heading h2,
-      .about-copy h2,
-      .result-copy h2,
-      .cta h2 {
-        font-size: 30px;
+      .about-photo-wrap {
+        margin: 0 auto;
+        max-width: 390px;
       }
 
-      .section-heading p {
-        margin-top: 12px;
+      .about-highlights {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
-
 <body>
-  <nav class="navbar">
-    <a class="logo" href="#home" aria-label="HuskyDaddy home">
+  <nav class="navbar" aria-label="Main navigation">
+    <a class="brand" href="index.html">
       <strong>HuskyDaddy</strong>
-      <span>SAT, SSAT, Reading & Writing Coaching</span>
+      <span>Steve Liu · Personalized Tutoring</span>
     </a>
-
     <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="pages/services.html">Test Prep</a></li>
-      <li><a href="pages/readingtips.html">Reading</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="pages/clients.html">Results</a></li>
-      <li><a href="pages/miscellaneous/index.html">Miscellaneous</a></li>
       <li><a href="pages/contact.html">Contact</a></li>
     </ul>
   </nav>
 
   <main>
-    <section id="home" class="hero">
+    <section class="hero">
       <div class="hero-content">
-        <div class="eyebrow">Private Academic Coaching</div>
-        <h1>Expert SAT, SSAT, Reading & Writing Tutoring</h1>
-        <p>
-          Structured one-on-one coaching for students who need stronger test strategy,
-          sharper reading skills, and more confident academic writing.
-        </p>
-
-        <div class="mission-line">
-          Like a sled team in deep snow, strong students move forward through focus,
-          discipline, and refusal to quit.
-        </div>
-
-        <div class="hero-actions">
-          <a class="button button-primary" href="pages/contact.html">Book a Consultation</a>
-          <a class="button button-secondary" href="pages/services.html">View Programs</a>
-        </div>
-
-        <div class="hero-proof" aria-label="Teaching credentials">
-          <div class="proof-item">
-            <strong>20+ Years</strong>
-            <span>Teaching experience</span>
-          </div>
-          <div class="proof-item">
-            <strong>5000+</strong>
-            <span>Students guided</span>
-          </div>
-          <div class="proof-item">
-            <strong>SAT / SSAT</strong>
-            <span>Reading, writing, verbal, and test strategy</span>
-          </div>
-        </div>
+        <div class="eyebrow">Intelligence · Tenacity · Study Spirit</div>
+        <h1>Think deeper. Keep going.</h1>
+        <p>Personalized SSAT, SAT, English reading, and math tutoring with Steve Liu.</p>
+        <a class="button" href="#services">Choose a Service</a>
       </div>
     </section>
 
-    <section class="section mission">
-      <div class="section-inner">
+    <section class="services" id="services">
+      <div class="services-panel">
         <div class="section-heading">
-          <h2>The HuskyDaddy mission: keep moving when the work gets hard</h2>
-          <p>
-            SAT and SSAT improvement is not magic. It is training: steady effort,
-            sharp feedback, and the courage to face hard questions again.
-          </p>
+          <h2>Main Services</h2>
+          <p>Choose the area your student needs.</p>
         </div>
 
-        <div class="mission-grid">
-          <article class="mission-card mission-card-large">
-            <img src="images/unwaveringhuskies.jpeg" alt="Husky sled team pushing through snow">
-            <div class="mission-copy">
-              <span>Perseverance</span>
-              <h3>When the trail is difficult, the team keeps pulling.</h3>
-              <p>
-                Students learn to stay calm with hard passages, confusing answer choices,
-                and long preparation cycles.
-              </p>
-            </div>
+        <div class="service-grid">
+          <article class="service-card">
+            <h3>SSAT</h3>
+            <p>Verbal, reading, vocabulary, test strategy, and SSAT math preparation.</p>
+            <a class="button" href="pages/ssat.html">View SSAT</a>
           </article>
 
-          <article class="mission-card">
-            <img src="images/husky-sled-hero.jpeg" alt="Huskies running together across snow">
-            <div class="mission-copy">
-              <span>Tenacity</span>
-              <h3>Progress is built one disciplined run at a time.</h3>
-              <p>Every lesson turns weak skills into repeatable test habits.</p>
-            </div>
+          <article class="service-card">
+            <h3>SAT</h3>
+            <p>Digital SAT reading, writing, vocabulary, grammar, and exam strategy.</p>
+            <a class="button" href="pages/sat.html">View SAT</a>
           </article>
 
-          <article class="mission-card">
-            <img src="images/husky-resting.jpeg" alt="Husky resting in snow with focused eyes">
-            <div class="mission-copy">
-              <span>Direction</span>
-              <h3>Rest, refocus, and return to the trail.</h3>
-              <p>Students follow a structured plan: read, think, practice, review, grow.</p>
-            </div>
+          <article class="service-card">
+            <h3>English Language Arts (ELA)</h3>
+            <p>Active reading, comprehension, literature, inference, and summary skills.</p>
+            <a class="button" href="pages/readingtips.html">View Reading</a>
+          </article>
+
+          <article class="service-card">
+            <h3>Math</h3>
+            <p>Arithmetic, algebra, geometry, ratios, word problems, and test practice.</p>
+            <a class="button" href="pages/SSAT/MATH/index.html">View Math</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section programs" id="programs">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2>Focused programs for students preparing for the next climb</h2>
-          <p>
-            Each course is built around diagnosis, targeted skill practice, review,
-            and measurable progress.
-          </p>
-        </div>
-
-        <div class="program-grid">
-          <article class="program-card">
-            <h3>SAT Reading & Writing</h3>
-            <p>Evidence, grammar patterns, transitions, vocabulary in context, and timed section strategy.</p>
-            <a href="pages/services.html">Explore SAT prep</a>
-          </article>
-
-          <article class="program-card">
-            <h3>SSAT Verbal & Reading</h3>
-            <p>Synonyms, analogies, passage mapping, and disciplined answer elimination.</p>
-            <a href="pages/SSAT/passage_mapping_active_reading.html">Practice SSAT skills</a>
-          </article>
-
-          <article class="program-card">
-            <h3>Academic Reading</h3>
-            <p>Active reading habits for literature, nonfiction, inference, tone, structure, and evidence.</p>
-            <a href="pages/readingtips.html">Read strategies</a>
-          </article>
-
-          <article class="program-card">
-            <h3>Writing Coaching</h3>
-            <p>Clear arguments, stronger organization, sentence control, editing habits, and essay support.</p>
-            <a href="pages/contact.html">Ask about writing</a>
-          </article>
-        </div>
+    <section class="quick-info" aria-label="Teaching experience">
+      <div>
+        <strong>20+ Years</strong>
+        <span>Teaching experience</span>
+      </div>
+      <div>
+        <strong>5000+ Students</strong>
+        <span>Guided through learning and test preparation</span>
+      </div>
+      <div>
+        <strong>Personalized</strong>
+        <span>Lessons based on each student's needs</span>
       </div>
     </section>
 
-    <section class="section result-band">
-      <div class="section-inner result-layout">
-        <div class="result-copy">
-          <div class="eyebrow">Student Results</div>
-          <h2>High standards, calm coaching, and visible progress.</h2>
-          <p>
-            Students improve when lessons are precise, feedback is honest, and practice
-            is organized around the exact skills that appear on the test.
-          </p>
-          <p>
-            YuWei, a diligent student from Shanghai American School, earned a full-mark
-            SSAT Middle Level score after focused preparation.
-          </p>
-          <a class="button" href="pages/clients.html">See Student Results</a>
+    <section class="about" id="about">
+      <div class="about-inner">
+        <div class="about-photo-wrap">
+          <img
+            class="about-photo"
+            src="./assets/images/content/hatsteveandvv.jpeg"
+            alt="Steve Liu reading at a table with his cat"
+          >
         </div>
-
-        <div class="score-preview">
-          <img src="images/yuwei-ssat-score.jpeg" alt="YuWei SSAT Middle Level full score result">
-        </div>
-      </div>
-    </section>
-
-    <section class="section about">
-      <div class="section-inner about-grid">
-        <img class="about-photo" src="images/hatsteveandvv.jpeg" alt="Steve Liu, HuskyDaddy tutor">
 
         <div class="about-copy">
-          <h2>About Steve Liu</h2>
+          <div class="eyebrow">Meet Your Teacher</div>
+          <h2>Hello, I’m Steve Liu.</h2>
           <p>
-            I help students prepare for SAT, SSAT, ACT, IELTS, reading, and writing
-            with a calm, structured, and highly personalized approach.
+            I am an experienced educator who helps students build stronger academic
+            skills, better test strategies, and greater confidence.
           </p>
           <p>
-            My lessons focus on how students think: how they read a question, how they
-            notice evidence, how they avoid traps, and how they review mistakes until
-            better habits become automatic.
+            My teaching is calm, structured, and personal. I look closely at how each
+            student reads, thinks, and solves problems, then build lessons around the
+            skills they need most.
           </p>
 
-          <div class="teaching-points">
-            <div class="teaching-point">
-              <strong>Master's in Education</strong>
-              <span>University of Saskatchewan</span>
+          <div class="about-highlights">
+            <div class="about-highlight">
+              <strong>Master of Education (M.Ed.)</strong>
+              <span>Educational Administration</span>
             </div>
-            <div class="teaching-point">
-              <strong>Personalized Plans</strong>
-              <span>Lessons shaped around each student's weak points</span>
-            </div>
-            <div class="teaching-point">
-              <strong>Skill-Based Review</strong>
-              <span>Every mistake becomes a teachable pattern</span>
+            <div class="about-highlight">
+              <strong>20+ Years of Teaching</strong>
+              <span>Supporting students with patience and clear direction</span>
             </div>
           </div>
+
+          <a class="button" href="pages/contact.html">Learn With Steve</a>
         </div>
       </div>
     </section>
 
-    <section class="section method">
-      <div class="section-inner">
-        <div class="section-heading">
-          <h2>A clearer path through difficult tests</h2>
-          <p>
-            The spirit is perseverance; the classroom method is practical. Every session
-            gives students a clearer way to attack the next challenge.
-          </p>
-        </div>
-
-        <div class="method-grid">
-          <article class="method-card">
-            <h3>Diagnose</h3>
-            <p>Identify the exact question types, reading habits, and grammar patterns holding the student back.</p>
-          </article>
-
-          <article class="method-card">
-            <h3>Train</h3>
-            <p>Practice with focused drills, passage marking, answer elimination, timing, and teacher feedback.</p>
-          </article>
-
-          <article class="method-card">
-            <h3>Review</h3>
-            <p>Turn missed questions into repeatable strategies so improvement carries into the next test.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section cta">
-      <div class="section-inner">
-        <h2>Ready to build a stronger test-prep plan?</h2>
-        <p>
-          Start with a conversation about the student's current level, target schools,
-          test date, and the skills that need the most attention.
-        </p>
-        <a class="button button-primary" href="pages/contact.html">Contact Steve</a>
-      </div>
+    <section class="contact">
+      <h2>Not sure where to begin?</h2>
+      <p>Tell Steve about the student's goals and current challenges.</p>
+      <a class="button" href="pages/contact.html">Contact Steve</a>
     </section>
   </main>
 
   <footer>
-    <div>HuskyDaddy | SAT, SSAT, Reading & Writing Coaching</div>
-    <div class="visitor-card">
-      <span id="visitor-counter">Thanks for visiting HuskyDaddy.</span>
-    </div>
+    © 2026 HuskyDaddy · Steve Liu
   </footer>
-
-  <script>
-    fetch("https://api.counterapi.dev/v1/huskydaddy/homepage/up")
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        document.getElementById("visitor-counter").textContent =
-          "Visitor number " + data.count;
-      })
-      .catch(function() {
-        document.getElementById("visitor-counter").textContent =
-          "Thanks for visiting HuskyDaddy.";
-      });
-  </script>
 </body>
 </html>
