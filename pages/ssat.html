@@ -215,6 +215,105 @@
       color: #102a43;
     }
 
+    .content-block .vocab-app-button {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      margin-top: 12px;
+      padding: 14px 22px;
+      overflow: hidden;
+      color: #ffffff;
+      background: linear-gradient(135deg, #071f36, #0b4169);
+      border: 2px solid #f0c75e;
+      border-radius: 8px;
+      border-bottom: 2px solid #f0c75e;
+      box-shadow:
+        0 0 0 3px rgba(212, 175, 55, 0.18),
+        0 8px 22px rgba(7, 31, 54, 0.22);
+      font-weight: bold;
+      letter-spacing: 0.2px;
+      isolation: isolate;
+      animation: vocabulary-glow 2.2s ease-in-out infinite;
+    }
+
+    .content-block .vocab-app-button::before {
+      position: absolute;
+      top: -45%;
+      left: -35%;
+      width: 24%;
+      height: 190%;
+      content: "";
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 244, 190, 0.9),
+        rgba(255, 255, 255, 0.18),
+        transparent
+      );
+      transform: rotate(18deg);
+      animation: vocabulary-sparkle 2.8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content-block .vocab-app-button:hover {
+      color: #ffffff;
+      background: linear-gradient(135deg, #0b3455, #11628f);
+      border-color: #ffe18b;
+      border-bottom-color: #ffe18b;
+      box-shadow:
+        0 0 0 4px rgba(240, 199, 94, 0.24),
+        0 10px 26px rgba(7, 31, 54, 0.28);
+      transform: translateY(-2px);
+    }
+
+    .vocab-app-title {
+      font-size: 17px;
+    }
+
+    .vocab-app-button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .vocab-app-label {
+      color: #dcecf5;
+      font-size: 12px;
+      font-weight: normal;
+      letter-spacing: 0.3px;
+    }
+
+    @keyframes vocabulary-glow {
+      0%, 100% {
+        box-shadow:
+          0 0 0 3px rgba(212, 175, 55, 0.16),
+          0 8px 22px rgba(7, 31, 54, 0.22);
+      }
+      50% {
+        box-shadow:
+          0 0 0 5px rgba(255, 218, 112, 0.32),
+          0 0 18px rgba(240, 199, 94, 0.5),
+          0 8px 22px rgba(7, 31, 54, 0.22);
+      }
+    }
+
+    @keyframes vocabulary-sparkle {
+      0%, 20% { left: -35%; opacity: 0; }
+      35% { opacity: 1; }
+      65% { opacity: 1; }
+      80%, 100% { left: 125%; opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .content-block .vocab-app-button,
+      .content-block .vocab-app-button::before {
+        animation: none;
+      }
+    }
+
     .highlight-section {
       background: white;
     }
@@ -364,7 +463,12 @@
               <li><a class="vocab-builder-button" href="SSAT/list1_5.html">Vocabulary Lists 1-5</a></li>
               <li><a class="vocab-builder-button" href="SSAT/list6_13.html">Vocabulary Lists 6-13</a></li>
               <li><a class="vocab-builder-button" href="SSAT/list14_16.html">Vocabulary Lists 14-16</a></li>
-              <li><a class="vocab-builder-button" href="SSAT/vocabulary_builder.html">Vocabulary Builder</a></li>
+              <li>
+                <a class="vocab-app-button" href="SSAT/vocabulary_builder.html">
+                  <span class="vocab-app-title">✦ Vocabulary Builder</span>
+                  <span class="vocab-app-label">Interactive memorization app</span>
+                </a>
+              </li>
               <li><a class="vocab-builder-button" href="SSAT/list24_25.html">Vocabulary List 24-25</a></li>
               <li><a class="vocab-builder-button" href="SSAT/list26_27.html">Vocabulary List 26-27</a></li>
               <li><a class="vocab-builder-button" href="SSAT/list28_30.html">Vocabulary List 28-30</a></li>
