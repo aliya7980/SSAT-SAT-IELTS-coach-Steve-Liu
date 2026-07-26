@@ -1,277 +1,380 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SSAT Vocabulary Practice - Set 10</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Evidence-informed vocabulary memorization strategies for SSAT and SAT students.">
+  <title>Vocabulary-Building Strategies for SSAT & SAT | HuskyDaddy</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: Georgia, "Times New Roman", serif;
-      background: #f7f3eb;
-      color: #1f2933;
-      line-height: 1.6;
+    :root {
+      --navy: #102a43;
+      --navy-deep: #071f36;
+      --blue: #174769;
+      --gold: #d4af37;
+      --cream: #f7f3eb;
+      --paper: #ffffff;
+      --ink: #1f2933;
+      --muted: #52606d;
+      --line: #e5dccb;
+      --shadow: 0 10px 28px rgba(16, 42, 67, 0.09);
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
     .navbar {
-      background: #102a43;
+      align-items: center;
+      background: var(--navy);
       color: white;
-      padding: 18px 8%;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      padding: 18px 8%;
     }
 
     .logo {
+      color: white;
       font-size: 22px;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .nav-links {
-      list-style: none;
       display: flex;
-      gap: 28px;
       flex-wrap: wrap;
+      gap: 28px;
+      list-style: none;
     }
 
     .nav-links a {
       color: white;
-      text-decoration: none;
       font-size: 15px;
+      text-decoration: none;
     }
 
-    .nav-links a:hover {
-      color: #d4af37;
-    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible { color: var(--gold); }
 
-    .page-header {
-      background: #102a43;
-      color: white;
+    .hero {
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(247, 243, 235, .98) 0%, rgba(247, 243, 235, .9) 48%, rgba(247, 243, 235, .2) 78%),
+        url("../assets/images/content/huskystudy.jpeg") center / cover;
+      display: flex;
+      min-height: 430px;
       padding: 70px 8%;
+    }
+
+    .hero-content { max-width: 710px; }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1.4px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      color: var(--navy-deep);
+      font-size: clamp(39px, 5vw, 55px);
+      line-height: 1.12;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: #2d4658;
+      font-size: 20px;
+      max-width: 650px;
+    }
+
+    .quick-nav {
+      background: #fffaf0;
+      border-bottom: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      padding: 18px 7%;
+    }
+
+    .quick-nav a,
+    .button {
+      background: var(--navy);
+      border-radius: 25px;
+      color: white;
+      display: inline-block;
+      font-weight: bold;
+      padding: 11px 20px;
+      text-decoration: none;
+    }
+
+    .quick-nav a:hover,
+    .button:hover { background: var(--blue); }
+
+    .container {
+      margin: auto;
+      max-width: 1160px;
+      padding: 62px 7%;
+    }
+
+    .section-heading {
+      margin: 0 auto 30px;
+      max-width: 800px;
       text-align: center;
     }
 
-    .page-header h1 {
-      font-size: 42px;
-      margin-bottom: 15px;
+    .section-heading h2 {
+      color: var(--navy);
+      font-size: clamp(31px, 4vw, 42px);
+      line-height: 1.2;
+      margin-bottom: 10px;
     }
 
-    .page-header p {
-      font-size: 19px;
-      color: #e5e7eb;
-      max-width: 880px;
-      margin: auto;
+    .section-heading p {
+      color: var(--muted);
+      font-size: 18px;
     }
 
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 8%;
+    .exam-grid,
+    .strategy-grid,
+    .schedule-grid {
+      display: grid;
+      gap: 20px;
     }
+
+    .exam-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .strategy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .schedule-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
     .card {
-      background: white;
-      padding: 32px;
+      background: var(--paper);
+      border: 1px solid rgba(16, 42, 67, .08);
       border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
-      margin-bottom: 28px;
-    }
-
-    .vocab-nav {
-      background: white;
+      box-shadow: var(--shadow);
       padding: 28px;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
-      margin-bottom: 28px;
     }
 
-    .vocab-nav h2 {
-      margin: 0 0 12px;
-      color: #102a43;
+    .exam-card {
+      border-top: 5px solid var(--gold);
     }
 
-    .vocab-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .vocab-links a {
-      background: #f7f3eb;
-      border: 1px solid #e5dccb;
-      border-left: 4px solid #d4af37;
-      border-radius: 6px;
-      color: #102a43;
-      font-size: 15px;
-      font-weight: bold;
-      padding: 10px 14px;
-      text-decoration: none;
-      transition: 0.18s ease;
-    }
-
-    .vocab-links a:hover,
-    .vocab-links a.active {
-      background: #d4af37;
-      border-color: #d4af37;
-      color: #102a43;
-    }
-
-    .card h2,
-    .card h3 {
-      color: #102a43;
-      margin-bottom: 15px;
+    .exam-card h3,
+    .strategy-card h3,
+    .schedule-card h3 {
+      color: var(--navy);
+      font-size: 23px;
+      margin-bottom: 10px;
     }
 
     .card p,
     .card li {
-      color: #3e4c59;
+      color: var(--muted);
       font-size: 17px;
     }
 
-    .word-bank {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 10px;
-      padding: 0;
-      list-style: none;
+    .card ul { margin: 13px 0 0 20px; }
+    .card li { margin-bottom: 7px; }
+
+    .method-section { padding-top: 8px; }
+
+    .strategy-card {
+      border-left: 5px solid var(--gold);
+      position: relative;
     }
 
-    .word-bank li {
-      background: #f7f3eb;
-      border-left: 4px solid #d4af37;
-      border-radius: 6px;
-      color: #102a43;
+    .step {
+      align-items: center;
+      background: var(--navy);
+      border-radius: 50%;
+      color: white;
+      display: inline-flex;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
       font-weight: bold;
-      padding: 10px 14px;
+      height: 38px;
+      justify-content: center;
+      margin-bottom: 15px;
+      width: 38px;
     }
 
-    .exercise-list { margin-left: 22px; margin-top: 15px; }
-
-    .exercise-list li {
-      margin-bottom: 12px;
-    }
-
-    .blank {
-      display: inline-block;
-      min-width: 120px;
-      border-bottom: 2px solid #d4af37;
-      margin: 0 4px;
-    }
-
-    .story {
+    .example {
       background: #fffdf8;
-      border-left: 5px solid #d4af37;
-      padding: 22px;
-      border-radius: 8px;
-      font-size: 17px;
-      margin-top: 18px;
+      border-left: 4px solid var(--gold);
+      border-radius: 6px;
+      color: #3e4c59;
+      margin-top: 17px;
+      padding: 15px;
     }
 
-    .highlight {
+    .example strong { color: var(--navy); }
+
+    .why-line {
+      background: #eaf2f7;
+      border-radius: 6px;
+      color: #284a60;
+      font-size: 15px;
+      margin-top: 13px;
+      padding: 12px 14px;
+    }
+
+    .progression {
+      align-items: center;
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(7, auto);
+      justify-content: center;
+      margin: 34px 0;
+    }
+
+    .progression-box {
+      background: var(--navy);
+      border-radius: 7px;
+      color: white;
       font-weight: bold;
-      color: #102a43;
+      min-width: 132px;
+      padding: 15px 17px;
+      text-align: center;
     }
 
-    .answer-key {
+    .progression-arrow {
+      color: var(--gold);
+      font-size: 27px;
+      font-weight: bold;
+    }
+
+    .schedule {
+      background: #fffaf0;
+      border-bottom: 1px solid var(--line);
+      border-top: 1px solid var(--line);
+    }
+
+    .schedule-card {
       background: white;
+      border-top: 4px solid var(--gold);
+      padding: 22px;
     }
 
-    details {
-      margin-top: 18px;
-      background: #f7f3eb;
-      padding: 18px;
+    .schedule-card span {
+      color: var(--blue);
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: .8px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .rules {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 26px;
+    }
+
+    .rule {
+      background: white;
+      border: 1px solid var(--line);
       border-radius: 8px;
-      border: 1px solid #e5dccb;
+      padding: 20px;
+      text-align: center;
     }
 
-    summary {
-      cursor: pointer;
+    .rule strong {
+      color: var(--navy);
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .practice-links {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .practice-link {
+      background: white;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      color: var(--navy);
       font-weight: bold;
-      color: #102a43;
+      padding: 17px 19px;
+      text-decoration: none;
     }
 
-    .toolbar {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 18px 0;
-    }
-
-    button {
-      border: 0;
-      border-radius: 4px;
-      padding: 13px 20px;
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: bold;
-      cursor: pointer;
-      background: #d4af37;
-      color: #102a43;
-    }
-
-    button.secondary {
-      background: #102a43;
+    .practice-link:hover {
+      background: var(--navy);
+      border-color: var(--navy);
       color: white;
     }
 
-    button:hover {
-      background: #c19a2e;
+    .builder-callout {
+      align-items: center;
+      background: linear-gradient(135deg, var(--navy-deep), var(--blue));
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      color: white;
+      display: flex;
+      gap: 24px;
+      justify-content: space-between;
+      margin-top: 22px;
+      padding: 26px 28px;
     }
 
-    button.secondary:hover {
-      background: #d4af37;
-      color: #102a43;
+    .builder-callout h3 { font-size: 24px; margin-bottom: 5px; }
+    .builder-callout p { color: #dce9f1; }
+    .builder-callout .button { background: var(--gold); color: var(--navy); white-space: nowrap; }
+
+    .research-card a {
+      color: var(--blue);
+      font-weight: bold;
     }
+
+    .research-card li { margin-bottom: 12px; }
 
     footer {
-      background: #102a43;
+      background: var(--navy);
       color: #e5e7eb;
-      text-align: center;
       padding: 24px;
-      font-size: 14px;
+      text-align: center;
     }
 
-    @media (max-width: 800px) {
-      .navbar {
-        flex-direction: column;
-        gap: 18px;
-      }
-
-      .nav-links {
-        justify-content: center;
-      }
-
-      .page-header h1 {
-        font-size: 34px;
-      }
+    @media (max-width: 900px) {
+      .schedule-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .progression { grid-template-columns: 1fr; }
+      .progression-arrow { transform: rotate(90deg); text-align: center; }
+      .progression-box { width: 100%; }
     }
 
-    @media print {
-      body {
-        background: white;
+    @media (max-width: 700px) {
+      .navbar { flex-direction: column; gap: 17px; }
+      .nav-links { gap: 16px; justify-content: center; }
+      .hero {
+        background:
+          linear-gradient(rgba(247, 243, 235, .91), rgba(247, 243, 235, .94)),
+          url("../assets/images/content/huskystudy.jpeg") center / cover;
+        min-height: 400px;
       }
-
-      .toolbar {
-        display: none;
-      }
-
-      .card,
-      .page-header,
-      .vocab-nav {
-        box-shadow: none;
-      }
-
-      details,
-      .answer-key {
-        display: none !important;
-      }
+      .exam-grid, .strategy-grid, .schedule-grid, .rules, .practice-links { grid-template-columns: 1fr; }
+      .builder-callout { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
-
 <body>
   <nav class="navbar">
-    <div class="logo">HuskyDaddy</div>
+    <a class="logo" href="../index.html">HuskyDaddy</a>
     <ul class="nav-links">
       <li><a href="../index.html">About</a></li>
       <li><a href="services.html">Test Prep</a></li>
@@ -282,142 +385,185 @@
     </ul>
   </nav>
 
-  <header class="page-header">
-    <h1>SSAT Vocabulary Practice: Set 10</h1>
-    <p>approbation, appropriate, expropriate, aptitude, arbiter, arbitrate, arbitrary, arcane, archaic, audacious</p>
+  <header class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Vocabulary-Building Strategies</div>
+      <h1>Do not just read a word. Retrieve it, use it, and connect it.</h1>
+      <p>A practical four-stage method for remembering advanced vocabulary and applying it under SSAT and SAT test conditions.</p>
+    </div>
   </header>
 
-  <main class="container">
+  <nav class="quick-nav">
+    <a href="#why">Why It Works</a>
+    <a href="#method">Four Exercises</a>
+    <a href="#schedule">Study Schedule</a>
+    <a href="#practice">Practice Lists</a>
+  </nav>
 
-    <nav class="vocab-nav" aria-label="SSAT vocabulary navigation">
-      <h2>SSAT Vocabulary Pages</h2>
-      <div class="vocab-links">
-        <a class="active" href="SSAT_verbal_10111213.html">Set 10</a>
-        <a href="SSAT_verbal_111213.html">Practice List 11-13</a>
-        <a href="SSAT/list17_18.html">Vocabulary List 17-18</a>
-        <a href="SSAT/list18_192021.html">Vocabulary List 19-21</a>
-        <a href="SSAT/list22_23.html">Vocabulary List 22-23</a>
-        <a href="SSAT/list24_25.html">Vocabulary List 24-25</a>
-        <a href="SSAT/vocabulary_builder.html">Vocabulary Builder</a>
+  <main>
+    <section class="container" id="why">
+      <div class="section-heading">
+        <h2>Why vocabulary practice matters on both tests</h2>
+        <p>The SSAT and SAT demand related but different kinds of vocabulary knowledge. Effective preparation must build fast recognition and flexible use.</p>
       </div>
-    </nav>
 
-    <div class="toolbar">
-      <button onclick="window.print()">Print Worksheet</button>
-      <button class="secondary" onclick="toggleAnswers()">Show / Hide Answer Key</button>
-    </div>
+      <div class="exam-grid">
+        <article class="card exam-card">
+          <h3>For the SSAT</h3>
+          <p>The Upper Level SSAT verbal section includes 30 synonym questions and 30 analogy questions in 30 minutes.</p>
+          <ul>
+            <li>Students must recognize meanings quickly.</li>
+            <li>They must distinguish close but incorrect choices.</li>
+            <li>They must understand relationships between words and ideas.</li>
+          </ul>
+        </article>
 
-    <section class="card">
-      <h2>Word Bank</h2>
-      <ul class="word-bank">
-        <li>approbation</li>
-        <li>appropriate (v.)</li>
-        <li>expropriate</li>
-        <li>aptitude</li>
-        <li>arbiter</li>
-        <li>arbitrate</li>
-        <li>arbitrary</li>
-        <li>arcane</li>
-        <li>archaic</li>
-        <li>audacious</li>
-      </ul>
-    </section>
-
-    <section class="card">
-      <h2>1. Matching Exercise</h2>
-      <p>Match each word with the correct definition.</p>
-
-      <p><strong>Words</strong></p>
-      <ol type="A">
-        <li>approbation</li>
-        <li>appropriate (v.)</li>
-        <li>expropriate</li>
-        <li>aptitude</li>
-        <li>arbiter</li>
-        <li>arbitrate</li>
-        <li>arbitrary</li>
-        <li>arcane</li>
-        <li>archaic</li>
-        <li>audacious</li>
-      </ol>
-
-      <p><strong>Definitions</strong></p>
-      <ol class="exercise-list">
-        <li>_____ bold or daring</li>
-        <li>_____ based on random choice or personal whim</li>
-        <li>_____ very old-fashioned or outdated</li>
-        <li>_____ to take something for public use, especially by authority</li>
-        <li>_____ a person who settles disputes</li>
-        <li>_____ approval or praise</li>
-        <li>_____ to settle a dispute formally</li>
-        <li>_____ requiring secret or specialized knowledge</li>
-        <li>_____ natural ability or talent</li>
-        <li>_____ to take something for one’s own use</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2>2. Gap-Fill Exercise</h2>
-      <p>Choose the best word from the word bank to complete each sentence.</p>
-
-      <ol class="exercise-list">
-        <li>The teacher gave her <span class="blank"></span> after seeing the student’s improvement.</li>
-        <li>The government may <span class="blank"></span> land to build public infrastructure.</li>
-        <li>He showed a strong <span class="blank"></span> for learning languages.</li>
-        <li>The judge was asked to <span class="blank"></span> the disagreement between the two companies.</li>
-        <li>As an impartial <span class="blank"></span>, she made a fair decision.</li>
-        <li>The rule seemed <span class="blank"></span> and unfair to many students.</li>
-        <li>His explanation was filled with <span class="blank"></span> terminology that few understood.</li>
-        <li>The use of such <span class="blank"></span> language made the text difficult to read.</li>
-        <li>It was <span class="blank"></span> of her to challenge the decision openly.</li>
-        <li>The manager tried to <span class="blank"></span> unused office supplies for personal use.</li>
-      </ol>
-    </section>
-
-    <section class="card">
-      <h2>3. Paragraph Practice</h2>
-      <p>Read the paragraph. Then underline or highlight each vocabulary word.</p>
-
-      <div class="story">
-        The committee sought an experienced <span class="highlight">arbiter</span> to <span class="highlight">arbitrate</span> the dispute, hoping to avoid an <span class="highlight">arbitrary</span> decision. Their choice earned widespread <span class="highlight">approbation</span>, as the arbiter was known for fairness rather than relying on <span class="highlight">arcane</span> reasoning or <span class="highlight">archaic</span> rules. Meanwhile, a developer attempted to <span class="highlight">expropriate</span> nearby land, claiming public benefit, though critics argued he merely wanted to <span class="highlight">appropriate</span> it for profit. Among the observers was a young intern whose <span class="highlight">aptitude</span> for negotiation was evident; her <span class="highlight">audacious</span> suggestion ultimately helped resolve the conflict.
+        <article class="card exam-card">
+          <h3>For the Digital SAT</h3>
+          <p>SAT Reading and Writing assesses high-utility words and phrases in short passages, especially within Craft and Structure questions.</p>
+          <ul>
+            <li>Students must infer meaning from context.</li>
+            <li>They must notice tone, precision, and rhetorical purpose.</li>
+            <li>They must select the word that fits the whole sentence or passage.</li>
+          </ul>
+        </article>
       </div>
     </section>
 
-    <section class="card answer-key" id="answerKey" style="display: none;">
-      <h2>Answer Key</h2>
+    <section class="container method-section" id="method">
+      <div class="section-heading">
+        <h2>The four-exercise memory pathway</h2>
+        <p>Each exercise changes the mental task. That progression prevents the illusion of knowing a word simply because it looks familiar.</p>
+      </div>
 
-      <details open>
-        <summary>Matching Answers</summary>
-        <p>1. J &nbsp; 2. G &nbsp; 3. I &nbsp; 4. C &nbsp; 5. E &nbsp; 6. A &nbsp; 7. F &nbsp; 8. H &nbsp; 9. D &nbsp; 10. B</p>
-      </details>
+      <div class="progression" aria-label="Vocabulary learning progression">
+        <div class="progression-box">Understand</div>
+        <div class="progression-arrow">→</div>
+        <div class="progression-box">Retrieve</div>
+        <div class="progression-arrow">→</div>
+        <div class="progression-box">Apply</div>
+        <div class="progression-arrow">→</div>
+        <div class="progression-box">Integrate</div>
+      </div>
 
-      <details open>
-        <summary>Gap-Fill Answers</summary>
-        <ol>
-          <li>approbation</li>
-          <li>expropriate</li>
-          <li>aptitude</li>
-          <li>arbitrate</li>
-          <li>arbiter</li>
-          <li>arbitrary</li>
-          <li>arcane</li>
-          <li>archaic</li>
-          <li>audacious</li>
-          <li>appropriate</li>
-        </ol>
-      </details>
+      <div class="strategy-grid">
+        <article class="card strategy-card">
+          <div class="step">1</div>
+          <h3>Word + Definition</h3>
+          <p>Begin by learning the word’s core meaning, part of speech, and one precise distinction. Say the word aloud, cover the definition, and explain it in your own words.</p>
+          <div class="example"><strong>Example:</strong> <em>abate</em> (verb) — to become less intense or to reduce.</div>
+          <div class="why-line"><strong>Why it is efficient:</strong> This creates an accurate starting representation. Parts of speech also help students eliminate grammatically impossible SAT choices.</div>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="step">2</div>
+          <h3>Matching</h3>
+          <p>Match words to scrambled definitions without looking back at the study list. Explain why the correct definition fits and why a tempting alternative does not.</p>
+          <div class="example"><strong>Example:</strong> <em>abate</em> → “to lessen in strength,” not “to surrender authority.”</div>
+          <div class="why-line"><strong>Why it is efficient:</strong> Matching adds retrieval and discrimination. Those are essential for SSAT synonym questions, where several choices may feel vaguely related.</div>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="step">3</div>
+          <h3>Use the Word in a Sentence</h3>
+          <p>Complete a sentence from a scrambled word bank, then write a second original sentence. The surrounding clues should make the meaning clear.</p>
+          <div class="example"><strong>Example:</strong> “The wind began to <em>abate</em> after the storm moved east.”</div>
+          <div class="why-line"><strong>Why it is efficient:</strong> Sentence work connects meaning with grammar, tone, and context—the same information students need for SAT words-in-context questions.</div>
+        </article>
+
+        <article class="card strategy-card">
+          <div class="step">4</div>
+          <h3>Use the Words in a Paragraph</h3>
+          <p>Read a paragraph containing every target word. Then retell its meaning, replace selected words with synonyms, or write a new paragraph using several words together.</p>
+          <div class="example"><strong>Example:</strong> A story can connect <em>abate</em>, <em>acrimonious</em>, and <em>acquiesce</em> through one meaningful conflict.</div>
+          <div class="why-line"><strong>Why it is efficient:</strong> Paragraphs create multiple connections among meaning, theme, cause, contrast, and tone. This supports SAT passage comprehension and SSAT analogy reasoning.</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="schedule" id="schedule">
+      <div class="container">
+        <div class="section-heading">
+          <h2>A simple spaced-review schedule</h2>
+          <p>Do not finish a list once and abandon it. Short reviews spread across several days make retrieval more durable.</p>
+        </div>
+
+        <div class="schedule-grid">
+          <article class="card schedule-card">
+            <span>Day 1</span>
+            <h3>Learn</h3>
+            <p>Study word-definition cards. Say each meaning aloud and complete matching once.</p>
+          </article>
+          <article class="card schedule-card">
+            <span>Day 2</span>
+            <h3>Retrieve</h3>
+            <p>Redo matching from memory. Review mistakes immediately, then complete sentence gaps.</p>
+          </article>
+          <article class="card schedule-card">
+            <span>Day 4</span>
+            <h3>Apply</h3>
+            <p>Complete the scrambled gap exercise again and write original sentences for difficult words.</p>
+          </article>
+          <article class="card schedule-card">
+            <span>Day 7</span>
+            <h3>Integrate</h3>
+            <p>Read the all-words paragraph, retell it, and quiz the missed words one final time.</p>
+          </article>
+        </div>
+
+        <div class="rules">
+          <div class="rule"><strong>Cover before recalling</strong><span>Looking is review; recalling is practice.</span></div>
+          <div class="rule"><strong>Correct immediately</strong><span>Do not rehearse a guessed meaning as if it were correct.</span></div>
+          <div class="rule"><strong>Track difficult words</strong><span>Spend more time on misses, not on words already mastered.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="practice">
+      <div class="section-heading">
+        <h2>Put the method into practice</h2>
+        <p>These vocabulary pages follow the same progression: definitions, matching, sentence gaps, and a paragraph using every word.</p>
+      </div>
+
+      <div class="practice-links">
+        <a class="practice-link" href="SSAT/list1_5.html">Vocabulary Lists 1–5</a>
+        <a class="practice-link" href="SSAT/list6_13.html">Vocabulary Lists 6–13</a>
+        <a class="practice-link" href="SSAT/list14_16.html">Vocabulary Lists 14–16</a>
+        <a class="practice-link" href="SSAT/list17_18.html">Vocabulary Lists 17–18</a>
+        <a class="practice-link" href="SSAT/list18_192021.html">Vocabulary Lists 19–21</a>
+        <a class="practice-link" href="SSAT/list22_23.html">Vocabulary Lists 22–23</a>
+        <a class="practice-link" href="SSAT/list24_25.html">Vocabulary Lists 24–25</a>
+        <a class="practice-link" href="SSAT/list26_27.html">Vocabulary Lists 26–27</a>
+        <a class="practice-link" href="SSAT/list28_30.html">Vocabulary Lists 28–30</a>
+      </div>
+
+      <div class="builder-callout">
+        <div>
+          <h3>✦ Build and memorize your own list</h3>
+          <p>Use the interactive Vocabulary Builder for saved lists and additional recall practice.</p>
+        </div>
+        <a class="button" href="SSAT/vocabulary_builder.html">Open Vocabulary Builder</a>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="section-heading">
+        <h2>Research behind the method</h2>
+        <p>The recommendations above combine official test descriptions with research on retrieval, spacing, and vocabulary in context.</p>
+      </div>
+
+      <article class="card research-card">
+        <ul>
+          <li><a href="https://www.ssat.org/about/school-level/upper-level-ssat" target="_blank" rel="noopener noreferrer">Official Upper Level SSAT overview</a> — explains the synonym, analogy, and contextual-reading demands.</li>
+          <li><a href="https://satsuite.collegeboard.org/sat/whats-on-the-test/reading-writing" target="_blank" rel="noopener noreferrer">College Board: SAT Reading and Writing</a> — describes vocabulary and high-utility words in context.</li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/33683913/" target="_blank" rel="noopener noreferrer">Systematic review of classroom testing</a> — found that quizzing improves classroom learning compared with restudy.</li>
+          <li><a href="https://www.jstage.jst.go.jp/article/katejournal/36/0/36_43/_article/-char/en" target="_blank" rel="noopener noreferrer">Study of spacing in vocabulary learning</a> — discusses spaced retrieval as an effective route to long-term vocabulary retention.</li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/33006925/" target="_blank" rel="noopener noreferrer">Review of retrieval-based learning</a> — explains how retrieving newly learned information can slow forgetting.</li>
+        </ul>
+      </article>
     </section>
   </main>
 
-  <footer>
-    © HuskyDaddy | SSAT Vocabulary Practice
-  </footer>
-
-  <script>
-    function toggleAnswers() {
-      const key = document.getElementById("answerKey");
-      key.style.display = key.style.display === "none" ? "block" : "none";
-    }
-  </script>
+  <footer>© HuskyDaddy | SSAT & SAT Vocabulary Strategies</footer>
 </body>
 </html>
