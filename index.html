@@ -91,11 +91,15 @@
         linear-gradient(90deg, rgba(6, 27, 45, 0.97) 0%, rgba(6, 27, 45, 0.88) 45%, rgba(6, 27, 45, 0.18) 72%),
         url("./assets/images/content/huskystudy.jpeg") center / cover no-repeat;
       min-height: 440px;
-      padding: 62px 7% 52px;
+      overflow: hidden;
+      padding: 62px 7% 108px;
+      position: relative;
     }
 
     .hero-content {
       max-width: 680px;
+      position: relative;
+      z-index: 2;
     }
 
     .eyebrow {
@@ -310,6 +314,590 @@
       font-size: 14px;
     }
 
+    /* Animated homepage husky */
+    .husky-runner {
+      bottom: 18px;
+      height: 94px;
+      left: 0;
+      position: absolute;
+      transform: translate3d(calc(100vw - 138px), 0, 0);
+      width: 130px;
+      z-index: 3;
+      animation: husky-cross 18s linear infinite;
+      will-change: transform;
+    }
+
+    .husky-puppy {
+      bottom: 12px;
+      height: 58px;
+      left: 25px;
+      position: absolute;
+      width: 88px;
+      animation: husky-bob 0.42s ease-in-out infinite alternate;
+      transform-origin: center bottom;
+      will-change: transform;
+    }
+
+    .husky-body {
+      background: linear-gradient(180deg, #344b5c 0%, #172c3b 100%);
+      border: 2px solid #081b28;
+      border-radius: 52% 45% 44% 48%;
+      box-shadow: inset 0 -9px 0 rgba(237, 244, 246, 0.9);
+      height: 45px;
+      left: 17px;
+      position: absolute;
+      top: 10px;
+      width: 69px;
+    }
+
+    .husky-body::after {
+      background: #f1f5f5;
+      border-radius: 50%;
+      content: "";
+      height: 25px;
+      left: 5px;
+      opacity: 0.95;
+      position: absolute;
+      top: 15px;
+      transform: rotate(-8deg);
+      width: 38px;
+    }
+
+    .husky-head {
+      background: linear-gradient(145deg, #3d5566, #172c3b);
+      border: 2px solid #081b28;
+      border-radius: 48% 48% 46% 50%;
+      height: 49px;
+      left: -7px;
+      position: absolute;
+      top: -18px;
+      transform-origin: 70% 80%;
+      width: 51px;
+      z-index: 4;
+      animation: husky-look 12s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .husky-ear {
+      border-bottom: 22px solid #263f50;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      height: 0;
+      position: absolute;
+      top: -15px;
+      transform-origin: center bottom;
+      width: 0;
+      animation: husky-ear-bounce 0.84s ease-in-out infinite alternate;
+    }
+
+    .husky-ear::after {
+      border-bottom: 13px solid #d9a8a6;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      content: "";
+      left: -5px;
+      position: absolute;
+      top: 5px;
+    }
+
+    .husky-ear-left { --ear-tilt: -11deg; left: 2px; }
+    .husky-ear-right { --ear-tilt: 12deg; right: 1px; animation-delay: -0.42s; }
+
+    .husky-face {
+      background: #f3f6f5;
+      border-radius: 48% 48% 50% 50%;
+      bottom: 2px;
+      height: 34px;
+      left: 7px;
+      position: absolute;
+      width: 36px;
+    }
+
+    .husky-mask {
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 18px solid #30495a;
+      height: 0;
+      left: 9px;
+      position: absolute;
+      top: 2px;
+      width: 18px;
+    }
+
+    .husky-eye {
+      background: #8ed5f3;
+      border: 2px solid #071f36;
+      border-radius: 50%;
+      height: 8px;
+      position: absolute;
+      top: 12px;
+      transform-origin: center;
+      width: 8px;
+      z-index: 2;
+      animation: husky-blink 12s linear infinite;
+    }
+
+    .husky-eye::after {
+      background: #07131c;
+      border-radius: 50%;
+      content: "";
+      height: 3px;
+      left: 1px;
+      position: absolute;
+      top: 1px;
+      width: 3px;
+      animation: husky-eye-look 12s ease-in-out infinite;
+    }
+
+    .husky-eye-left { left: 7px; }
+    .husky-eye-right { right: 7px; }
+
+    .husky-muzzle {
+      background: #ffffff;
+      border-radius: 50%;
+      bottom: 2px;
+      height: 16px;
+      left: 9px;
+      position: absolute;
+      width: 23px;
+      z-index: 3;
+    }
+
+    .husky-nose {
+      background: #091821;
+      border-radius: 60% 60% 50% 50%;
+      height: 7px;
+      left: 8px;
+      position: absolute;
+      top: 1px;
+      width: 8px;
+    }
+
+    .husky-mouth {
+      border-bottom: 1px solid #21323c;
+      border-radius: 50%;
+      bottom: 2px;
+      height: 5px;
+      left: 8px;
+      position: absolute;
+      width: 9px;
+    }
+
+    .husky-leg {
+      background: linear-gradient(#263f50 0 55%, #f3f6f5 56%);
+      border: 1px solid #081b28;
+      border-radius: 7px 7px 5px 5px;
+      bottom: -20px;
+      height: 29px;
+      position: absolute;
+      transform-origin: center top;
+      width: 10px;
+      will-change: transform;
+    }
+
+    .husky-leg::after {
+      background: #f3f6f5;
+      border-radius: 7px 7px 4px 4px;
+      bottom: -2px;
+      content: "";
+      height: 7px;
+      left: -2px;
+      position: absolute;
+      width: 14px;
+    }
+
+    .husky-leg-front-left { left: 9px; animation: husky-leg-forward 0.42s ease-in-out infinite alternate; }
+    .husky-leg-front-right { left: 27px; animation: husky-leg-back 0.42s ease-in-out infinite alternate; }
+    .husky-leg-back-left { right: 20px; animation: husky-leg-back 0.42s ease-in-out infinite alternate; }
+    .husky-leg-back-right { right: 4px; animation: husky-leg-forward 0.42s ease-in-out infinite alternate; }
+
+    .husky-tail-joint {
+      height: 31px;
+      position: absolute;
+      right: -19px;
+      top: -5px;
+      transform-origin: left bottom;
+      width: 34px;
+      animation: husky-tail-wag 0.5s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .husky-tail {
+      background: linear-gradient(90deg, #1c3343 0 60%, #f3f6f5 62%);
+      border: 2px solid #081b28;
+      border-radius: 70% 90% 80% 40%;
+      height: 15px;
+      position: absolute;
+      right: 0;
+      top: 2px;
+      transform: rotate(-28deg);
+      width: 36px;
+      animation: husky-tail-boost 12s ease-in-out infinite;
+    }
+
+    .husky-bubble {
+      background: #ffffff;
+      border: 2px solid var(--gold);
+      border-radius: 12px;
+      bottom: 87px;
+      color: var(--navy-deep);
+      font-size: 13px;
+      font-weight: 700;
+      left: -78px;
+      line-height: 1.25;
+      opacity: 0;
+      padding: 9px 12px;
+      pointer-events: none;
+      position: absolute;
+      text-align: center;
+      transform: translateY(7px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      visibility: hidden;
+      white-space: nowrap;
+    }
+
+    .husky-bubble::after {
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 9px solid var(--gold);
+      bottom: -9px;
+      content: "";
+      position: absolute;
+      right: 28px;
+    }
+
+    .husky-runner:hover,
+    .husky-runner:hover * {
+      animation-play-state: paused;
+    }
+
+    .husky-runner:hover .husky-head {
+      transform: rotate(9deg) translateY(1px);
+    }
+
+    .husky-runner:hover .husky-bubble {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .real-husky-look {
+      bottom: 0;
+      height: 118px;
+      left: -18px;
+      position: absolute;
+      transform-origin: 38% 62%;
+      width: 178px;
+      animation: real-husky-look 12s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .real-husky-image {
+      display: block;
+      filter: drop-shadow(0 7px 5px rgba(2, 17, 27, 0.28));
+      height: auto;
+      pointer-events: none;
+      width: 178px;
+      animation: real-husky-bob 0.44s ease-in-out infinite alternate;
+      transform-origin: center bottom;
+      will-change: transform;
+    }
+
+    .real-husky-blink {
+      background: #152630;
+      border-radius: 50%;
+      height: 3px;
+      left: 46px;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 36px;
+      transform: rotate(-7deg);
+      width: 7px;
+      z-index: 2;
+      animation: real-husky-blink 12s linear infinite;
+    }
+
+    .husky-runner:hover .real-husky-look {
+      transform: rotate(6deg) translateY(2px);
+    }
+
+    @keyframes real-husky-bob {
+      from { transform: translate3d(0, 1px, 0) rotate(-0.8deg); }
+      to { transform: translate3d(0, -4px, 0) rotate(0.8deg); }
+    }
+
+    @keyframes real-husky-look {
+      0%, 81%, 100% { transform: rotate(0) translate3d(0, 0, 0); }
+      83%, 99% { transform: rotate(-4deg) translate3d(-2px, 2px, 0) scale(1.025); }
+    }
+
+    @keyframes real-husky-blink {
+      0%, 82.7%, 83.5%, 100% { opacity: 0; }
+      82.9%, 83.3% { opacity: 1; }
+    }
+
+    /* State-driven multi-frame mascot */
+    .husky-habitat {
+      bottom: 0;
+      height: 158px;
+      max-width: 520px;
+      pointer-events: none;
+      position: absolute;
+      right: 2%;
+      width: 43vw;
+      z-index: 3;
+    }
+
+    .husky-habitat .husky-runner {
+      animation: none;
+      bottom: 2px;
+      cursor: pointer;
+      height: 150px;
+      left: 0;
+      outline: none;
+      pointer-events: auto;
+      position: absolute;
+      transform: translate3d(0, 0, 0);
+      transition: transform 700ms ease-out;
+      width: 150px;
+      will-change: transform;
+    }
+
+    .husky-habitat .husky-runner:focus-visible {
+      border-radius: 50%;
+      outline: 3px solid #f0c75e;
+      outline-offset: 3px;
+    }
+
+    .husky-sprite-shell {
+      height: 150px;
+      transform: scaleX(var(--husky-facing, 1)) rotate(var(--husky-tilt, 0deg));
+      transform-origin: center 75%;
+      transition: transform 320ms ease;
+      width: 150px;
+      will-change: transform;
+    }
+
+    .husky-sprite {
+      background-image: url("./assets/images/branding/husky-puppy-sprite-v3.png");
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: 400% 400%;
+      filter: drop-shadow(0 6px 5px rgba(2, 17, 27, 0.28));
+      height: 150px;
+      width: 150px;
+      will-change: background-position, transform;
+    }
+
+    .husky-runner[data-state="running"] .husky-sprite {
+      animation: husky-sprite-run 0.64s steps(1, end) infinite;
+    }
+
+    .husky-runner[data-state="slowing"] .husky-sprite {
+      background-position: 0 33.333%;
+      animation: husky-slow-settle 0.7s ease-out both;
+    }
+
+    .husky-runner[data-state="idle"] .husky-sprite {
+      background-position: 100% 33.333%;
+      animation: husky-breathe 1.8s ease-in-out infinite;
+    }
+
+    .husky-runner[data-state="looking"] .husky-sprite,
+    .husky-runner.is-hovered .husky-sprite {
+      background-position: 66.666% 33.333%;
+      animation: husky-curious 1.15s ease-in-out infinite alternate;
+    }
+
+    .husky-runner[data-state="playBow"] .husky-sprite {
+      animation: husky-play-bow 0.72s steps(1, end) infinite;
+    }
+
+    .husky-runner[data-state="sitting"] .husky-sprite {
+      animation: husky-sit-scratch 2.8s steps(1, end) infinite;
+    }
+
+    .husky-runner[data-state="standingUp"] .husky-sprite {
+      background-position: 0 100%;
+      animation: husky-stand-up 0.62s ease-out both;
+    }
+
+    .husky-runner[data-state="jumping"] .husky-sprite {
+      background-position: 33.333% 100%;
+      animation: husky-happy-jump 0.55s ease-out both;
+    }
+
+    .husky-runner[data-state="landing"] .husky-sprite {
+      background-position: 66.666% 100%;
+      animation: husky-land 0.32s ease-out both;
+    }
+
+    .husky-runner[data-state="paw"] .husky-sprite {
+      background-position: 100% 100%;
+      animation: husky-breathe 1.4s ease-in-out infinite;
+    }
+
+    .husky-habitat .husky-bubble {
+      bottom: 136px;
+      left: -43px;
+      z-index: 5;
+    }
+
+    .husky-runner.is-hovered .husky-bubble,
+    .husky-runner.is-speaking .husky-bubble,
+    .husky-runner:focus-visible .husky-bubble {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .husky-runner.is-hovered .husky-sprite-shell {
+      --husky-tilt: 8deg;
+      animation: husky-hover-wag 0.34s ease-in-out infinite alternate;
+    }
+
+    .husky-habitat.is-paused *,
+    .husky-habitat.is-paused .husky-runner {
+      animation-play-state: paused !important;
+      transition-play-state: paused;
+    }
+
+    @keyframes husky-sprite-run {
+      0%, 18% {
+        background-position: 0 0;
+        transform: translateY(1px) scaleX(0.985) scaleY(0.99);
+      }
+      18.1%, 39% {
+        background-position: 33.333% 0;
+        transform: translateY(-2px) scaleX(1) scaleY(1);
+      }
+      39.1%, 51% {
+        background-position: 66.666% 0;
+        transform: translateY(-6px) scaleX(1.025) scaleY(1.01);
+      }
+      51.1%, 72% {
+        background-position: 100% 0;
+        transform: translateY(1px) scaleX(0.985) scaleY(0.99);
+      }
+      72.1%, 88% {
+        background-position: 33.333% 0;
+        transform: translateY(-2px) scaleX(1) scaleY(1);
+      }
+      88.1%, 100% {
+        background-position: 0 0;
+        transform: translateY(0) scaleX(0.992) scaleY(0.995);
+      }
+    }
+
+    @keyframes husky-slow-settle {
+      0% { transform: translateX(-3px) rotate(-2deg); }
+      60% { transform: translateX(1px) rotate(1.5deg); }
+      100% { transform: translateX(0) rotate(0); }
+    }
+
+    @keyframes husky-breathe {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-1px) scaleY(1.012); }
+    }
+
+    @keyframes husky-curious {
+      from { transform: rotate(-2deg) translateY(0); }
+      to { transform: rotate(2deg) translateY(-2px); }
+    }
+
+    @keyframes husky-play-bow {
+      0%, 47% { background-position: 0 66.666%; transform: translateY(0); }
+      48%, 100% { background-position: 33.333% 66.666%; transform: translateY(2px); }
+    }
+
+    @keyframes husky-sit-scratch {
+      0%, 64% { background-position: 66.666% 66.666%; }
+      65%, 82% { background-position: 100% 66.666%; }
+      83%, 100% { background-position: 66.666% 66.666%; }
+    }
+
+    @keyframes husky-stand-up {
+      from { transform: translateY(5px) scaleY(0.95); }
+      to { transform: translateY(0) scaleY(1); }
+    }
+
+    @keyframes husky-happy-jump {
+      0% { transform: translateY(0) rotate(0); }
+      48% { transform: translateY(-18px) rotate(-3deg); }
+      100% { transform: translateY(-2px) rotate(1deg); }
+    }
+
+    @keyframes husky-land {
+      from { transform: translateY(-4px) scaleY(1.04); }
+      to { transform: translateY(3px) scaleY(0.94); }
+    }
+
+    @keyframes husky-hover-wag {
+      from { transform: scaleX(var(--husky-facing, 1)) rotate(calc(var(--cursor-tilt, 8deg) - 2deg)) translateY(0); }
+      to { transform: scaleX(var(--husky-facing, 1)) rotate(calc(var(--cursor-tilt, 8deg) + 2deg)) translateY(-2px); }
+    }
+
+    .husky-habitat .husky-runner:hover,
+    .husky-habitat .husky-runner:hover * {
+      animation-play-state: running;
+    }
+
+    @keyframes husky-cross {
+      from { transform: translate3d(calc(100vw - 138px), 0, 0); }
+      to { transform: translate3d(-155px, 0, 0); }
+    }
+
+    @keyframes husky-bob {
+      from { transform: translate3d(0, 0, 0) rotate(-1deg); }
+      to { transform: translate3d(0, -4px, 0) rotate(1deg); }
+    }
+
+    @keyframes husky-leg-forward {
+      from { transform: rotate(25deg) translateY(-1px); }
+      to { transform: rotate(-24deg) translateY(1px); }
+    }
+
+    @keyframes husky-leg-back {
+      from { transform: rotate(-24deg) translateY(1px); }
+      to { transform: rotate(25deg) translateY(-1px); }
+    }
+
+    @keyframes husky-tail-wag {
+      from { transform: rotate(-18deg); }
+      to { transform: rotate(22deg); }
+    }
+
+    @keyframes husky-tail-boost {
+      0%, 81%, 100% { transform: rotate(-28deg); }
+      83% { transform: rotate(-43deg); }
+      86% { transform: rotate(-12deg); }
+      89% { transform: rotate(-45deg); }
+      92% { transform: rotate(-10deg); }
+      95% { transform: rotate(-40deg); }
+      98% { transform: rotate(-12deg); }
+    }
+
+    @keyframes husky-ear-bounce {
+      from { transform: rotate(var(--ear-tilt)) translateY(0); }
+      to { transform: rotate(var(--ear-tilt)) translateY(2px); }
+    }
+
+    @keyframes husky-blink {
+      0%, 82%, 84%, 100% { transform: scaleY(1); }
+      83% { transform: scaleY(0.08); }
+    }
+
+    @keyframes husky-look {
+      0%, 81%, 100% { transform: rotate(0) translate3d(0, 0, 0); }
+      83%, 99% { transform: rotate(-7deg) translate3d(-2px, 2px, 0); }
+    }
+
+    @keyframes husky-eye-look {
+      0%, 81%, 100% { transform: translateX(0); }
+      83%, 99% { transform: translateX(-2px); }
+    }
+
     .contact {
       padding: 54px 7%;
       text-align: center;
@@ -367,7 +955,7 @@
 
       .hero {
         min-height: 380px;
-        padding: 50px 6% 58px;
+        padding: 50px 6% 104px;
       }
 
       .hero p {
@@ -413,6 +1001,71 @@
       .about-highlights {
         grid-template-columns: 1fr;
       }
+
+      .husky-runner {
+        transform: translate3d(calc(100vw - 112px), 0, 0) scale(0.82);
+        transform-origin: bottom left;
+      }
+
+      .husky-habitat {
+        height: 125px;
+        right: 1%;
+        width: 58vw;
+      }
+
+      .husky-habitat .husky-runner,
+      .husky-sprite-shell,
+      .husky-sprite {
+        height: 118px;
+        width: 118px;
+      }
+
+      .husky-habitat .husky-bubble {
+        bottom: 108px;
+        font-size: 12px;
+        left: -72px;
+      }
+
+      @keyframes husky-cross {
+        from { transform: translate3d(calc(100vw - 112px), 0, 0) scale(0.82); }
+        to { transform: translate3d(-132px, 0, 0) scale(0.82); }
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .husky-runner {
+        animation: none;
+        left: auto;
+        right: 4%;
+        transform: none;
+      }
+
+      .husky-habitat .husky-runner {
+        left: auto;
+        right: 0;
+        transform: none !important;
+        transition: none;
+      }
+
+      .husky-sprite {
+        animation: none !important;
+        background-position: 100% 33.333% !important;
+        transform: none !important;
+      }
+
+      .husky-puppy,
+      .real-husky-look,
+      .real-husky-image,
+      .real-husky-blink,
+      .husky-head,
+      .husky-ear,
+      .husky-eye,
+      .husky-eye::after,
+      .husky-leg,
+      .husky-tail-joint,
+      .husky-tail {
+        animation: none;
+      }
     }
   </style>
 </head>
@@ -437,6 +1090,21 @@
         <h1>Think deeper. Keep going.</h1>
         <p>Personalized SSAT, SAT, English reading, and math tutoring with Steve Liu.</p>
         <a class="button" href="#services">Choose a Service</a>
+      </div>
+
+      <div class="husky-habitat" aria-label="Animated Husky mascot area">
+        <div
+          class="husky-runner"
+          data-state="idle"
+          role="button"
+          tabindex="0"
+          aria-label="Husky puppy mascot. Hover or click to interact."
+        >
+          <div class="husky-bubble" aria-hidden="true">Hi! Ready to learn?</div>
+          <div class="husky-sprite-shell">
+            <div class="husky-sprite" aria-hidden="true"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -539,5 +1207,207 @@
   <footer>
     © 2026 HuskyDaddy · Steve Liu
   </footer>
+
+  <script>
+    (() => {
+      const habitat = document.querySelector(".husky-habitat");
+      const puppy = habitat?.querySelector(".husky-runner");
+      const shell = habitat?.querySelector(".husky-sprite-shell");
+      const bubble = habitat?.querySelector(".husky-bubble");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      if (!habitat || !puppy || !shell || !bubble) return;
+
+      let stateTimer;
+      let currentX = 0;
+      let interacting = false;
+      let pageHidden = document.hidden;
+
+      const randomBetween = (min, max) =>
+        Math.round(min + Math.random() * (max - min));
+
+      const clearStateTimer = () => {
+        if (stateTimer) window.clearTimeout(stateTimer);
+        stateTimer = undefined;
+      };
+
+      const maxTravel = () =>
+        Math.max(0, habitat.clientWidth - puppy.offsetWidth);
+
+      const setState = (state) => {
+        puppy.dataset.state = state;
+      };
+
+      const setFacing = (direction) => {
+        shell.style.setProperty("--husky-facing", direction < 0 ? "1" : "-1");
+      };
+
+      const readCurrentX = () => {
+        const matrix = new DOMMatrixReadOnly(getComputedStyle(puppy).transform);
+        return Number.isFinite(matrix.m41) ? matrix.m41 : currentX;
+      };
+
+      const holdCurrentPosition = () => {
+        currentX = Math.max(0, Math.min(maxTravel(), readCurrentX()));
+        puppy.style.transition = "none";
+        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        void puppy.offsetWidth;
+      };
+
+      const schedule = (callback, delay) => {
+        clearStateTimer();
+        stateTimer = window.setTimeout(callback, delay);
+      };
+
+      const run = () => {
+        if (interacting || pageHidden || reducedMotion.matches) return;
+
+        const limit = maxTravel();
+        const midpoint = limit / 2;
+        const direction = currentX > midpoint ? -1 : 1;
+        const inset = randomBetween(0, Math.max(0, Math.min(34, limit / 5)));
+        const target = direction < 0 ? inset : Math.max(0, limit - inset);
+        const duration = randomBetween(5000, 11000);
+
+        setFacing(direction);
+        setState("running");
+        puppy.style.transition = `transform ${duration}ms linear`;
+        currentX = target;
+        requestAnimationFrame(() => {
+          puppy.style.transform = `translate3d(${target}px, 0, 0)`;
+        });
+        schedule(slowDown, duration);
+      };
+
+      const slowDown = () => {
+        if (interacting || pageHidden || reducedMotion.matches) return;
+        setState("slowing");
+        puppy.style.transition = "transform 700ms ease-out";
+        const direction = currentX > maxTravel() / 2 ? -1 : 1;
+        currentX = Math.max(0, Math.min(maxTravel(), currentX + direction * 7));
+        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        schedule(chooseBehavior, 760);
+      };
+
+      const standAndRun = () => {
+        if (interacting || pageHidden || reducedMotion.matches) return;
+        setState("standingUp");
+        schedule(run, 650);
+      };
+
+      const chooseBehavior = () => {
+        if (interacting || pageHidden || reducedMotion.matches) return;
+        const choice = Math.random();
+
+        if (choice < 0.34) {
+          setState("looking");
+          schedule(standAndRun, randomBetween(2000, 4000));
+        } else if (choice < 0.62) {
+          setState("playBow");
+          schedule(standAndRun, randomBetween(1100, 1900));
+        } else if (choice < 0.88) {
+          setState("sitting");
+          schedule(standAndRun, randomBetween(3000, 5800));
+        } else {
+          setState(Math.random() > 0.5 ? "paw" : "idle");
+          schedule(standAndRun, randomBetween(1200, 2800));
+        }
+      };
+
+      const beginInteraction = () => {
+        if (reducedMotion.matches) {
+          setState("looking");
+        } else {
+          holdCurrentPosition();
+          setState("looking");
+        }
+        clearStateTimer();
+        interacting = true;
+        puppy.classList.add("is-hovered", "is-speaking");
+        bubble.textContent = "Hi! Ready to learn?";
+      };
+
+      const endInteraction = () => {
+        puppy.classList.remove("is-hovered", "is-speaking");
+        shell.style.removeProperty("--cursor-tilt");
+        interacting = false;
+        if (!pageHidden && !reducedMotion.matches) schedule(standAndRun, 650);
+      };
+
+      const happyJump = () => {
+        clearStateTimer();
+        interacting = true;
+        holdCurrentPosition();
+        puppy.classList.remove("is-hovered");
+        puppy.classList.add("is-speaking");
+        bubble.textContent = "Let's go!";
+        setState("jumping");
+        schedule(() => {
+          setState("landing");
+          schedule(() => {
+            setState("looking");
+            schedule(() => {
+              puppy.classList.remove("is-speaking");
+              interacting = false;
+              if (!pageHidden && !reducedMotion.matches) standAndRun();
+            }, 900);
+          }, 330);
+        }, 560);
+      };
+
+      puppy.addEventListener("pointerenter", beginInteraction);
+      puppy.addEventListener("pointerleave", endInteraction);
+      puppy.addEventListener("pointermove", (event) => {
+        if (!interacting) return;
+        const bounds = puppy.getBoundingClientRect();
+        const relative = (event.clientX - (bounds.left + bounds.width / 2)) / bounds.width;
+        const tilt = Math.max(-12, Math.min(12, relative * 18));
+        shell.style.setProperty("--cursor-tilt", `${tilt}deg`);
+      });
+      puppy.addEventListener("click", happyJump);
+      puppy.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          happyJump();
+        }
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        pageHidden = document.hidden;
+        clearStateTimer();
+        habitat.classList.toggle("is-paused", pageHidden);
+        if (!pageHidden && !interacting && !reducedMotion.matches) {
+          holdCurrentPosition();
+          setState("idle");
+          schedule(run, 500);
+        }
+      });
+
+      reducedMotion.addEventListener("change", () => {
+        clearStateTimer();
+        if (reducedMotion.matches) {
+          currentX = maxTravel();
+          puppy.style.transition = "none";
+          puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+          setState("idle");
+        } else if (!pageHidden && !interacting) {
+          schedule(run, 400);
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        currentX = Math.max(0, Math.min(maxTravel(), currentX));
+        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      }, { passive: true });
+
+      currentX = maxTravel();
+      puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      if (reducedMotion.matches) {
+        setState("idle");
+      } else {
+        schedule(run, 800);
+      }
+    })();
+  </script>
 </body>
 </html>
