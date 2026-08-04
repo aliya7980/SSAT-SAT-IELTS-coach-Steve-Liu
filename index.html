@@ -314,6 +314,63 @@
       font-size: 14px;
     }
 
+    .cat-reflection {
+      background: var(--ice);
+      padding: 72px 7%;
+    }
+
+    .cat-reflection-inner {
+      align-items: center;
+      display: grid;
+      gap: clamp(30px, 5vw, 62px);
+      grid-template-columns: minmax(300px, 0.98fr) minmax(320px, 1.02fr);
+      margin: 0 auto;
+      max-width: 1120px;
+    }
+
+    .cat-reflection-copy {
+      background: var(--white);
+      border-left: 5px solid var(--gold);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .cat-reflection-copy .eyebrow {
+      color: var(--blue);
+    }
+
+    .cat-reflection-copy h2 {
+      color: var(--navy-deep);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 3.4vw, 44px);
+      line-height: 1.12;
+      margin-bottom: 16px;
+    }
+
+    .cat-reflection-copy p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .cat-reflection-image {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      display: block;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .cat-reflection-image img {
+      border-radius: 7px;
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
     /* Animated homepage husky */
     .husky-runner {
       bottom: 18px;
@@ -937,6 +994,10 @@
       .about-inner {
         grid-template-columns: 0.8fr 1.2fr;
       }
+
+      .cat-reflection-inner {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1000,6 +1061,14 @@
 
       .about-highlights {
         grid-template-columns: 1fr;
+      }
+
+      .cat-reflection {
+        padding: 56px 6%;
+      }
+
+      .cat-reflection-copy {
+        padding: 24px;
       }
 
       .husky-runner {
@@ -1193,6 +1262,33 @@
           </div>
 
           <a class="button" href="pages/contact.html">Learn With Steve</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cat-reflection" aria-labelledby="cat-reflection-title">
+      <div class="cat-reflection-inner">
+        <a class="cat-reflection-image" href="pages/reading_summary.html" aria-label="Open the miscellaneous page">
+          <img
+            src="./assets/images/content/whatcatsarethinking.PNG"
+            alt="A cat surrounded by physics formulas and diagrams"
+          >
+        </a>
+
+        <div class="cat-reflection-copy">
+          <div class="eyebrow">A Personal Note</div>
+          <h2 id="cat-reflection-title">I am, unmistakably, a cat person.</h2>
+          <p>
+            I am drawn to cats because their intelligence is subtle, independent,
+            and wonderfully difficult to predict. Their curious habits and sudden
+            changes of mood make them endlessly fascinating companions.
+          </p>
+          <p>
+            That quiet unpredictability is part of their charm: cats remind me that
+            observation, patience, and a sense of humor are essential parts of both
+            learning and living.
+          </p>
+          <a class="button" href="pages/reading_summary.html">Visit Miscellaneous</a>
         </div>
       </div>
     </section>
