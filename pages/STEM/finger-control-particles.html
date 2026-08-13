@@ -271,7 +271,7 @@
     const handCtx = handPreview.getContext("2d");
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000000, 0.028);
+    scene.fog = new THREE.FogExp2(0x000000, 0.02);
 
     const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 120);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
@@ -328,45 +328,71 @@
       new THREE.Color("#fff7e0")
     ];
 
-    const dummy = new THREE.Object3D();
-    const sphereGeometry = new THREE.SphereGeometry(0.045, 12, 12);
-    const surfaceCount = 3600;
-    const coreCount = 850;
-    const ringCount = 1450;
-    const starsCount = 900;
+    const surfaceCount = 16000;
+    const coreCount = 4200;
+    const ringCount = 7600;
+    const starsCount = 1800;
 
-    function makeInstanced(count, color, additive = true) {
-      const material = new THREE.MeshBasicMaterial({
-        color,
-        transparent: true,
-        opacity: 0.96,
-        blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending,
-        depthWrite: false
-      });
-      const mesh = new THREE.InstancedMesh(sphereGeometry, material, count);
-      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-      return mesh;
+    function makePointTexture() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 96;
+      canvas.height = 96;
+      const ctx = canvas.getContext("2d");
+      const gradient = ctx.createRadialGradient(48, 48, 0, 48, 48, 48);
+      gradient.addColorStop(0, "rgba(255,255,255,1)");
+      gradient.addColorStop(0.28, "rgba(255,255,255,0.86)");
+      gradient.addColorStop(0.58, "rgba(255,255,255,0.28)");
+      gradient.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 96, 96);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      return texture;
     }
 
-    const surfaceMesh = makeInstanced(surfaceCount, 0xff8b2b);
-    const coreMesh = makeInstanced(coreCount, 0xffc85a);
-    const ringMesh = makeInstanced(ringCount, 0xffffff);
-    const starsMesh = makeInstanced(starsCount, 0xffffff);
-    planet.add(surfaceMesh, coreMesh);
-    rings.add(ringMesh);
-    scene.add(starsMesh);
+    const pointTexture = makePointTexture();
 
-    const surfaceParticles = [];
-    const coreParticles = [];
-    const ringParticles = [];
-    const starParticles = [];
+    function makePointCloud(count, size, opacity) {
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3).setUsage(THREE.DynamicDrawUsage));
+      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
 
-    function randomOnSphere(radius) {
+      const material = new THREE.PointsMaterial({
+        size,
+        map: pointTexture,
+        vertexColors: true,
+        transparent: true,
+        opacity,
+        alphaTest: 0.02,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        sizeAttenuation: true
+      });
+
+      return {
+        points: new THREE.Points(geometry, material),
+        positions,
+        colors,
+        particles: []
+      };
+    }
+
+    const surfaceCloud = makePointCloud(surfaceCount, 0.038, 0.96);
+    const coreCloud = makePointCloud(coreCount, 0.052, 0.72);
+    const ringCloud = makePointCloud(ringCount, 0.032, 0.88);
+    const starsCloud = makePointCloud(starsCount, 0.026, 0.62);
+    planet.add(surfaceCloud.points, coreCloud.points);
+    rings.add(ringCloud.points);
+    scene.add(starsCloud.points);
+
+    function randomOnSphere(radius, noise = 0.03) {
       const u = Math.random();
       const v = Math.random();
       const theta = 2 * Math.PI * u;
       const phi = Math.acos(2 * v - 1);
-      const r = radius + (Math.random() - 0.5) * 0.13;
+      const r = radius + (Math.random() - 0.5) * noise;
       return new THREE.Vector3(
         r * Math.sin(phi) * Math.cos(theta),
         r * Math.cos(phi),
@@ -376,63 +402,69 @@
 
     function createPlanetParticles() {
       for (let i = 0; i < surfaceCount; i++) {
-        const pos = randomOnSphere(1.62);
-        surfaceParticles.push({
+        const latitudeBias = Math.random() < 0.64 ? 0.18 : 1;
+        const pos = randomOnSphere(1.7 + Math.random() * 0.035, 0.035);
+        pos.y *= 0.985 + Math.random() * 0.03 * latitudeBias;
+        const color = orangePalette[Math.floor(Math.random() * orangePalette.length)];
+        surfaceCloud.particles.push({
           base: pos,
-          scale: 0.92 + Math.random() * 1.4,
+          twinkle: 0.82 + Math.random() * 0.42,
           phase: Math.random() * Math.PI * 2,
-          color: orangePalette[Math.floor(Math.random() * orangePalette.length)]
+          wave: 0.004 + Math.random() * 0.018
         });
-        surfaceMesh.setColorAt(i, surfaceParticles[i].color);
+        color.toArray(surfaceCloud.colors, i * 3);
       }
 
       for (let i = 0; i < coreCount; i++) {
-        const radius = Math.cbrt(Math.random()) * 1.2;
-        const pos = randomOnSphere(radius);
-        coreParticles.push({
+        const radius = Math.cbrt(Math.random()) * 1.23;
+        const pos = randomOnSphere(radius, 0.08);
+        const color = orangePalette[2 + Math.floor(Math.random() * 3)];
+        coreCloud.particles.push({
           base: pos,
-          scale: 1.1 + Math.random() * 1.7,
+          twinkle: 0.55 + Math.random() * 0.5,
           phase: Math.random() * Math.PI * 2,
-          color: orangePalette[2 + Math.floor(Math.random() * 3)]
+          wave: 0.01 + Math.random() * 0.025
         });
-        coreMesh.setColorAt(i, coreParticles[i].color);
+        color.toArray(coreCloud.colors, i * 3);
       }
 
-      surfaceMesh.instanceColor.needsUpdate = true;
-      coreMesh.instanceColor.needsUpdate = true;
+      surfaceCloud.points.geometry.attributes.color.needsUpdate = true;
+      coreCloud.points.geometry.attributes.color.needsUpdate = true;
     }
 
     function createRingParticles() {
       for (let i = 0; i < ringCount; i++) {
         const layer = i % 2;
         const angle = Math.random() * Math.PI * 2;
-        const radius = layer === 0 ? 2.65 + Math.random() * 0.38 : 3.35 + Math.random() * 0.42;
-        const thickness = layer === 0 ? 0.05 : 0.07;
-        ringParticles.push({
+        const radius = layer === 0 ? 2.52 + Math.random() * 0.48 : 3.12 + Math.random() * 0.62;
+        const thickness = layer === 0 ? 0.028 : 0.038;
+        const color = whitePalette[Math.floor(Math.random() * whitePalette.length)];
+        ringCloud.particles.push({
           angle,
           radius,
           y: (Math.random() - 0.5) * thickness,
-          zJitter: (Math.random() - 0.5) * 0.1,
-          scale: 0.7 + Math.random() * 1.25,
-          speed: (layer === 0 ? 0.18 : -0.12) * (0.72 + Math.random() * 0.5),
-          color: whitePalette[Math.floor(Math.random() * whitePalette.length)]
+          zJitter: (Math.random() - 0.5) * 0.035,
+          twinkle: 0.6 + Math.random() * 0.7,
+          speed: (layer === 0 ? 0.105 : -0.075) * (0.72 + Math.random() * 0.5)
         });
-        ringMesh.setColorAt(i, ringParticles[i].color);
+        color.toArray(ringCloud.colors, i * 3);
       }
-      ringMesh.instanceColor.needsUpdate = true;
+      ringCloud.points.geometry.attributes.color.needsUpdate = true;
       rings.rotation.x = Math.PI * 0.5;
-      rings.rotation.z = -0.34;
+      rings.rotation.z = -0.31;
     }
 
     function createBackgroundStars() {
       for (let i = 0; i < starsCount; i++) {
-        const pos = randomOnSphere(28 + Math.random() * 28);
-        starParticles.push({
+        const pos = randomOnSphere(22 + Math.random() * 42, 0.4);
+        starsCloud.particles.push({
           base: pos,
-          scale: 0.35 + Math.random() * 0.9,
+          twinkle: 0.35 + Math.random() * 0.85,
           phase: Math.random() * Math.PI * 2
         });
+        whitePalette[Math.floor(Math.random() * whitePalette.length)].toArray(starsCloud.colors, i * 3);
       }
+      starsCloud.points.geometry.attributes.color.needsUpdate = true;
     }
 
     function makeGlowTexture() {
@@ -441,9 +473,9 @@
       canvas.height = 256;
       const ctx = canvas.getContext("2d");
       const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
-      gradient.addColorStop(0, "rgba(255, 232, 140, 0.95)");
-      gradient.addColorStop(0.25, "rgba(255, 139, 43, 0.55)");
-      gradient.addColorStop(0.65, "rgba(255, 76, 18, 0.16)");
+      gradient.addColorStop(0, "rgba(255, 241, 166, 0.92)");
+      gradient.addColorStop(0.18, "rgba(255, 170, 56, 0.58)");
+      gradient.addColorStop(0.55, "rgba(255, 76, 18, 0.18)");
       gradient.addColorStop(1, "rgba(255, 76, 18, 0)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, 256, 256);
@@ -459,7 +491,7 @@
       depthWrite: false
     });
     const centerGlow = new THREE.Sprite(glowMaterial);
-    centerGlow.scale.set(5.3, 5.3, 1);
+    centerGlow.scale.set(5.6, 5.6, 1);
     glowGroup.add(centerGlow);
 
     createPlanetParticles();
@@ -474,38 +506,40 @@
       return Math.max(min, Math.min(max, value));
     }
 
-    function updateInstanced(mesh, particles, time, type) {
+    function updatePointCloud(cloud, time, type) {
+      const { particles, positions } = cloud;
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         let x;
         let y;
         let z;
-        let scale = p.scale;
 
         if (type === "ring") {
           const angle = p.angle + time * p.speed;
-          x = Math.cos(angle) * p.radius;
-          y = p.y + Math.sin(time * 2 + i) * 0.012;
-          z = Math.sin(angle) * p.radius + p.zJitter;
+          const shimmer = Math.sin(time * 1.8 + p.angle * 4.0) * 0.018 * p.twinkle;
+          x = Math.cos(angle) * (p.radius + shimmer);
+          y = p.y + Math.sin(time * 2.2 + i * 0.13) * 0.008;
+          z = Math.sin(angle) * (p.radius + shimmer) + p.zJitter;
         } else if (type === "star") {
-          x = p.base.x;
-          y = p.base.y;
+          const drift = Math.sin(time * 0.22 + p.phase) * 0.05;
+          x = p.base.x + drift;
+          y = p.base.y + Math.cos(time * 0.18 + p.phase) * 0.05;
           z = p.base.z;
-          scale *= 0.7 + Math.sin(time * 1.7 + p.phase) * 0.16;
         } else {
-          const pulse = Math.sin(time * 1.6 + p.phase) * 0.035;
-          x = p.base.x * (1 + pulse);
-          y = p.base.y * (1 + pulse);
-          z = p.base.z * (1 + pulse);
-          scale *= 1 + Math.sin(time * 2.4 + p.phase) * 0.1;
+          const pulse = Math.sin(time * 1.35 + p.phase) * p.wave;
+          const fineNoise = Math.sin(time * 2.7 + i * 0.017) * 0.004 * p.twinkle;
+          const amount = 1 + pulse + fineNoise;
+          x = p.base.x * amount;
+          y = p.base.y * amount;
+          z = p.base.z * amount;
         }
 
-        dummy.position.set(x, y, z);
-        dummy.scale.setScalar(scale);
-        dummy.updateMatrix();
-        mesh.setMatrixAt(i, dummy.matrix);
+        const offset = i * 3;
+        positions[offset] = x;
+        positions[offset + 1] = y;
+        positions[offset + 2] = z;
       }
-      mesh.instanceMatrix.needsUpdate = true;
+      cloud.points.geometry.attributes.position.needsUpdate = true;
     }
 
     function setCameraFromState() {
@@ -522,18 +556,19 @@
       camera.position.set(x, y, z);
       camera.lookAt(0, 0, 0);
 
-      planet.rotation.y += 0.004 + state.roll * 0.0018;
-      planet.rotation.z = lerp(planet.rotation.z, state.roll * 0.38, 0.05);
-      rings.rotation.y += 0.0022;
+      planet.rotation.y += 0.0024 + state.roll * 0.00145;
+      planet.rotation.x = lerp(planet.rotation.x, state.pitch * 0.08, 0.035);
+      planet.rotation.z = lerp(planet.rotation.z, state.roll * 0.32, 0.05);
+      rings.rotation.y += 0.00145;
     }
 
     function animate(timeMs) {
       const time = timeMs * 0.001;
-      updateInstanced(surfaceMesh, surfaceParticles, time, "surface");
-      updateInstanced(coreMesh, coreParticles, time, "core");
-      updateInstanced(ringMesh, ringParticles, time, "ring");
-      updateInstanced(starsMesh, starParticles, time, "star");
-      centerGlow.material.opacity = 0.82 + Math.sin(time * 1.8) * 0.08;
+      updatePointCloud(surfaceCloud, time, "surface");
+      updatePointCloud(coreCloud, time, "core");
+      updatePointCloud(ringCloud, time, "ring");
+      updatePointCloud(starsCloud, time, "star");
+      centerGlow.material.opacity = 0.72 + Math.sin(time * 1.55) * 0.08;
       setCameraFromState();
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
