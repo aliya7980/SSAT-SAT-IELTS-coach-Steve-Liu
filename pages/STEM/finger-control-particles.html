@@ -1,633 +1,722 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Finger-Controlled Particle Simulation | HuskyDaddy STEM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A HuskyDaddy STEM showcase page for a MediaPipe hand-gesture particle simulation project built in Python." />
-  <link rel="stylesheet" href="../../assets/styles/arduino.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hand-Controlled Particle Planet | HuskyDaddy STEM</title>
+  <meta name="description" content="A Three.js and MediaPipe hand-controlled 3D particle planet demo.">
   <style>
-    .hero {
-      background:
-        radial-gradient(circle at 82% 20%, rgba(217, 178, 95, 0.2), transparent 32%),
-        linear-gradient(135deg, #fffaf0 0%, #edf7fa 48%, #e8f3f8 100%);
+    * {
+      box-sizing: border-box;
     }
 
-    .vision-panel {
-      position: relative;
-      min-height: 330px;
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
       overflow: hidden;
-      background: #071f36;
+      background: #000;
+      color: #fff;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    .particle-field {
-      position: absolute;
+    #app {
+      position: fixed;
       inset: 0;
-      background:
-        radial-gradient(circle at 48% 54%, rgba(217, 178, 95, 0.26), transparent 16rem),
-        linear-gradient(135deg, #071f36, #102a43);
+      background: #000;
     }
 
-    .particle {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #f4d27a;
-      box-shadow: 0 0 10px rgba(244, 210, 122, 0.65);
+    canvas.webgl {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
-    .particle:nth-child(1) { left: 18%; top: 30%; }
-    .particle:nth-child(2) { left: 26%; top: 55%; }
-    .particle:nth-child(3) { left: 38%; top: 43%; }
-    .particle:nth-child(4) { left: 49%; top: 66%; }
-    .particle:nth-child(5) { left: 58%; top: 38%; }
-    .particle:nth-child(6) { left: 69%; top: 58%; }
-    .particle:nth-child(7) { left: 76%; top: 26%; }
-    .particle:nth-child(8) { left: 82%; top: 72%; }
-
-    .hand-map {
-      position: absolute;
-      right: 30px;
-      bottom: 28px;
-      width: 210px;
-      height: 220px;
+    .hud {
+      position: fixed;
+      top: 20px;
+      left: 22px;
+      z-index: 5;
+      width: min(390px, calc(100vw - 44px));
+      pointer-events: none;
     }
 
-    .hand-map span {
-      position: absolute;
-      display: grid;
-      place-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      color: #071f36;
-      background: #e8f3f8;
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 174, 64, 0.45);
+      border-radius: 999px;
+      color: #ffd084;
+      background: rgba(0, 0, 0, 0.38);
       font-size: 12px;
       font-weight: 800;
-      box-shadow: 0 0 0 4px rgba(232, 243, 248, 0.12);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
     }
 
-    .hand-map span:nth-child(1) { left: 88px; top: 178px; }
-    .hand-map span:nth-child(2) { left: 66px; top: 142px; }
-    .hand-map span:nth-child(3) { left: 50px; top: 105px; }
-    .hand-map span:nth-child(4) { left: 42px; top: 66px; }
-    .hand-map span:nth-child(5) { left: 34px; top: 28px; }
-    .hand-map span:nth-child(6) { left: 91px; top: 126px; }
-    .hand-map span:nth-child(7) { left: 92px; top: 83px; }
-    .hand-map span:nth-child(8) { left: 94px; top: 38px; background: #d9b25f; }
-    .hand-map span:nth-child(9) { left: 121px; top: 129px; }
-    .hand-map span:nth-child(10) { left: 127px; top: 82px; }
-    .hand-map span:nth-child(11) { left: 133px; top: 36px; }
-    .hand-map span:nth-child(12) { left: 140px; top: 0; background: #d9b25f; }
-    .hand-map span:nth-child(13) { left: 148px; top: 137px; }
-    .hand-map span:nth-child(14) { left: 161px; top: 96px; }
-    .hand-map span:nth-child(15) { left: 174px; top: 58px; }
-    .hand-map span:nth-child(16) { left: 186px; top: 24px; }
-    .hand-map span:nth-child(17) { left: 172px; top: 154px; }
-    .hand-map span:nth-child(18) { left: 188px; top: 124px; }
-    .hand-map span:nth-child(19) { left: 199px; top: 96px; }
-    .hand-map span:nth-child(20) { left: 204px; top: 67px; }
-    .hand-map span:nth-child(21) { left: 105px; top: 152px; }
+    h1 {
+      margin: 12px 0 8px;
+      font-size: clamp(28px, 4.6vw, 58px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      text-shadow: 0 0 24px rgba(255, 141, 33, 0.55);
+    }
 
-    .project-stats {
+    .hud p {
+      margin: 0;
+      max-width: 34rem;
+      color: rgba(255, 244, 225, 0.76);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .panel {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      z-index: 6;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+      gap: 10px;
+      width: min(330px, calc(100vw - 40px));
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.42);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(16px);
     }
 
-    .stat {
-      padding: 18px;
-      border: 1px solid #e5dac7;
-      border-radius: 18px;
-      background: #fffaf0;
-    }
-
-    .stat strong {
-      display: block;
-      color: #08233d;
-      font-size: 28px;
-      line-height: 1.1;
-    }
-
-    .control-table {
-      width: 100%;
-      border-collapse: collapse;
-      overflow: hidden;
-      border-radius: 18px;
-      margin-top: 18px;
-    }
-
-    .control-table th,
-    .control-table td {
-      padding: 14px 16px;
-      border-bottom: 1px solid #e5dac7;
-      text-align: left;
-      font-size: 17px;
-    }
-
-    .control-table th {
-      color: #08233d;
-      background: #e8f3f8;
-    }
-
-    .control-table tr:nth-child(even) td {
-      background: #fffaf0;
-    }
-
-    .demo-stage {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      gap: 20px;
-      align-items: stretch;
-      margin-top: 18px;
-    }
-
-    .canvas-shell {
-      position: relative;
-      overflow: hidden;
-      border-radius: 22px;
-      background: #071f36;
-      border: 1px solid rgba(217, 178, 95, 0.42);
-    }
-
-    #particleCanvas {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      background: #071f36;
-    }
-
-    .demo-status {
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      color: #071f36;
-      background: rgba(255, 250, 240, 0.92);
-      font-size: 14px;
+    .status {
+      color: #ffd084;
+      font-size: 13px;
       font-weight: 800;
+      line-height: 1.4;
     }
 
-    .camera-preview {
+    .controls {
       display: grid;
-      gap: 12px;
-      align-content: start;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      line-height: 1.35;
     }
 
-    .camera-box {
-      position: relative;
+    button,
+    .home-link {
+      min-height: 42px;
+      border: 1px solid rgba(255, 174, 64, 0.42);
+      border-radius: 12px;
+      color: #140800;
+      background: linear-gradient(135deg, #ffd084, #ff8b2b);
+      font: inherit;
+      font-weight: 900;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .home-link {
+      display: grid;
+      place-items: center;
+      color: #ffd084;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .local-link {
+      display: none;
+      place-items: center;
+      min-height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .local-link.show {
+      display: grid;
+    }
+
+    .preview {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 6;
+      width: 260px;
+      max-width: calc(100vw - 40px);
       overflow: hidden;
-      border-radius: 18px;
-      background: #102a43;
-      border: 1px solid #d9b25f;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.58);
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
     }
 
-    #webcamVideo,
-    #handCanvas {
+    .preview video,
+    .preview canvas {
       display: block;
       width: 100%;
       aspect-ratio: 4 / 3;
     }
 
-    #webcamVideo {
+    .preview video {
       transform: scaleX(-1);
     }
 
-    #handCanvas {
+    .preview canvas {
       position: absolute;
       inset: 0;
       transform: scaleX(-1);
     }
 
-    .demo-controls {
-      display: grid;
-      gap: 10px;
-    }
-
-    .demo-controls .button {
-      width: 100%;
-      border: 0;
-      cursor: pointer;
-      font-family: inherit;
-      text-align: center;
-    }
-
-    .mini-controls {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .mini-controls button {
-      min-height: 40px;
-      border: 1px solid #d9b25f;
-      border-radius: 12px;
-      color: #08233d;
-      background: #fffaf0;
-      cursor: pointer;
+    .preview-label {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.55);
+      font-size: 11px;
       font-weight: 800;
     }
 
-    .mini-controls button:hover {
-      background: #e8f3f8;
+    .mobile-note {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 5;
+      max-width: 330px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 12px;
+      line-height: 1.45;
+      text-align: right;
     }
 
-    @media (max-width: 700px) {
-      .hand-map {
-        right: 12px;
-        transform: scale(0.82);
-        transform-origin: bottom right;
+    @media (max-width: 780px) {
+      .panel {
+        top: auto;
+        bottom: 14px;
+        right: 14px;
+        width: calc(100vw - 28px);
       }
 
-      .control-table th,
-      .control-table td {
-        font-size: 15px;
-        padding: 12px;
+      .preview {
+        width: 180px;
+        left: 14px;
+        bottom: 166px;
       }
 
-      .demo-stage {
-        grid-template-columns: 1fr;
+      .mobile-note {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">HuskyDaddy</div>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../services.html">Test Prep</a></li>
-      <li><a href="../readingtips.html">Reading</a></li>
-      <li><a href="../stem.html">STEM</a></li>
-      <li><a href="../clients.html">Clients</a></li>
-      <li><a href="../contact.html">Contact</a></li>
-    </ul>
-  </nav>
-
-  <section class="hero">
-    <div>
-      <h1>Finger-Controlled Particle Simulation</h1>
-      <p>
-        A Python STEM project that uses MediaPipe hand recognition to control a live particle world.
-        Students can see computer vision, gesture logic, physics, and creative coding working together in real time.
-      </p>
-      <div class="button-row">
-        <a class="button" href="../../python_projects/hand_sand_simulation/sand_simulation.py">View Python File</a>
-        <a class="button secondary" href="../stem.html">Back to STEM</a>
-      </div>
+  <main id="app" aria-label="Hand-controlled 3D particle planet">
+    <div class="hud">
+      <span class="eyebrow">Three.js · MediaPipe Hands</span>
+      <h1>Hand-Controlled Particle Planet</h1>
+      <p>Open palm moves closer. Fist pulls away. Move or rotate your palm to orbit and spin the glowing orange particle planet.</p>
     </div>
 
-    <div class="hero-panel vision-panel" aria-label="Particle simulation and 21-point hand tracking illustration">
-      <div class="particle-field">
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-        <i class="particle"></i>
-      </div>
-      <div class="hand-map">
-        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
-        <span>5</span><span>6</span><span>7</span><span>8</span>
-        <span>9</span><span>10</span><span>11</span><span>12</span>
-        <span>13</span><span>14</span><span>15</span><span>16</span>
-        <span>17</span><span>18</span><span>19</span><span>20</span>
-      </div>
-    </div>
-  </section>
-
-  <main class="page-wrap">
-    <section class="intro">
-      <h2>Project Overview</h2>
-      <p>
-        This project turns a webcam into a controller. MediaPipe reads the hand as 21 landmark points,
-        the program counts raised fingers, and a particle simulation responds with different visual behaviors.
-        The result is a playful bridge between artificial intelligence, geometry, and interactive design.
-      </p>
-
-      <div class="project-stats">
-        <div class="stat"><strong>21</strong>MediaPipe hand landmarks</div>
-        <div class="stat"><strong>3200</strong>simulated particles</div>
-        <div class="stat"><strong>2</strong>OpenCV display windows</div>
+    <section class="panel" aria-label="Controls and status">
+      <button id="startCamera" type="button">Start Camera Control</button>
+      <a class="home-link" href="../stem.html">Back to STEM</a>
+      <a class="local-link" id="localhostLink" href="http://localhost:8000/pages/STEM/finger-control-particles.html">Open Localhost Version</a>
+      <div class="status" id="status">HTML mode ready. Drag to rotate, scroll to zoom.</div>
+      <div class="controls">
+        <span>Open palm: zoom in</span>
+        <span>Fist: zoom out</span>
+        <span>Palm move: orbit</span>
+        <span>Palm roll: planet spin</span>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Gesture Controls</h2>
-      <p>The hand controls are designed like a visual language: each gesture changes the behavior of the particles.</p>
-
-      <table class="control-table">
-        <thead>
-          <tr>
-            <th>Gesture</th>
-            <th>Particle Effect</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>Fist</td><td>Pack the particles back into a mound.</td></tr>
-          <tr><td>One finger</td><td>Condense the particles into a ball.</td></tr>
-          <tr><td>Middle finger</td><td>Form an angry face.</td></tr>
-          <tr><td>Two fingers</td><td>Arrange the particles into a V shape.</td></tr>
-          <tr><td>Three fingers</td><td>Create a swirling sandstorm effect.</td></tr>
-          <tr><td>Four fingers</td><td>Change the particle color palette.</td></tr>
-          <tr><td>Five fingers moving upward</td><td>Disperse the particles outward.</td></tr>
-          <tr><td>Two hands</td><td>Scoop particles upward while some leak through the gap.</td></tr>
-        </tbody>
-      </table>
+    <section class="preview" aria-label="Camera hand landmark preview">
+      <video id="cameraVideo" playsinline muted></video>
+      <canvas id="handPreview" width="320" height="240"></canvas>
+      <div class="preview-label">21-point hand graph</div>
     </section>
 
-    <section class="card">
-      <h2>What Students Learn</h2>
-      <div class="topic-grid">
-        <div class="topic-card">
-          <h3>Computer Vision</h3>
-          <p>How a webcam image becomes hand landmarks that software can measure.</p>
-        </div>
-        <div class="topic-card">
-          <h3>Coordinate Geometry</h3>
-          <p>How x-y positions, distance, direction, and velocity control movement on screen.</p>
-        </div>
-        <div class="topic-card">
-          <h3>Physics Thinking</h3>
-          <p>How gravity, damping, force, collision, and friction create natural particle motion.</p>
-        </div>
-        <div class="topic-card">
-          <h3>Program Design</h3>
-          <p>How classes, functions, constants, and gesture states organize a growing project.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Run the Project</h2>
-      <p>Open Terminal in the website folder and run the Python program with Python 3.12.</p>
-
-      <pre class="code-block"><code>python3.12 python_projects/hand_sand_simulation/sand_simulation.py</code></pre>
-
-      <div class="note">
-        The main window shows the particle simulation. The smaller preview window shows the 21-point MediaPipe hand graph used for recognition and debugging.
-      </div>
-    </section>
+    <div class="mobile-note">If camera control is unavailable from a local file, open this page from localhost or the live HTTPS website. The Three.js planet still works with mouse or trackpad.</div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-  <script>
-    (() => {
-      const demoSection = document.querySelector("main");
-      const runSection = document.querySelector(".card:last-of-type");
-      const demoCard = document.createElement("section");
-      demoCard.className = "card";
-      demoCard.innerHTML = `
-        <h2>Try the HTML Demo</h2>
-        <p>This browser version runs a smaller particle simulation directly on the page. Camera control works when the page is opened through localhost or HTTPS.</p>
-        <div class="demo-stage">
-          <div class="canvas-shell">
-            <canvas id="particleCanvas" width="960" height="600"></canvas>
-            <div class="demo-status" id="demoStatus">Mode: idle</div>
-          </div>
-          <div class="camera-preview">
-            <div class="camera-box">
-              <video id="webcamVideo" playsinline muted></video>
-              <canvas id="handCanvas" width="320" height="240"></canvas>
-            </div>
-            <div class="demo-controls">
-              <button class="button" id="startCamera" type="button">Start Camera Control</button>
-              <div class="mini-controls" aria-label="Demo mode buttons">
-                <button type="button" data-mode="ball">1</button>
-                <button type="button" data-mode="v">2</button>
-                <button type="button" data-mode="storm">3</button>
-                <button type="button" data-mode="face">M</button>
-                <button type="button" data-mode="color">4</button>
-                <button type="button" data-mode="scatter">5</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-      demoSection.insertBefore(demoCard, runSection);
 
-      const canvas = document.getElementById("particleCanvas");
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+
+  <script type="module">
+    import * as THREE from "three";
+
+    const app = document.getElementById("app");
+    const statusEl = document.getElementById("status");
+    const startButton = document.getElementById("startCamera");
+    const localhostLink = document.getElementById("localhostLink");
+    const video = document.getElementById("cameraVideo");
+    const handPreview = document.getElementById("handPreview");
+    const handCtx = handPreview.getContext("2d");
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x000000, 0.028);
+
+    const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 120);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.domElement.className = "webgl";
+    app.prepend(renderer.domElement);
+
+    const planet = new THREE.Group();
+    const rings = new THREE.Group();
+    const glowGroup = new THREE.Group();
+    scene.add(planet, rings, glowGroup);
+
+    const minDistance = 4.2;
+    const maxDistance = 13.5;
+    const state = {
+      yaw: 0,
+      pitch: 0.15,
+      roll: 0,
+      distance: 8.2,
+      targetYaw: 0,
+      targetPitch: 0.15,
+      targetRoll: 0,
+      targetDistance: 8.2,
+      handX: 0.5,
+      handY: 0.5,
+      handSize: 0.32,
+      handRoll: 0,
+      gesture: "Mouse / trackpad"
+    };
+
+    const pointer = {
+      down: false,
+      x: 0,
+      y: 0
+    };
+
+    if (window.location.protocol === "file:") {
+      localhostLink.classList.add("show");
+      statusEl.textContent = "3D WebApp is running. Camera control needs localhost or HTTPS, not file://.";
+    }
+
+    const orangePalette = [
+      new THREE.Color("#ff6b12"),
+      new THREE.Color("#ff8f1f"),
+      new THREE.Color("#ffb347"),
+      new THREE.Color("#ffd36e"),
+      new THREE.Color("#ffefe0")
+    ];
+
+    const whitePalette = [
+      new THREE.Color("#ffffff"),
+      new THREE.Color("#eaf7ff"),
+      new THREE.Color("#fff7e0")
+    ];
+
+    const dummy = new THREE.Object3D();
+    const sphereGeometry = new THREE.SphereGeometry(0.045, 12, 12);
+    const surfaceCount = 3600;
+    const coreCount = 850;
+    const ringCount = 1450;
+    const starsCount = 900;
+
+    function makeInstanced(count, color, additive = true) {
+      const material = new THREE.MeshBasicMaterial({
+        color,
+        transparent: true,
+        opacity: 0.96,
+        blending: additive ? THREE.AdditiveBlending : THREE.NormalBlending,
+        depthWrite: false
+      });
+      const mesh = new THREE.InstancedMesh(sphereGeometry, material, count);
+      mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+      return mesh;
+    }
+
+    const surfaceMesh = makeInstanced(surfaceCount, 0xff8b2b);
+    const coreMesh = makeInstanced(coreCount, 0xffc85a);
+    const ringMesh = makeInstanced(ringCount, 0xffffff);
+    const starsMesh = makeInstanced(starsCount, 0xffffff);
+    planet.add(surfaceMesh, coreMesh);
+    rings.add(ringMesh);
+    scene.add(starsMesh);
+
+    const surfaceParticles = [];
+    const coreParticles = [];
+    const ringParticles = [];
+    const starParticles = [];
+
+    function randomOnSphere(radius) {
+      const u = Math.random();
+      const v = Math.random();
+      const theta = 2 * Math.PI * u;
+      const phi = Math.acos(2 * v - 1);
+      const r = radius + (Math.random() - 0.5) * 0.13;
+      return new THREE.Vector3(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.cos(phi),
+        r * Math.sin(phi) * Math.sin(theta)
+      );
+    }
+
+    function createPlanetParticles() {
+      for (let i = 0; i < surfaceCount; i++) {
+        const pos = randomOnSphere(1.62);
+        surfaceParticles.push({
+          base: pos,
+          scale: 0.92 + Math.random() * 1.4,
+          phase: Math.random() * Math.PI * 2,
+          color: orangePalette[Math.floor(Math.random() * orangePalette.length)]
+        });
+        surfaceMesh.setColorAt(i, surfaceParticles[i].color);
+      }
+
+      for (let i = 0; i < coreCount; i++) {
+        const radius = Math.cbrt(Math.random()) * 1.2;
+        const pos = randomOnSphere(radius);
+        coreParticles.push({
+          base: pos,
+          scale: 1.1 + Math.random() * 1.7,
+          phase: Math.random() * Math.PI * 2,
+          color: orangePalette[2 + Math.floor(Math.random() * 3)]
+        });
+        coreMesh.setColorAt(i, coreParticles[i].color);
+      }
+
+      surfaceMesh.instanceColor.needsUpdate = true;
+      coreMesh.instanceColor.needsUpdate = true;
+    }
+
+    function createRingParticles() {
+      for (let i = 0; i < ringCount; i++) {
+        const layer = i % 2;
+        const angle = Math.random() * Math.PI * 2;
+        const radius = layer === 0 ? 2.65 + Math.random() * 0.38 : 3.35 + Math.random() * 0.42;
+        const thickness = layer === 0 ? 0.05 : 0.07;
+        ringParticles.push({
+          angle,
+          radius,
+          y: (Math.random() - 0.5) * thickness,
+          zJitter: (Math.random() - 0.5) * 0.1,
+          scale: 0.7 + Math.random() * 1.25,
+          speed: (layer === 0 ? 0.18 : -0.12) * (0.72 + Math.random() * 0.5),
+          color: whitePalette[Math.floor(Math.random() * whitePalette.length)]
+        });
+        ringMesh.setColorAt(i, ringParticles[i].color);
+      }
+      ringMesh.instanceColor.needsUpdate = true;
+      rings.rotation.x = Math.PI * 0.5;
+      rings.rotation.z = -0.34;
+    }
+
+    function createBackgroundStars() {
+      for (let i = 0; i < starsCount; i++) {
+        const pos = randomOnSphere(28 + Math.random() * 28);
+        starParticles.push({
+          base: pos,
+          scale: 0.35 + Math.random() * 0.9,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function makeGlowTexture() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 256;
       const ctx = canvas.getContext("2d");
-      const status = document.getElementById("demoStatus");
-      const video = document.getElementById("webcamVideo");
-      const handCanvas = document.getElementById("handCanvas");
-      const handCtx = handCanvas.getContext("2d");
-      const particles = [];
-      const colors = [
-        ["#d6aa4e", "#ebc370", "#b88437", "#f6d891"],
-        ["#41d4ff", "#2d8ed6", "#86f0ff", "#1e5ab4"],
-        ["#bc4e2c", "#e26e37", "#963927", "#f48d4b"]
+      const gradient = ctx.createRadialGradient(128, 128, 0, 128, 128, 128);
+      gradient.addColorStop(0, "rgba(255, 232, 140, 0.95)");
+      gradient.addColorStop(0.25, "rgba(255, 139, 43, 0.55)");
+      gradient.addColorStop(0.65, "rgba(255, 76, 18, 0.16)");
+      gradient.addColorStop(1, "rgba(255, 76, 18, 0)");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 256, 256);
+      return new THREE.CanvasTexture(canvas);
+    }
+
+    const glowMaterial = new THREE.SpriteMaterial({
+      map: makeGlowTexture(),
+      color: 0xff9c2b,
+      transparent: true,
+      opacity: 0.95,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+    const centerGlow = new THREE.Sprite(glowMaterial);
+    centerGlow.scale.set(5.3, 5.3, 1);
+    glowGroup.add(centerGlow);
+
+    createPlanetParticles();
+    createRingParticles();
+    createBackgroundStars();
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function updateInstanced(mesh, particles, time, type) {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        let x;
+        let y;
+        let z;
+        let scale = p.scale;
+
+        if (type === "ring") {
+          const angle = p.angle + time * p.speed;
+          x = Math.cos(angle) * p.radius;
+          y = p.y + Math.sin(time * 2 + i) * 0.012;
+          z = Math.sin(angle) * p.radius + p.zJitter;
+        } else if (type === "star") {
+          x = p.base.x;
+          y = p.base.y;
+          z = p.base.z;
+          scale *= 0.7 + Math.sin(time * 1.7 + p.phase) * 0.16;
+        } else {
+          const pulse = Math.sin(time * 1.6 + p.phase) * 0.035;
+          x = p.base.x * (1 + pulse);
+          y = p.base.y * (1 + pulse);
+          z = p.base.z * (1 + pulse);
+          scale *= 1 + Math.sin(time * 2.4 + p.phase) * 0.1;
+        }
+
+        dummy.position.set(x, y, z);
+        dummy.scale.setScalar(scale);
+        dummy.updateMatrix();
+        mesh.setMatrixAt(i, dummy.matrix);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    }
+
+    function setCameraFromState() {
+      state.yaw = lerp(state.yaw, state.targetYaw, 0.07);
+      state.pitch = lerp(state.pitch, state.targetPitch, 0.07);
+      state.roll = lerp(state.roll, state.targetRoll, 0.08);
+      const zoomT = state.targetDistance < state.distance ? 0.11 : 0.055;
+      state.distance = lerp(state.distance, clamp(state.targetDistance, minDistance, maxDistance), zoomT);
+
+      const pitch = clamp(state.pitch, -0.88, 0.88);
+      const x = Math.sin(state.yaw) * Math.cos(pitch) * state.distance;
+      const y = Math.sin(pitch) * state.distance;
+      const z = Math.cos(state.yaw) * Math.cos(pitch) * state.distance;
+      camera.position.set(x, y, z);
+      camera.lookAt(0, 0, 0);
+
+      planet.rotation.y += 0.004 + state.roll * 0.0018;
+      planet.rotation.z = lerp(planet.rotation.z, state.roll * 0.38, 0.05);
+      rings.rotation.y += 0.0022;
+    }
+
+    function animate(timeMs) {
+      const time = timeMs * 0.001;
+      updateInstanced(surfaceMesh, surfaceParticles, time, "surface");
+      updateInstanced(coreMesh, coreParticles, time, "core");
+      updateInstanced(ringMesh, ringParticles, time, "ring");
+      updateInstanced(starsMesh, starParticles, time, "star");
+      centerGlow.material.opacity = 0.82 + Math.sin(time * 1.8) * 0.08;
+      setCameraFromState();
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    function onResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    window.addEventListener("resize", onResize);
+
+    renderer.domElement.addEventListener("pointerdown", (event) => {
+      pointer.down = true;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      renderer.domElement.setPointerCapture(event.pointerId);
+    });
+
+    renderer.domElement.addEventListener("pointermove", (event) => {
+      if (!pointer.down) return;
+      const dx = event.clientX - pointer.x;
+      const dy = event.clientY - pointer.y;
+      pointer.x = event.clientX;
+      pointer.y = event.clientY;
+      state.targetYaw += dx * 0.006;
+      state.targetPitch = clamp(state.targetPitch + dy * 0.004, -0.82, 0.82);
+    });
+
+    renderer.domElement.addEventListener("pointerup", () => {
+      pointer.down = false;
+    });
+
+    renderer.domElement.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      state.targetDistance = clamp(state.targetDistance + event.deltaY * 0.006, minDistance, maxDistance);
+    }, { passive: false });
+
+    function fingerIsRaised(landmarks, tip, pip) {
+      return landmarks[tip].y < landmarks[pip].y + 0.025;
+    }
+
+    function classifyHand(landmarks) {
+      const raised = [
+        fingerIsRaised(landmarks, 8, 6),
+        fingerIsRaised(landmarks, 12, 10),
+        fingerIsRaised(landmarks, 16, 14),
+        fingerIsRaised(landmarks, 20, 18)
       ];
-      let palette = 0;
-      let mode = "idle";
-      let lastGesture = "none";
+      const thumbOpen = Math.abs(landmarks[4].x - landmarks[3].x) > 0.035;
+      const count = raised.filter(Boolean).length + (thumbOpen ? 1 : 0);
+      if (count >= 5) return "Open Palm";
+      if (count <= 1) return "Fist";
+      return `${count} fingers`;
+    }
 
-      function resetParticles() {
-        particles.length = 0;
-        for (let i = 0; i < 900; i++) {
-          particles.push({
-            x: canvas.width / 2 + (Math.random() - 0.5) * 280,
-            y: canvas.height - 80 - Math.abs(randomNormal()) * 90,
-            vx: (Math.random() - 0.5) * 30,
-            vy: (Math.random() - 0.5) * 30,
-            color: colors[palette][Math.floor(Math.random() * colors[palette].length)]
-          });
-        }
+    function handMetrics(landmarks) {
+      let minX = 1;
+      let minY = 1;
+      let maxX = 0;
+      let maxY = 0;
+      for (const point of landmarks) {
+        minX = Math.min(minX, point.x);
+        minY = Math.min(minY, point.y);
+        maxX = Math.max(maxX, point.x);
+        maxY = Math.max(maxY, point.y);
+      }
+      const centerX = (minX + maxX) / 2;
+      const centerY = (minY + maxY) / 2;
+      const size = Math.hypot(maxX - minX, maxY - minY);
+      const roll = Math.atan2(landmarks[17].y - landmarks[5].y, landmarks[17].x - landmarks[5].x);
+      return { centerX, centerY, size, roll };
+    }
+
+    function drawHandPreview(results) {
+      handCtx.clearRect(0, 0, handPreview.width, handPreview.height);
+      if (!results.multiHandLandmarks?.length) return;
+      const landmarks = results.multiHandLandmarks[0];
+      const connections = [
+        [0, 1], [1, 2], [2, 3], [3, 4],
+        [0, 5], [5, 6], [6, 7], [7, 8],
+        [5, 9], [9, 10], [10, 11], [11, 12],
+        [9, 13], [13, 14], [14, 15], [15, 16],
+        [13, 17], [17, 18], [18, 19], [19, 20], [0, 17]
+      ];
+      handCtx.lineWidth = 2;
+      handCtx.strokeStyle = "rgba(255, 208, 132, 0.96)";
+      handCtx.fillStyle = "#fff";
+      for (const [a, b] of connections) {
+        handCtx.beginPath();
+        handCtx.moveTo(landmarks[a].x * handPreview.width, landmarks[a].y * handPreview.height);
+        handCtx.lineTo(landmarks[b].x * handPreview.width, landmarks[b].y * handPreview.height);
+        handCtx.stroke();
+      }
+      landmarks.forEach((point, index) => {
+        const x = point.x * handPreview.width;
+        const y = point.y * handPreview.height;
+        handCtx.beginPath();
+        handCtx.arc(x, y, 4.4, 0, Math.PI * 2);
+        handCtx.fill();
+        handCtx.fillText(String(index), x + 5, y - 5);
+      });
+    }
+
+    async function startCameraControl() {
+      if (window.location.protocol === "file:") {
+        statusEl.textContent = "Camera is blocked because this is file://. Use the Open Localhost Version button after starting a local server, or open it on huskydaddy.com.";
+        return;
       }
 
-      function randomNormal() {
-        return Math.sqrt(-2 * Math.log(Math.random())) * Math.cos(2 * Math.PI * Math.random());
+      if (!window.Hands || !window.Camera) {
+        statusEl.textContent = "MediaPipe CDN did not load. The Three.js HTML planet still works with mouse and trackpad.";
+        return;
       }
 
-      function raisedFingers(landmarks) {
-        const raised = [];
-        const margin = 0.025;
-        [["index", 8, 6], ["middle", 12, 10], ["ring", 16, 14], ["pinky", 20, 18]].forEach(([name, tip, pip]) => {
-          if (landmarks[tip].y < landmarks[pip].y + margin) raised.push(name);
-        });
-        if (Math.abs(landmarks[4].x - landmarks[3].x) > 0.035) raised.push("thumb");
-        return raised;
-      }
+      startButton.disabled = true;
+      startButton.textContent = "Camera Starting...";
 
-      function setMode(nextMode) {
-        mode = nextMode;
-        status.textContent = `Mode: ${nextMode}`;
-      }
-
-      function gestureToMode(raised) {
-        if (raised.length === 0) return "pack";
-        if (raised.length === 1 && raised[0] === "index") return "ball";
-        if (raised.length === 1 && raised[0] === "middle") return "face";
-        if (raised.includes("index") && raised.includes("middle") && raised.length === 2) return "v";
-        if (raised.length === 3) return "storm";
-        if (raised.length === 4) return "color";
-        if (raised.length >= 5) return "scatter";
-        return "idle";
-      }
-
-      function targetFor(i, nextMode) {
-        const cx = canvas.width / 2;
-        const cy = canvas.height / 2;
-        if (nextMode === "ball") {
-          const angle = i * 2.399963;
-          const layer = Math.sqrt((i % particles.length) / particles.length);
-          return [cx + Math.cos(angle) * 115 * layer, cy + Math.sin(angle) * 115 * layer];
-        }
-        if (nextMode === "v") {
-          const side = i % 2 === 0 ? -1 : 1;
-          const t = ((Math.floor(i / 2)) % Math.floor(particles.length / 2)) / Math.floor(particles.length / 2);
-          return [cx + side * 160 * (1 - t), cy - 150 + 300 * t];
-        }
-        if (nextMode === "face") {
-          const part = i % 5;
-          if (part === 0) {
-            const a = (i / particles.length) * Math.PI * 2;
-            return [cx + Math.cos(a) * 155, cy + Math.sin(a) * 155];
-          }
-          if (part === 1) return [cx - 95 + (i % 80), cy - 70 + (i % 80) * 0.45];
-          if (part === 2) return [cx + 95 - (i % 80), cy - 70 + (i % 80) * 0.45];
-          const a = Math.PI * 1.15 + (i % 160) / 160 * Math.PI * 0.7;
-          return [cx + Math.cos(a) * 85, cy + 105 + Math.sin(a) * 55];
-        }
-        if (nextMode === "pack") {
-          const offset = ((i * 37) % 300) - 150;
-          return [cx + offset, canvas.height - 68 - Math.abs(offset) * 0.28 - (i % 90)];
-        }
-        return [particles[i].x, particles[i].y];
-      }
-
-      function step() {
-        ctx.fillStyle = "#071f36";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#102a43";
-        ctx.fillRect(0, canvas.height - 58, canvas.width, 58);
-
-        particles.forEach((p, i) => {
-          if (["ball", "v", "face", "pack"].includes(mode)) {
-            const [tx, ty] = targetFor(i, mode);
-            p.vx += (tx - p.x) * 0.018;
-            p.vy += (ty - p.y) * 0.018;
-          } else if (mode === "storm") {
-            const dx = p.x - canvas.width / 2;
-            const dy = p.y - canvas.height / 2;
-            const dist = Math.max(Math.hypot(dx, dy), 1);
-            p.vx += (-dy / dist) * 2.2;
-            p.vy += (dx / dist) * 2.2;
-          } else if (mode === "scatter") {
-            p.vx += (Math.random() - 0.5) * 7;
-            p.vy -= Math.random() * 5;
-          } else {
-            p.vy += 0.18;
-          }
-
-          p.vx *= 0.94;
-          p.vy *= 0.94;
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 4 || p.x > canvas.width - 4) p.vx *= -0.5;
-          p.x = Math.max(4, Math.min(canvas.width - 4, p.x));
-          if (p.y > canvas.height - 58) {
-            p.y = canvas.height - 58;
-            p.vy *= -0.18;
-            p.vx *= 0.75;
-          }
-          ctx.fillStyle = p.color;
-          ctx.fillRect(p.x, p.y, 2, 2);
-        });
-
-        requestAnimationFrame(step);
-      }
-
-      document.querySelectorAll("[data-mode]").forEach((button) => {
-        button.addEventListener("click", () => {
-          const nextMode = button.dataset.mode;
-          if (nextMode === "color") {
-            palette = (palette + 1) % colors.length;
-            particles.forEach((p) => {
-              p.color = colors[palette][Math.floor(Math.random() * colors[palette].length)];
-            });
-          } else {
-            setMode(nextMode);
-          }
-        });
+      const hands = new window.Hands({
+        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
       });
 
-      document.getElementById("startCamera").addEventListener("click", async () => {
-        if (!window.Hands || !window.Camera) {
-          status.textContent = "Mode: camera library unavailable";
+      hands.setOptions({
+        maxNumHands: 1,
+        modelComplexity: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+      });
+
+      hands.onResults((results) => {
+        drawHandPreview(results);
+        if (!results.multiHandLandmarks?.length) {
+          statusEl.textContent = "Camera ready. Show one hand to control the planet.";
           return;
         }
 
-        const hands = new Hands({
-          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-        });
-        hands.setOptions({
-          maxNumHands: 2,
-          modelComplexity: 1,
-          minDetectionConfidence: 0.45,
-          minTrackingConfidence: 0.45
-        });
-        hands.onResults((results) => {
-          handCtx.clearRect(0, 0, handCanvas.width, handCanvas.height);
-          if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
-            lastGesture = "none";
-            return;
-          }
-          const landmarks = results.multiHandLandmarks[0];
-          handCtx.strokeStyle = "#d9b25f";
-          handCtx.fillStyle = "#e8f3f8";
-          handCtx.lineWidth = 2;
-          const connections = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
-          connections.forEach(([a, b]) => {
-            handCtx.beginPath();
-            handCtx.moveTo(landmarks[a].x * handCanvas.width, landmarks[a].y * handCanvas.height);
-            handCtx.lineTo(landmarks[b].x * handCanvas.width, landmarks[b].y * handCanvas.height);
-            handCtx.stroke();
-          });
-          landmarks.forEach((point, index) => {
-            const x = point.x * handCanvas.width;
-            const y = point.y * handCanvas.height;
-            handCtx.beginPath();
-            handCtx.arc(x, y, 4, 0, Math.PI * 2);
-            handCtx.fill();
-            handCtx.fillText(index, x + 5, y - 5);
-          });
-          const nextMode = gestureToMode(raisedFingers(landmarks));
-          if (nextMode === "color" && lastGesture !== "color") {
-            palette = (palette + 1) % colors.length;
-            particles.forEach((p) => {
-              p.color = colors[palette][Math.floor(Math.random() * colors[palette].length)];
-            });
-          } else if (nextMode !== "color") {
-            setMode(nextMode);
-          }
-          lastGesture = nextMode;
-        });
+        const landmarks = results.multiHandLandmarks[0];
+        const gesture = classifyHand(landmarks);
+        const metrics = handMetrics(landmarks);
+        state.handX = lerp(state.handX, metrics.centerX, 0.18);
+        state.handY = lerp(state.handY, metrics.centerY, 0.18);
+        state.handSize = lerp(state.handSize, metrics.size, 0.16);
+        state.handRoll = lerp(state.handRoll, metrics.roll, 0.14);
 
-        const camera = new Camera(video, {
+        state.targetYaw += (state.handX - 0.5) * 0.026;
+        state.targetPitch = clamp(state.targetPitch + (state.handY - 0.5) * 0.014, -0.82, 0.82);
+        state.targetRoll = clamp(Math.sin(state.handRoll), -1, 1);
+
+        if (gesture === "Fist") {
+          state.targetDistance = maxDistance;
+        } else if (gesture === "Open Palm") {
+          state.targetDistance = minDistance;
+        } else {
+          const distanceFromSize = THREE.MathUtils.mapLinear(clamp(state.handSize, 0.18, 0.62), 0.18, 0.62, maxDistance, minDistance);
+          state.targetDistance = lerp(state.targetDistance, distanceFromSize, 0.05);
+        }
+
+        state.gesture = gesture;
+        statusEl.textContent = `${gesture} · camera distance ${state.distance.toFixed(1)}`;
+      });
+
+      try {
+        const cameraFeed = new window.Camera(video, {
           onFrame: async () => {
             await hands.send({ image: video });
           },
           width: 320,
           height: 240
         });
-        await camera.start();
-        status.textContent = "Mode: camera ready";
-      });
+        await cameraFeed.start();
+        startButton.textContent = "Camera Control Active";
+        statusEl.textContent = "Camera ready. Open palm zooms in; fist zooms out.";
+      } catch (error) {
+        startButton.disabled = false;
+        startButton.textContent = "Start Camera Control";
+        statusEl.textContent = "Camera blocked here. Use mouse/trackpad, or open this page from localhost/HTTPS.";
+      }
+    }
 
-      resetParticles();
-      step();
-    })();
+    startButton.addEventListener("click", startCameraControl);
   </script>
-
-  <footer>
-    © HuskyDaddy | Learning, resilience, and life beyond the classroom <span>Gesture STEM</span>
-  </footer>
 </body>
 </html>
