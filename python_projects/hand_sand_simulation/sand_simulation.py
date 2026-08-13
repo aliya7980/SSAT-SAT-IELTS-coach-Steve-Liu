@@ -44,12 +44,12 @@ FPS = 60
 NONE = "NONE"
 FIST = "FIST"
 ONE_FINGER = "ONE FINGER"
-MIDDLE_FINGER = "MIDDLE FINGER"
 TWO_FINGERS = "TWO FINGERS"
 THREE_FINGERS = "THREE FINGERS"
 FOUR_FINGERS = "FOUR FINGERS"
 FIVE_FINGERS = "FIVE FINGERS"
 TWO_HAND_SCOOP = "TWO HAND SCOOP"
+PACK_COMMAND = "PACK COMMAND"
 
 MODE_IDLE = "HEAP"
 MODE_POKE = "POKE"
@@ -368,6 +368,7 @@ class HandController:
         self.index_tip = None
         self.scoop_points = None
         self.hand_height = None
+        self.raised_fingers = set()
         self.four_ready = True
         self.last_preview = None
 
@@ -380,6 +381,7 @@ class HandController:
     def read(self) -> dict:
         self.index_tip = None
         self.scoop_points = None
+        self.raised_fingers = set()
         raw_gesture = NONE
         now = time.monotonic()
         frame_dt = max(now - self.previous_frame_time, 1 / FPS)
@@ -427,10 +429,12 @@ class HandController:
             hands_data.sort(key=lambda item: item["center"][0])
             primary = hands_data[0]
             raw_gesture = self._gesture_from_raised(primary["raised_fingers"])
+            self.raised_fingers = primary["raised_fingers"]
             self.hand_height = primary["wrist_y"]
             self.index_tip = primary["index_tip"]
 
-            if len(hands_data) >= 2:
+            two_open_hands = len(hands_data) >= 2 and all(item["fingers"] >= 4 for item in hands_data[:2])
+            if two_open_hands:
                 raw_gesture = TWO_HAND_SCOOP
                 self.scoop_points = (hands_data[0]["center"], hands_data[1]["center"])
                 scoop_y = (hands_data[0]["center"][1] + hands_data[1]["center"][1]) / 2 / self.height
@@ -451,6 +455,7 @@ class HandController:
             self.palm_velocity_y = 0.0
             self.scoop_velocity_y = 0.0
             self.hand_height = None
+            self.raised_fingers = set()
 
         self._stabilize(raw_gesture, now)
         preview = cv2.resize(frame, (520, 360))
@@ -476,6 +481,7 @@ class HandController:
             "palm_velocity_y": self.palm_velocity_y,
             "scoop_velocity_y": self.scoop_velocity_y,
             "hand_height": self.hand_height,
+            "raised_fingers": self.raised_fingers,
         }
 
     def _stabilize(self, raw_gesture: str, now: float) -> None:
@@ -499,15 +505,16 @@ class HandController:
 
     @staticmethod
     def _gesture_from_raised(raised_fingers: set[str]) -> str:
-        if not raised_fingers:
+        fingers_without_thumb = raised_fingers - {"thumb"}
+        thumb_is_open = "thumb" in raised_fingers
+
+        if not fingers_without_thumb:
             return FIST
-        if raised_fingers == {"index"}:
+        if fingers_without_thumb == {"index"}:
             return ONE_FINGER
-        if raised_fingers == {"middle"}:
-            return MIDDLE_FINGER
-        if raised_fingers == {"index", "middle"}:
+        if fingers_without_thumb == {"index", "middle"}:
             return TWO_FINGERS
-        return HandController._gesture_from_count(len(raised_fingers))
+        return HandController._gesture_from_count(len(fingers_without_thumb) + int(thumb_is_open))
 
     @staticmethod
     def count_fingers(hand_landmarks, handedness_label: str) -> int:
@@ -517,20 +524,47 @@ class HandController:
     def raised_finger_names(hand_landmarks, handedness_label: str) -> set[str]:
         landmarks = hand_landmarks.landmark
         fingers = set()
-        sensitivity_margin = 0.025
-        for name, tip, pip in [("index", 8, 6), ("middle", 12, 10), ("ring", 16, 14), ("pinky", 20, 18)]:
-            if landmarks[tip].y < landmarks[pip].y + sensitivity_margin:
+        wrist = landmarks[0]
+        palm_size = max(HandController._distance(wrist, landmarks[9]), 0.001)
+
+        for name, mcp, pip, dip, tip in [
+            ("index", 5, 6, 7, 8),
+            ("middle", 9, 10, 11, 12),
+            ("ring", 13, 14, 15, 16),
+            ("pinky", 17, 18, 19, 20),
+        ]:
+            tip_extension = HandController._distance(wrist, landmarks[tip]) - HandController._distance(wrist, landmarks[pip])
+            tip_above_pip = landmarks[tip].y < landmarks[pip].y + palm_size * 0.08
+            joint_angle = HandController._joint_angle(landmarks[mcp], landmarks[pip], landmarks[tip])
+            straight_threshold = 132 if name == "middle" else 142
+            extension_threshold = 0.07 if name == "middle" else 0.11
+            straight_enough = joint_angle > straight_threshold
+            extended_enough = tip_extension > palm_size * extension_threshold
+            if straight_enough and (extended_enough or tip_above_pip):
                 fingers.add(name)
 
         thumb_tip = landmarks[4]
         thumb_ip = landmarks[3]
-        if handedness_label == "Right":
-            thumb_open = thumb_tip.x < thumb_ip.x + sensitivity_margin
-        else:
-            thumb_open = thumb_tip.x > thumb_ip.x - sensitivity_margin
+        thumb_mcp = landmarks[2]
+        index_mcp = landmarks[5]
+        thumb_distance = HandController._distance(thumb_tip, index_mcp)
+        thumb_extended = HandController._distance(wrist, thumb_tip) > HandController._distance(wrist, thumb_mcp) + palm_size * 0.1
+        thumb_open = thumb_distance > palm_size * 0.34 and thumb_extended
         if thumb_open:
             fingers.add("thumb")
         return fingers
+
+    @staticmethod
+    def _distance(a, b) -> float:
+        return math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2)
+
+    @staticmethod
+    def _joint_angle(a, b, c) -> float:
+        ba = np.array([a.x - b.x, a.y - b.y, a.z - b.z])
+        bc = np.array([c.x - b.x, c.y - b.y, c.z - b.z])
+        denom = max(float(np.linalg.norm(ba) * np.linalg.norm(bc)), 1e-8)
+        cosine = float(np.dot(ba, bc) / denom)
+        return math.degrees(math.acos(max(-1.0, min(1.0, cosine))))
 
     @staticmethod
     def draw_numbered_landmarks(frame: np.ndarray, hand_landmarks) -> None:
@@ -562,17 +596,20 @@ def draw_hud(
     palette_name: str,
     fps: float,
     camera_ok: bool,
+    raised_fingers: set[str],
 ) -> None:
+    finger_text = ", ".join(sorted(raised_fingers)) if raised_fingers else "none"
     lines = [
         f"GESTURE: {gesture}",
+        f"FINGERS: {len(raised_fingers)} ({finger_text})",
         f"MODE: {mode}",
         f"COLOR: {palette_name}",
         f"FPS: {fps:0.0f}",
         "Camera: ON" if camera_ok else "Camera: OFF - use keyboard",
-        "0 pack | 1 ball | 2 V shape | M angry face | 3 storm | 4 color | 5 disperse | 6 scoop",
+        "Fist angry face | 0 pack | 1 ball | 2 V shape | 3 storm | 4 color | 5 disperse | 6 scoop",
     ]
     for row, line in enumerate(lines):
-        color = (246, 241, 232) if row < 4 else (186, 174, 154)
+        color = (246, 241, 232) if row < 5 else (186, 174, 154)
         cv2.putText(canvas, line, (18, 30 + row * 27), cv2.FONT_HERSHEY_SIMPLEX, 0.62, color, 2, cv2.LINE_AA)
 
 
@@ -583,8 +620,8 @@ def run_self_test() -> None:
     assert HandController._gesture_from_count(1) == ONE_FINGER
     assert HandController._gesture_from_count(5) == FIVE_FINGERS
     assert HandController._gesture_from_raised({"index"}) == ONE_FINGER
-    assert HandController._gesture_from_raised({"middle"}) == MIDDLE_FINGER
     assert HandController._gesture_from_raised({"index", "middle"}) == TWO_FINGERS
+    assert HandController._gesture_from_raised({"index", "middle", "thumb"}) == TWO_FINGERS
     print("Self-test passed")
     print(f"Particles: {len(sim.particles)}")
     print(f"OpenCV: {cv2.__version__}")
@@ -625,8 +662,10 @@ def main() -> None:
         if state["raw_gesture"] == TWO_HAND_SCOOP and state["scoop_points"] is not None:
             active = TWO_HAND_SCOOP
 
-        if active == FIST:
+        if active == PACK_COMMAND:
             sim.pack_heap(dt)
+        elif active == FIST:
+            sim.form_angry_face(dt)
         elif active == TWO_HAND_SCOOP:
             if state["scoop_points"] is not None:
                 left_hand, right_hand = state["scoop_points"]
@@ -639,8 +678,6 @@ def main() -> None:
             sim.scoop(left_hand, right_hand, lift_power, dt)
         elif active == ONE_FINGER:
             sim.condense_ball(dt)
-        elif active == MIDDLE_FINGER:
-            sim.form_angry_face(dt)
         elif active == TWO_FINGERS:
             sim.form_v_shape(dt)
         elif active == THREE_FINGERS:
@@ -667,7 +704,7 @@ def main() -> None:
         cv2.line(canvas, (0, FLOOR_Y + 1), (WIDTH, FLOOR_Y + 1), (60, 50, 38), 2, lineType=cv2.LINE_AA)
         sim.draw(canvas)
 
-        draw_hud(canvas, active, sim.mode, sim.palette_name, fps_average, hand.camera_ok)
+        draw_hud(canvas, active, sim.mode, sim.palette_name, fps_average, hand.camera_ok, state["raised_fingers"])
         cv2.imshow(window_name, canvas)
         key = cv2.waitKey(1) & 0xFF
         if key in {ord("q"), 27}:
@@ -676,13 +713,11 @@ def main() -> None:
             sim.reset_heap()
             keyboard_mode = NONE
         elif key == ord("0"):
-            keyboard_mode = FIST
+            keyboard_mode = PACK_COMMAND
         elif key == ord("1"):
             keyboard_mode = ONE_FINGER
         elif key == ord("2"):
             keyboard_mode = TWO_FINGERS
-        elif key == ord("m"):
-            keyboard_mode = MIDDLE_FINGER
         elif key == ord("3"):
             keyboard_mode = THREE_FINGERS
         elif key == ord("4"):

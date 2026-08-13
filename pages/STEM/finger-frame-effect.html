@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finger Frame Effect | HuskyDaddy STEM</title>
+  <meta name="description" content="A browser-based MediaPipe hand-frame camera effect inspired by the finger-frame interaction pattern.">
+  <style>
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      color: #f7fbff;
+      background: #050507;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    #stage {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 22rem),
+        #050507;
+    }
+
+    #video {
+      display: none;
+    }
+
+    #canvas {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      background: #050507;
+    }
+
+    .topbar {
+      position: fixed;
+      left: 18px;
+      top: 18px;
+      z-index: 6;
+      display: grid;
+      gap: 10px;
+      width: min(420px, calc(100vw - 36px));
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      padding: 6px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      color: #cde9ff;
+      background: rgba(0, 0, 0, 0.42);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 5vw, 66px);
+      line-height: 0.96;
+      letter-spacing: 0;
+      text-shadow: 0 8px 34px rgba(0, 0, 0, 0.9);
+    }
+
+    .topbar p {
+      margin: 0;
+      color: rgba(247, 251, 255, 0.76);
+      font-size: 15px;
+      line-height: 1.55;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.9);
+    }
+
+    .panel {
+      position: fixed;
+      right: 18px;
+      top: 18px;
+      z-index: 7;
+      display: grid;
+      gap: 10px;
+      width: min(360px, calc(100vw - 36px));
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 16px;
+      background: rgba(8, 10, 14, 0.72);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(16px);
+    }
+
+    .button-row,
+    .effects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button,
+    .nav-link {
+      min-height: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: #f7fbff;
+      background: rgba(255, 255, 255, 0.09);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 850;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    #startCamera {
+      color: #07111d;
+      background: linear-gradient(135deg, #ffffff, #9fd7ff);
+    }
+
+    button.active {
+      color: #07111d;
+      background: #fff;
+    }
+
+    .status {
+      color: #cde9ff;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .localhost-link {
+      display: none;
+      color: #07111d;
+      background: linear-gradient(135deg, #ffe6a8, #f7b844);
+    }
+
+    .localhost-link.show {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hint {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      z-index: 6;
+      width: min(680px, calc(100vw - 36px));
+      transform: translateX(-50%);
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      color: rgba(247, 251, 255, 0.84);
+      background: rgba(0, 0, 0, 0.48);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 750;
+      backdrop-filter: blur(14px);
+    }
+
+    @media (max-width: 780px) {
+      .topbar {
+        right: 18px;
+        width: auto;
+      }
+
+      .panel {
+        top: auto;
+        bottom: 82px;
+      }
+
+      .hint {
+        border-radius: 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="stage" aria-label="Finger frame camera effect">
+    <video id="video" autoplay playsinline muted></video>
+    <canvas id="canvas"></canvas>
+
+    <section class="topbar">
+      <span class="eyebrow">MediaPipe · Canvas 2D</span>
+      <h1>Finger Frame Effect</h1>
+      <p>Use both hands to make a camera frame with your thumbs and index fingers. The framed region receives a live visual effect.</p>
+    </section>
+
+    <section class="panel" aria-label="Finger frame controls">
+      <div class="button-row">
+        <button id="startCamera" type="button">Start Camera</button>
+        <a class="nav-link" href="../stem.html">Back to STEM</a>
+        <a class="nav-link localhost-link" id="localhostLink" href="http://localhost:8000/pages/STEM/finger-frame-effect.html">Open Localhost</a>
+      </div>
+      <div class="effects" id="effects"></div>
+      <div class="status" id="status">HTML demo ready. Camera needs localhost or HTTPS.</div>
+    </section>
+
+    <div class="hint">Frame a box with both thumbs and index fingers. Keys 1-6 switch effects.</div>
+  </main>
+
+  <script type="module">
+    import {
+      HandLandmarker,
+      FilesetResolver
+    } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+
+    const WASM_URL = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm";
+    const MODEL_URL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    const statusEl = document.getElementById("status");
+    const startButton = document.getElementById("startCamera");
+    const effectsEl = document.getElementById("effects");
+    const localhostLink = document.getElementById("localhostLink");
+    const small = document.createElement("canvas");
+    const smallCtx = small.getContext("2d");
+    const work = document.createElement("canvas");
+    const workCtx = work.getContext("2d", { willReadFrequently: true });
+
+    const WRIST = 0;
+    const THUMB_TIP = 4;
+    const INDEX_TIP = 8;
+    const MIDDLE_MCP = 9;
+    const EFFECTS = [
+      ["pixelate", "1 Pixelate"],
+      ["blur", "2 Blur"],
+      ["invert", "3 Invert"],
+      ["noir", "4 Noir"],
+      ["glitch", "5 Glitch"],
+      ["toon", "6 Toon"]
+    ];
+
+    let handLandmarker = null;
+    let cameraStarted = false;
+    let lastVideoTime = -1;
+    let activeEffect = "pixelate";
+    let smoothedQuad = null;
+    let presence = 0;
+
+    if (location.protocol === "file:") {
+      localhostLink.classList.add("show");
+      statusEl.textContent = "Opened as file://. Start a local server, then use Open Localhost for camera access.";
+    }
+
+    function setupEffects() {
+      for (const [id, label] of EFFECTS) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = label;
+        button.dataset.effect = id;
+        button.classList.toggle("active", id === activeEffect);
+        button.addEventListener("click", () => setEffect(id));
+        effectsEl.appendChild(button);
+      }
+
+      window.addEventListener("keydown", (event) => {
+        const index = Number(event.key) - 1;
+        if (index >= 0 && index < EFFECTS.length) setEffect(EFFECTS[index][0]);
+      });
+    }
+
+    function setEffect(id) {
+      activeEffect = id;
+      document.querySelectorAll("[data-effect]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.effect === id);
+      });
+    }
+
+    function resizeCanvas(width = window.innerWidth, height = window.innerHeight) {
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * ratio);
+      canvas.height = Math.floor(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
+
+    function drawCoverVideo(targetCtx, width, height) {
+      if (!video.videoWidth || !video.videoHeight) {
+        targetCtx.fillStyle = "#050507";
+        targetCtx.fillRect(0, 0, width, height);
+        targetCtx.fillStyle = "rgba(255,255,255,0.72)";
+        targetCtx.font = "700 18px system-ui";
+        targetCtx.textAlign = "center";
+        targetCtx.fillText("Start camera to use the finger frame effect", width / 2, height / 2);
+        return;
+      }
+
+      const scale = Math.max(width / video.videoWidth, height / video.videoHeight);
+      const sw = width / scale;
+      const sh = height / scale;
+      const sx = (video.videoWidth - sw) / 2;
+      const sy = (video.videoHeight - sh) / 2;
+
+      targetCtx.save();
+      targetCtx.translate(width, 0);
+      targetCtx.scale(-1, 1);
+      targetCtx.drawImage(video, sx, sy, sw, sh, 0, 0, width, height);
+      targetCtx.restore();
+    }
+
+    function point(landmark) {
+      return {
+        x: (1 - landmark.x) * window.innerWidth,
+        y: landmark.y * window.innerHeight
+      };
+    }
+
+    function distance(a, b) {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
+
+    function lerpPoint(a, b, t) {
+      return {
+        x: a.x + (b.x - a.x) * t,
+        y: a.y + (b.y - a.y) * t
+      };
+    }
+
+    function polygonArea(points) {
+      let area = 0;
+      for (let i = 0; i < points.length; i++) {
+        const a = points[i];
+        const b = points[(i + 1) % points.length];
+        area += a.x * b.y - b.x * a.y;
+      }
+      return Math.abs(area / 2);
+    }
+
+    function getQuad(hands) {
+      if (hands.length < 2) return null;
+      const data = hands.slice(0, 2).map((landmarks) => {
+        const wrist = point(landmarks[WRIST]);
+        const thumb = point(landmarks[THUMB_TIP]);
+        const index = point(landmarks[INDEX_TIP]);
+        const scale = distance(wrist, point(landmarks[MIDDLE_MCP])) + 1;
+        return { wrist, thumb, index, scale };
+      });
+
+      for (const hand of data) {
+        if (distance(hand.thumb, hand.index) < hand.scale * 0.48) return null;
+      }
+
+      data.sort((a, b) => a.wrist.x - b.wrist.x);
+      const [left, right] = data;
+      const quad = [left.index, right.index, right.thumb, left.thumb];
+      const center = quad.reduce((sum, p) => ({ x: sum.x + p.x / 4, y: sum.y + p.y / 4 }), { x: 0, y: 0 });
+      const sorted = [...quad].sort((a, b) => Math.atan2(a.y - center.y, a.x - center.x) - Math.atan2(b.y - center.y, b.x - center.x));
+      if (polygonArea(sorted) < window.innerWidth * window.innerHeight * 0.006) return null;
+      return sorted;
+    }
+
+    function smoothQuad(nextQuad) {
+      if (!nextQuad) {
+        presence += (0 - presence) * 0.12;
+        return smoothedQuad;
+      }
+      presence += (1 - presence) * 0.18;
+      if (!smoothedQuad) {
+        smoothedQuad = nextQuad;
+      } else {
+        smoothedQuad = smoothedQuad.map((corner, index) => lerpPoint(corner, nextQuad[index], 0.22));
+      }
+      return smoothedQuad;
+    }
+
+    function quadPath(targetCtx, quad) {
+      targetCtx.beginPath();
+      targetCtx.moveTo(quad[0].x, quad[0].y);
+      for (let i = 1; i < quad.length; i++) targetCtx.lineTo(quad[i].x, quad[i].y);
+      targetCtx.closePath();
+    }
+
+    function drawEffect(quad) {
+      if (!quad || presence < 0.02) return;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      ctx.save();
+      quadPath(ctx, quad);
+      ctx.clip();
+      ctx.globalAlpha = presence;
+
+      if (activeEffect === "pixelate") {
+        const factor = 26;
+        small.width = Math.max(2, Math.round(width / factor));
+        small.height = Math.max(2, Math.round(height / factor));
+        drawCoverVideo(smallCtx, small.width, small.height);
+        ctx.imageSmoothingEnabled = false;
+        ctx.drawImage(small, 0, 0, small.width, small.height, 0, 0, width, height);
+        ctx.imageSmoothingEnabled = true;
+      } else if (activeEffect === "blur") {
+        ctx.filter = "blur(16px) saturate(1.2)";
+        drawCoverVideo(ctx, width, height);
+        ctx.filter = "none";
+      } else if (activeEffect === "invert") {
+        ctx.filter = "invert(1) saturate(1.2)";
+        drawCoverVideo(ctx, width, height);
+        ctx.filter = "none";
+      } else if (activeEffect === "noir") {
+        ctx.filter = "grayscale(1) contrast(1.75) brightness(0.92)";
+        drawCoverVideo(ctx, width, height);
+        ctx.filter = "none";
+      } else if (activeEffect === "glitch") {
+        drawGlitch(width, height);
+      } else {
+        drawToon(width, height);
+      }
+
+      ctx.restore();
+      drawFrame(quad);
+    }
+
+    function drawGlitch(width, height) {
+      const time = performance.now() / 1000;
+      ctx.filter = "saturate(1.7) contrast(1.15)";
+      drawCoverVideo(ctx, width, height);
+      ctx.globalAlpha = presence * 0.45;
+      ctx.save();
+      ctx.filter = "hue-rotate(110deg)";
+      ctx.translate(8 + Math.sin(time * 12) * 6, 0);
+      drawCoverVideo(ctx, width, height);
+      ctx.restore();
+      ctx.save();
+      ctx.filter = "hue-rotate(-130deg)";
+      ctx.translate(-8 - Math.sin(time * 12) * 6, 0);
+      drawCoverVideo(ctx, width, height);
+      ctx.restore();
+      ctx.filter = "none";
+      ctx.globalAlpha = presence;
+      for (let y = 0; y < height; y += 9) {
+        ctx.fillStyle = "rgba(0,0,0,0.18)";
+        ctx.fillRect(0, y, width, 2);
+      }
+    }
+
+    function drawToon(width, height) {
+      const scale = 4;
+      work.width = Math.ceil(width / scale);
+      work.height = Math.ceil(height / scale);
+      drawCoverVideo(workCtx, work.width, work.height);
+      const image = workCtx.getImageData(0, 0, work.width, work.height);
+      const data = image.data;
+      for (let i = 0; i < data.length; i += 4) {
+        data[i] = Math.round(data[i] / 48) * 48;
+        data[i + 1] = Math.round(data[i + 1] / 48) * 48;
+        data[i + 2] = Math.round(data[i + 2] / 48) * 48;
+      }
+      workCtx.putImageData(image, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(work, 0, 0, work.width, work.height, 0, 0, width, height);
+      ctx.imageSmoothingEnabled = true;
+      ctx.globalCompositeOperation = "multiply";
+      ctx.fillStyle = "rgba(255,255,255,0.18)";
+      ctx.fillRect(0, 0, width, height);
+      ctx.globalCompositeOperation = "source-over";
+    }
+
+    function drawFrame(quad) {
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, presence + 0.15);
+      ctx.strokeStyle = "rgba(255,255,255,0.92)";
+      ctx.lineWidth = 3;
+      ctx.setLineDash([14, 8]);
+      quadPath(ctx, quad);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      for (const corner of quad) {
+        ctx.beginPath();
+        ctx.arc(corner.x, corner.y, 8, 0, Math.PI * 2);
+        ctx.fillStyle = "#9fd7ff";
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawIdleOverlay() {
+      ctx.save();
+      ctx.fillStyle = "rgba(0,0,0,0.28)";
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      ctx.restore();
+    }
+
+    function loop() {
+      drawCoverVideo(ctx, window.innerWidth, window.innerHeight);
+      let nextQuad = null;
+
+      if (cameraStarted && handLandmarker && video.currentTime !== lastVideoTime) {
+        lastVideoTime = video.currentTime;
+        const results = handLandmarker.detectForVideo(video, performance.now());
+        nextQuad = getQuad(results.landmarks || []);
+        statusEl.textContent = nextQuad ? `Frame active · ${activeEffect}` : "Show both hands: thumbs and index fingers open.";
+      }
+
+      const quad = smoothQuad(nextQuad);
+      drawEffect(quad);
+      if (!cameraStarted) drawIdleOverlay();
+      requestAnimationFrame(loop);
+    }
+
+    async function startCamera() {
+      if (location.protocol === "file:") {
+        statusEl.textContent = "Camera is blocked on file://. Start python3 -m http.server 8000, then open the localhost version.";
+        return;
+      }
+
+      try {
+        startButton.disabled = true;
+        startButton.textContent = "Loading...";
+        statusEl.textContent = "Loading MediaPipe hand tracker...";
+        const fileset = await FilesetResolver.forVisionTasks(WASM_URL);
+        handLandmarker = await HandLandmarker.createFromOptions(fileset, {
+          baseOptions: { modelAssetPath: MODEL_URL, delegate: "GPU" },
+          runningMode: "VIDEO",
+          numHands: 2,
+          minHandDetectionConfidence: 0.35,
+          minHandPresenceConfidence: 0.35,
+          minTrackingConfidence: 0.35
+        });
+
+        statusEl.textContent = "Requesting camera...";
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
+          audio: false
+        });
+        video.srcObject = stream;
+        await new Promise((resolve) => {
+          video.onloadedmetadata = resolve;
+        });
+        await video.play();
+        cameraStarted = true;
+        startButton.textContent = "Camera Active";
+        statusEl.textContent = "Camera active. Make a frame with both hands.";
+      } catch (error) {
+        startButton.disabled = false;
+        startButton.textContent = "Start Camera";
+        statusEl.textContent = "Camera failed. Use localhost/HTTPS and allow camera permission.";
+      }
+    }
+
+    setupEffects();
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    startButton.addEventListener("click", startCamera);
+    requestAnimationFrame(loop);
+  </script>
+</body>
+</html>

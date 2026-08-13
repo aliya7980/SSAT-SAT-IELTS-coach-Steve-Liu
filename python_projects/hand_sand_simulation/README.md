@@ -4,9 +4,8 @@ Interactive real-time sand simulation controlled by MediaPipe webcam hand gestur
 
 ## Gestures
 
-- Fist: pack the sand back into a mound.
+- Fist: form an angry face.
 - One finger: condense the sand into a ball.
-- Middle finger: form an angry face.
 - Two fingers: form a sharp V shape.
 - Three fingers: sandstorm swirl.
 - Four fingers: change sand color once per gesture.
@@ -15,10 +14,9 @@ Interactive real-time sand simulation controlled by MediaPipe webcam hand gestur
 
 ## Keyboard Debug Controls
 
-- `0`: fist/pack mode
+- `0`: pack the sand back into a mound
 - `1`: ball mode
 - `2`: V-shape mode
-- `M`: angry-face mode
 - `3`: sandstorm
 - `4`: change color
 - `5`: disperse
