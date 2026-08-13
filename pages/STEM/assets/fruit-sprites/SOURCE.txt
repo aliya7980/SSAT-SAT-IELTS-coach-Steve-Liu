@@ -1,0 +1,16 @@
+Fruit sprite sheets for STEM web game prototypes.
+
+Files:
+- fruits.png
+- slices.png
+
+Source:
+OpenGameArt.org, "2D Fruits" by ScratchIO
+https://opengameart.org/content/2d-fruits
+
+License:
+CC0. These assets may be used, edited, and redistributed without attribution.
+
+Note:
+These are not official Fruit Ninja assets. They are free/open assets suitable for
+building an original fruit-slicing inspired classroom project.

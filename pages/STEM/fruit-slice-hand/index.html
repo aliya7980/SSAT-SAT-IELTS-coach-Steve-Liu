@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hand Slice Fruit Game | HuskyDaddy STEM</title>
+  <meta name="description" content="A browser-based MediaPipe hand-tracking fruit slicing game for STEM demonstrations.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <canvas id="gameCanvas" width="1280" height="720" aria-label="Hand-controlled fruit slicing game"></canvas>
+
+    <section class="top-panel">
+      <div>
+        <p class="eyebrow">MediaPipe Hand Landmarker</p>
+        <h1>Hand Slice</h1>
+        <p class="summary">Use your index finger like a glowing blade. Slice fruit before it falls.</p>
+      </div>
+      <div class="actions">
+        <button id="startButton" type="button">Start Game</button>
+        <a href="../../stem.html">Back to STEM</a>
+      </div>
+      <p id="statusText" class="status">Click START GAME to enable camera, hand tracking, and sound.</p>
+    </section>
+
+    <section class="score-panel" aria-label="Game score">
+      <span>Score <strong id="scoreText">0</strong></span>
+      <span>Combo <strong id="comboText">0</strong></span>
+      <span>Misses <strong id="missText">0</strong></span>
+    </section>
+
+    <section class="camera-panel" aria-label="Camera preview and hand landmarks">
+      <video id="cameraVideo" autoplay playsinline muted></video>
+      <canvas id="handOverlay" width="320" height="240"></canvas>
+      <div class="camera-meta">
+        <span id="gestureText">Gesture: waiting</span>
+        <span id="fpsText">FPS: 0</span>
+      </div>
+    </section>
+
+    <aside id="debugPanel" class="debug-panel">
+      <h2>Debug</h2>
+      <dl>
+        <dt>Hand</dt>
+        <dd id="debugHand">false</dd>
+        <dt>Index fingertip</dt>
+        <dd id="debugTip">none</dd>
+        <dt>Slice gesture</dt>
+        <dd id="debugGesture">false</dd>
+        <dt>Trail speed</dt>
+        <dd id="debugSpeed">0</dd>
+        <dt>Active fruit</dt>
+        <dd id="debugFruit">0</dd>
+      </dl>
+      <p>Press <kbd>D</kbd> to toggle debug.</p>
+    </aside>
+
+    <div class="hint">Raise one index finger and swipe across the screen. Mouse slicing also works for quick testing.</div>
+  </main>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
