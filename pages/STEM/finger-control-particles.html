@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Finger-Controlled Particle Simulation | HuskyDaddy STEM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A HuskyDaddy STEM showcase page for a MediaPipe hand-gesture particle simulation project built in Python." />
+  <link rel="stylesheet" href="../../assets/styles/arduino.css" />
+  <style>
+    .hero {
+      background:
+        radial-gradient(circle at 82% 20%, rgba(217, 178, 95, 0.2), transparent 32%),
+        linear-gradient(135deg, #fffaf0 0%, #edf7fa 48%, #e8f3f8 100%);
+    }
+
+    .vision-panel {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      background: #071f36;
+    }
+
+    .particle-field {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 48% 54%, rgba(217, 178, 95, 0.26), transparent 16rem),
+        linear-gradient(135deg, #071f36, #102a43);
+    }
+
+    .particle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f4d27a;
+      box-shadow: 0 0 10px rgba(244, 210, 122, 0.65);
+    }
+
+    .particle:nth-child(1) { left: 18%; top: 30%; }
+    .particle:nth-child(2) { left: 26%; top: 55%; }
+    .particle:nth-child(3) { left: 38%; top: 43%; }
+    .particle:nth-child(4) { left: 49%; top: 66%; }
+    .particle:nth-child(5) { left: 58%; top: 38%; }
+    .particle:nth-child(6) { left: 69%; top: 58%; }
+    .particle:nth-child(7) { left: 76%; top: 26%; }
+    .particle:nth-child(8) { left: 82%; top: 72%; }
+
+    .hand-map {
+      position: absolute;
+      right: 30px;
+      bottom: 28px;
+      width: 210px;
+      height: 220px;
+    }
+
+    .hand-map span {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      color: #071f36;
+      background: #e8f3f8;
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 0 0 4px rgba(232, 243, 248, 0.12);
+    }
+
+    .hand-map span:nth-child(1) { left: 88px; top: 178px; }
+    .hand-map span:nth-child(2) { left: 66px; top: 142px; }
+    .hand-map span:nth-child(3) { left: 50px; top: 105px; }
+    .hand-map span:nth-child(4) { left: 42px; top: 66px; }
+    .hand-map span:nth-child(5) { left: 34px; top: 28px; }
+    .hand-map span:nth-child(6) { left: 91px; top: 126px; }
+    .hand-map span:nth-child(7) { left: 92px; top: 83px; }
+    .hand-map span:nth-child(8) { left: 94px; top: 38px; background: #d9b25f; }
+    .hand-map span:nth-child(9) { left: 121px; top: 129px; }
+    .hand-map span:nth-child(10) { left: 127px; top: 82px; }
+    .hand-map span:nth-child(11) { left: 133px; top: 36px; }
+    .hand-map span:nth-child(12) { left: 140px; top: 0; background: #d9b25f; }
+    .hand-map span:nth-child(13) { left: 148px; top: 137px; }
+    .hand-map span:nth-child(14) { left: 161px; top: 96px; }
+    .hand-map span:nth-child(15) { left: 174px; top: 58px; }
+    .hand-map span:nth-child(16) { left: 186px; top: 24px; }
+    .hand-map span:nth-child(17) { left: 172px; top: 154px; }
+    .hand-map span:nth-child(18) { left: 188px; top: 124px; }
+    .hand-map span:nth-child(19) { left: 199px; top: 96px; }
+    .hand-map span:nth-child(20) { left: 204px; top: 67px; }
+    .hand-map span:nth-child(21) { left: 105px; top: 152px; }
+
+    .project-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      padding: 18px;
+      border: 1px solid #e5dac7;
+      border-radius: 18px;
+      background: #fffaf0;
+    }
+
+    .stat strong {
+      display: block;
+      color: #08233d;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .control-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      margin-top: 18px;
+    }
+
+    .control-table th,
+    .control-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #e5dac7;
+      text-align: left;
+      font-size: 17px;
+    }
+
+    .control-table th {
+      color: #08233d;
+      background: #e8f3f8;
+    }
+
+    .control-table tr:nth-child(even) td {
+      background: #fffaf0;
+    }
+
+    .demo-stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 20px;
+      align-items: stretch;
+      margin-top: 18px;
+    }
+
+    .canvas-shell {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #071f36;
+      border: 1px solid rgba(217, 178, 95, 0.42);
+    }
+
+    #particleCanvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: #071f36;
+    }
+
+    .demo-status {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #071f36;
+      background: rgba(255, 250, 240, 0.92);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .camera-preview {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .camera-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #102a43;
+      border: 1px solid #d9b25f;
+    }
+
+    #webcamVideo,
+    #handCanvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+    }
+
+    #webcamVideo {
+      transform: scaleX(-1);
+    }
+
+    #handCanvas {
+      position: absolute;
+      inset: 0;
+      transform: scaleX(-1);
+    }
+
+    .demo-controls {
+      display: grid;
+      gap: 10px;
+    }
+
+    .demo-controls .button {
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .mini-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .mini-controls button {
+      min-height: 40px;
+      border: 1px solid #d9b25f;
+      border-radius: 12px;
+      color: #08233d;
+      background: #fffaf0;
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .mini-controls button:hover {
+      background: #e8f3f8;
+    }
+
+    @media (max-width: 700px) {
+      .hand-map {
+        right: 12px;
+        transform: scale(0.82);
+        transform-origin: bottom right;
+      }
+
+      .control-table th,
+      .control-table td {
+        font-size: 15px;
+        padding: 12px;
+      }
+
+      .demo-stage {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../services.html">Test Prep</a></li>
+      <li><a href="../readingtips.html">Reading</a></li>
+      <li><a href="../stem.html">STEM</a></li>
+      <li><a href="../clients.html">Clients</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <h1>Finger-Controlled Particle Simulation</h1>
+      <p>
+        A Python STEM project that uses MediaPipe hand recognition to control a live particle world.
+        Students can see computer vision, gesture logic, physics, and creative coding working together in real time.
+      </p>
+      <div class="button-row">
+        <a class="button" href="../../python_projects/hand_sand_simulation/sand_simulation.py">View Python File</a>
+        <a class="button secondary" href="../stem.html">Back to STEM</a>
+      </div>
+    </div>
+
+    <div class="hero-panel vision-panel" aria-label="Particle simulation and 21-point hand tracking illustration">
+      <div class="particle-field">
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+        <i class="particle"></i>
+      </div>
+      <div class="hand-map">
+        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+        <span>5</span><span>6</span><span>7</span><span>8</span>
+        <span>9</span><span>10</span><span>11</span><span>12</span>
+        <span>13</span><span>14</span><span>15</span><span>16</span>
+        <span>17</span><span>18</span><span>19</span><span>20</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-wrap">
+    <section class="intro">
+      <h2>Project Overview</h2>
+      <p>
+        This project turns a webcam into a controller. MediaPipe reads the hand as 21 landmark points,
+        the program counts raised fingers, and a particle simulation responds with different visual behaviors.
+        The result is a playful bridge between artificial intelligence, geometry, and interactive design.
+      </p>
+
+      <div class="project-stats">
+        <div class="stat"><strong>21</strong>MediaPipe hand landmarks</div>
+        <div class="stat"><strong>3200</strong>simulated particles</div>
+        <div class="stat"><strong>2</strong>OpenCV display windows</div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Gesture Controls</h2>
+      <p>The hand controls are designed like a visual language: each gesture changes the behavior of the particles.</p>
+
+      <table class="control-table">
+        <thead>
+          <tr>
+            <th>Gesture</th>
+            <th>Particle Effect</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Fist</td><td>Pack the particles back into a mound.</td></tr>
+          <tr><td>One finger</td><td>Condense the particles into a ball.</td></tr>
+          <tr><td>Middle finger</td><td>Form an angry face.</td></tr>
+          <tr><td>Two fingers</td><td>Arrange the particles into a V shape.</td></tr>
+          <tr><td>Three fingers</td><td>Create a swirling sandstorm effect.</td></tr>
+          <tr><td>Four fingers</td><td>Change the particle color palette.</td></tr>
+          <tr><td>Five fingers moving upward</td><td>Disperse the particles outward.</td></tr>
+          <tr><td>Two hands</td><td>Scoop particles upward while some leak through the gap.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>What Students Learn</h2>
+      <div class="topic-grid">
+        <div class="topic-card">
+          <h3>Computer Vision</h3>
+          <p>How a webcam image becomes hand landmarks that software can measure.</p>
+        </div>
+        <div class="topic-card">
+          <h3>Coordinate Geometry</h3>
+          <p>How x-y positions, distance, direction, and velocity control movement on screen.</p>
+        </div>
+        <div class="topic-card">
+          <h3>Physics Thinking</h3>
+          <p>How gravity, damping, force, collision, and friction create natural particle motion.</p>
+        </div>
+        <div class="topic-card">
+          <h3>Program Design</h3>
+          <p>How classes, functions, constants, and gesture states organize a growing project.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Run the Project</h2>
+      <p>Open Terminal in the website folder and run the Python program with Python 3.12.</p>
+
+      <pre class="code-block"><code>python3.12 python_projects/hand_sand_simulation/sand_simulation.py</code></pre>
+
+      <div class="note">
+        The main window shows the particle simulation. The smaller preview window shows the 21-point MediaPipe hand graph used for recognition and debugging.
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script>
+    (() => {
+      const demoSection = document.querySelector("main");
+      const runSection = document.querySelector(".card:last-of-type");
+      const demoCard = document.createElement("section");
+      demoCard.className = "card";
+      demoCard.innerHTML = `
+        <h2>Try the HTML Demo</h2>
+        <p>This browser version runs a smaller particle simulation directly on the page. Camera control works when the page is opened through localhost or HTTPS.</p>
+        <div class="demo-stage">
+          <div class="canvas-shell">
+            <canvas id="particleCanvas" width="960" height="600"></canvas>
+            <div class="demo-status" id="demoStatus">Mode: idle</div>
+          </div>
+          <div class="camera-preview">
+            <div class="camera-box">
+              <video id="webcamVideo" playsinline muted></video>
+              <canvas id="handCanvas" width="320" height="240"></canvas>
+            </div>
+            <div class="demo-controls">
+              <button class="button" id="startCamera" type="button">Start Camera Control</button>
+              <div class="mini-controls" aria-label="Demo mode buttons">
+                <button type="button" data-mode="ball">1</button>
+                <button type="button" data-mode="v">2</button>
+                <button type="button" data-mode="storm">3</button>
+                <button type="button" data-mode="face">M</button>
+                <button type="button" data-mode="color">4</button>
+                <button type="button" data-mode="scatter">5</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      demoSection.insertBefore(demoCard, runSection);
+
+      const canvas = document.getElementById("particleCanvas");
+      const ctx = canvas.getContext("2d");
+      const status = document.getElementById("demoStatus");
+      const video = document.getElementById("webcamVideo");
+      const handCanvas = document.getElementById("handCanvas");
+      const handCtx = handCanvas.getContext("2d");
+      const particles = [];
+      const colors = [
+        ["#d6aa4e", "#ebc370", "#b88437", "#f6d891"],
+        ["#41d4ff", "#2d8ed6", "#86f0ff", "#1e5ab4"],
+        ["#bc4e2c", "#e26e37", "#963927", "#f48d4b"]
+      ];
+      let palette = 0;
+      let mode = "idle";
+      let lastGesture = "none";
+
+      function resetParticles() {
+        particles.length = 0;
+        for (let i = 0; i < 900; i++) {
+          particles.push({
+            x: canvas.width / 2 + (Math.random() - 0.5) * 280,
+            y: canvas.height - 80 - Math.abs(randomNormal()) * 90,
+            vx: (Math.random() - 0.5) * 30,
+            vy: (Math.random() - 0.5) * 30,
+            color: colors[palette][Math.floor(Math.random() * colors[palette].length)]
+          });
+        }
+      }
+
+      function randomNormal() {
+        return Math.sqrt(-2 * Math.log(Math.random())) * Math.cos(2 * Math.PI * Math.random());
+      }
+
+      function raisedFingers(landmarks) {
+        const raised = [];
+        const margin = 0.025;
+        [["index", 8, 6], ["middle", 12, 10], ["ring", 16, 14], ["pinky", 20, 18]].forEach(([name, tip, pip]) => {
+          if (landmarks[tip].y < landmarks[pip].y + margin) raised.push(name);
+        });
+        if (Math.abs(landmarks[4].x - landmarks[3].x) > 0.035) raised.push("thumb");
+        return raised;
+      }
+
+      function setMode(nextMode) {
+        mode = nextMode;
+        status.textContent = `Mode: ${nextMode}`;
+      }
+
+      function gestureToMode(raised) {
+        if (raised.length === 0) return "pack";
+        if (raised.length === 1 && raised[0] === "index") return "ball";
+        if (raised.length === 1 && raised[0] === "middle") return "face";
+        if (raised.includes("index") && raised.includes("middle") && raised.length === 2) return "v";
+        if (raised.length === 3) return "storm";
+        if (raised.length === 4) return "color";
+        if (raised.length >= 5) return "scatter";
+        return "idle";
+      }
+
+      function targetFor(i, nextMode) {
+        const cx = canvas.width / 2;
+        const cy = canvas.height / 2;
+        if (nextMode === "ball") {
+          const angle = i * 2.399963;
+          const layer = Math.sqrt((i % particles.length) / particles.length);
+          return [cx + Math.cos(angle) * 115 * layer, cy + Math.sin(angle) * 115 * layer];
+        }
+        if (nextMode === "v") {
+          const side = i % 2 === 0 ? -1 : 1;
+          const t = ((Math.floor(i / 2)) % Math.floor(particles.length / 2)) / Math.floor(particles.length / 2);
+          return [cx + side * 160 * (1 - t), cy - 150 + 300 * t];
+        }
+        if (nextMode === "face") {
+          const part = i % 5;
+          if (part === 0) {
+            const a = (i / particles.length) * Math.PI * 2;
+            return [cx + Math.cos(a) * 155, cy + Math.sin(a) * 155];
+          }
+          if (part === 1) return [cx - 95 + (i % 80), cy - 70 + (i % 80) * 0.45];
+          if (part === 2) return [cx + 95 - (i % 80), cy - 70 + (i % 80) * 0.45];
+          const a = Math.PI * 1.15 + (i % 160) / 160 * Math.PI * 0.7;
+          return [cx + Math.cos(a) * 85, cy + 105 + Math.sin(a) * 55];
+        }
+        if (nextMode === "pack") {
+          const offset = ((i * 37) % 300) - 150;
+          return [cx + offset, canvas.height - 68 - Math.abs(offset) * 0.28 - (i % 90)];
+        }
+        return [particles[i].x, particles[i].y];
+      }
+
+      function step() {
+        ctx.fillStyle = "#071f36";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#102a43";
+        ctx.fillRect(0, canvas.height - 58, canvas.width, 58);
+
+        particles.forEach((p, i) => {
+          if (["ball", "v", "face", "pack"].includes(mode)) {
+            const [tx, ty] = targetFor(i, mode);
+            p.vx += (tx - p.x) * 0.018;
+            p.vy += (ty - p.y) * 0.018;
+          } else if (mode === "storm") {
+            const dx = p.x - canvas.width / 2;
+            const dy = p.y - canvas.height / 2;
+            const dist = Math.max(Math.hypot(dx, dy), 1);
+            p.vx += (-dy / dist) * 2.2;
+            p.vy += (dx / dist) * 2.2;
+          } else if (mode === "scatter") {
+            p.vx += (Math.random() - 0.5) * 7;
+            p.vy -= Math.random() * 5;
+          } else {
+            p.vy += 0.18;
+          }
+
+          p.vx *= 0.94;
+          p.vy *= 0.94;
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 4 || p.x > canvas.width - 4) p.vx *= -0.5;
+          p.x = Math.max(4, Math.min(canvas.width - 4, p.x));
+          if (p.y > canvas.height - 58) {
+            p.y = canvas.height - 58;
+            p.vy *= -0.18;
+            p.vx *= 0.75;
+          }
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, 2, 2);
+        });
+
+        requestAnimationFrame(step);
+      }
+
+      document.querySelectorAll("[data-mode]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextMode = button.dataset.mode;
+          if (nextMode === "color") {
+            palette = (palette + 1) % colors.length;
+            particles.forEach((p) => {
+              p.color = colors[palette][Math.floor(Math.random() * colors[palette].length)];
+            });
+          } else {
+            setMode(nextMode);
+          }
+        });
+      });
+
+      document.getElementById("startCamera").addEventListener("click", async () => {
+        if (!window.Hands || !window.Camera) {
+          status.textContent = "Mode: camera library unavailable";
+          return;
+        }
+
+        const hands = new Hands({
+          locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+        });
+        hands.setOptions({
+          maxNumHands: 2,
+          modelComplexity: 1,
+          minDetectionConfidence: 0.45,
+          minTrackingConfidence: 0.45
+        });
+        hands.onResults((results) => {
+          handCtx.clearRect(0, 0, handCanvas.width, handCanvas.height);
+          if (!results.multiHandLandmarks || results.multiHandLandmarks.length === 0) {
+            lastGesture = "none";
+            return;
+          }
+          const landmarks = results.multiHandLandmarks[0];
+          handCtx.strokeStyle = "#d9b25f";
+          handCtx.fillStyle = "#e8f3f8";
+          handCtx.lineWidth = 2;
+          const connections = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
+          connections.forEach(([a, b]) => {
+            handCtx.beginPath();
+            handCtx.moveTo(landmarks[a].x * handCanvas.width, landmarks[a].y * handCanvas.height);
+            handCtx.lineTo(landmarks[b].x * handCanvas.width, landmarks[b].y * handCanvas.height);
+            handCtx.stroke();
+          });
+          landmarks.forEach((point, index) => {
+            const x = point.x * handCanvas.width;
+            const y = point.y * handCanvas.height;
+            handCtx.beginPath();
+            handCtx.arc(x, y, 4, 0, Math.PI * 2);
+            handCtx.fill();
+            handCtx.fillText(index, x + 5, y - 5);
+          });
+          const nextMode = gestureToMode(raisedFingers(landmarks));
+          if (nextMode === "color" && lastGesture !== "color") {
+            palette = (palette + 1) % colors.length;
+            particles.forEach((p) => {
+              p.color = colors[palette][Math.floor(Math.random() * colors[palette].length)];
+            });
+          } else if (nextMode !== "color") {
+            setMode(nextMode);
+          }
+          lastGesture = nextMode;
+        });
+
+        const camera = new Camera(video, {
+          onFrame: async () => {
+            await hands.send({ image: video });
+          },
+          width: 320,
+          height: 240
+        });
+        await camera.start();
+        status.textContent = "Mode: camera ready";
+      });
+
+      resetParticles();
+      step();
+    })();
+  </script>
+
+  <footer>
+    © HuskyDaddy | Learning, resilience, and life beyond the classroom <span>Gesture STEM</span>
+  </footer>
+</body>
+</html>

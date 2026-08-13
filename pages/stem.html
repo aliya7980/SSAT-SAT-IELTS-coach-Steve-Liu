@@ -61,7 +61,7 @@
     .section-heading { margin-bottom: 28px; }
     .section-heading h2 { margin: 0 0 .25rem; color: var(--navy); font-size: clamp(1.8rem, 4vw, 2.6rem); }
     .section-heading p { margin: 0; color: var(--muted); }
-    .stem-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+    .stem-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
     .stem-card {
       display: flex;
       flex-direction: column;
@@ -102,6 +102,9 @@
       .hero { padding-top: 60px; }
       .stem-grid { grid-template-columns: 1fr; }
       .stem-card { min-height: 0; padding: 27px; }
+    }
+    @media (min-width: 761px) and (max-width: 1040px) {
+      .stem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -164,6 +167,20 @@
         <div class="actions">
           <a class="button" href="STEM/arduino/index.html">Start Arduino</a>
           <a class="button secondary" href="https://youtube.com/shorts/zl72vvDt1mQ?si=A8XeH08CeqExhdlP" target="_blank" rel="noopener noreferrer">Watch the Video</a>
+        </div>
+      </article>
+
+      <article class="stem-card">
+        <span class="label">AI Vision + Coding</span>
+        <h2>Finger Control</h2>
+        <p>A Python project where MediaPipe reads hand landmarks and gestures control a live particle simulation.</p>
+        <ul>
+          <li>Track hands with 21 landmark points</li>
+          <li>Use gestures to form shapes and effects</li>
+          <li>Connect coding, geometry, and physics</li>
+        </ul>
+        <div class="actions">
+          <a class="button" href="STEM/finger-control-particles.html">View Project</a>
         </div>
       </article>
     </div>
