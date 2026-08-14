@@ -3,58 +3,30 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Spell Classroom Hand Game | HuskyDaddy STEM</title>
-  <meta name="description" content="A browser-based MediaPipe hand-tracking classroom spell game for STEM demonstration.">
-  <link rel="stylesheet" href="style.css">
+  <title>Magic Wand STEM Lab | HuskyDaddy</title>
+  <meta http-equiv="refresh" content="0; url=../wand/index.html">
+  <link rel="canonical" href="../wand/index.html">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      color: #f8fbff;
+      background: #050612;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a {
+      color: #8bf9ff;
+      font-weight: 800;
+    }
+  </style>
 </head>
 <body>
-  <main class="game-shell">
-    <canvas id="gameCanvas" width="1280" height="720" aria-label="Spell classroom game canvas"></canvas>
-
-    <section class="hud">
-      <div>
-        <p class="eyebrow">MediaPipe Hand Landmarker</p>
-        <h1>Spell Classroom</h1>
-        <p class="summary">Point one index finger at the target student to cast a harmless comic spell.</p>
-      </div>
-      <div class="hud-actions">
-        <button id="startButton" type="button">Start Game</button>
-        <a href="../../stem.html">Back to STEM</a>
-      </div>
-      <p id="gameStatus" class="status">Click START GAME to enable camera, tracking, and sound.</p>
-    </section>
-
-    <section class="camera-card" aria-label="Camera tracking preview">
-      <video id="cameraVideo" autoplay playsinline muted></video>
-      <canvas id="handOverlay" width="320" height="240"></canvas>
-      <div class="camera-meta">
-        <span id="gestureBadge">Gesture: waiting</span>
-        <span id="fpsBadge">FPS: 0</span>
-      </div>
-    </section>
-
-    <aside id="debugPanel" class="debug-panel" aria-label="Computer vision debug panel">
-      <h2>Debug</h2>
-      <dl>
-        <dt>Detected hand</dt>
-        <dd id="debugHand">false</dd>
-        <dt>Index fingertip</dt>
-        <dd id="debugTip">none</dd>
-        <dt>Finger states</dt>
-        <dd id="debugFingers">none</dd>
-        <dt>Gesture</dt>
-        <dd id="debugGesture">none</dd>
-        <dt>Game state</dt>
-        <dd id="debugState">IDLE</dd>
-        <dt>Collision</dt>
-        <dd id="debugCollision">false</dd>
-      </dl>
-      <p>Press <kbd>D</kbd> to toggle this panel.</p>
-    </aside>
-
-    <div class="hint">Point one finger at Dudley. Keep middle, ring, and pinky folded. Press D for debug.</div>
+  <main>
+    <p>Opening the new Magic Wand STEM Lab...</p>
+    <p><a href="../wand/index.html">Launch Magic Wand STEM Lab</a></p>
   </main>
-
-  <script type="module" src="game.js"></script>
 </body>
 </html>
