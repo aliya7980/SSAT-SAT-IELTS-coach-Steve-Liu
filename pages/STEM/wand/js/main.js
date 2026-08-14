@@ -145,8 +145,9 @@ function drawStage(state) {
   drawMaze(board);
   drawStar(board);
   const player = mazeGame.getInterpolatedPlayer();
-  drawPlayerGlyph(board.left + player.x * board.tile + board.tile / 2, board.top + player.y * board.tile + board.tile / 2, state, board.tile);
+  drawPlayerGlyph(board.left + player.x * board.tile + board.tile / 2, board.top + player.y * board.tile + board.tile / 2, board.tile);
   drawEnemies(board);
+  drawWallCaps(board);
   updateParticles(width, height, state);
   drawGameMessage(width, height);
   drawLevelComplete(width, height);
@@ -207,9 +208,9 @@ function drawDot(x, y, big, tile) {
   ctx.fill();
 }
 
-function drawPlayerGlyph(x, y, state, tile) {
+function drawPlayerGlyph(x, y, tile) {
   const mouth = Math.abs(Math.sin(pulse * 7)) * 0.35 + 0.18;
-  const angle = directionAngle(mazeGame.currentDirection);
+  const angle = directionAngle(mazeGame.player.facingDirection || mazeGame.currentDirection);
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
@@ -218,7 +219,7 @@ function drawPlayerGlyph(x, y, state, tile) {
   ctx.fillStyle = "#ffe44d";
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.arc(0, 0, tile * 0.38, mouth, Math.PI * 2 - mouth);
+  ctx.arc(0, 0, tile * 0.32, mouth, Math.PI * 2 - mouth);
   ctx.closePath();
   ctx.fill();
   ctx.shadowBlur = 0;
@@ -226,6 +227,22 @@ function drawPlayerGlyph(x, y, state, tile) {
   ctx.beginPath();
   ctx.arc(tile * 0.12, -tile * 0.18, Math.max(3, tile * 0.05), 0, Math.PI * 2);
   ctx.fill();
+  ctx.restore();
+}
+
+function drawWallCaps(board) {
+  ctx.save();
+  ctx.translate(board.left, board.top);
+  ctx.shadowColor = mazeGame.surgeActiveTimer > 0 ? "#ff5577" : "#2be7ff";
+  ctx.shadowBlur = mazeGame.surgeActiveTimer > 0 ? 18 : 10;
+  ctx.fillStyle = mazeGame.level.theme === "ai" ? "#122054" : "#112a68";
+  for (let y = 0; y < mazeGame.map.length; y++) {
+    for (let x = 0; x < mazeGame.map[y].length; x++) {
+      if (mazeGame.map[y][x] !== "#") continue;
+      roundRect(x * board.tile + 2, y * board.tile + 2, board.tile - 4, board.tile - 4, 7);
+      ctx.fill();
+    }
+  }
   ctx.restore();
 }
 

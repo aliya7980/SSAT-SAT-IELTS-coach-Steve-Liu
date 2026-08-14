@@ -152,7 +152,7 @@ export class MazeGame {
     this.state = "READY";
     this.requestedDirection = "RIGHT";
     this.currentDirection = "RIGHT";
-    this.player = { x: 9, y: 9, px: 9, py: 9, progress: 0 };
+    this.player = { x: 9, y: 9, px: 9, py: 9, progress: 0, facingDirection: "RIGHT" };
     this.enemies = [];
     this.map = [];
     this.remainingDots = 0;
@@ -211,7 +211,7 @@ export class MazeGame {
       for (let x = 0; x < this.map[y].length; x++) {
         if (this.map[y][x] === "." || this.map[y][x] === "o") this.remainingDots += 1;
         if (this.map[y][x] === "P") {
-          this.player = { x, y, px: x, py: y, progress: 0 };
+          this.player = { x, y, px: x, py: y, progress: 0, facingDirection: "RIGHT" };
           this.map[y][x] = " ";
         }
       }
@@ -303,7 +303,12 @@ export class MazeGame {
         break;
       }
 
+      const previousDirection = this.currentDirection;
       this.tryTurn();
+      if (this.currentDirection !== previousDirection) {
+        player.progress = 0;
+        break;
+      }
       if (!this.canMove(player, this.currentDirection)) {
         player.progress = 0;
         break;
@@ -355,7 +360,9 @@ export class MazeGame {
 
   // STEM CONCEPT: Grid Collision Detection
   isWall(x, y) {
-    return !this.map[y] || this.map[y][x] === "#";
+    if (x < 0 || y < 0 || y >= this.map.length) return true;
+    if (x >= this.map[y].length) return true;
+    return this.map[y][x] === "#";
   }
 
   canMove(actor, direction) {
@@ -368,6 +375,7 @@ export class MazeGame {
     const requested = DIRS[this.requestedDirection];
     if (!this.isWall(this.player.x + requested.x, this.player.y + requested.y)) {
       this.currentDirection = this.requestedDirection;
+      this.player.facingDirection = this.currentDirection;
     }
   }
 
@@ -536,7 +544,7 @@ export class MazeGame {
       this.state = "GAME_OVER";
       return;
     }
-    this.player = { x: 9, y: 9, px: 9, py: 9, progress: 0 };
+    this.player = { x: 9, y: 9, px: 9, py: 9, progress: 0, facingDirection: "RIGHT" };
     this.currentDirection = "RIGHT";
     this.requestedDirection = "RIGHT";
     this.energyTimer = 0;
@@ -554,7 +562,7 @@ export class MazeGame {
 
   getInterpolatedPlayer() {
     const dir = DIRS[this.currentDirection];
-    if (!this.canMove(this.player, this.currentDirection)) {
+    if (!dir || this.player.progress <= 0 || !this.canMove(this.player, this.currentDirection)) {
       return { x: this.player.x, y: this.player.y };
     }
     return {
@@ -565,7 +573,7 @@ export class MazeGame {
 
   getInterpolatedEnemy(enemy) {
     const dir = DIRS[enemy.direction];
-    if (!this.canMove(enemy, enemy.direction)) {
+    if (!dir || enemy.progress <= 0 || !this.canMove(enemy, enemy.direction)) {
       return { x: enemy.x, y: enemy.y };
     }
     return {
