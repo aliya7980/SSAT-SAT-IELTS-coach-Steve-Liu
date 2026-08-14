@@ -144,9 +144,11 @@ function drawStage(state) {
   if (mazeGame.level.theme === "ai" || mazeGame.surgeActiveTimer > 0) drawAiPulse(width, height);
   drawMaze(board);
   drawStar(board);
-  const player = mazeGame.getInterpolatedPlayer();
-  drawPlayerGlyph(board.left + player.x * board.tile + board.tile / 2, board.top + player.y * board.tile + board.tile / 2, board.tile);
-  drawEnemies(board);
+  drawInsideCorridors(board, () => {
+    const player = mazeGame.getInterpolatedPlayer();
+    drawPlayerGlyph(board.left + player.x * board.tile + board.tile / 2, board.top + player.y * board.tile + board.tile / 2, board.tile);
+    drawEnemies(board);
+  });
   drawWallCaps(board);
   updateParticles(width, height, state);
   drawGameMessage(width, height);
@@ -210,7 +212,10 @@ function drawDot(x, y, big, tile) {
 
 function drawPlayerGlyph(x, y, tile) {
   const mouth = Math.abs(Math.sin(pulse * 7)) * 0.35 + 0.18;
-  const angle = directionAngle(mazeGame.player.facingDirection || mazeGame.currentDirection);
+  const direction = mazeGame.player.facingDirection || mazeGame.currentDirection;
+  const angle = directionAngle(direction);
+  const r = tile * 0.29;
+
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
@@ -219,14 +224,46 @@ function drawPlayerGlyph(x, y, tile) {
   ctx.fillStyle = "#ffe44d";
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.arc(0, 0, tile * 0.32, mouth, Math.PI * 2 - mouth);
+  ctx.arc(0, 0, r, mouth, Math.PI * 2 - mouth);
   ctx.closePath();
   ctx.fill();
+  ctx.restore();
+
+  const eye = playerEyeOffset(direction, tile);
+  ctx.save();
+  ctx.translate(x, y);
   ctx.shadowBlur = 0;
   ctx.fillStyle = "#151515";
   ctx.beginPath();
-  ctx.arc(tile * 0.12, -tile * 0.18, Math.max(3, tile * 0.05), 0, Math.PI * 2);
+  ctx.arc(eye.x, eye.y, Math.max(3, tile * 0.045), 0, Math.PI * 2);
   ctx.fill();
+  ctx.restore();
+}
+
+function playerEyeOffset(direction, tile) {
+  if (direction === "LEFT") return { x: -tile * 0.1, y: -tile * 0.16 };
+  if (direction === "UP") return { x: tile * 0.13, y: -tile * 0.08 };
+  if (direction === "DOWN") return { x: -tile * 0.13, y: -tile * 0.08 };
+  return { x: tile * 0.1, y: -tile * 0.16 };
+}
+
+function drawInsideCorridors(board, drawFn) {
+  ctx.save();
+  ctx.beginPath();
+  const inset = Math.max(1, board.tile * 0.02);
+  for (let y = 0; y < mazeGame.map.length; y++) {
+    for (let x = 0; x < mazeGame.map[y].length; x++) {
+      if (mazeGame.map[y][x] === "#") continue;
+      ctx.rect(
+        board.left + x * board.tile + inset,
+        board.top + y * board.tile + inset,
+        board.tile - inset * 2,
+        board.tile - inset * 2
+      );
+    }
+  }
+  ctx.clip();
+  drawFn();
   ctx.restore();
 }
 
