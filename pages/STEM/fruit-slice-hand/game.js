@@ -55,6 +55,9 @@ const game = {
   combo: 0,
   misses: 0,
   spawnTimer: 0,
+  bombTimer: 3.2,
+  gameOver: false,
+  explosionFlash: 0,
   audio: null,
   mouseDown: false,
   mouseTip: null,
@@ -104,7 +107,18 @@ function playMissSound() {
   tone(130, 0.1, "sawtooth", 0.025, 0);
 }
 
+function playBombSound() {
+  tone(85, 0.22, "sawtooth", 0.09, 0);
+  tone(48, 0.36, "square", 0.08, 0.06);
+  tone(310, 0.11, "triangle", 0.05, 0.18);
+}
+
 async function startGame() {
+  if (game.started && game.gameOver) {
+    resetRound();
+    return;
+  }
+
   try {
     startButton.disabled = true;
     startButton.textContent = "Starting...";
@@ -113,6 +127,7 @@ async function startGame() {
     await tracker.initCamera();
     await tracker.initHandTracking();
     game.started = true;
+    resetRound();
     startButton.textContent = "Game Active";
     statusText.textContent = "Slice with one raised index finger.";
   } catch (error) {
@@ -126,6 +141,7 @@ function spawnFruit() {
   const tile = FRUIT_TILES[Math.floor(Math.random() * FRUIT_TILES.length)];
   const size = 66 + Math.random() * 28;
   game.fruits.push({
+    type: "fruit",
     tile,
     x: game.width * (0.18 + Math.random() * 0.64),
     y: game.height + size,
@@ -137,6 +153,40 @@ function spawnFruit() {
     size,
     sliced: false
   });
+}
+
+function spawnBomb() {
+  const size = 72 + Math.random() * 20;
+  game.fruits.push({
+    type: "bomb",
+    x: game.width * (0.18 + Math.random() * 0.64),
+    y: game.height + size,
+    vx: -160 + Math.random() * 320,
+    vy: -850 - Math.random() * 260,
+    gravity: 980,
+    rotation: Math.random() * Math.PI * 2,
+    spin: -5 + Math.random() * 10,
+    size,
+    sliced: false,
+    fuse: Math.random() * Math.PI * 2
+  });
+}
+
+function resetRound() {
+  game.fruits = [];
+  game.splashes = [];
+  game.bladeTrail = [];
+  game.score = 0;
+  game.combo = 0;
+  game.misses = 0;
+  game.spawnTimer = 0.2;
+  game.bombTimer = randomBombInterval();
+  game.gameOver = false;
+  game.explosionFlash = 0;
+  startButton.disabled = true;
+  startButton.textContent = "Game Active";
+  statusText.textContent = "Slice fruit. Avoid bombs.";
+  updateScore();
 }
 
 function getPointer(handState) {
@@ -160,17 +210,26 @@ function getPointer(handState) {
 }
 
 function update(dt, handState) {
-  game.spawnTimer -= dt;
-  if (game.spawnTimer <= 0 && game.fruits.length < 7) {
+  if (!game.gameOver) {
+    game.spawnTimer -= dt;
+    game.bombTimer -= dt;
+  }
+
+  if (!game.gameOver && game.spawnTimer <= 0 && game.fruits.length < 8) {
     spawnFruit();
     game.spawnTimer = 0.45 + Math.random() * 0.35;
+  }
+
+  if (!game.gameOver && game.bombTimer <= 0 && game.fruits.filter((fruit) => fruit.type === "bomb").length < 2) {
+    spawnBomb();
+    game.bombTimer = randomBombInterval();
   }
 
   const pointer = getPointer(handState);
   if (pointer.active && pointer.tip) {
     game.bladeTrail.push({ x: pointer.tip.x, y: pointer.tip.y, age: 0, life: 0.22 });
     if (game.bladeTrail.length > 18) game.bladeTrail.shift();
-    checkSlices(pointer);
+    if (!game.gameOver) checkSlices(pointer);
   }
 
   for (const fruit of game.fruits) {
@@ -180,13 +239,18 @@ function update(dt, handState) {
     fruit.rotation += fruit.spin * dt;
   }
 
-  const before = game.fruits.length;
+  const missed = game.fruits.filter((fruit) => (
+    fruit.type === "fruit" &&
+    !fruit.sliced &&
+    fruit.y >= game.height + 140
+  )).length;
   game.fruits = game.fruits.filter((fruit) => fruit.y < game.height + 140 && !fruit.sliced);
-  const missed = before - game.fruits.length;
   if (missed > 0) {
-    game.combo = 0;
-    game.misses += missed;
-    playMissSound();
+    if (!game.gameOver) {
+      game.combo = 0;
+      game.misses += missed;
+      playMissSound();
+    }
   }
 
   for (const splash of game.splashes) {
@@ -200,6 +264,7 @@ function update(dt, handState) {
 
   for (const point of game.bladeTrail) point.age += dt;
   game.bladeTrail = game.bladeTrail.filter((point) => point.age < point.life);
+  game.explosionFlash += (0 - game.explosionFlash) * 0.08;
 
   updateScore();
   updateDebug(handState, pointer);
@@ -211,6 +276,10 @@ function checkSlices(pointer) {
     if (fruit.sliced) continue;
     const dist = distanceToSegment({ x: fruit.x, y: fruit.y }, pointer.previous, pointer.tip);
     if (dist < fruit.size * 0.55) {
+      if (fruit.type === "bomb") {
+        triggerGameOver(fruit);
+        return;
+      }
       fruit.sliced = true;
       game.score += 10 + game.combo * 2;
       game.combo += 1;
@@ -218,6 +287,18 @@ function checkSlices(pointer) {
       playSliceSound();
     }
   }
+}
+
+function triggerGameOver(bomb) {
+  bomb.sliced = true;
+  game.gameOver = true;
+  game.combo = 0;
+  game.explosionFlash = 1;
+  createBombExplosion(bomb);
+  playBombSound();
+  statusText.textContent = "GAME OVER - you sliced a bomb.";
+  startButton.disabled = false;
+  startButton.textContent = "Restart Game";
 }
 
 function createSliceBurst(fruit) {
@@ -256,12 +337,34 @@ function createSliceBurst(fruit) {
   }
 }
 
+function createBombExplosion(bomb) {
+  const colors = ["#ffef7a", "#ff7a2e", "#ff3131", "#2b2b2b", "#f6f6f6"];
+  for (let i = 0; i < 120; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 150 + Math.random() * 620;
+    game.splashes.push({
+      x: bomb.x,
+      y: bomb.y,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 120,
+      size: 4 + Math.random() * 16,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      rotation: Math.random() * Math.PI * 2,
+      spin: -10 + Math.random() * 20,
+      age: 0,
+      life: 0.9 + Math.random() * 0.75,
+      smoke: Math.random() > 0.58
+    });
+  }
+}
+
 function draw() {
   drawBackground();
   drawFruit();
   drawSplashes();
   drawBladeTrail();
   drawCenterInstruction();
+  drawGameOver();
 }
 
 function drawBackground() {
@@ -301,11 +404,52 @@ function drawFruit() {
     ctx.save();
     ctx.translate(fruit.x, fruit.y);
     ctx.rotate(fruit.rotation);
-    ctx.shadowColor = "rgba(255, 231, 124, .55)";
-    ctx.shadowBlur = 18;
-    ctx.drawImage(sprites, fruit.tile.sx, fruit.tile.sy, 32, 32, -fruit.size / 2, -fruit.size / 2, fruit.size, fruit.size);
+    if (fruit.type === "bomb") {
+      drawBomb(fruit);
+    } else {
+      ctx.shadowColor = "rgba(255, 231, 124, .55)";
+      ctx.shadowBlur = 18;
+      ctx.drawImage(sprites, fruit.tile.sx, fruit.tile.sy, 32, 32, -fruit.size / 2, -fruit.size / 2, fruit.size, fruit.size);
+    }
     ctx.restore();
   }
+}
+
+function drawBomb(bomb) {
+  const radius = bomb.size * 0.38;
+  ctx.shadowColor = "rgba(255, 72, 40, .75)";
+  ctx.shadowBlur = 24;
+  const body = ctx.createRadialGradient(-radius * 0.3, -radius * 0.42, 4, 0, 0, radius);
+  body.addColorStop(0, "#747b8a");
+  body.addColorStop(0.42, "#252936");
+  body.addColorStop(1, "#050506");
+  ctx.fillStyle = body;
+  ctx.beginPath();
+  ctx.arc(0, 0, radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = "#a9b0bf";
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  ctx.fillStyle = "#2b2e36";
+  ctx.fillRect(-radius * 0.2, -radius - 10, radius * 0.4, 13);
+  ctx.strokeStyle = "#f2c15b";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(0, -radius - 8);
+  ctx.quadraticCurveTo(18, -radius - 28, 30, -radius - 18);
+  ctx.stroke();
+
+  const flicker = 0.7 + Math.sin(performance.now() * 0.016 + bomb.fuse) * 0.3;
+  ctx.fillStyle = `rgba(255, ${Math.round(150 + flicker * 80)}, 38, ${0.82 + flicker * 0.18})`;
+  ctx.shadowColor = "#ffd950";
+  ctx.shadowBlur = 16;
+  ctx.beginPath();
+  ctx.moveTo(32, -radius - 22);
+  ctx.lineTo(43, -radius - 8);
+  ctx.lineTo(27, -radius - 10);
+  ctx.closePath();
+  ctx.fill();
 }
 
 function drawSplashes() {
@@ -317,7 +461,8 @@ function drawSplashes() {
     ctx.rotate(splash.rotation);
     ctx.fillStyle = splash.color;
     ctx.shadowColor = splash.color;
-    ctx.shadowBlur = 12;
+    ctx.shadowBlur = splash.smoke ? 4 : 12;
+    if (splash.smoke) ctx.globalAlpha *= 0.65;
     if (splash.half) {
       ctx.beginPath();
       ctx.arc(0, 0, splash.size, -Math.PI / 2, Math.PI / 2);
@@ -356,12 +501,38 @@ function drawBladeTrail() {
 }
 
 function drawCenterInstruction() {
-  if (game.started || game.score > 0) return;
+  if (game.started || game.score > 0 || game.gameOver) return;
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = "rgba(255,255,255,.72)";
   ctx.font = "700 24px system-ui, sans-serif";
   ctx.fillText("Click START GAME, then slice fruit with one index finger.", game.width / 2, game.height * 0.52);
+  ctx.restore();
+}
+
+function drawGameOver() {
+  if (game.explosionFlash > 0.02) {
+    ctx.save();
+    ctx.globalAlpha = game.explosionFlash * 0.55;
+    ctx.fillStyle = "#ffef9b";
+    ctx.fillRect(0, 0, game.width, game.height);
+    ctx.restore();
+  }
+
+  if (!game.gameOver) return;
+  ctx.save();
+  ctx.fillStyle = "rgba(0, 0, 0, .58)";
+  ctx.fillRect(0, 0, game.width, game.height);
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#fff5bd";
+  ctx.shadowColor = "#ff542e";
+  ctx.shadowBlur = 28;
+  ctx.font = "900 72px system-ui, sans-serif";
+  ctx.fillText("GAME OVER", game.width / 2, game.height * 0.46);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = "rgba(255,255,255,.82)";
+  ctx.font = "700 24px system-ui, sans-serif";
+  ctx.fillText("You sliced a bomb. Press Restart Game to try again.", game.width / 2, game.height * 0.54);
   ctx.restore();
 }
 
@@ -379,11 +550,15 @@ function updateDebug(handState, pointer) {
   debug.fruit.textContent = game.fruits.length;
 }
 
+function randomBombInterval() {
+  return 2.8 + Math.random() * 3.8;
+}
+
 function loop(now) {
   const dt = Math.min((now - game.lastTime) / 1000, 0.033);
   game.lastTime = now;
   const handState = tracker.update(game.width, game.height);
-  update(dt, handState);
+  if (game.started) update(dt, handState);
   draw();
   requestAnimationFrame(loop);
 }
