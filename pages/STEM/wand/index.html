@@ -3,89 +3,94 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Magic Wand STEM Lab | HuskyDaddy</title>
-  <meta name="description" content="A MediaPipe and Three.js magic wand STEM web app for learning computer vision, vectors, speed, collision detection, and gesture recognition.">
+  <title>Hand-Tracked Maze Game | HuskyDaddy STEM</title>
+  <meta name="description" content="A hand-controlled maze game prototype: MediaPipe reads index-finger direction and moves a yellow player through a grid maze.">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="wand-app">
-    <video id="cameraVideo" class="camera-video" autoplay playsinline muted></video>
-    <canvas id="threeCanvas" class="effect-canvas" aria-label="Magic wand WebGL effects"></canvas>
-    <canvas id="landmarkCanvas" class="landmark-canvas" aria-label="Hand landmark debug overlay"></canvas>
-
-    <section id="startScreen" class="start-screen">
-      <p class="eyebrow">MediaPipe + Three.js STEM Lab</p>
-      <h1>Magic Wand</h1>
-      <p>Turn your hand into a magic wand.</p>
-      <p>Your browser will ask permission to use your camera.</p>
-      <p>All hand tracking happens inside your browser.</p>
-      <button id="startButton" type="button">START MAGIC CAMERA</button>
-      <p id="startError" class="start-error" role="status"></p>
+  <main class="app-shell">
+    <section class="hero-panel">
+      <p class="eyebrow">MediaPipe · Canvas · Gesture Control</p>
+      <h1>Hand-Tracked Maze Game</h1>
+      <p class="summary">Point your index finger to steer the yellow player through the maze. The game remembers turns until the next corridor.</p>
+      <div class="actions">
+        <button id="startButton" type="button">START CAMERA</button>
+        <button id="cameraToggle" type="button" aria-pressed="true">CAMERA VIEW ON</button>
+        <button id="visionToggle" type="button" aria-pressed="true">SHOW AI VISION</button>
+        <button id="pauseButton" type="button">PAUSE</button>
+        <button id="soundButton" type="button" aria-pressed="true">SOUND ON</button>
+        <button id="restartButton" type="button">RESTART</button>
+        <button id="learnToggle" type="button">HOW DOES THIS WORK?</button>
+        <a href="../../stem.html">← STEM LAB</a>
+      </div>
+      <p id="statusText" class="status">Click START CAMERA and allow webcam access.</p>
     </section>
 
-    <nav class="topbar" aria-label="Magic wand controls">
-      <a href="../../stem.html">← STEM LAB</a>
-      <button id="learnButton" type="button">HOW DOES THIS WORK?</button>
-      <button id="debugButton" type="button">DEBUG</button>
-      <button id="fullscreenButton" type="button">FULLSCREEN</button>
-    </nav>
-
-    <section class="score-hud" aria-label="Score">
-      <span>Score <strong id="scoreText">0</strong></span>
-      <span>Spells <strong id="spellsText">0</strong></span>
-      <span>Hits <strong id="hitsText">0</strong></span>
-      <span>Accuracy <strong id="accuracyText">0%</strong></span>
+    <section class="game-stage" aria-label="Gesture direction display">
+      <canvas id="effectCanvas" width="960" height="620"></canvas>
+      <div class="direction-card compact">
+        <span>GESTURE</span>
+        <strong id="directionText">--</strong>
+        <p id="directionName">WAITING</p>
+      </div>
+      <div class="keyboard-note">Keyboard fallback: Arrow keys change direction.</div>
     </section>
 
-    <section id="debugHud" class="debug-hud">
-      <span>HAND: <strong id="handText">NOT DETECTED</strong></span>
-      <span>INDEX X: <strong id="indexXText">--</strong></span>
-      <span>INDEX Y: <strong id="indexYText">--</strong></span>
-      <span>WAND SPEED: <strong id="speedText">0</strong></span>
-      <span>FPS: <strong id="fpsText">0</strong></span>
+    <section id="cameraPanel" class="camera-panel" aria-label="Camera preview">
+      <video id="cameraVideo" autoplay playsinline muted></video>
+      <canvas id="landmarkCanvas" width="420" height="315"></canvas>
+      <div class="camera-data">
+        <span>TRACKING: <strong id="trackingText">OFF</strong></span>
+        <span>STABILITY: <strong id="stabilityText">0%</strong></span>
+      </div>
     </section>
 
-    <div id="statusText" class="status-pill">SHOW YOUR WAND HAND</div>
-    <div id="spellText" class="spell-text" aria-live="polite"></div>
+    <aside class="debug-panel" aria-label="Gesture data">
+      <h2>AI Vision</h2>
+      <dl>
+        <dt>Score</dt>
+        <dd id="scoreText">0</dd>
+        <dt>Level</dt>
+        <dd id="levelText">1</dd>
+        <dt>State</dt>
+        <dd id="stateText">READY</dd>
+        <dt>Lives</dt>
+        <dd id="livesText">●●●</dd>
+        <dt>Energy</dt>
+        <dd id="energyText">0.0s</dd>
+        <dt>Dots left</dt>
+        <dd id="dotsText">0</dd>
+        <dt>High score</dt>
+        <dd id="highScoreText">0</dd>
+        <dt>Index vector</dt>
+        <dd id="vectorText">--</dd>
+        <dt>Angle</dt>
+        <dd id="angleText">--</dd>
+        <dt>Candidate</dt>
+        <dd id="candidateText">--</dd>
+        <dt>Accepted</dt>
+        <dd id="acceptedText">--</dd>
+        <dt>FPS</dt>
+        <dd id="fpsText">0</dd>
+      </dl>
+    </aside>
 
-    <section id="learningOverlay" class="learning-overlay" hidden>
-      <div class="learning-card">
-        <p class="eyebrow">STEM Learning Mode</p>
-        <h2>How This Works</h2>
-        <div class="lesson-grid">
-          <article>
-            <h3>Computer Vision</h3>
-            <p>The webcam creates video frames. MediaPipe analyzes each frame and estimates 21 hand landmark positions.</p>
-          </article>
-          <article>
-            <h3>Coordinates</h3>
-            <p>Normalized coordinates use x = 0 on the left, x = 1 on the right, y = 0 at the top, and y = 1 at the bottom.</p>
-            <p>Live fingertip: <strong id="learnTipText">--</strong></p>
-          </article>
-          <article>
-            <h3>Vectors</h3>
-            <p>The app subtracts the index base from the fingertip: <code>dx = tipX - baseX</code>, <code>dy = tipY - baseY</code>.</p>
-            <p>That vector is normalized so it keeps direction without growing too large.</p>
-          </article>
-          <article>
-            <h3>Speed</h3>
-            <p>The wand compares this frame with the previous frame: <code>speed = distance / time</code>.</p>
-            <p>Live speed: <strong id="learnSpeedText">0</strong></p>
-          </article>
-          <article>
-            <h3>Gesture Recognition</h3>
-            <p>The browser remembers recent wand-tip positions and compares the shape to forgiving circle and Z patterns.</p>
-          </article>
-          <article>
-            <h3>Collision Detection</h3>
-            <p>The invisible wand is a ray. A target is hit when the target center is close enough to that ray and in front of the fingertip.</p>
-          </article>
-        </div>
-        <button id="backToMagicButton" type="button">BACK TO MAGIC</button>
+    <section id="learnPanel" class="learn-panel" hidden>
+      <div class="learn-card">
+        <p class="eyebrow">STEM Explanation</p>
+        <h2>How Hand Control Works</h2>
+        <p>Your camera sends video frames to MediaPipe. MediaPipe estimates 21 hand landmark points.</p>
+        <p><strong>STEM CONCEPT: Direction Vector</strong> The program subtracts index PIP from index fingertip: <code>dx = tipX - pipX</code>, <code>dy = tipY - pipY</code>.</p>
+        <p><strong>STEM CONCEPT: Angles</strong> JavaScript uses <code>Math.atan2(dy, dx)</code> to convert that vector into an angle.</p>
+        <p><strong>STEM CONCEPT: Gesture Smoothing</strong> A direction must appear for several frames before the game accepts it, preventing one noisy webcam frame from changing the command.</p>
+        <p><strong>STEM CONCEPT: Grid Movement</strong> The maze is a 2D array. A wall is a <code>#</code> tile, and the player moves only when the next tile is open.</p>
+        <p><strong>STEM CONCEPT: Buffered Turning</strong> If you point before reaching an intersection, the game remembers the requested direction and turns when possible.</p>
+        <p><strong>Game AI</strong> The red enemy uses a simple chaser algorithm. At intersections, it usually chooses the open corridor that moves closest to the player.</p>
+        <button id="backButton" type="button">BACK TO CONTROL</button>
       </div>
     </section>
   </main>
 
-  <script type="module" src="app.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
