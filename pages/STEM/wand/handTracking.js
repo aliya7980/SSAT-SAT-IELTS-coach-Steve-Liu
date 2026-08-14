@@ -145,9 +145,7 @@ export class HandTracking {
     for (let i = 0; i < landmarks.length; i++) {
       const point = this.mapVideoPoint(landmarks[i], width, height);
       ctx.fillStyle = i === 8 ? "#ffe27a" : "#b98cff";
-      ctx.beginPath();
-      ctx.arc(point.x, point.y, i === 8 ? 6 : 4, 0, Math.PI * 2);
-      ctx.fill();
+      drawLandmarkDiamond(ctx, point.x, point.y, i === 8 ? 7 : 4);
     }
     ctx.restore();
   }
@@ -157,4 +155,14 @@ export class HandTracking {
     if (stream) stream.getTracks().forEach((track) => track.stop());
     this.video.srcObject = null;
   }
+}
+
+function drawLandmarkDiamond(ctx, x, y, size) {
+  ctx.beginPath();
+  ctx.moveTo(x, y - size);
+  ctx.lineTo(x + size, y);
+  ctx.lineTo(x, y + size);
+  ctx.lineTo(x - size, y);
+  ctx.closePath();
+  ctx.fill();
 }

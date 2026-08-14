@@ -78,40 +78,56 @@ export class EffectsRenderer {
     clearGroup(this.wandGroup);
     if (!wand.visible) return;
     const glow = 0.55 + Math.min(wand.speed / 1300, 1) * 0.45;
-    const line = makeLine(
+    const beam = makeLine(
       [{ x: wand.originX, y: wand.originY }, { x: wand.x, y: wand.y }],
       new THREE.Color(0x8bf9ff),
-      2 + glow * 3,
-      0.75
+      1 + glow * 2,
+      0.88
     );
-    this.wandGroup.add(line);
+    this.wandGroup.add(beam);
 
-    const orb = new THREE.Mesh(
-      new THREE.CircleGeometry(9 + wand.charge * 11, 36),
+    const blade = makeLine(
+      [
+        { x: wand.originX - wand.directionX * 28, y: wand.originY - wand.directionY * 28 },
+        { x: wand.x + wand.directionX * (28 + wand.charge * 34), y: wand.y + wand.directionY * (28 + wand.charge * 34) }
+      ],
+      new THREE.Color(0xffffff),
+      1,
+      0.7 + wand.charge * 0.28
+    );
+    this.wandGroup.add(blade);
+
+    const tip = new THREE.Mesh(
+      createDiamondGeometry(10 + wand.charge * 10, 18 + wand.charge * 22),
       new THREE.MeshBasicMaterial({
         color: wand.charge > 0.65 ? 0xffffff : 0x8bf9ff,
         transparent: true,
-        opacity: 0.86,
+        opacity: 0.9,
         blending: THREE.AdditiveBlending,
         depthWrite: false
       })
     );
-    orb.position.set(wand.x, wand.y, 5);
-    this.wandGroup.add(orb);
+    tip.position.set(wand.x, wand.y, 5);
+    tip.rotation.z = Math.atan2(wand.directionY, wand.directionX) - Math.PI / 2;
+    this.wandGroup.add(tip);
 
-    const ring = new THREE.Mesh(
-      new THREE.RingGeometry(20, 22, 64, 1, -Math.PI / 2, Math.PI * 2 * Math.max(wand.charge, 0.02)),
-      new THREE.MeshBasicMaterial({
-        color: 0xffe27a,
-        transparent: true,
-        opacity: wand.isCharging ? 0.9 : 0.2,
-        blending: THREE.AdditiveBlending,
-        side: THREE.DoubleSide,
-        depthWrite: false
-      })
-    );
-    ring.position.set(wand.x, wand.y, 7);
-    this.wandGroup.add(ring);
+    if (wand.isCharging) {
+      const tickCount = Math.ceil(wand.charge * 9);
+      for (let i = 0; i < tickCount; i++) {
+        const angle = -Math.PI / 2 + i * 0.44 + performance.now() * 0.003;
+        const inner = 22 + i * 1.8;
+        const outer = inner + 10 + wand.charge * 18;
+        this.wandGroup.add(makeLine(
+          [
+            { x: wand.x + Math.cos(angle) * inner, y: wand.y + Math.sin(angle) * inner },
+            { x: wand.x + Math.cos(angle + 0.18) * outer, y: wand.y + Math.sin(angle + 0.18) * outer }
+          ],
+          new THREE.Color(0xffe27a),
+          1,
+          0.35 + wand.charge * 0.48
+        ));
+      }
+    }
 
     if (wand.charge > 0.4 && Math.random() < wand.charge * 0.34) {
       this.spawnSpark(wand.x, wand.y, 190, 0.5);
@@ -125,24 +141,38 @@ export class EffectsRenderer {
       const scale = 1 + Math.sin(target.phase * 4) * 0.06 + target.aim * 0.18;
       const color = new THREE.Color(`hsl(${target.hue}, 95%, ${62 + target.aim * 16}%)`);
       const core = new THREE.Mesh(
-        new THREE.CircleGeometry(target.radius * 0.5 * scale, 40),
+        createDiamondGeometry(target.radius * 0.82 * scale, target.radius * 1.45 * scale),
         new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.78, blending: THREE.AdditiveBlending })
       );
       core.position.set(target.x, target.y, 0);
+      core.rotation.z = Math.sin(target.phase) * 0.18;
       this.targetGroup.add(core);
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(target.radius * scale, target.radius * scale + 4, 54),
-        new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })
+      const outline = makeLine(
+        diamondPoints(target.x, target.y, target.radius * 1.35 * scale, target.radius * 2.05 * scale, core.rotation.z),
+        color,
+        2,
+        0.82
       );
-      ring.position.set(target.x, target.y, 1);
-      this.targetGroup.add(ring);
+      this.targetGroup.add(outline);
+      this.targetGroup.add(makeLine(
+        [
+          { x: target.x - target.radius * 1.15, y: target.y },
+          { x: target.x - target.radius * 0.42, y: target.y },
+          { x: target.x + target.radius * 0.42, y: target.y },
+          { x: target.x + target.radius * 1.15, y: target.y }
+        ],
+        new THREE.Color(0xffffff),
+        1,
+        0.18 + target.aim * 0.38
+      ));
       for (let i = 0; i < 4; i++) {
         const angle = target.phase * 2 + i * Math.PI / 2;
         const mote = new THREE.Mesh(
-          new THREE.CircleGeometry(3, 12),
+          createDiamondGeometry(5, 9),
           new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.65, blending: THREE.AdditiveBlending })
         );
         mote.position.set(target.x + Math.cos(angle) * target.radius * 1.25, target.y + Math.sin(angle) * target.radius * 1.25, 2);
+        mote.rotation.z = angle;
         this.targetGroup.add(mote);
       }
     }
@@ -190,30 +220,43 @@ export class EffectsRenderer {
   spawnImpact(point, hue = 190, strength = 1) {
     const color = new THREE.Color(`hsl(${hue}, 100%, 68%)`);
     for (let i = 0; i < 46 * strength; i++) this.spawnSpark(point.x, point.y, hue, strength);
-    const shockwave = new THREE.Mesh(
-      new THREE.RingGeometry(8, 11, 64),
-      new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })
-    );
-    shockwave.position.set(point.x, point.y, 4);
+    const shockwave = makeStarburst(point, 22, 68 * strength, color, 0.86);
     this.shields.push({ mesh: shockwave, age: 0, life: 0.55, startScale: 1, endScale: 8 * strength });
     this.effectGroup.add(shockwave);
   }
 
   spawnShield(width, height) {
-    const shield = new THREE.Mesh(
-      new THREE.RingGeometry(115, 122, 96),
-      new THREE.MeshBasicMaterial({ color: 0x9fffff, transparent: true, opacity: 0.72, blending: THREE.AdditiveBlending, side: THREE.DoubleSide })
+    const shield = makeLine(
+      polygonPoints(0, 0, 150, 6, Math.PI / 6, 0.82, 1.18),
+      new THREE.Color(0x9fffff),
+      3,
+      0.72
     );
     shield.position.set(width / 2, height / 2, 3);
     this.shields.push({ mesh: shield, age: 0, life: 1.7, startScale: 0.4, endScale: 1.55 });
     this.effectGroup.add(shield);
+    for (let i = 0; i < 6; i++) {
+      const angle = Math.PI / 6 + i * Math.PI / 3;
+      const spoke = makeLine(
+        [
+          { x: 0, y: 0 },
+          { x: Math.cos(angle) * 150 * 0.82, y: Math.sin(angle) * 150 * 1.18 }
+        ],
+        new THREE.Color(0x9fffff),
+        1,
+        0.24
+      );
+      spoke.position.set(width / 2, height / 2, 3);
+      this.shields.push({ mesh: spoke, age: 0, life: 1.7, startScale: 0.4, endScale: 1.55 });
+      this.effectGroup.add(spoke);
+    }
   }
 
   spawnSpark(x, y, hue = 190, strength = 1) {
     const angle = Math.random() * Math.PI * 2;
     const speed = (90 + Math.random() * 340) * strength;
     const mesh = new THREE.Mesh(
-      new THREE.CircleGeometry(2 + Math.random() * 3.5, 8),
+      createDiamondGeometry(3 + Math.random() * 3.5, 9 + Math.random() * 10),
       new THREE.MeshBasicMaterial({
         color: new THREE.Color(`hsl(${hue + Math.random() * 40}, 100%, 72%)`),
         transparent: true,
@@ -223,6 +266,7 @@ export class EffectsRenderer {
       })
     );
     mesh.position.set(x, y, 6);
+    mesh.rotation.z = angle;
     this.effectGroup.add(mesh);
     this.particles.push({ mesh, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed, age: 0, life: 0.45 + Math.random() * 0.35 });
   }
@@ -292,6 +336,64 @@ function makeLine(points, color, width, opacity) {
     depthWrite: false
   });
   return new THREE.Line(geometry, material);
+}
+
+function createDiamondGeometry(width, height) {
+  const shape = new THREE.Shape();
+  shape.moveTo(0, -height / 2);
+  shape.lineTo(width / 2, 0);
+  shape.lineTo(0, height / 2);
+  shape.lineTo(-width / 2, 0);
+  shape.lineTo(0, -height / 2);
+  return new THREE.ShapeGeometry(shape);
+}
+
+function diamondPoints(x, y, width, height, rotation = 0) {
+  const raw = [
+    { x: 0, y: -height / 2 },
+    { x: width / 2, y: 0 },
+    { x: 0, y: height / 2 },
+    { x: -width / 2, y: 0 },
+    { x: 0, y: -height / 2 }
+  ];
+  return raw.map((point) => rotatePoint(point, x, y, rotation));
+}
+
+function polygonPoints(x, y, radius, sides, rotation = 0, scaleX = 1, scaleY = 1) {
+  const points = [];
+  for (let i = 0; i <= sides; i++) {
+    const angle = rotation + i / sides * Math.PI * 2;
+    points.push({
+      x: x + Math.cos(angle) * radius * scaleX,
+      y: y + Math.sin(angle) * radius * scaleY
+    });
+  }
+  return points;
+}
+
+function makeStarburst(center, innerRadius, outerRadius, color, opacity) {
+  const points = [];
+  const arms = 18;
+  for (let i = 0; i <= arms; i++) {
+    const angle = i / arms * Math.PI * 2;
+    const radius = i % 2 ? innerRadius : outerRadius * (0.72 + Math.random() * 0.28);
+    points.push({
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius
+    });
+  }
+  const star = makeLine(points, color, 2, opacity);
+  star.position.set(center.x, center.y, 4);
+  return star;
+}
+
+function rotatePoint(point, x, y, rotation) {
+  const cos = Math.cos(rotation);
+  const sin = Math.sin(rotation);
+  return {
+    x: x + point.x * cos - point.y * sin,
+    y: y + point.x * sin + point.y * cos
+  };
 }
 
 function jaggedBolt(start, end, segments, roughness) {
