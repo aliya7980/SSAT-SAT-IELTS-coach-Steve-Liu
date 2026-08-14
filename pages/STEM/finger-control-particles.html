@@ -223,7 +223,7 @@
     <div class="hud">
       <span class="eyebrow">Three.js · MediaPipe Hands</span>
       <h1>Hand-Controlled Particle Planet</h1>
-      <p>Open palm moves closer. Fist pulls away. Move or rotate your palm to orbit and spin the glowing orange particle planet.</p>
+      <p>Open palm moves closer. Fist pulls away. Raise four fingers and move your hand left or right to roll the viewing perspective.</p>
     </div>
 
     <section class="panel" aria-label="Controls and status">
@@ -234,8 +234,8 @@
       <div class="controls">
         <span>Open palm: zoom in</span>
         <span>Fist: zoom out</span>
-        <span>Palm move: orbit</span>
-        <span>Palm roll: planet spin</span>
+        <span>Four fingers: perspective roll</span>
+        <span>Mouse drag: orbit</span>
       </div>
     </section>
 
@@ -299,7 +299,6 @@
       handX: 0.5,
       handY: 0.5,
       handSize: 0.32,
-      handRoll: 0,
       gesture: "Mouse / trackpad"
     };
 
@@ -554,11 +553,12 @@
       const y = Math.sin(pitch) * state.distance;
       const z = Math.cos(state.yaw) * Math.cos(pitch) * state.distance;
       camera.position.set(x, y, z);
+      camera.up.set(Math.sin(state.roll), Math.cos(state.roll), 0);
       camera.lookAt(0, 0, 0);
 
-      planet.rotation.y += 0.0024 + state.roll * 0.00145;
+      planet.rotation.y += 0.0024;
       planet.rotation.x = lerp(planet.rotation.x, state.pitch * 0.08, 0.035);
-      planet.rotation.z = lerp(planet.rotation.z, state.roll * 0.32, 0.05);
+      planet.rotation.z = lerp(planet.rotation.z, 0, 0.05);
       rings.rotation.y += 0.00145;
     }
 
@@ -622,7 +622,9 @@
         fingerIsRaised(landmarks, 20, 18)
       ];
       const thumbOpen = Math.abs(landmarks[4].x - landmarks[3].x) > 0.035;
-      const count = raised.filter(Boolean).length + (thumbOpen ? 1 : 0);
+      const fourFingerCount = raised.filter(Boolean).length;
+      if (fourFingerCount === 4 && !thumbOpen) return "Four Fingers";
+      const count = fourFingerCount + (thumbOpen ? 1 : 0);
       if (count >= 5) return "Open Palm";
       if (count <= 1) return "Fist";
       return `${count} fingers`;
@@ -642,8 +644,7 @@
       const centerX = (minX + maxX) / 2;
       const centerY = (minY + maxY) / 2;
       const size = Math.hypot(maxX - minX, maxY - minY);
-      const roll = Math.atan2(landmarks[17].y - landmarks[5].y, landmarks[17].x - landmarks[5].x);
-      return { centerX, centerY, size, roll };
+      return { centerX, centerY, size };
     }
 
     function drawHandPreview(results) {
@@ -714,23 +715,24 @@
         state.handX = lerp(state.handX, metrics.centerX, 0.18);
         state.handY = lerp(state.handY, metrics.centerY, 0.18);
         state.handSize = lerp(state.handSize, metrics.size, 0.16);
-        state.handRoll = lerp(state.handRoll, metrics.roll, 0.14);
-
-        state.targetYaw += (state.handX - 0.5) * 0.026;
-        state.targetPitch = clamp(state.targetPitch + (state.handY - 0.5) * 0.014, -0.82, 0.82);
-        state.targetRoll = clamp(Math.sin(state.handRoll), -1, 1);
 
         if (gesture === "Fist") {
           state.targetDistance = maxDistance;
+          state.targetRoll = lerp(state.targetRoll, 0, 0.04);
         } else if (gesture === "Open Palm") {
           state.targetDistance = minDistance;
+          state.targetRoll = lerp(state.targetRoll, 0, 0.04);
+        } else if (gesture === "Four Fingers") {
+          const rollAmount = THREE.MathUtils.mapLinear(clamp(state.handX, 0.18, 0.82), 0.18, 0.82, -0.95, 0.95);
+          state.targetRoll = lerp(state.targetRoll, rollAmount, 0.16);
         } else {
           const distanceFromSize = THREE.MathUtils.mapLinear(clamp(state.handSize, 0.18, 0.62), 0.18, 0.62, maxDistance, minDistance);
           state.targetDistance = lerp(state.targetDistance, distanceFromSize, 0.05);
+          state.targetRoll = lerp(state.targetRoll, 0, 0.04);
         }
 
         state.gesture = gesture;
-        statusEl.textContent = `${gesture} · camera distance ${state.distance.toFixed(1)}`;
+        statusEl.textContent = `${gesture} · distance ${state.distance.toFixed(1)} · roll ${(state.roll * 57.3).toFixed(0)}°`;
       });
 
       try {
@@ -743,7 +745,7 @@
         });
         await cameraFeed.start();
         startButton.textContent = "Camera Control Active";
-        statusEl.textContent = "Camera ready. Open palm zooms in; fist zooms out.";
+        statusEl.textContent = "Camera ready. Four fingers rolls the perspective.";
       } catch (error) {
         startButton.disabled = false;
         startButton.textContent = "Start Camera Control";
