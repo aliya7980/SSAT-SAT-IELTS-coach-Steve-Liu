@@ -280,10 +280,15 @@ export class MazeGame {
 
   updatePlayer(dt) {
     const player = this.player;
+    if (player.progress === 0) this.tryTurn();
+    if (!this.canMove(player, this.currentDirection)) {
+      player.progress = 0;
+      return;
+    }
+
     player.progress += dt * this.level.speed;
     while (player.progress >= 1) {
       player.progress -= 1;
-      this.tryTurn();
       const dir = DIRS[this.currentDirection];
       const nextX = player.x + dir.x;
       const nextY = player.y + dir.y;
@@ -294,6 +299,12 @@ export class MazeGame {
         player.y = nextY;
         this.collectAt(player.x, player.y);
       } else {
+        player.progress = 0;
+        break;
+      }
+
+      this.tryTurn();
+      if (!this.canMove(player, this.currentDirection)) {
         player.progress = 0;
         break;
       }
@@ -310,10 +321,15 @@ export class MazeGame {
         if (enemy.defeatedTimer <= 0) this.resetEnemy(enemy);
         continue;
       }
+      if (enemy.progress === 0) this.chooseEnemyDirection(enemy);
+      if (!this.canMove(enemy, enemy.direction)) {
+        enemy.progress = 0;
+        continue;
+      }
+
       enemy.progress += dt * enemy.speed * surgeBoost;
       while (enemy.progress >= 1) {
         enemy.progress -= 1;
-        this.chooseEnemyDirection(enemy);
         const dir = DIRS[enemy.direction];
         const nextX = enemy.x + dir.x;
         const nextY = enemy.y + dir.y;
@@ -327,6 +343,12 @@ export class MazeGame {
           enemy.progress = 0;
           break;
         }
+
+        this.chooseEnemyDirection(enemy);
+        if (!this.canMove(enemy, enemy.direction)) {
+          enemy.progress = 0;
+          break;
+        }
       }
     }
   }
@@ -334,6 +356,11 @@ export class MazeGame {
   // STEM CONCEPT: Grid Collision Detection
   isWall(x, y) {
     return !this.map[y] || this.map[y][x] === "#";
+  }
+
+  canMove(actor, direction) {
+    const dir = DIRS[direction];
+    return Boolean(dir) && !this.isWall(actor.x + dir.x, actor.y + dir.y);
   }
 
   // STEM CONCEPT: Buffered Turning
@@ -527,6 +554,9 @@ export class MazeGame {
 
   getInterpolatedPlayer() {
     const dir = DIRS[this.currentDirection];
+    if (!this.canMove(this.player, this.currentDirection)) {
+      return { x: this.player.x, y: this.player.y };
+    }
     return {
       x: this.player.x + dir.x * this.player.progress,
       y: this.player.y + dir.y * this.player.progress
@@ -535,6 +565,9 @@ export class MazeGame {
 
   getInterpolatedEnemy(enemy) {
     const dir = DIRS[enemy.direction];
+    if (!this.canMove(enemy, enemy.direction)) {
+      return { x: enemy.x, y: enemy.y };
+    }
     return {
       x: enemy.x + dir.x * enemy.progress,
       y: enemy.y + dir.y * enemy.progress

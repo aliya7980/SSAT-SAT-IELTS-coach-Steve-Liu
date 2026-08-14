@@ -209,8 +209,7 @@ function drawDot(x, y, big, tile) {
 
 function drawPlayerGlyph(x, y, state, tile) {
   const mouth = Math.abs(Math.sin(pulse * 7)) * 0.35 + 0.18;
-  const direction = state.acceptedDirection === "--" ? mazeGame.currentDirection : state.acceptedDirection;
-  const angle = directionAngle(direction);
+  const angle = directionAngle(mazeGame.currentDirection);
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
