@@ -250,15 +250,15 @@ function playerEyeOffset(direction, tile) {
 function drawInsideCorridors(board, drawFn) {
   ctx.save();
   ctx.beginPath();
-  const inset = Math.max(1, board.tile * 0.02);
+  const overlap = Math.max(1.5, board.tile * 0.035);
   for (let y = 0; y < mazeGame.map.length; y++) {
     for (let x = 0; x < mazeGame.map[y].length; x++) {
       if (mazeGame.map[y][x] === "#") continue;
       ctx.rect(
-        board.left + x * board.tile + inset,
-        board.top + y * board.tile + inset,
-        board.tile - inset * 2,
-        board.tile - inset * 2
+        board.left + x * board.tile - overlap,
+        board.top + y * board.tile - overlap,
+        board.tile + overlap * 2,
+        board.tile + overlap * 2
       );
     }
   }
