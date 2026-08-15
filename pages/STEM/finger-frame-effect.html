@@ -193,7 +193,7 @@
     <section class="topbar">
       <span class="eyebrow">MediaPipe · Canvas 2D</span>
       <h1>Finger Frame Effect</h1>
-      <p>Use both hands to make a camera frame with your thumbs and index fingers. The frame reveals live visual windows: filters, body mask testing, painterly color, glowing text, and water ripples.</p>
+      <p>Use both hands to make a camera frame with your thumbs and index fingers. The frame reveals live visual windows: filters, body mask testing, hyper color, glowing text, and water ripples.</p>
     </section>
 
     <section class="panel" aria-label="Finger frame controls">
@@ -267,7 +267,7 @@
       ["glitch", "5 Glitch"],
       ["toon", "6 Toon"],
       ["bodymask", "7 Body Mask Test"],
-      ["vangogh", "8 Van Gogh Color"],
+      ["hypercolor", "8 Hyper Color"],
       ["subscribe", "9 Subscribe Glow"],
       ["ripple", "0 Water Ripple"]
     ];
@@ -286,6 +286,8 @@
     let showVision = false;
     let effectStartTime = performance.now();
     let lastHandLandmarks = [];
+    let previousRippleCenter = null;
+    let rippleEnergy = 0;
 
     if (location.protocol === "file:") {
       localhostLink.classList.add("show");
@@ -548,8 +550,8 @@
         ctx.filter = "none";
       } else if (activeEffect === "glitch") {
         drawGlitch(width, height);
-      } else if (activeEffect === "vangogh") {
-        drawVanGoghColor(width, height, quad);
+      } else if (activeEffect === "hypercolor") {
+        drawHyperColor(width, height, quad);
       } else if (activeEffect === "subscribe") {
         drawSubscribeGlow(width, height, quad);
       } else if (activeEffect === "ripple") {
@@ -714,66 +716,20 @@
       }
     }
 
-    function drawVanGoghColor(width, height, quad) {
+    function drawHyperColor(width, height) {
       const time = performance.now() / 1000;
-      const bounds = quadBounds(quad);
-      work.width = Math.ceil(width / 3);
-      work.height = Math.ceil(height / 3);
-      drawCoverVideo(workCtx, work.width, work.height);
-      const image = workCtx.getImageData(0, 0, work.width, work.height);
-      const data = image.data;
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
-        const light = (r + g + b) / 3;
-        data[i] = Math.min(255, light * 0.55 + 74);
-        data[i + 1] = Math.min(255, light * 0.72 + 58);
-        data[i + 2] = Math.min(255, 255 - light * 0.26 + 28);
-      }
-      workCtx.putImageData(image, 0, 0);
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(work, 0, 0, work.width, work.height, 0, 0, width, height);
-      ctx.imageSmoothingEnabled = true;
+      const hueShift = Math.sin(time * 0.18) * 24;
+
+      ctx.filter = `invert(1) saturate(4.8) contrast(1.32) brightness(1.1) hue-rotate(${hueShift}deg)`;
+      drawCoverVideo(ctx, width, height);
+      ctx.filter = "none";
 
       ctx.save();
       ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = 0.82;
-      const glow = ctx.createRadialGradient(
-        bounds.left + bounds.width * 0.62,
-        bounds.top + bounds.height * 0.34,
-        4,
-        bounds.left + bounds.width * 0.62,
-        bounds.top + bounds.height * 0.34,
-        Math.max(bounds.width, bounds.height) * 0.68
-      );
-      glow.addColorStop(0, "rgba(255, 233, 92, 0.96)");
-      glow.addColorStop(0.34, "rgba(255, 163, 46, 0.52)");
-      glow.addColorStop(1, "rgba(21, 72, 172, 0)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, width, height);
-      ctx.restore();
-
-      ctx.save();
-      ctx.globalAlpha = 0.9;
-      ctx.lineCap = "round";
-      for (let i = 0; i < 140; i++) {
-        const x = bounds.left + ((i * 47 + time * 24) % Math.max(1, bounds.width + 120)) - 60;
-        const y = bounds.top + ((i * 31 + Math.sin(time + i) * 22) % Math.max(1, bounds.height + 80)) - 40;
-        const len = 22 + (i % 5) * 7;
-        const angle = Math.sin(i * 1.7 + time * 1.6) * Math.PI;
-        ctx.strokeStyle = i % 3 === 0 ? "rgba(255, 231, 92, 0.72)" : i % 3 === 1 ? "rgba(42, 112, 214, 0.76)" : "rgba(244, 138, 43, 0.68)";
-        ctx.lineWidth = 3 + (i % 4);
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.quadraticCurveTo(
-          x + Math.cos(angle) * len * 0.5,
-          y + Math.sin(angle) * len * 0.35,
-          x + Math.cos(angle) * len,
-          y + Math.sin(angle) * len
-        );
-        ctx.stroke();
-      }
+      ctx.globalAlpha = 0.18;
+      ctx.filter = `blur(7px) invert(1) saturate(5.5) hue-rotate(${hueShift + 18}deg)`;
+      drawCoverVideo(ctx, width, height);
+      ctx.filter = "none";
       ctx.restore();
     }
 
@@ -829,36 +785,59 @@
     function drawWaterRipple(width, height, quad) {
       const time = performance.now() / 1000;
       const bounds = quadBounds(quad);
+      const rippleStrength = updateRipplePhysics(quad);
+      const amplitudeX = 5.5 + rippleStrength * 9;
+      const amplitudeY = 2 + rippleStrength * 4;
+      const stripHeight = 4;
       work.width = width;
       work.height = height;
       drawCoverVideo(workCtx, width, height);
+
       ctx.save();
-      ctx.filter = "saturate(1.35) contrast(1.08) brightness(1.05)";
-      for (let y = Math.floor(bounds.top) - 40; y < bounds.top + bounds.height + 40; y += 4) {
-        const wave = Math.sin(y * 0.045 + time * 5.2) * 11 + Math.sin(y * 0.018 - time * 2.4) * 7;
-        ctx.drawImage(work, 0, y, width, 4, wave, y, width, 4);
+      ctx.filter = "saturate(1.16) contrast(1.04) brightness(1.03)";
+      for (let y = Math.floor(bounds.top) - 36; y < bounds.top + bounds.height + 36; y += stripHeight) {
+        const waveX =
+          Math.sin(y * 0.024 + time * 3.1) * amplitudeX
+          + Math.sin(y * 0.053 - time * 1.65) * amplitudeX * 0.42;
+        const waveY = Math.sin(y * 0.017 - time * 2.2) * amplitudeY;
+        const shimmer = Math.abs(Math.cos(y * 0.035 + time * 3.3));
+        ctx.globalAlpha = 0.94 + shimmer * 0.06;
+        ctx.drawImage(work, 0, y, width, stripHeight, waveX, y + waveY, width, stripHeight + 1);
       }
       ctx.filter = "none";
+      ctx.globalAlpha = 1;
 
-      const centerX = bounds.left + bounds.width * (0.5 + Math.sin(time * 0.8) * 0.12);
-      const centerY = bounds.top + bounds.height * (0.5 + Math.cos(time * 0.7) * 0.12);
       ctx.globalCompositeOperation = "screen";
-      for (let i = 0; i < 7; i++) {
-        const radius = ((time * 90 + i * 58) % Math.max(80, Math.max(bounds.width, bounds.height)));
-        ctx.strokeStyle = `rgba(170, 242, 255, ${0.38 * (1 - radius / Math.max(bounds.width, bounds.height + 1))})`;
-        ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      for (let i = 0; i < 18; i++) {
+        const x = bounds.left + ((i * 67 + time * 28) % Math.max(1, bounds.width + 120)) - 60;
+        const y = bounds.top + ((i * 43 + time * 19) % Math.max(1, bounds.height + 90)) - 45;
+        ctx.strokeStyle = `rgba(230, 255, 255, ${0.05 + (i % 3) * 0.025})`;
+        ctx.lineWidth = 1.2 + (i % 2);
         ctx.beginPath();
-        ctx.ellipse(centerX, centerY, radius * 1.12, radius * 0.58, Math.sin(time) * 0.2, 0, Math.PI * 2);
+        ctx.moveTo(x, y);
+        ctx.bezierCurveTo(x + 24, y - 14, x + 56, y + 20, x + 98, y + Math.sin(time + i) * 9);
         ctx.stroke();
       }
 
-      const water = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left, bounds.top + bounds.height);
-      water.addColorStop(0, "rgba(14, 160, 255, 0.18)");
-      water.addColorStop(0.5, "rgba(40, 238, 255, 0.28)");
-      water.addColorStop(1, "rgba(0, 58, 148, 0.2)");
-      ctx.fillStyle = water;
+      const waterSheen = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left, bounds.top + bounds.height);
+      waterSheen.addColorStop(0, "rgba(120, 225, 255, 0.08)");
+      waterSheen.addColorStop(0.48, "rgba(255, 255, 255, 0.04)");
+      waterSheen.addColorStop(1, "rgba(18, 92, 190, 0.1)");
+      ctx.fillStyle = waterSheen;
       ctx.fillRect(0, 0, width, height);
       ctx.restore();
+    }
+
+    function updateRipplePhysics(quad) {
+      const center = quad.reduce((sum, p) => ({ x: sum.x + p.x / 4, y: sum.y + p.y / 4 }), { x: 0, y: 0 });
+      if (previousRippleCenter) {
+        const movement = distance(center, previousRippleCenter);
+        rippleEnergy = Math.max(rippleEnergy, Math.min(1, movement / 42));
+      }
+      previousRippleCenter = center;
+      rippleEnergy *= 0.92;
+      return rippleEnergy;
     }
 
     function drawToon(width, height) {
