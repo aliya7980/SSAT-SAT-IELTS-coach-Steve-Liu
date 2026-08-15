@@ -593,6 +593,7 @@
       if (activeEffect === "spider") drawSpiderBody(width, height, quad);
       else if (activeEffect === "optimus") drawRobotBody(width, height, quad, "optimus");
       else drawRobotBody(width, height, quad, "megatron");
+      drawRevealStrip(width, height, quad, activeEffect);
       drawTransformationEdge(width, height, activeEffect);
     }
 
@@ -669,6 +670,112 @@
         effectCtx.ellipse(centerX, centerY, radius * 0.9, radius * 0.58, Math.sin(time * 0.25) * 0.08, 0, Math.PI * 2);
         effectCtx.stroke();
       }
+      effectCtx.restore();
+    }
+
+    function drawRevealStrip(width, height, quad, mode) {
+      const bounds = quadBounds(quad);
+      const time = performance.now() / 1000;
+      const stripWidth = Math.max(72, Math.min(bounds.width * 0.38, 180));
+      const sweep = (Math.sin(time * 1.35) * 0.5 + 0.5) * Math.max(1, bounds.width - stripWidth);
+      const left = bounds.left + sweep;
+      const top = bounds.top + bounds.height * 0.04;
+      const bottom = bounds.top + bounds.height * 0.96;
+      const lean = Math.sin(time * 0.7) * 18;
+      const palette = mode === "spider"
+        ? { core: "rgba(235, 18, 36, 0.82)", glow: "rgba(255, 43, 64, 0.82)", accent: "rgba(8, 22, 75, 0.74)", line: "rgba(255, 238, 230, 0.88)" }
+        : mode === "optimus"
+          ? { core: "rgba(20, 97, 195, 0.78)", glow: "rgba(90, 238, 255, 0.86)", accent: "rgba(210, 34, 48, 0.76)", line: "rgba(235, 250, 255, 0.9)" }
+          : { core: "rgba(52, 55, 66, 0.86)", glow: "rgba(190, 90, 255, 0.86)", accent: "rgba(96, 73, 123, 0.78)", line: "rgba(232, 225, 245, 0.82)" };
+
+      effectCtx.save();
+      effectCtx.globalCompositeOperation = "source-atop";
+      effectCtx.beginPath();
+      effectCtx.moveTo(left + lean, top);
+      effectCtx.lineTo(left + stripWidth + lean, top);
+      effectCtx.lineTo(left + stripWidth - lean, bottom);
+      effectCtx.lineTo(left - lean, bottom);
+      effectCtx.closePath();
+      const gradient = effectCtx.createLinearGradient(left, top, left + stripWidth, bottom);
+      gradient.addColorStop(0, "rgba(255, 255, 255, 0.12)");
+      gradient.addColorStop(0.24, palette.core);
+      gradient.addColorStop(0.55, palette.accent);
+      gradient.addColorStop(0.84, palette.core);
+      gradient.addColorStop(1, "rgba(255, 255, 255, 0.16)");
+      effectCtx.fillStyle = gradient;
+      effectCtx.fill();
+      effectCtx.clip();
+
+      effectCtx.globalCompositeOperation = "lighter";
+      effectCtx.shadowColor = palette.glow;
+      effectCtx.shadowBlur = 18;
+      effectCtx.strokeStyle = palette.glow;
+      effectCtx.lineWidth = 3;
+      for (let y = top - 60; y < bottom + 80; y += 42) {
+        effectCtx.beginPath();
+        effectCtx.moveTo(left - 12, y + Math.sin(time * 4 + y * 0.02) * 8);
+        effectCtx.lineTo(left + stripWidth + 12, y - 24);
+        effectCtx.stroke();
+      }
+
+      effectCtx.shadowBlur = 0;
+      effectCtx.globalCompositeOperation = "source-over";
+      effectCtx.strokeStyle = palette.line;
+      effectCtx.lineWidth = 2;
+      effectCtx.globalAlpha = 0.86;
+      for (let y = top + 34; y < bottom; y += 86) {
+        const cx = left + stripWidth * 0.5 + Math.sin(time * 2 + y * 0.03) * stripWidth * 0.08;
+        if (mode === "spider") drawSpiderEmblem(cx, y, stripWidth * 0.26);
+        else drawRobotEmblem(cx, y, stripWidth * 0.3, mode);
+      }
+      effectCtx.restore();
+    }
+
+    function drawSpiderEmblem(cx, cy, size) {
+      effectCtx.save();
+      effectCtx.strokeStyle = "rgba(255, 255, 255, 0.82)";
+      effectCtx.fillStyle = "rgba(8, 10, 18, 0.72)";
+      effectCtx.lineWidth = Math.max(1.5, size * 0.06);
+      effectCtx.beginPath();
+      effectCtx.ellipse(cx, cy, size * 0.28, size * 0.42, 0, 0, Math.PI * 2);
+      effectCtx.fill();
+      effectCtx.stroke();
+      for (const side of [-1, 1]) {
+        for (let i = 0; i < 4; i++) {
+          const y = cy - size * 0.24 + i * size * 0.16;
+          effectCtx.beginPath();
+          effectCtx.moveTo(cx + side * size * 0.18, y);
+          effectCtx.lineTo(cx + side * size * (0.48 + i * 0.1), y - size * 0.18);
+          effectCtx.lineTo(cx + side * size * (0.72 + i * 0.05), y + size * 0.12);
+          effectCtx.stroke();
+        }
+      }
+      effectCtx.restore();
+    }
+
+    function drawRobotEmblem(cx, cy, size, mode) {
+      const optimus = mode === "optimus";
+      effectCtx.save();
+      effectCtx.fillStyle = optimus ? "rgba(180, 235, 255, 0.84)" : "rgba(220, 198, 255, 0.82)";
+      effectCtx.strokeStyle = optimus ? "rgba(54, 238, 255, 0.86)" : "rgba(183, 87, 255, 0.86)";
+      effectCtx.lineWidth = Math.max(1.5, size * 0.05);
+      effectCtx.beginPath();
+      effectCtx.moveTo(cx, cy - size * 0.5);
+      effectCtx.lineTo(cx + size * 0.42, cy - size * 0.18);
+      effectCtx.lineTo(cx + size * 0.33, cy + size * 0.36);
+      effectCtx.lineTo(cx, cy + size * 0.52);
+      effectCtx.lineTo(cx - size * 0.33, cy + size * 0.36);
+      effectCtx.lineTo(cx - size * 0.42, cy - size * 0.18);
+      effectCtx.closePath();
+      effectCtx.fill();
+      effectCtx.stroke();
+      effectCtx.fillStyle = optimus ? "rgba(4, 32, 72, 0.86)" : "rgba(32, 20, 45, 0.9)";
+      effectCtx.fillRect(cx - size * 0.27, cy - size * 0.08, size * 0.2, size * 0.09);
+      effectCtx.fillRect(cx + size * 0.07, cy - size * 0.08, size * 0.2, size * 0.09);
+      effectCtx.beginPath();
+      effectCtx.moveTo(cx - size * 0.24, cy + size * 0.22);
+      effectCtx.lineTo(cx + size * 0.24, cy + size * 0.22);
+      effectCtx.stroke();
       effectCtx.restore();
     }
 
