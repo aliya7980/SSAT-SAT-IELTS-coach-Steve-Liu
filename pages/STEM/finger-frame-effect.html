@@ -193,7 +193,7 @@
     <section class="topbar">
       <span class="eyebrow">MediaPipe · Canvas 2D</span>
       <h1>Finger Frame Effect</h1>
-      <p>Use both hands to make a camera frame with your thumbs and index fingers. The classic modes filter the frame; the new body modes transform only the person inside it.</p>
+      <p>Use both hands to make a camera frame with your thumbs and index fingers. The frame reveals live visual windows: filters, body mask testing, painterly color, glowing text, and water ripples.</p>
     </section>
 
     <section class="panel" aria-label="Finger frame controls">
@@ -267,9 +267,9 @@
       ["glitch", "5 Glitch"],
       ["toon", "6 Toon"],
       ["bodymask", "7 Body Mask Test"],
-      ["spider", "8 Spider"],
-      ["optimus", "9 Optimus"],
-      ["megatron", "0 Megatron"]
+      ["vangogh", "8 Van Gogh Color"],
+      ["subscribe", "9 Subscribe Glow"],
+      ["ripple", "0 Water Ripple"]
     ];
 
     let handLandmarker = null;
@@ -316,7 +316,7 @@
         button.classList.toggle("active", button.dataset.effect === id);
       });
       if (cameraStarted && shouldUsePersonMask() && !imageSegmenter) {
-        statusEl.textContent = "Body modes need the MediaPipe person segmenter. Reload on localhost if it did not load.";
+        statusEl.textContent = "Body Mask Test needs the MediaPipe person segmenter. Reload on localhost if it did not load.";
       }
     }
 
@@ -406,7 +406,7 @@
     }
 
     function shouldUsePersonMask() {
-      return ["bodymask", "spider", "optimus", "megatron"].includes(activeEffect);
+      return activeEffect === "bodymask";
     }
 
     function activeEffectLabel() {
@@ -548,6 +548,12 @@
         ctx.filter = "none";
       } else if (activeEffect === "glitch") {
         drawGlitch(width, height);
+      } else if (activeEffect === "vangogh") {
+        drawVanGoghColor(width, height, quad);
+      } else if (activeEffect === "subscribe") {
+        drawSubscribeGlow(width, height, quad);
+      } else if (activeEffect === "ripple") {
+        drawWaterRipple(width, height, quad);
       } else {
         drawToon(width, height);
       }
@@ -567,7 +573,7 @@
         return;
       }
 
-      drawCharacterLayer(width, height, quad);
+      drawBodyMaskLayer(width, height);
       maskLayerToPerson(effectCtx, width, height);
 
       if (lockPaint) updatePaintMask(quad, width, height);
@@ -581,20 +587,10 @@
       ctx.restore();
     }
 
-    function drawCharacterLayer(width, height, quad) {
+    function drawBodyMaskLayer(width, height) {
       clearCanvas(effectCtx, width, height);
-      if (activeEffect === "bodymask") {
-        effectCtx.fillStyle = "rgba(0, 242, 255, 0.82)";
-        effectCtx.fillRect(0, 0, width, height);
-        return;
-      }
-
-      drawCoverVideo(effectCtx, width, height);
-      if (activeEffect === "spider") drawSpiderBody(width, height, quad);
-      else if (activeEffect === "optimus") drawRobotBody(width, height, quad, "optimus");
-      else drawRobotBody(width, height, quad, "megatron");
-      drawRevealStrip(width, height, quad, activeEffect);
-      drawTransformationEdge(width, height, activeEffect);
+      effectCtx.fillStyle = "rgba(0, 242, 255, 0.82)";
+      effectCtx.fillRect(0, 0, width, height);
     }
 
     function maskLayerToPerson(targetCtx, width, height) {
@@ -638,222 +634,6 @@
       ctx.textAlign = "center";
       ctx.fillText(message, center.x, center.y);
       ctx.restore();
-    }
-
-    function drawSpiderBody(width, height, quad) {
-      const time = performance.now() / 1000;
-      const bounds = quadBounds(quad);
-      effectCtx.save();
-      effectCtx.globalCompositeOperation = "multiply";
-      effectCtx.fillStyle = "rgba(168, 12, 26, 0.74)";
-      effectCtx.fillRect(0, 0, width, height);
-      effectCtx.globalCompositeOperation = "source-atop";
-      effectCtx.fillStyle = "rgba(10, 28, 84, 0.32)";
-      effectCtx.fillRect(0, height * 0.52, width, height * 0.48);
-      effectCtx.restore();
-
-      effectCtx.save();
-      effectCtx.globalAlpha = 0.42;
-      effectCtx.strokeStyle = "rgba(8, 10, 18, 0.92)";
-      effectCtx.lineWidth = 1.1;
-      const centerX = bounds.left + bounds.width * (0.5 + Math.sin(time * 0.4) * 0.05);
-      const centerY = bounds.top + bounds.height * 0.45;
-      const webReach = Math.max(bounds.width, bounds.height) * 1.35;
-      for (let angle = -Math.PI; angle < Math.PI; angle += Math.PI / 13) {
-        effectCtx.beginPath();
-        effectCtx.moveTo(centerX, centerY);
-        effectCtx.lineTo(centerX + Math.cos(angle) * webReach, centerY + Math.sin(angle) * webReach);
-        effectCtx.stroke();
-      }
-      for (let radius = 32; radius < webReach; radius += 48) {
-        effectCtx.beginPath();
-        effectCtx.ellipse(centerX, centerY, radius * 0.9, radius * 0.58, Math.sin(time * 0.25) * 0.08, 0, Math.PI * 2);
-        effectCtx.stroke();
-      }
-      effectCtx.restore();
-    }
-
-    function drawRevealStrip(width, height, quad, mode) {
-      const bounds = quadBounds(quad);
-      const time = performance.now() / 1000;
-      const stripWidth = Math.max(72, Math.min(bounds.width * 0.38, 180));
-      const sweep = (Math.sin(time * 1.35) * 0.5 + 0.5) * Math.max(1, bounds.width - stripWidth);
-      const left = bounds.left + sweep;
-      const top = bounds.top + bounds.height * 0.04;
-      const bottom = bounds.top + bounds.height * 0.96;
-      const lean = Math.sin(time * 0.7) * 18;
-      const palette = mode === "spider"
-        ? { core: "rgba(235, 18, 36, 0.82)", glow: "rgba(255, 43, 64, 0.82)", accent: "rgba(8, 22, 75, 0.74)", line: "rgba(255, 238, 230, 0.88)" }
-        : mode === "optimus"
-          ? { core: "rgba(20, 97, 195, 0.78)", glow: "rgba(90, 238, 255, 0.86)", accent: "rgba(210, 34, 48, 0.76)", line: "rgba(235, 250, 255, 0.9)" }
-          : { core: "rgba(52, 55, 66, 0.86)", glow: "rgba(190, 90, 255, 0.86)", accent: "rgba(96, 73, 123, 0.78)", line: "rgba(232, 225, 245, 0.82)" };
-
-      effectCtx.save();
-      effectCtx.globalCompositeOperation = "source-atop";
-      effectCtx.beginPath();
-      effectCtx.moveTo(left + lean, top);
-      effectCtx.lineTo(left + stripWidth + lean, top);
-      effectCtx.lineTo(left + stripWidth - lean, bottom);
-      effectCtx.lineTo(left - lean, bottom);
-      effectCtx.closePath();
-      const gradient = effectCtx.createLinearGradient(left, top, left + stripWidth, bottom);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 0.12)");
-      gradient.addColorStop(0.24, palette.core);
-      gradient.addColorStop(0.55, palette.accent);
-      gradient.addColorStop(0.84, palette.core);
-      gradient.addColorStop(1, "rgba(255, 255, 255, 0.16)");
-      effectCtx.fillStyle = gradient;
-      effectCtx.fill();
-      effectCtx.clip();
-
-      effectCtx.globalCompositeOperation = "lighter";
-      effectCtx.shadowColor = palette.glow;
-      effectCtx.shadowBlur = 18;
-      effectCtx.strokeStyle = palette.glow;
-      effectCtx.lineWidth = 3;
-      for (let y = top - 60; y < bottom + 80; y += 42) {
-        effectCtx.beginPath();
-        effectCtx.moveTo(left - 12, y + Math.sin(time * 4 + y * 0.02) * 8);
-        effectCtx.lineTo(left + stripWidth + 12, y - 24);
-        effectCtx.stroke();
-      }
-
-      effectCtx.shadowBlur = 0;
-      effectCtx.globalCompositeOperation = "source-over";
-      effectCtx.strokeStyle = palette.line;
-      effectCtx.lineWidth = 2;
-      effectCtx.globalAlpha = 0.86;
-      for (let y = top + 34; y < bottom; y += 86) {
-        const cx = left + stripWidth * 0.5 + Math.sin(time * 2 + y * 0.03) * stripWidth * 0.08;
-        if (mode === "spider") drawSpiderEmblem(cx, y, stripWidth * 0.26);
-        else drawRobotEmblem(cx, y, stripWidth * 0.3, mode);
-      }
-      effectCtx.restore();
-    }
-
-    function drawSpiderEmblem(cx, cy, size) {
-      effectCtx.save();
-      effectCtx.strokeStyle = "rgba(255, 255, 255, 0.82)";
-      effectCtx.fillStyle = "rgba(8, 10, 18, 0.72)";
-      effectCtx.lineWidth = Math.max(1.5, size * 0.06);
-      effectCtx.beginPath();
-      effectCtx.ellipse(cx, cy, size * 0.28, size * 0.42, 0, 0, Math.PI * 2);
-      effectCtx.fill();
-      effectCtx.stroke();
-      for (const side of [-1, 1]) {
-        for (let i = 0; i < 4; i++) {
-          const y = cy - size * 0.24 + i * size * 0.16;
-          effectCtx.beginPath();
-          effectCtx.moveTo(cx + side * size * 0.18, y);
-          effectCtx.lineTo(cx + side * size * (0.48 + i * 0.1), y - size * 0.18);
-          effectCtx.lineTo(cx + side * size * (0.72 + i * 0.05), y + size * 0.12);
-          effectCtx.stroke();
-        }
-      }
-      effectCtx.restore();
-    }
-
-    function drawRobotEmblem(cx, cy, size, mode) {
-      const optimus = mode === "optimus";
-      effectCtx.save();
-      effectCtx.fillStyle = optimus ? "rgba(180, 235, 255, 0.84)" : "rgba(220, 198, 255, 0.82)";
-      effectCtx.strokeStyle = optimus ? "rgba(54, 238, 255, 0.86)" : "rgba(183, 87, 255, 0.86)";
-      effectCtx.lineWidth = Math.max(1.5, size * 0.05);
-      effectCtx.beginPath();
-      effectCtx.moveTo(cx, cy - size * 0.5);
-      effectCtx.lineTo(cx + size * 0.42, cy - size * 0.18);
-      effectCtx.lineTo(cx + size * 0.33, cy + size * 0.36);
-      effectCtx.lineTo(cx, cy + size * 0.52);
-      effectCtx.lineTo(cx - size * 0.33, cy + size * 0.36);
-      effectCtx.lineTo(cx - size * 0.42, cy - size * 0.18);
-      effectCtx.closePath();
-      effectCtx.fill();
-      effectCtx.stroke();
-      effectCtx.fillStyle = optimus ? "rgba(4, 32, 72, 0.86)" : "rgba(32, 20, 45, 0.9)";
-      effectCtx.fillRect(cx - size * 0.27, cy - size * 0.08, size * 0.2, size * 0.09);
-      effectCtx.fillRect(cx + size * 0.07, cy - size * 0.08, size * 0.2, size * 0.09);
-      effectCtx.beginPath();
-      effectCtx.moveTo(cx - size * 0.24, cy + size * 0.22);
-      effectCtx.lineTo(cx + size * 0.24, cy + size * 0.22);
-      effectCtx.stroke();
-      effectCtx.restore();
-    }
-
-    function drawRobotBody(width, height, quad, mode) {
-      const time = performance.now() / 1000;
-      const optimus = mode === "optimus";
-      const bounds = quadBounds(quad);
-      effectCtx.save();
-      effectCtx.globalCompositeOperation = "multiply";
-      effectCtx.fillStyle = optimus ? "rgba(35, 87, 170, 0.56)" : "rgba(45, 48, 58, 0.76)";
-      effectCtx.fillRect(0, 0, width, height);
-      effectCtx.globalCompositeOperation = "source-atop";
-
-      const plateW = Math.max(70, width / 9);
-      const plateH = Math.max(58, height / 8);
-      const startX = bounds.left - plateW;
-      const endX = bounds.left + bounds.width + plateW;
-      const startY = bounds.top - plateH;
-      const endY = bounds.top + bounds.height + plateH;
-      for (let y = startY; y < endY; y += plateH * 0.82) {
-        for (let x = startX; x < endX; x += plateW * 0.86) {
-          const shift = Math.sin(time * 0.9 + x * 0.01 + y * 0.008) * 7;
-          effectCtx.beginPath();
-          effectCtx.moveTo(x + shift + plateW * 0.12, y);
-          effectCtx.lineTo(x + shift + plateW * 0.88, y + plateH * 0.04);
-          effectCtx.lineTo(x + shift + plateW, y + plateH * 0.58);
-          effectCtx.lineTo(x + shift + plateW * 0.74, y + plateH);
-          effectCtx.lineTo(x + shift + plateW * 0.08, y + plateH * 0.9);
-          effectCtx.lineTo(x + shift, y + plateH * 0.28);
-          effectCtx.closePath();
-          effectCtx.fillStyle = optimus
-            ? ((Math.floor(x / plateW + y / plateH) % 2) ? "rgba(191, 28, 48, 0.48)" : "rgba(20, 91, 181, 0.56)")
-            : ((Math.floor(x / plateW + y / plateH) % 2) ? "rgba(112, 114, 126, 0.58)" : "rgba(36, 38, 48, 0.72)");
-          effectCtx.fill();
-          effectCtx.strokeStyle = optimus ? "rgba(130, 234, 255, 0.42)" : "rgba(172, 116, 255, 0.38)";
-          effectCtx.lineWidth = 1.5;
-          effectCtx.stroke();
-        }
-      }
-
-      effectCtx.globalCompositeOperation = "lighter";
-      effectCtx.strokeStyle = optimus ? "rgba(92, 238, 255, 0.76)" : "rgba(174, 94, 255, 0.78)";
-      effectCtx.lineWidth = optimus ? 2 : 1.5;
-      const scanY = bounds.top + ((time * (optimus ? 180 : 230)) % (bounds.height + 120)) - 60;
-      effectCtx.beginPath();
-      effectCtx.moveTo(bounds.left, scanY);
-      effectCtx.lineTo(bounds.left + bounds.width, scanY + (optimus ? -18 : 28));
-      effectCtx.stroke();
-      for (let i = 0; i < (optimus ? 8 : 14); i++) {
-        const sx = bounds.left + (Math.sin(time * 1.4 + i * 2.1) * 0.5 + 0.5) * bounds.width;
-        const sy = bounds.top + (Math.cos(time * 1.2 + i * 1.7) * 0.5 + 0.5) * bounds.height;
-        effectCtx.fillStyle = optimus ? "rgba(115, 244, 255, 0.55)" : "rgba(188, 96, 255, 0.62)";
-        effectCtx.fillRect(sx, sy, 3, optimus ? 18 : 8);
-      }
-      effectCtx.restore();
-    }
-
-    function drawTransformationEdge(width, height, mode) {
-      const age = Math.min(1, (performance.now() - effectStartTime) / 700);
-      const color = mode === "spider" ? "255, 30, 45" : mode === "optimus" ? "90, 230, 255" : "180, 90, 255";
-      work.width = width;
-      work.height = height;
-      clearCanvas(workCtx, width, height);
-      workCtx.drawImage(personMaskCanvas, 0, 0, width, height);
-      workCtx.save();
-      workCtx.globalCompositeOperation = "source-in";
-      workCtx.fillStyle = `rgba(${color}, ${0.42 * (1 - age * 0.28)})`;
-      workCtx.fillRect(0, 0, width, height);
-      workCtx.restore();
-
-      effectCtx.save();
-      effectCtx.globalCompositeOperation = "lighter";
-      effectCtx.filter = `blur(${14 - age * 7}px)`;
-      effectCtx.drawImage(work, 0, 0, width, height);
-      effectCtx.filter = "none";
-      effectCtx.globalAlpha = 0.22;
-      effectCtx.drawImage(work, 0, 0, width, height);
-      effectCtx.restore();
     }
 
     function drawAIVision(quad) {
@@ -932,6 +712,153 @@
         ctx.fillStyle = "rgba(0,0,0,0.18)";
         ctx.fillRect(0, y, width, 2);
       }
+    }
+
+    function drawVanGoghColor(width, height, quad) {
+      const time = performance.now() / 1000;
+      const bounds = quadBounds(quad);
+      work.width = Math.ceil(width / 3);
+      work.height = Math.ceil(height / 3);
+      drawCoverVideo(workCtx, work.width, work.height);
+      const image = workCtx.getImageData(0, 0, work.width, work.height);
+      const data = image.data;
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const light = (r + g + b) / 3;
+        data[i] = Math.min(255, light * 0.55 + 74);
+        data[i + 1] = Math.min(255, light * 0.72 + 58);
+        data[i + 2] = Math.min(255, 255 - light * 0.26 + 28);
+      }
+      workCtx.putImageData(image, 0, 0);
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(work, 0, 0, work.width, work.height, 0, 0, width, height);
+      ctx.imageSmoothingEnabled = true;
+
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = 0.82;
+      const glow = ctx.createRadialGradient(
+        bounds.left + bounds.width * 0.62,
+        bounds.top + bounds.height * 0.34,
+        4,
+        bounds.left + bounds.width * 0.62,
+        bounds.top + bounds.height * 0.34,
+        Math.max(bounds.width, bounds.height) * 0.68
+      );
+      glow.addColorStop(0, "rgba(255, 233, 92, 0.96)");
+      glow.addColorStop(0.34, "rgba(255, 163, 46, 0.52)");
+      glow.addColorStop(1, "rgba(21, 72, 172, 0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
+
+      ctx.save();
+      ctx.globalAlpha = 0.9;
+      ctx.lineCap = "round";
+      for (let i = 0; i < 140; i++) {
+        const x = bounds.left + ((i * 47 + time * 24) % Math.max(1, bounds.width + 120)) - 60;
+        const y = bounds.top + ((i * 31 + Math.sin(time + i) * 22) % Math.max(1, bounds.height + 80)) - 40;
+        const len = 22 + (i % 5) * 7;
+        const angle = Math.sin(i * 1.7 + time * 1.6) * Math.PI;
+        ctx.strokeStyle = i % 3 === 0 ? "rgba(255, 231, 92, 0.72)" : i % 3 === 1 ? "rgba(42, 112, 214, 0.76)" : "rgba(244, 138, 43, 0.68)";
+        ctx.lineWidth = 3 + (i % 4);
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.quadraticCurveTo(
+          x + Math.cos(angle) * len * 0.5,
+          y + Math.sin(angle) * len * 0.35,
+          x + Math.cos(angle) * len,
+          y + Math.sin(angle) * len
+        );
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawSubscribeGlow(width, height, quad) {
+      const time = performance.now() / 1000;
+      const bounds = quadBounds(quad);
+      const gradient = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left + bounds.width, bounds.top + bounds.height);
+      gradient.addColorStop(0, "#03143f");
+      gradient.addColorStop(0.42, "#0757d8");
+      gradient.addColorStop(1, "#00c8ff");
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      for (let i = 0; i < 16; i++) {
+        const y = bounds.top + ((time * 48 + i * 34) % Math.max(1, bounds.height + 90)) - 45;
+        ctx.strokeStyle = i % 2 ? "rgba(255, 255, 255, 0.24)" : "rgba(0, 245, 255, 0.38)";
+        ctx.lineWidth = i % 2 ? 2 : 4;
+        ctx.beginPath();
+        ctx.moveTo(bounds.left - 40, y);
+        ctx.bezierCurveTo(
+          bounds.left + bounds.width * 0.25,
+          y + Math.sin(time + i) * 28,
+          bounds.left + bounds.width * 0.72,
+          y - Math.cos(time * 0.8 + i) * 26,
+          bounds.left + bounds.width + 40,
+          y
+        );
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      const fontSize = Math.max(32, Math.min(98, bounds.width / 6.2));
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `950 ${fontSize}px Inter, system-ui, sans-serif`;
+      ctx.shadowColor = "#6df8ff";
+      ctx.shadowBlur = 32 + Math.sin(time * 5) * 10;
+      ctx.lineWidth = Math.max(3, fontSize * 0.08);
+      ctx.strokeStyle = "rgba(190, 250, 255, 0.96)";
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeText("SUBSCRIBE", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+      ctx.fillText("SUBSCRIBE", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
+      ctx.shadowBlur = 0;
+      ctx.font = `800 ${Math.max(13, fontSize * 0.18)}px Inter, system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(230, 250, 255, 0.78)";
+      ctx.fillText("HUSKYDADDY STEM", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2 + fontSize * 0.72);
+      ctx.restore();
+    }
+
+    function drawWaterRipple(width, height, quad) {
+      const time = performance.now() / 1000;
+      const bounds = quadBounds(quad);
+      work.width = width;
+      work.height = height;
+      drawCoverVideo(workCtx, width, height);
+      ctx.save();
+      ctx.filter = "saturate(1.35) contrast(1.08) brightness(1.05)";
+      for (let y = Math.floor(bounds.top) - 40; y < bounds.top + bounds.height + 40; y += 4) {
+        const wave = Math.sin(y * 0.045 + time * 5.2) * 11 + Math.sin(y * 0.018 - time * 2.4) * 7;
+        ctx.drawImage(work, 0, y, width, 4, wave, y, width, 4);
+      }
+      ctx.filter = "none";
+
+      const centerX = bounds.left + bounds.width * (0.5 + Math.sin(time * 0.8) * 0.12);
+      const centerY = bounds.top + bounds.height * (0.5 + Math.cos(time * 0.7) * 0.12);
+      ctx.globalCompositeOperation = "screen";
+      for (let i = 0; i < 7; i++) {
+        const radius = ((time * 90 + i * 58) % Math.max(80, Math.max(bounds.width, bounds.height)));
+        ctx.strokeStyle = `rgba(170, 242, 255, ${0.38 * (1 - radius / Math.max(bounds.width, bounds.height + 1))})`;
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.ellipse(centerX, centerY, radius * 1.12, radius * 0.58, Math.sin(time) * 0.2, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      const water = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left, bounds.top + bounds.height);
+      water.addColorStop(0, "rgba(14, 160, 255, 0.18)");
+      water.addColorStop(0.5, "rgba(40, 238, 255, 0.28)");
+      water.addColorStop(1, "rgba(0, 58, 148, 0.2)");
+      ctx.fillStyle = water;
+      ctx.fillRect(0, 0, width, height);
+      ctx.restore();
     }
 
     function drawToon(width, height) {
