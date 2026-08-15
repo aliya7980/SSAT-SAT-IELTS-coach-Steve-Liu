@@ -223,7 +223,7 @@
     <div class="hud">
       <span class="eyebrow">Three.js · MediaPipe Hands</span>
       <h1>Hand-Controlled Particle Planet</h1>
-      <p>Open palm moves closer. Fist pulls away. Raise four fingers and move your hand left or right to roll the viewing perspective.</p>
+      <p>Open palm moves closer. Fist pulls away. Raise one index finger and drag or flick to orbit the planet from different perspectives.</p>
     </div>
 
     <section class="panel" aria-label="Controls and status">
@@ -234,8 +234,8 @@
       <div class="controls">
         <span>Open palm: zoom in</span>
         <span>Fist: zoom out</span>
-        <span>Four fingers: perspective roll</span>
-        <span>Mouse drag: orbit</span>
+        <span>One finger: grab orbit</span>
+        <span>Flick: spin view</span>
       </div>
     </section>
 
@@ -296,9 +296,13 @@
       targetPitch: 0.15,
       targetRoll: 0,
       targetDistance: 8.2,
+      orbitSpin: 0,
       handX: 0.5,
       handY: 0.5,
       handSize: 0.32,
+      indexX: 0.5,
+      indexY: 0.5,
+      hasIndexGrab: false,
       gesture: "Mouse / trackpad"
     };
 
@@ -542,6 +546,10 @@
     }
 
     function setCameraFromState() {
+      state.targetYaw += state.orbitSpin;
+      state.orbitSpin *= 0.94;
+      if (Math.abs(state.orbitSpin) < 0.0002) state.orbitSpin = 0;
+
       state.yaw = lerp(state.yaw, state.targetYaw, 0.07);
       state.pitch = lerp(state.pitch, state.targetPitch, 0.07);
       state.roll = lerp(state.roll, state.targetRoll, 0.08);
@@ -614,20 +622,48 @@
       return landmarks[tip].y < landmarks[pip].y + 0.025;
     }
 
+    function fingerStates(landmarks) {
+      return {
+        index: fingerIsRaised(landmarks, 8, 6),
+        middle: fingerIsRaised(landmarks, 12, 10),
+        ring: fingerIsRaised(landmarks, 16, 14),
+        pinky: fingerIsRaised(landmarks, 20, 18),
+        thumb: Math.abs(landmarks[4].x - landmarks[3].x) > 0.035
+      };
+    }
+
     function classifyHand(landmarks) {
-      const raised = [
-        fingerIsRaised(landmarks, 8, 6),
-        fingerIsRaised(landmarks, 12, 10),
-        fingerIsRaised(landmarks, 16, 14),
-        fingerIsRaised(landmarks, 20, 18)
-      ];
-      const thumbOpen = Math.abs(landmarks[4].x - landmarks[3].x) > 0.035;
-      const fourFingerCount = raised.filter(Boolean).length;
-      if (fourFingerCount === 4 && !thumbOpen) return "Four Fingers";
-      const count = fourFingerCount + (thumbOpen ? 1 : 0);
+      const fingers = fingerStates(landmarks);
+      if (fingers.index && !fingers.middle && !fingers.ring && !fingers.pinky) return "One Finger Orbit";
+      const count = [fingers.index, fingers.middle, fingers.ring, fingers.pinky, fingers.thumb].filter(Boolean).length;
       if (count >= 5) return "Open Palm";
-      if (count <= 1) return "Fist";
+      if (count === 0) return "Fist";
       return `${count} fingers`;
+    }
+
+    function applyIndexOrbit(landmarks) {
+      const tip = landmarks[8];
+      const mirroredX = 1 - tip.x;
+      const y = tip.y;
+      const previousX = state.indexX;
+      const previousY = state.indexY;
+
+      state.indexX = lerp(state.indexX, mirroredX, 0.42);
+      state.indexY = lerp(state.indexY, y, 0.42);
+
+      if (!state.hasIndexGrab) {
+        state.hasIndexGrab = true;
+        return;
+      }
+
+      const dx = clamp(state.indexX - previousX, -0.08, 0.08);
+      const dy = clamp(state.indexY - previousY, -0.08, 0.08);
+      state.targetYaw += dx * 5.8;
+      state.targetPitch = clamp(state.targetPitch - dy * 4.2, -0.82, 0.82);
+
+      if (Math.abs(dx) > 0.018) {
+        state.orbitSpin = lerp(state.orbitSpin, dx * 0.42, 0.35);
+      }
     }
 
     function handMetrics(landmarks) {
@@ -706,6 +742,8 @@
         drawHandPreview(results);
         if (!results.multiHandLandmarks?.length) {
           statusEl.textContent = "Camera ready. Show one hand to control the planet.";
+          state.hasIndexGrab = false;
+          state.orbitSpin *= 0.96;
           return;
         }
 
@@ -719,20 +757,23 @@
         if (gesture === "Fist") {
           state.targetDistance = maxDistance;
           state.targetRoll = lerp(state.targetRoll, 0, 0.04);
+          state.hasIndexGrab = false;
         } else if (gesture === "Open Palm") {
           state.targetDistance = minDistance;
           state.targetRoll = lerp(state.targetRoll, 0, 0.04);
-        } else if (gesture === "Four Fingers") {
-          const rollAmount = THREE.MathUtils.mapLinear(clamp(state.handX, 0.18, 0.82), 0.18, 0.82, -0.95, 0.95);
-          state.targetRoll = lerp(state.targetRoll, rollAmount, 0.16);
+          state.hasIndexGrab = false;
+        } else if (gesture === "One Finger Orbit") {
+          applyIndexOrbit(landmarks);
+          state.targetRoll = lerp(state.targetRoll, 0, 0.05);
         } else {
           const distanceFromSize = THREE.MathUtils.mapLinear(clamp(state.handSize, 0.18, 0.62), 0.18, 0.62, maxDistance, minDistance);
           state.targetDistance = lerp(state.targetDistance, distanceFromSize, 0.05);
           state.targetRoll = lerp(state.targetRoll, 0, 0.04);
+          state.hasIndexGrab = false;
         }
 
         state.gesture = gesture;
-        statusEl.textContent = `${gesture} · distance ${state.distance.toFixed(1)} · roll ${(state.roll * 57.3).toFixed(0)}°`;
+        statusEl.textContent = `${gesture} · orbit ${(state.yaw * 57.3).toFixed(0)}° · height ${(state.pitch * 57.3).toFixed(0)}°`;
       });
 
       try {
@@ -745,7 +786,7 @@
         });
         await cameraFeed.start();
         startButton.textContent = "Camera Control Active";
-        statusEl.textContent = "Camera ready. Four fingers rolls the perspective.";
+        statusEl.textContent = "Camera ready. Raise one index finger to grab and orbit the planet.";
       } catch (error) {
         startButton.disabled = false;
         startButton.textContent = "Start Camera Control";
