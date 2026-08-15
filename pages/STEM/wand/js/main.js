@@ -142,6 +142,7 @@ function drawStage(state) {
 
   const board = getBoardLayout(width, height);
   if (mazeGame.level.theme === "ai" || mazeGame.surgeActiveTimer > 0) drawAiPulse(width, height);
+  drawCorridorFloor(board);
   drawMaze(board);
   drawStar(board);
   drawInsideCorridors(board, () => {
@@ -175,6 +176,28 @@ function drawMaze(board) {
         ctx.shadowBlur = 0;
         if (tile === "." || tile === "o") drawDot(px + board.tile / 2, py + board.tile / 2, tile === "o", board.tile);
       }
+    }
+  }
+  ctx.restore();
+}
+
+function drawCorridorFloor(board) {
+  ctx.save();
+  ctx.translate(board.left, board.top);
+  ctx.shadowBlur = 0;
+  ctx.globalAlpha = 0.92;
+  ctx.fillStyle = mazeGame.level.theme === "ai" ? "#07102a" : "#081331";
+  const overlap = Math.max(2.5, board.tile * 0.06);
+
+  for (let y = 0; y < mazeGame.map.length; y++) {
+    for (let x = 0; x < mazeGame.map[y].length; x++) {
+      if (mazeGame.map[y][x] === "#") continue;
+      ctx.fillRect(
+        x * board.tile - overlap,
+        y * board.tile - overlap,
+        board.tile + overlap * 2,
+        board.tile + overlap * 2
+      );
     }
   }
   ctx.restore();
