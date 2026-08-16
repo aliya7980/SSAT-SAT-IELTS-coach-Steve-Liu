@@ -193,7 +193,7 @@
     <section class="topbar">
       <span class="eyebrow">MediaPipe · Canvas 2D</span>
       <h1>Finger Frame Effect</h1>
-      <p>Use both hands to make a camera frame with your thumbs and index fingers. The frame reveals live visual windows: filters, body mask testing, hyper color, glowing text, and water ripples.</p>
+      <p>Use both hands to make a camera frame with your thumbs and index fingers. The framed region receives a live visual effect.</p>
     </section>
 
     <section class="panel" aria-label="Finger frame controls">
@@ -203,57 +203,31 @@
         <a class="nav-link localhost-link" id="localhostLink" href="http://localhost:8000/pages/STEM/finger-frame-effect.html">Open Localhost</a>
       </div>
       <div class="effects" id="effects"></div>
-      <div class="button-row">
-        <button id="lockPaint" type="button" aria-pressed="false">Lock / Paint Off</button>
-        <button id="clearPaint" type="button">Clear Paint</button>
-        <button id="visionToggle" type="button" aria-pressed="false">Show AI Vision</button>
-      </div>
       <div class="status" id="status">HTML demo ready. Camera needs localhost or HTTPS.</div>
     </section>
 
-    <div class="hint">Frame a box with both thumbs and index fingers. Keys 1-9 and 0 switch effects.</div>
+    <div class="hint">Frame a box with both thumbs and index fingers. Keys 1-6 switch effects.</div>
   </main>
 
   <script type="module">
     import {
       HandLandmarker,
-      ImageSegmenter,
       FilesetResolver
     } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
 
     const WASM_URL = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm";
     const MODEL_URL = "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task";
-    const SEGMENTER_MODEL_URL = "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_segmenter/float16/latest/selfie_segmenter.tflite";
     const video = document.getElementById("video");
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     const statusEl = document.getElementById("status");
     const startButton = document.getElementById("startCamera");
     const effectsEl = document.getElementById("effects");
-    const lockPaintButton = document.getElementById("lockPaint");
-    const clearPaintButton = document.getElementById("clearPaint");
-    const visionToggle = document.getElementById("visionToggle");
     const localhostLink = document.getElementById("localhostLink");
     const small = document.createElement("canvas");
     const smallCtx = small.getContext("2d");
     const work = document.createElement("canvas");
     const workCtx = work.getContext("2d", { willReadFrequently: true });
-    const personMaskCanvas = document.createElement("canvas");
-    const personMaskCtx = personMaskCanvas.getContext("2d");
-    const rawMaskCanvas = document.createElement("canvas");
-    const rawMaskCtx = rawMaskCanvas.getContext("2d", { willReadFrequently: true });
-    const effectCanvas = document.createElement("canvas");
-    const effectCtx = effectCanvas.getContext("2d");
-    const paintMaskCanvas = document.createElement("canvas");
-    const paintMaskCtx = paintMaskCanvas.getContext("2d");
-    const skeletonConnections = [
-      [0, 1], [1, 2], [2, 3], [3, 4],
-      [0, 5], [5, 6], [6, 7], [7, 8],
-      [0, 9], [9, 10], [10, 11], [11, 12],
-      [0, 13], [13, 14], [14, 15], [15, 16],
-      [0, 17], [17, 18], [18, 19], [19, 20],
-      [5, 9], [9, 13], [13, 17]
-    ];
 
     const WRIST = 0;
     const THUMB_TIP = 4;
@@ -265,29 +239,15 @@
       ["invert", "3 Invert"],
       ["noir", "4 Noir"],
       ["glitch", "5 Glitch"],
-      ["toon", "6 Toon"],
-      ["bodymask", "7 Body Mask Test"],
-      ["hypercolor", "8 Hyper Color"],
-      ["subscribe", "9 Subscribe Glow"],
-      ["ripple", "0 Water Ripple"]
+      ["toon", "6 Toon"]
     ];
 
     let handLandmarker = null;
-    let imageSegmenter = null;
     let cameraStarted = false;
     let lastVideoTime = -1;
-    let lastSegmentVideoTime = -1;
-    let lastSegmentationTime = 0;
     let activeEffect = "pixelate";
     let smoothedQuad = null;
     let presence = 0;
-    let hasPersonMask = false;
-    let lockPaint = false;
-    let showVision = false;
-    let effectStartTime = performance.now();
-    let lastHandLandmarks = [];
-    let previousRippleCenter = null;
-    let rippleEnergy = 0;
 
     if (location.protocol === "file:") {
       localhostLink.classList.add("show");
@@ -306,20 +266,16 @@
       }
 
       window.addEventListener("keydown", (event) => {
-        const index = event.key === "0" ? 9 : Number(event.key) - 1;
+        const index = Number(event.key) - 1;
         if (index >= 0 && index < EFFECTS.length) setEffect(EFFECTS[index][0]);
       });
     }
 
     function setEffect(id) {
       activeEffect = id;
-      effectStartTime = performance.now();
       document.querySelectorAll("[data-effect]").forEach((button) => {
         button.classList.toggle("active", button.dataset.effect === id);
       });
-      if (cameraStarted && shouldUsePersonMask() && !imageSegmenter) {
-        statusEl.textContent = "Body Mask Test needs the MediaPipe person segmenter. Reload on localhost if it did not load.";
-      }
     }
 
     function resizeCanvas(width = window.innerWidth, height = window.innerHeight) {
@@ -329,10 +285,6 @@
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      [personMaskCanvas, effectCanvas, paintMaskCanvas].forEach((item) => {
-        item.width = Math.floor(width);
-        item.height = Math.floor(height);
-      });
     }
 
     function drawCoverVideo(targetCtx, width, height) {
@@ -359,74 +311,9 @@
       targetCtx.restore();
     }
 
-    function updatePersonMask(result) {
-      const mask = result?.categoryMask || result?.confidenceMasks?.[0];
-      if (!mask) return;
-
-      const maskWidth = mask.width || mask.canvas?.width || video.videoWidth;
-      const maskHeight = mask.height || mask.canvas?.height || video.videoHeight;
-      if (!maskWidth || !maskHeight) return;
-
-      rawMaskCanvas.width = maskWidth;
-      rawMaskCanvas.height = maskHeight;
-      const image = rawMaskCtx.createImageData(maskWidth, maskHeight);
-      let values = null;
-      if (typeof mask.getAsUint8Array === "function") values = mask.getAsUint8Array();
-      else if (typeof mask.getAsFloat32Array === "function") values = mask.getAsFloat32Array();
-
-      if (values) {
-        for (let i = 0; i < values.length; i++) {
-          const value = values[i];
-          const alpha = value <= 1 ? value * 255 : value > 0 ? 255 : 0;
-          const offset = i * 4;
-          image.data[offset] = 255;
-          image.data[offset + 1] = 255;
-          image.data[offset + 2] = 255;
-          image.data[offset + 3] = alpha;
-        }
-        rawMaskCtx.putImageData(image, 0, 0);
-      } else if (mask.canvas) {
-        rawMaskCtx.clearRect(0, 0, maskWidth, maskHeight);
-        rawMaskCtx.drawImage(mask.canvas, 0, 0, maskWidth, maskHeight);
-      } else {
-        return;
-      }
-
-      if (typeof mask.close === "function") mask.close();
-      renderMirroredPersonMask(window.innerWidth, window.innerHeight);
-      hasPersonMask = true;
-    }
-
-    function renderMirroredPersonMask(width, height) {
-      personMaskCtx.clearRect(0, 0, width, height);
-      personMaskCtx.save();
-      personMaskCtx.filter = "blur(10px)";
-      personMaskCtx.translate(width, 0);
-      personMaskCtx.scale(-1, 1);
-      personMaskCtx.drawImage(rawMaskCanvas, 0, 0, width, height);
-      personMaskCtx.restore();
-    }
-
-    function shouldUsePersonMask() {
-      return activeEffect === "bodymask";
-    }
-
     function activeEffectLabel() {
       const match = EFFECTS.find(([id]) => id === activeEffect);
-      return match ? match[1].replace(/^\d+\s|^0\s/, "") : activeEffect;
-    }
-
-    function updateSegmentation(now) {
-      if (!imageSegmenter || !video.videoWidth || video.currentTime === lastSegmentVideoTime) return;
-      if (now - lastSegmentationTime < 70) return;
-      lastSegmentVideoTime = video.currentTime;
-      lastSegmentationTime = now;
-      try {
-        const result = imageSegmenter.segmentForVideo(video, now, updatePersonMask);
-        if (result) updatePersonMask(result);
-      } catch (error) {
-        hasPersonMask = false;
-      }
+      return match ? match[1].replace(/^\d+\s/, "") : activeEffect;
     }
 
     function point(landmark) {
@@ -501,27 +388,10 @@
       targetCtx.closePath();
     }
 
-    function quadBounds(quad) {
-      const xs = quad.map((p) => p.x);
-      const ys = quad.map((p) => p.y);
-      return {
-        left: Math.min(...xs),
-        top: Math.min(...ys),
-        width: Math.max(...xs) - Math.min(...xs),
-        height: Math.max(...ys) - Math.min(...ys)
-      };
-    }
-
     function drawEffect(quad) {
       if (!quad || presence < 0.02) return;
       const width = window.innerWidth;
       const height = window.innerHeight;
-
-      if (shouldUsePersonMask()) {
-        drawBodyOnlyEffect(quad, width, height);
-        drawFrame(quad);
-        return;
-      }
 
       ctx.save();
       quadPath(ctx, quad);
@@ -550,147 +420,12 @@
         ctx.filter = "none";
       } else if (activeEffect === "glitch") {
         drawGlitch(width, height);
-      } else if (activeEffect === "hypercolor") {
-        drawHyperColor(width, height, quad);
-      } else if (activeEffect === "subscribe") {
-        drawSubscribeGlow(width, height, quad);
-      } else if (activeEffect === "ripple") {
-        drawWaterRipple(width, height, quad);
       } else {
         drawToon(width, height);
       }
 
       ctx.restore();
       drawFrame(quad);
-    }
-
-    function clearCanvas(targetCtx, width, height) {
-      targetCtx.setTransform(1, 0, 0, 1, 0, 0);
-      targetCtx.clearRect(0, 0, width, height);
-    }
-
-    function drawBodyOnlyEffect(quad, width, height) {
-      if (!hasPersonMask) {
-        drawFrameMessage(quad, "Loading body mask...");
-        return;
-      }
-
-      drawBodyMaskLayer(width, height);
-      maskLayerToPerson(effectCtx, width, height);
-
-      if (lockPaint) updatePaintMask(quad, width, height);
-      if (lockPaint) drawPaintedLayer(width, height);
-
-      ctx.save();
-      quadPath(ctx, quad);
-      ctx.clip();
-      ctx.globalAlpha = presence;
-      ctx.drawImage(effectCanvas, 0, 0, width, height);
-      ctx.restore();
-    }
-
-    function drawBodyMaskLayer(width, height) {
-      clearCanvas(effectCtx, width, height);
-      effectCtx.fillStyle = "rgba(0, 242, 255, 0.82)";
-      effectCtx.fillRect(0, 0, width, height);
-    }
-
-    function maskLayerToPerson(targetCtx, width, height) {
-      targetCtx.save();
-      targetCtx.globalCompositeOperation = "destination-in";
-      targetCtx.drawImage(personMaskCanvas, 0, 0, width, height);
-      targetCtx.restore();
-    }
-
-    function updatePaintMask(quad, width, height) {
-      paintMaskCtx.save();
-      quadPath(paintMaskCtx, quad);
-      paintMaskCtx.clip();
-      paintMaskCtx.globalCompositeOperation = "source-over";
-      paintMaskCtx.drawImage(personMaskCanvas, 0, 0, width, height);
-      paintMaskCtx.restore();
-    }
-
-    function drawPaintedLayer(width, height) {
-      const paintedCanvas = work;
-      const paintedCtx = workCtx;
-      paintedCanvas.width = width;
-      paintedCanvas.height = height;
-      clearCanvas(paintedCtx, width, height);
-      paintedCtx.drawImage(effectCanvas, 0, 0, width, height);
-      paintedCtx.save();
-      paintedCtx.globalCompositeOperation = "destination-in";
-      paintedCtx.drawImage(paintMaskCanvas, 0, 0, width, height);
-      paintedCtx.restore();
-      ctx.save();
-      ctx.globalAlpha = 0.96;
-      ctx.drawImage(paintedCanvas, 0, 0, width, height);
-      ctx.restore();
-    }
-
-    function drawFrameMessage(quad, message) {
-      const center = quad.reduce((sum, point) => ({ x: sum.x + point.x / 4, y: sum.y + point.y / 4 }), { x: 0, y: 0 });
-      ctx.save();
-      ctx.fillStyle = "rgba(0,0,0,0.52)";
-      ctx.font = "800 16px system-ui";
-      ctx.textAlign = "center";
-      ctx.fillText(message, center.x, center.y);
-      ctx.restore();
-    }
-
-    function drawAIVision(quad) {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      ctx.save();
-      if (hasPersonMask) {
-        ctx.globalAlpha = 0.22;
-        ctx.globalCompositeOperation = "screen";
-        ctx.drawImage(personMaskCanvas, 0, 0, width, height);
-        ctx.globalCompositeOperation = "source-over";
-      }
-
-      ctx.lineWidth = 2;
-      ctx.strokeStyle = "rgba(118, 244, 255, 0.78)";
-      ctx.fillStyle = "rgba(118, 244, 255, 0.95)";
-      for (const landmarks of lastHandLandmarks) {
-        for (const [from, to] of skeletonConnections) {
-          const a = point(landmarks[from]);
-          const b = point(landmarks[to]);
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-
-        for (let i = 0; i < landmarks.length; i++) {
-          const p = point(landmarks[i]);
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, i === INDEX_TIP || i === THUMB_TIP ? 5 : 3, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      if (quad) {
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.96)";
-        ctx.lineWidth = 4;
-        quadPath(ctx, quad);
-        ctx.stroke();
-        for (const corner of quad) {
-          ctx.beginPath();
-          ctx.arc(corner.x, corner.y, 10, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(255, 225, 120, 0.95)";
-          ctx.fill();
-        }
-      }
-
-      ctx.fillStyle = "rgba(0, 0, 0, 0.62)";
-      ctx.fillRect(18, height - 104, 310, 78);
-      ctx.fillStyle = "#dff8ff";
-      ctx.font = "800 13px system-ui";
-      ctx.textAlign = "left";
-      ctx.fillText(`Hands: ${lastHandLandmarks.length} · Frame: ${quad && presence > 0.2 ? "yes" : "no"}`, 34, height - 76);
-      ctx.fillText(`Person mask: ${hasPersonMask ? "ready" : "waiting"} · Effect: ${activeEffectLabel()}`, 34, height - 52);
-      ctx.restore();
     }
 
     function drawGlitch(width, height) {
@@ -714,130 +449,6 @@
         ctx.fillStyle = "rgba(0,0,0,0.18)";
         ctx.fillRect(0, y, width, 2);
       }
-    }
-
-    function drawHyperColor(width, height) {
-      const time = performance.now() / 1000;
-      const hueShift = Math.sin(time * 0.18) * 24;
-
-      ctx.filter = `invert(1) saturate(4.8) contrast(1.32) brightness(1.1) hue-rotate(${hueShift}deg)`;
-      drawCoverVideo(ctx, width, height);
-      ctx.filter = "none";
-
-      ctx.save();
-      ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = 0.18;
-      ctx.filter = `blur(7px) invert(1) saturate(5.5) hue-rotate(${hueShift + 18}deg)`;
-      drawCoverVideo(ctx, width, height);
-      ctx.filter = "none";
-      ctx.restore();
-    }
-
-    function drawSubscribeGlow(width, height, quad) {
-      const time = performance.now() / 1000;
-      const bounds = quadBounds(quad);
-      const gradient = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left + bounds.width, bounds.top + bounds.height);
-      gradient.addColorStop(0, "#03143f");
-      gradient.addColorStop(0.42, "#0757d8");
-      gradient.addColorStop(1, "#00c8ff");
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      ctx.save();
-      ctx.globalCompositeOperation = "screen";
-      for (let i = 0; i < 16; i++) {
-        const y = bounds.top + ((time * 48 + i * 34) % Math.max(1, bounds.height + 90)) - 45;
-        ctx.strokeStyle = i % 2 ? "rgba(255, 255, 255, 0.24)" : "rgba(0, 245, 255, 0.38)";
-        ctx.lineWidth = i % 2 ? 2 : 4;
-        ctx.beginPath();
-        ctx.moveTo(bounds.left - 40, y);
-        ctx.bezierCurveTo(
-          bounds.left + bounds.width * 0.25,
-          y + Math.sin(time + i) * 28,
-          bounds.left + bounds.width * 0.72,
-          y - Math.cos(time * 0.8 + i) * 26,
-          bounds.left + bounds.width + 40,
-          y
-        );
-        ctx.stroke();
-      }
-      ctx.restore();
-
-      const fontSize = Math.max(32, Math.min(98, bounds.width / 6.2));
-      ctx.save();
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.font = `950 ${fontSize}px Inter, system-ui, sans-serif`;
-      ctx.shadowColor = "#6df8ff";
-      ctx.shadowBlur = 32 + Math.sin(time * 5) * 10;
-      ctx.lineWidth = Math.max(3, fontSize * 0.08);
-      ctx.strokeStyle = "rgba(190, 250, 255, 0.96)";
-      ctx.fillStyle = "#ffffff";
-      ctx.strokeText("SUBSCRIBE", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
-      ctx.fillText("SUBSCRIBE", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2);
-      ctx.shadowBlur = 0;
-      ctx.font = `800 ${Math.max(13, fontSize * 0.18)}px Inter, system-ui, sans-serif`;
-      ctx.fillStyle = "rgba(230, 250, 255, 0.78)";
-      ctx.fillText("HUSKYDADDY STEM", bounds.left + bounds.width / 2, bounds.top + bounds.height / 2 + fontSize * 0.72);
-      ctx.restore();
-    }
-
-    function drawWaterRipple(width, height, quad) {
-      const time = performance.now() / 1000;
-      const bounds = quadBounds(quad);
-      const rippleStrength = updateRipplePhysics(quad);
-      const amplitudeX = 5.5 + rippleStrength * 9;
-      const amplitudeY = 2 + rippleStrength * 4;
-      const stripHeight = 4;
-      work.width = width;
-      work.height = height;
-      drawCoverVideo(workCtx, width, height);
-
-      ctx.save();
-      ctx.filter = "saturate(1.16) contrast(1.04) brightness(1.03)";
-      for (let y = Math.floor(bounds.top) - 36; y < bounds.top + bounds.height + 36; y += stripHeight) {
-        const waveX =
-          Math.sin(y * 0.024 + time * 3.1) * amplitudeX
-          + Math.sin(y * 0.053 - time * 1.65) * amplitudeX * 0.42;
-        const waveY = Math.sin(y * 0.017 - time * 2.2) * amplitudeY;
-        const shimmer = Math.abs(Math.cos(y * 0.035 + time * 3.3));
-        ctx.globalAlpha = 0.94 + shimmer * 0.06;
-        ctx.drawImage(work, 0, y, width, stripHeight, waveX, y + waveY, width, stripHeight + 1);
-      }
-      ctx.filter = "none";
-      ctx.globalAlpha = 1;
-
-      ctx.globalCompositeOperation = "screen";
-      ctx.lineCap = "round";
-      for (let i = 0; i < 18; i++) {
-        const x = bounds.left + ((i * 67 + time * 28) % Math.max(1, bounds.width + 120)) - 60;
-        const y = bounds.top + ((i * 43 + time * 19) % Math.max(1, bounds.height + 90)) - 45;
-        ctx.strokeStyle = `rgba(230, 255, 255, ${0.05 + (i % 3) * 0.025})`;
-        ctx.lineWidth = 1.2 + (i % 2);
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.bezierCurveTo(x + 24, y - 14, x + 56, y + 20, x + 98, y + Math.sin(time + i) * 9);
-        ctx.stroke();
-      }
-
-      const waterSheen = ctx.createLinearGradient(bounds.left, bounds.top, bounds.left, bounds.top + bounds.height);
-      waterSheen.addColorStop(0, "rgba(120, 225, 255, 0.08)");
-      waterSheen.addColorStop(0.48, "rgba(255, 255, 255, 0.04)");
-      waterSheen.addColorStop(1, "rgba(18, 92, 190, 0.1)");
-      ctx.fillStyle = waterSheen;
-      ctx.fillRect(0, 0, width, height);
-      ctx.restore();
-    }
-
-    function updateRipplePhysics(quad) {
-      const center = quad.reduce((sum, p) => ({ x: sum.x + p.x / 4, y: sum.y + p.y / 4 }), { x: 0, y: 0 });
-      if (previousRippleCenter) {
-        const movement = distance(center, previousRippleCenter);
-        rippleEnergy = Math.max(rippleEnergy, Math.min(1, movement / 42));
-      }
-      previousRippleCenter = center;
-      rippleEnergy *= 0.92;
-      return rippleEnergy;
     }
 
     function drawToon(width, height) {
@@ -897,16 +508,12 @@
       if (cameraStarted && handLandmarker && video.currentTime !== lastVideoTime) {
         lastVideoTime = video.currentTime;
         const results = handLandmarker.detectForVideo(video, now);
-        lastHandLandmarks = results.landmarks || [];
-        nextQuad = getQuad(lastHandLandmarks);
-        updateSegmentation(now);
-        const maskNote = shouldUsePersonMask() ? ` · body mask ${hasPersonMask ? "ready" : "loading"}` : "";
-        statusEl.textContent = nextQuad ? `Frame active · ${activeEffectLabel()}${maskNote}` : "Show both hands: thumbs and index fingers open.";
+        nextQuad = getQuad(results.landmarks || []);
+        statusEl.textContent = nextQuad ? `Frame active · ${activeEffectLabel()}` : "Show both hands: thumbs and index fingers open.";
       }
 
       const quad = smoothQuad(nextQuad);
       drawEffect(quad);
-      if (showVision) drawAIVision(quad);
       if (!cameraStarted) drawIdleOverlay();
       requestAnimationFrame(loop);
     }
@@ -931,22 +538,6 @@
           minTrackingConfidence: 0.35
         });
 
-        statusEl.textContent = "Loading MediaPipe person segmenter...";
-        try {
-          imageSegmenter = await ImageSegmenter.createFromOptions(fileset, {
-            baseOptions: {
-              modelAssetPath: SEGMENTER_MODEL_URL,
-              delegate: "GPU"
-            },
-            runningMode: "VIDEO",
-            outputCategoryMask: true,
-            outputConfidenceMasks: false
-          });
-        } catch (error) {
-          imageSegmenter = null;
-          console.warn("Person segmenter failed to load:", error);
-        }
-
         statusEl.textContent = "Requesting camera...";
         const stream = await navigator.mediaDevices.getUserMedia({
           video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
@@ -959,9 +550,7 @@
         await video.play();
         cameraStarted = true;
         startButton.textContent = "Camera Active";
-        statusEl.textContent = imageSegmenter
-          ? "Camera active. Make a frame with both hands."
-          : "Camera active. Classic effects work; body-mask modes could not load.";
+        statusEl.textContent = "Camera active. Make a frame with both hands.";
       } catch (error) {
         startButton.disabled = false;
         startButton.textContent = "Start Camera";
@@ -973,22 +562,6 @@
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
     startButton.addEventListener("click", startCamera);
-    lockPaintButton.addEventListener("click", () => {
-      lockPaint = !lockPaint;
-      lockPaintButton.textContent = lockPaint ? "Lock / Paint On" : "Lock / Paint Off";
-      lockPaintButton.setAttribute("aria-pressed", String(lockPaint));
-      lockPaintButton.classList.toggle("active", lockPaint);
-    });
-    clearPaintButton.addEventListener("click", () => {
-      clearCanvas(paintMaskCtx, paintMaskCanvas.width, paintMaskCanvas.height);
-      statusEl.textContent = "Painted body mask cleared.";
-    });
-    visionToggle.addEventListener("click", () => {
-      showVision = !showVision;
-      visionToggle.textContent = showVision ? "Hide AI Vision" : "Show AI Vision";
-      visionToggle.setAttribute("aria-pressed", String(showVision));
-      visionToggle.classList.toggle("active", showVision);
-    });
     requestAnimationFrame(loop);
   </script>
 </body>
