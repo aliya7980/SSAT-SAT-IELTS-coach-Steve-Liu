@@ -542,6 +542,7 @@
   <div class="quick-nav">
     <a href="#add-words">Add Words</a>
     <a href="#csv-import">Import CSV</a>
+    <a href="#built-in-lists">HuskyDaddy Lists</a>
     <a href="#flashcards">Flashcards</a>
     <a href="#matching">Matching Game</a>
   </div>
@@ -577,6 +578,19 @@
         <button class="button secondary" id="import-csv" type="button">Import CSV</button>
       </div>
       <div class="import-status" id="import-status"></div>
+    </div>
+    <div class="panel import-panel" id="built-in-lists">
+      <h3>Use HuskyDaddy Vocabulary Lists</h3>
+      <p class="csv-help">Choose one of the SSAT vocabulary lists and load it directly into flashcards and the matching game.</p>
+      <label>
+        Vocabulary list
+        <select id="built-in-list-select"></select>
+      </label>
+      <div class="form-actions">
+        <button class="button secondary" id="load-built-in-list" type="button">Load This List</button>
+        <a class="button" id="open-built-in-source" href="#">Open List Page</a>
+      </div>
+      <div class="import-status" id="built-in-status"></div>
     </div>
     <div class="builder-layout">
       <div class="panel">
@@ -644,6 +658,7 @@
 
   <footer>© HuskyDaddy | SSAT Vocabulary Builder</footer>
 
+  <script src="vocabulary_lists_data.js"></script>
   <script>
     const starterWords = [
       { word: "abundant", definition: "Existing in large quantities.", example: "The library had an abundant supply of practice books." },
@@ -673,6 +688,10 @@
     const csvUpload = document.getElementById("csv-upload");
     const importCsvButton = document.getElementById("import-csv");
     const importStatus = document.getElementById("import-status");
+    const builtInListSelect = document.getElementById("built-in-list-select");
+    const loadBuiltInListButton = document.getElementById("load-built-in-list");
+    const openBuiltInSource = document.getElementById("open-built-in-source");
+    const builtInStatus = document.getElementById("built-in-status");
     const wordList = document.getElementById("word-list");
     const flashcard = document.getElementById("flashcard");
     const cardWord = document.getElementById("card-word");
@@ -682,6 +701,7 @@
     const matchGrid = document.getElementById("match-grid");
     const matchStatus = document.getElementById("match-status");
     const completionMessage = document.getElementById("completion-message");
+    const builtInLists = Array.isArray(window.huskyVocabularyLists) ? window.huskyVocabularyLists : [];
     let listState = loadListState();
     let words = getActiveList().words;
     let currentCardIndex = 0;
@@ -843,6 +863,86 @@
       })).filter((item) => item.word && item.definition);
     }
 
+    function getBuiltInList(listId) {
+      return builtInLists.find((list) => list.id === listId) || builtInLists[0];
+    }
+
+    function syncBuiltInSourceLink() {
+      const selectedList = getBuiltInList(builtInListSelect.value);
+      if (!selectedList) {
+        openBuiltInSource.href = "#";
+        return;
+      }
+
+      openBuiltInSource.href = selectedList.source || "#";
+    }
+
+    function renderBuiltInListChooser() {
+      if (!builtInLists.length) {
+        builtInListSelect.innerHTML = '<option value="">No saved lists found</option>';
+        builtInListSelect.disabled = true;
+        loadBuiltInListButton.disabled = true;
+        openBuiltInSource.href = "#";
+        builtInStatus.textContent = "No HuskyDaddy vocabulary lists are available yet.";
+        return;
+      }
+
+      builtInListSelect.innerHTML = builtInLists.map((list) => {
+        const wordCount = Array.isArray(list.words) ? list.words.length : 0;
+        return `<option value="${escapeText(list.id)}">${escapeText(list.title)} (${wordCount})</option>`;
+      }).join("");
+      syncBuiltInSourceLink();
+    }
+
+    function importBuiltInList(listId, shouldAnnounce = true) {
+      const selectedList = getBuiltInList(listId);
+      if (!selectedList) {
+        return false;
+      }
+
+      const importedWords = normalizeWords(selectedList.words || []);
+      if (!importedWords.length) {
+        if (shouldAnnounce) {
+          builtInStatus.textContent = "This list does not have usable words yet.";
+        }
+        return false;
+      }
+
+      saveState();
+      const listName = selectedList.title || "HuskyDaddy Vocabulary List";
+      let targetList = listState.lists.find((list) => list.name === listName);
+      if (!targetList) {
+        targetList = { id: makeId(), name: listName, words: [] };
+        listState.lists.push(targetList);
+      }
+
+      targetList.words = importedWords;
+      listState.activeListId = targetList.id;
+      words = targetList.words;
+      currentCardIndex = 0;
+      builtInListSelect.value = selectedList.id;
+      syncBuiltInSourceLink();
+      refreshAll();
+
+      if (shouldAnnounce) {
+        builtInStatus.textContent = `Loaded ${importedWords.length} words from ${listName}.`;
+      }
+      return true;
+    }
+
+    function loadBuiltInListFromUrl() {
+      const requestedListId = new URLSearchParams(window.location.search).get("list");
+      if (!requestedListId) {
+        return false;
+      }
+
+      const loaded = importBuiltInList(requestedListId, false);
+      if (loaded) {
+        builtInStatus.textContent = `Loaded ${getActiveList().name}. Flashcards and matching are ready.`;
+      }
+      return loaded;
+    }
+
     function renderWordList() {
       wordList.innerHTML = words.map((item, index) => `
         <article class="word-row">
@@ -971,6 +1071,12 @@
       reader.readAsText(file);
     });
 
+    builtInListSelect.addEventListener("change", syncBuiltInSourceLink);
+
+    loadBuiltInListButton.addEventListener("click", () => {
+      importBuiltInList(builtInListSelect.value);
+    });
+
     listSelect.addEventListener("change", () => {
       setActiveList(listSelect.value);
     });
@@ -1091,7 +1197,10 @@
       }
     });
 
-    refreshAll();
+    renderBuiltInListChooser();
+    if (!loadBuiltInListFromUrl()) {
+      refreshAll();
+    }
   </script>
 </body>
 </html>
