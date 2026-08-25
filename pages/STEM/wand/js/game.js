@@ -175,6 +175,7 @@ export class MazeGame {
     this.activePower = null;
     this.shieldTimer = 0;
     this.invincibleTimer = 0;
+    this.hurtTimer = 0;
     this.combo = 0;
     this.prizes = [];
     this.prizeTimer = Infinity;
@@ -235,6 +236,7 @@ export class MazeGame {
     this.activePower = null;
     this.shieldTimer = 0;
     this.invincibleTimer = 0;
+    this.hurtTimer = 0;
     this.combo = 0;
     this.prizes = [];
     this.prizeTimer = this.prizesEnabled() ? this.nextPrizeDelay() : Infinity;
@@ -282,6 +284,7 @@ export class MazeGame {
 
   updatePowerTimers(dt) {
     this.invincibleTimer = Math.max(0, this.invincibleTimer - dt);
+    this.hurtTimer = Math.max(0, this.hurtTimer - dt);
     this.energyTimer = Math.max(0, this.energyTimer - dt);
     this.powerTimer = Math.max(0, this.powerTimer - dt);
     this.shieldTimer = Math.max(0, this.shieldTimer - dt);
@@ -333,7 +336,8 @@ export class MazeGame {
     }
 
     const speedBoost = this.activePower === "speed" && this.powerTimer > 0 ? 1.45 : 1;
-    player.progress += dt * this.level.speed * speedBoost;
+    const hurtSlowdown = this.hurtTimer > 0 ? 0.58 : 1;
+    player.progress += dt * this.level.speed * speedBoost * hurtSlowdown;
     while (player.progress >= 1) {
       player.progress -= 1;
       const dir = DIRS[this.currentDirection];
@@ -669,6 +673,7 @@ export class MazeGame {
     this.lives -= 1;
     this.message = this.lives > 0 ? "LIFE LOST" : "GAME OVER";
     this.messageTimer = 1.7;
+    this.hurtTimer = this.lives > 0 ? 3.2 : 0;
     this.pushEvent("lifeLost");
     if (this.lives <= 0) {
       this.state = "GAME_OVER";

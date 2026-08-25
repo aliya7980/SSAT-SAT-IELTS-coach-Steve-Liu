@@ -128,6 +128,8 @@ function updateUi(state) {
     els.statusText.textContent = "Level complete. Loading the next maze.";
   } else if (power) {
     els.statusText.textContent = `${power.label}: ${power.timer.toFixed(1)} seconds left.`;
+  } else if (mazeGame.hurtTimer > 0) {
+    els.statusText.textContent = `HIT! Movement slowed for ${mazeGame.hurtTimer.toFixed(1)} seconds.`;
   } else if (mazeGame.surgeActiveTimer > 0) {
     els.statusText.textContent = "AI SURGE: enemies are faster.";
   } else if (started) {
@@ -149,6 +151,7 @@ function drawStage(state) {
 
   const board = getBoardLayout(width, height);
   if (mazeGame.level.theme === "ai" || mazeGame.surgeActiveTimer > 0) drawAiPulse(width, height);
+  drawHurtPulse(width, height);
   drawCorridorFloor(board);
   drawMaze(board);
   drawPrizes(board);
@@ -247,6 +250,8 @@ function drawPlayerGlyph(x, y, tile) {
   const angle = directionAngle(direction);
   const r = tile * 0.29;
   const color = mazeGame.getPlayerColor();
+  const hurt = mazeGame.hurtTimer > 0;
+  const shake = hurt ? Math.sin(pulse * 42) * tile * 0.035 : 0;
 
   if (mazeGame.shieldTimer > 0) {
     ctx.save();
@@ -262,11 +267,12 @@ function drawPlayerGlyph(x, y, tile) {
   }
 
   ctx.save();
-  ctx.translate(x, y);
+  ctx.translate(x + shake, y);
   ctx.rotate(angle);
-  ctx.shadowColor = color;
-  ctx.shadowBlur = 30;
-  ctx.fillStyle = color;
+  ctx.scale(hurt ? 1.08 : 1, hurt ? 0.86 : 1);
+  ctx.shadowColor = hurt ? "#ff335f" : color;
+  ctx.shadowBlur = hurt ? 36 : 30;
+  ctx.fillStyle = hurt && Math.floor(pulse * 16) % 2 === 0 ? "#ff665f" : color;
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.arc(0, 0, r, mouth, Math.PI * 2 - mouth);
@@ -276,7 +282,7 @@ function drawPlayerGlyph(x, y, tile) {
 
   const eye = playerEyeOffset(direction, tile);
   ctx.save();
-  ctx.translate(x, y);
+  ctx.translate(x + shake, y);
   ctx.shadowBlur = 0;
   ctx.fillStyle = "#151515";
   ctx.beginPath();
@@ -396,6 +402,21 @@ function drawAiPulse(width, height) {
   ctx.globalAlpha = 0.16 + Math.sin(pulse * 14) * 0.05;
   ctx.fillStyle = "#ff335f";
   ctx.fillRect(0, 0, width, height);
+  ctx.restore();
+}
+
+function drawHurtPulse(width, height) {
+  if (mazeGame.hurtTimer <= 0) return;
+  const alpha = Math.min(0.24, 0.07 + mazeGame.hurtTimer * 0.035);
+
+  ctx.save();
+  ctx.globalAlpha = alpha + Math.sin(pulse * 20) * 0.025;
+  ctx.fillStyle = "#ff335f";
+  ctx.fillRect(0, 0, width, height);
+  ctx.globalAlpha = 0.42;
+  ctx.strokeStyle = "#ff335f";
+  ctx.lineWidth = 9;
+  ctx.strokeRect(8, 8, width - 16, height - 16);
   ctx.restore();
 }
 
@@ -527,7 +548,7 @@ function drawPowerTimer(width) {
 function handleGameEvents() {
   for (const event of mazeGame.consumeEvents()) {
     audio.play(event.type);
-    if (["energy", "enemyDefeated", "powerUp", "extraLife", "shieldBlock", "levelComplete", "victory"].includes(event.type)) {
+    if (["energy", "enemyDefeated", "powerUp", "extraLife", "shieldBlock", "lifeLost", "levelComplete", "victory"].includes(event.type)) {
       burstAtEvent(event);
     }
   }
@@ -537,7 +558,7 @@ function burstAtEvent(event) {
   const board = getBoardLayout(els.effectCanvas.clientWidth, els.effectCanvas.clientHeight);
   const x = board.left + (event.x ?? mazeGame.player.x) * board.tile + board.tile / 2;
   const y = board.top + (event.y ?? mazeGame.player.y) * board.tile + board.tile / 2;
-  const color = event.color || (event.type === "extraLife" ? "#ff6b8b" : event.type === "enemyDefeated" ? "#77f7ff" : "#ffe44d");
+  const color = event.color || (event.type === "lifeLost" ? "#ff335f" : event.type === "extraLife" ? "#ff6b8b" : event.type === "enemyDefeated" ? "#77f7ff" : "#ffe44d");
   for (let i = 0; i < 24; i++) {
     const angle = Math.random() * Math.PI * 2;
     particles.push({
@@ -565,7 +586,7 @@ function drawGameMessage(width, height) {
   const power = mazeGame.getPowerStatus();
   ctx.save();
   ctx.textAlign = "center";
-  ctx.fillStyle = power ? power.color : mazeGame.energyTimer > 0 ? "#77f7ff" : "#ffe44d";
+  ctx.fillStyle = mazeGame.hurtTimer > 0 ? "#ff665f" : power ? power.color : mazeGame.energyTimer > 0 ? "#77f7ff" : "#ffe44d";
   ctx.shadowColor = ctx.fillStyle;
   ctx.shadowBlur = 22;
   ctx.font = "900 34px system-ui, sans-serif";
