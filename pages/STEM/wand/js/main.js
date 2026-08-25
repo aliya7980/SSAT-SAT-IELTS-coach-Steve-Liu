@@ -43,6 +43,14 @@ const tracker = new HandDirectionTracker({
 const ctx = els.effectCanvas.getContext("2d");
 const mazeGame = new MazeGame();
 const audio = new GameAudio();
+const PRIZE_ART = {
+  speed: { symbol: "⚡", color: "#ff4d4d" },
+  freeze: { symbol: "❄", color: "#55d6ff" },
+  shield: { symbol: "🛡", color: "#50e878" },
+  hunter: { symbol: "👻", color: "#b077ff" },
+  double: { symbol: "★", color: "#ffd447" },
+  life: { symbol: "♥", color: "#ff6b8b" }
+};
 let started = false;
 let gameActive = false;
 let lastState = tracker.emptyState();
@@ -99,8 +107,9 @@ function updateUi(state) {
   els.scoreText.textContent = mazeGame.score;
   els.levelText.textContent = `${mazeGame.levelNumber} · ${mazeGame.level.name}`;
   els.stateText.textContent = mazeGame.state;
-  els.livesText.textContent = "●".repeat(Math.max(mazeGame.lives, 0)) || "none";
-  els.energyText.textContent = `${mazeGame.energyTimer.toFixed(1)}s`;
+  els.livesText.textContent = "❤️ ".repeat(Math.max(mazeGame.lives, 0)).trim() || "none";
+  const power = mazeGame.getPowerStatus();
+  els.energyText.textContent = power ? `${power.label} ${power.timer.toFixed(1)}s` : "none";
   els.dotsText.textContent = mazeGame.remainingDots;
   els.highScoreText.textContent = mazeGame.highScore;
   els.vectorText.textContent = state.vector ? `${state.vector.x.toFixed(2)}, ${state.vector.y.toFixed(2)}` : "--";
@@ -115,12 +124,10 @@ function updateUi(state) {
     els.statusText.textContent = "Show your hand to the camera.";
   } else if (mazeGame.state === "GAME_OVER") {
     els.statusText.textContent = "Game over. Press RESTART to try again.";
-  } else if (mazeGame.state === "VICTORY") {
-    els.statusText.textContent = "Victory. You cleared all five levels.";
   } else if (mazeGame.remainingDots <= 0) {
     els.statusText.textContent = "Level complete. Loading the next maze.";
-  } else if (mazeGame.energyTimer > 0) {
-    els.statusText.textContent = "Energy mode: touch the enemy for bonus points.";
+  } else if (power) {
+    els.statusText.textContent = `${power.label}: ${power.timer.toFixed(1)} seconds left.`;
   } else if (mazeGame.surgeActiveTimer > 0) {
     els.statusText.textContent = "AI SURGE: enemies are faster.";
   } else if (started) {
@@ -144,7 +151,7 @@ function drawStage(state) {
   if (mazeGame.level.theme === "ai" || mazeGame.surgeActiveTimer > 0) drawAiPulse(width, height);
   drawCorridorFloor(board);
   drawMaze(board);
-  drawStar(board);
+  drawPrizes(board);
   drawInsideCorridors(board, () => {
     const player = mazeGame.getInterpolatedPlayer();
     drawPlayerGlyph(board.left + player.x * board.tile + board.tile / 2, board.top + player.y * board.tile + board.tile / 2, board.tile);
@@ -152,6 +159,7 @@ function drawStage(state) {
   });
   drawWallCaps(board);
   updateParticles(width, height, state);
+  drawPowerTimer(width);
   drawGameMessage(width, height);
   drawLevelComplete(width, height);
   drawGameOver(width, height);
@@ -203,25 +211,23 @@ function drawCorridorFloor(board) {
   ctx.restore();
 }
 
-function drawStar(board) {
-  if (!mazeGame.star) return;
-  const x = board.left + mazeGame.star.x * board.tile + board.tile / 2;
-  const y = board.top + mazeGame.star.y * board.tile + board.tile / 2;
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(pulse * 2.2);
-  ctx.fillStyle = "#ffffff";
-  ctx.shadowColor = "#ffe44d";
-  ctx.shadowBlur = 22;
-  ctx.beginPath();
-  for (let i = 0; i < 10; i++) {
-    const r = i % 2 ? board.tile * 0.18 : board.tile * 0.36;
-    const angle = -Math.PI / 2 + i * Math.PI / 5;
-    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+function drawPrizes(board) {
+  for (const prize of mazeGame.prizes) {
+    const art = PRIZE_ART[prize.type] || PRIZE_ART.double;
+    const x = board.left + prize.x * board.tile + board.tile / 2;
+    const y = board.top + prize.y * board.tile + board.tile / 2 + Math.sin(pulse * 6) * 3;
+    const size = Math.max(16, board.tile * (0.42 + Math.sin(pulse * 8) * 0.04));
+
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = art.color;
+    ctx.shadowBlur = 24;
+    ctx.fillStyle = art.color;
+    ctx.font = `900 ${size}px system-ui, sans-serif`;
+    ctx.fillText(art.symbol, x, y);
+    ctx.restore();
   }
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
 }
 
 function drawDot(x, y, big, tile) {
@@ -234,17 +240,33 @@ function drawDot(x, y, big, tile) {
 }
 
 function drawPlayerGlyph(x, y, tile) {
+  if (mazeGame.invincibleTimer > 0 && Math.floor(pulse * 18) % 2 === 0) return;
+
   const mouth = Math.abs(Math.sin(pulse * 7)) * 0.35 + 0.18;
   const direction = mazeGame.player.facingDirection || mazeGame.currentDirection;
   const angle = directionAngle(direction);
   const r = tile * 0.29;
+  const color = mazeGame.getPlayerColor();
+
+  if (mazeGame.shieldTimer > 0) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.strokeStyle = "#50e878";
+    ctx.lineWidth = Math.max(3, tile * 0.08);
+    ctx.shadowColor = "#50e878";
+    ctx.shadowBlur = 22;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 1.45 + Math.sin(pulse * 8) * 2, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
 
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
-  ctx.shadowColor = "#ffe44d";
+  ctx.shadowColor = color;
   ctx.shadowBlur = 30;
-  ctx.fillStyle = "#ffe44d";
+  ctx.fillStyle = color;
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.arc(0, 0, r, mouth, Math.PI * 2 - mouth);
@@ -318,11 +340,15 @@ function drawEnemies(board) {
 
 function drawEnemyGlyph(x, y, enemy, tile) {
   const vulnerable = mazeGame.energyTimer > 0;
+  const frozen = mazeGame.activePower === "freeze" && mazeGame.powerTimer > 0;
+  const sprinting = enemy.behavior === "sprint" && mazeGame.distanceToPlayer(enemy) < 5;
   ctx.save();
   ctx.translate(x, y + Math.sin(pulse * 8) * 2);
+  if (frozen) ctx.globalAlpha = 0.48;
+  if (vulnerable && Math.floor(pulse * 12) % 2 === 0) ctx.globalAlpha = 0.62;
   ctx.shadowColor = vulnerable ? "#77f7ff" : enemy.color;
-  ctx.shadowBlur = 20;
-  ctx.fillStyle = vulnerable ? "#315cfa" : enemy.color;
+  ctx.shadowBlur = sprinting ? 34 : 20;
+  ctx.fillStyle = vulnerable ? "#d7efff" : frozen ? "#b9f8ff" : enemy.color;
   const r = tile * 0.34;
   ctx.beginPath();
   ctx.arc(0, -r * 0.1, r, Math.PI, 0);
@@ -340,9 +366,27 @@ function drawEnemyGlyph(x, y, enemy, tile) {
   ctx.fill();
   ctx.fillStyle = "#12121a";
   ctx.beginPath();
-  ctx.arc(-r * 0.28, -r * 0.1, r * 0.08, 0, Math.PI * 2);
-  ctx.arc(r * 0.36, -r * 0.1, r * 0.08, 0, Math.PI * 2);
+  if (vulnerable) {
+    ctx.arc(-r * 0.32, -r * 0.08, r * 0.06, 0, Math.PI * 2);
+    ctx.arc(r * 0.32, -r * 0.08, r * 0.06, 0, Math.PI * 2);
+    ctx.moveTo(-r * 0.28, r * 0.22);
+    ctx.lineTo(r * 0.28, r * 0.22);
+  } else {
+    ctx.arc(-r * 0.28, -r * 0.1, r * 0.08, 0, Math.PI * 2);
+    ctx.arc(r * 0.36, -r * 0.1, r * 0.08, 0, Math.PI * 2);
+  }
   ctx.fill();
+  if (enemy.behavior === "guard") {
+    ctx.strokeStyle = "#063116";
+    ctx.lineWidth = Math.max(2, tile * 0.05);
+    ctx.beginPath();
+    ctx.arc(0, -r * 0.16, r * 0.65, 0, Math.PI);
+    ctx.stroke();
+  }
+  if (sprinting && !vulnerable && !frozen) {
+    ctx.fillStyle = "rgba(255, 255, 255, .72)";
+    ctx.fillRect(-r * 1.45, r * 0.48, r * 0.7, 3);
+  }
   ctx.restore();
 }
 
@@ -459,10 +503,31 @@ function drawVictory(width, height) {
   ctx.restore();
 }
 
+function drawPowerTimer(width) {
+  const power = mazeGame.getPowerStatus();
+  if (!power) return;
+
+  const barWidth = Math.min(320, width - 42);
+  const x = (width - barWidth) / 2;
+  const y = 22;
+  const progress = Math.max(0, Math.min(1, power.timer / power.duration));
+
+  ctx.save();
+  ctx.fillStyle = "rgba(255,255,255,.16)";
+  roundRect(x, y, barWidth, 10, 5);
+  ctx.fill();
+  ctx.fillStyle = power.color;
+  ctx.shadowColor = power.color;
+  ctx.shadowBlur = 14;
+  roundRect(x, y, barWidth * progress, 10, 5);
+  ctx.fill();
+  ctx.restore();
+}
+
 function handleGameEvents() {
   for (const event of mazeGame.consumeEvents()) {
     audio.play(event.type);
-    if (["energy", "enemyDefeated", "star", "levelComplete", "victory"].includes(event.type)) {
+    if (["energy", "enemyDefeated", "powerUp", "extraLife", "shieldBlock", "levelComplete", "victory"].includes(event.type)) {
       burstAtEvent(event);
     }
   }
@@ -472,7 +537,7 @@ function burstAtEvent(event) {
   const board = getBoardLayout(els.effectCanvas.clientWidth, els.effectCanvas.clientHeight);
   const x = board.left + (event.x ?? mazeGame.player.x) * board.tile + board.tile / 2;
   const y = board.top + (event.y ?? mazeGame.player.y) * board.tile + board.tile / 2;
-  const color = event.type === "star" ? "#ffffff" : event.type === "enemyDefeated" ? "#77f7ff" : "#ffe44d";
+  const color = event.color || (event.type === "extraLife" ? "#ff6b8b" : event.type === "enemyDefeated" ? "#77f7ff" : "#ffe44d");
   for (let i = 0; i < 24; i++) {
     const angle = Math.random() * Math.PI * 2;
     particles.push({
@@ -497,9 +562,10 @@ function hexToRgba(hex, alpha) {
 
 function drawGameMessage(width, height) {
   if (!mazeGame.message || mazeGame.messageTimer <= 0) return;
+  const power = mazeGame.getPowerStatus();
   ctx.save();
   ctx.textAlign = "center";
-  ctx.fillStyle = mazeGame.energyTimer > 0 ? "#77f7ff" : "#ffe44d";
+  ctx.fillStyle = power ? power.color : mazeGame.energyTimer > 0 ? "#77f7ff" : "#ffe44d";
   ctx.shadowColor = ctx.fillStyle;
   ctx.shadowBlur = 22;
   ctx.font = "900 34px system-ui, sans-serif";
