@@ -716,7 +716,7 @@
       pointer-events: auto;
       position: absolute;
       transform: translate3d(0, 0, 0);
-      transition: transform 700ms ease-out;
+      transition: transform 700ms cubic-bezier(.22, .72, .2, 1);
       width: 150px;
       will-change: transform;
     }
@@ -748,7 +748,7 @@
     }
 
     .husky-runner[data-state="running"] .husky-sprite {
-      animation: husky-sprite-run 0.64s steps(1, end) infinite;
+      animation: husky-sprite-run 0.48s steps(1, end) infinite;
     }
 
     .husky-runner[data-state="slowing"] .husky-sprite {
@@ -768,11 +768,11 @@
     }
 
     .husky-runner[data-state="playBow"] .husky-sprite {
-      animation: husky-play-bow 0.72s steps(1, end) infinite;
+      animation: husky-play-bow 0.9s steps(1, end) infinite;
     }
 
     .husky-runner[data-state="sitting"] .husky-sprite {
-      animation: husky-sit-scratch 2.8s steps(1, end) infinite;
+      animation: husky-sit-scratch 2.4s steps(1, end) infinite;
     }
 
     .husky-runner[data-state="standingUp"] .husky-sprite {
@@ -821,29 +821,37 @@
     }
 
     @keyframes husky-sprite-run {
-      0%, 18% {
+      0%, 12.49% {
         background-position: 0 0;
-        transform: translateY(1px) scaleX(0.985) scaleY(0.99);
+        transform: translateY(0) scaleX(0.99) scaleY(1);
       }
-      18.1%, 39% {
+      12.5%, 24.99% {
         background-position: 33.333% 0;
-        transform: translateY(-2px) scaleX(1) scaleY(1);
+        transform: translateY(-2px) scaleX(1.005) scaleY(1.005);
       }
-      39.1%, 51% {
+      25%, 37.49% {
         background-position: 66.666% 0;
-        transform: translateY(-6px) scaleX(1.025) scaleY(1.01);
+        transform: translateY(-4px) scaleX(1.015) scaleY(1.01);
       }
-      51.1%, 72% {
+      37.5%, 49.99% {
         background-position: 100% 0;
-        transform: translateY(1px) scaleX(0.985) scaleY(0.99);
+        transform: translateY(-1px) scaleX(0.995) scaleY(0.998);
       }
-      72.1%, 88% {
-        background-position: 33.333% 0;
-        transform: translateY(-2px) scaleX(1) scaleY(1);
-      }
-      88.1%, 100% {
+      50%, 62.49% {
         background-position: 0 0;
-        transform: translateY(0) scaleX(0.992) scaleY(0.995);
+        transform: translateY(0) scaleX(0.99) scaleY(1);
+      }
+      62.5%, 74.99% {
+        background-position: 33.333% 0;
+        transform: translateY(-2px) scaleX(1.005) scaleY(1.005);
+      }
+      75%, 87.49% {
+        background-position: 66.666% 0;
+        transform: translateY(-4px) scaleX(1.015) scaleY(1.01);
+      }
+      87.5%, 100% {
+        background-position: 100% 0;
+        transform: translateY(-1px) scaleX(0.995) scaleY(0.998);
       }
     }
 
@@ -1316,11 +1324,19 @@
 
       let stateTimer;
       let currentX = 0;
+      let animationFrame;
+      let runningStartedAt = 0;
+      let runningFromX = 0;
+      let runningTargetX = 0;
+      let runningDuration = 0;
       let interacting = false;
       let pageHidden = document.hidden;
 
       const randomBetween = (min, max) =>
         Math.round(min + Math.random() * (max - min));
+
+      const easeInOutSine = (progress) =>
+        -(Math.cos(Math.PI * progress) - 1) / 2;
 
       const clearStateTimer = () => {
         if (stateTimer) window.clearTimeout(stateTimer);
@@ -1343,10 +1359,21 @@
         return Number.isFinite(matrix.m41) ? matrix.m41 : currentX;
       };
 
+      const stopSmoothRun = () => {
+        if (animationFrame) window.cancelAnimationFrame(animationFrame);
+        animationFrame = undefined;
+      };
+
+      const placePuppy = (x) => {
+        currentX = Math.max(0, Math.min(maxTravel(), x));
+        puppy.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
+      };
+
       const holdCurrentPosition = () => {
+        stopSmoothRun();
         currentX = Math.max(0, Math.min(maxTravel(), readCurrentX()));
         puppy.style.transition = "none";
-        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        placePuppy(currentX);
         void puppy.offsetWidth;
       };
 
@@ -1355,33 +1382,52 @@
         stateTimer = window.setTimeout(callback, delay);
       };
 
+      const stepRun = (now) => {
+        if (interacting || pageHidden || reducedMotion.matches) {
+          stopSmoothRun();
+          return;
+        }
+
+        const elapsed = now - runningStartedAt;
+        const progress = Math.min(1, elapsed / runningDuration);
+        const eased = easeInOutSine(progress);
+        placePuppy(runningFromX + (runningTargetX - runningFromX) * eased);
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(stepRun);
+        } else {
+          animationFrame = undefined;
+          slowDown();
+        }
+      };
+
       const run = () => {
         if (interacting || pageHidden || reducedMotion.matches) return;
+        stopSmoothRun();
 
         const limit = maxTravel();
         const midpoint = limit / 2;
         const direction = currentX > midpoint ? -1 : 1;
         const inset = randomBetween(0, Math.max(0, Math.min(34, limit / 5)));
         const target = direction < 0 ? inset : Math.max(0, limit - inset);
-        const duration = randomBetween(5000, 11000);
 
         setFacing(direction);
         setState("running");
-        puppy.style.transition = `transform ${duration}ms linear`;
-        currentX = target;
-        requestAnimationFrame(() => {
-          puppy.style.transform = `translate3d(${target}px, 0, 0)`;
-        });
-        schedule(slowDown, duration);
+        puppy.style.transition = "none";
+        runningFromX = currentX;
+        runningTargetX = target;
+        runningDuration = randomBetween(6200, 11800);
+        runningStartedAt = performance.now();
+        animationFrame = window.requestAnimationFrame(stepRun);
       };
 
       const slowDown = () => {
         if (interacting || pageHidden || reducedMotion.matches) return;
+        stopSmoothRun();
         setState("slowing");
-        puppy.style.transition = "transform 700ms ease-out";
+        puppy.style.transition = "transform 760ms cubic-bezier(.16, .8, .3, 1)";
         const direction = currentX > maxTravel() / 2 ? -1 : 1;
-        currentX = Math.max(0, Math.min(maxTravel(), currentX + direction * 7));
-        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
+        placePuppy(currentX + direction * 7);
         schedule(chooseBehavior, 760);
       };
 
@@ -1471,6 +1517,7 @@
       document.addEventListener("visibilitychange", () => {
         pageHidden = document.hidden;
         clearStateTimer();
+        if (pageHidden) stopSmoothRun();
         habitat.classList.toggle("is-paused", pageHidden);
         if (!pageHidden && !interacting && !reducedMotion.matches) {
           holdCurrentPosition();

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Yuexinmao Desktop Sprite</title>
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.95), rgba(239,247,255,.95) 38%, rgba(215,235,255,.95));
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .stage {
+      position: fixed;
+      inset: 0;
+    }
+
+    .sprite {
+      position: absolute;
+      left: 80px;
+      top: 80px;
+      width: 180px;
+      height: auto;
+      cursor: grab;
+      user-select: none;
+      filter: drop-shadow(0 12px 16px rgba(62, 43, 31, .22));
+      transition: transform 180ms ease;
+    }
+
+    .sprite:hover {
+      transform: scale(1.05);
+    }
+
+    .bubble {
+      position: absolute;
+      display: none;
+      padding: 10px 15px;
+      border: 2px solid #5a3518;
+      border-radius: 16px;
+      background: #fff4c7;
+      color: #5a3518;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 10px 20px rgba(62, 43, 31, .18);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hint {
+      position: fixed;
+      left: 18px;
+      bottom: 16px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.72);
+      color: #6b5845;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <img class="sprite" src="/Users/shililiu/Desktop/yuexinmao_clean_loop.gif" alt="Dancing cat sprite">
+    <div class="bubble">Hi Steve!</div>
+  </div>
+  <div class="hint">The cat wanders inside this window. Hover to greet, drag to move.</div>
+
+  <script>
+    const sprite = document.querySelector(".sprite");
+    const bubble = document.querySelector(".bubble");
+    const margin = 18;
+
+    let x = 80;
+    let y = 80;
+    let targetX = 80;
+    let targetY = 80;
+    let dragging = false;
+    let hovering = false;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let nextTargetAt = performance.now() + 1200;
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
+
+    function bounds() {
+      return {
+        maxX: Math.max(margin, window.innerWidth - sprite.offsetWidth - margin),
+        maxY: Math.max(margin, window.innerHeight - sprite.offsetHeight - margin)
+      };
+    }
+
+    function chooseTarget() {
+      const b = bounds();
+      targetX = margin + Math.random() * (b.maxX - margin);
+      targetY = margin + Math.random() * (b.maxY - margin);
+      nextTargetAt = performance.now() + 1400 + Math.random() * 2600;
+    }
+
+    function place() {
+      const b = bounds();
+      x = clamp(x, margin, b.maxX);
+      y = clamp(y, margin, b.maxY);
+      sprite.style.left = `${x}px`;
+      sprite.style.top = `${y}px`;
+      updateBubble();
+    }
+
+    function updateBubble() {
+      const bubbleX = clamp(x + sprite.offsetWidth / 2 - bubble.offsetWidth / 2, 10, window.innerWidth - bubble.offsetWidth - 10);
+      let bubbleY = y - bubble.offsetHeight - 10;
+      if (bubbleY < 10) bubbleY = y + sprite.offsetHeight + 10;
+      bubble.style.left = `${bubbleX}px`;
+      bubble.style.top = `${bubbleY}px`;
+    }
+
+    function animate(now) {
+      if (!dragging && !hovering) {
+        x += (targetX - x) * 0.018;
+        y += (targetY - y) * 0.018;
+        if (Math.abs(targetX - x) < 5 && Math.abs(targetY - y) < 5) chooseTarget();
+        if (now > nextTargetAt) chooseTarget();
+        place();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    sprite.addEventListener("mouseenter", () => {
+      hovering = true;
+      bubble.style.display = "block";
+      updateBubble();
+    });
+
+    sprite.addEventListener("mouseleave", () => {
+      hovering = false;
+      bubble.style.display = "none";
+      chooseTarget();
+    });
+
+    sprite.addEventListener("pointerdown", event => {
+      dragging = true;
+      sprite.setPointerCapture(event.pointerId);
+      sprite.style.cursor = "grabbing";
+      dragOffsetX = event.clientX - x;
+      dragOffsetY = event.clientY - y;
+    });
+
+    sprite.addEventListener("pointermove", event => {
+      if (!dragging) return;
+      x = event.clientX - dragOffsetX;
+      y = event.clientY - dragOffsetY;
+      place();
+    });
+
+    sprite.addEventListener("pointerup", event => {
+      dragging = false;
+      sprite.releasePointerCapture(event.pointerId);
+      sprite.style.cursor = "grab";
+      chooseTarget();
+    });
+
+    window.addEventListener("resize", place);
+    sprite.addEventListener("load", () => {
+      chooseTarget();
+      place();
+      bubble.style.display = "block";
+      updateBubble();
+      setTimeout(() => {
+        if (!hovering) bubble.style.display = "none";
+      }, 2600);
+    });
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
