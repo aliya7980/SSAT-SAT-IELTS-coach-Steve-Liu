@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Arduino Circuit Simulator | HuskyDaddy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../../assets/styles/arduino.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">HuskyDaddy</div>
+    <ul class="nav-links">
+      <li><a href="../../../index.html">Home</a></li>
+      <li><a href="../../services.html">Test Prep</a></li>
+      <li><a href="../../readingtips.html">Reading</a></li>
+      <li><a href="../../stem.html">STEM</a></li>
+      <li><a href="../../clients.html">Clients</a></li>
+      <li><a href="../../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero arduino-sim-hero">
+    <div>
+      <h1>Arduino Circuit Simulator</h1>
+      <p>
+        Practice Arduino wiring and coding before touching real hardware. Choose a circuit, inspect the jumper wires,
+        edit the code, and run a classroom-friendly simulation with LEDs and sensors.
+      </p>
+      <div class="button-row">
+        <a class="button" href="led-basics.html">LED Lesson</a>
+        <a class="button secondary" href="index.html">Arduino Basics</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h2>Simulator Habits</h2>
+      <ul>
+        <li>Choose parts before writing code.</li>
+        <li>Trace every Dupont wire from pin to pin.</li>
+        <li>Run the sketch, then change one value at a time.</li>
+        <li>Use the serial monitor to explain what the board is reading.</li>
+      </ul>
+    </div>
+  </section>
+
+  <main class="page-wrap simulator-page">
+    <section class="source-box">
+      <h2>How This Module Is Modeled</h2>
+      <p>
+        This page borrows the beginner-friendly workflow used by popular Arduino simulators: a parts area, a circuit
+        workspace, a code editor, a run button, and a serial monitor. Wokwi emphasizes Arduino/ESP32 simulation,
+        broad part support, serial output, and debugging. Tinkercad Circuits is especially useful for beginners because
+        students can place parts, connect wires, and switch between blocks and text code.
+      </p>
+    </section>
+
+    <section class="sim-shell" aria-label="Arduino circuit simulator">
+      <aside class="parts-panel" aria-label="Circuit presets">
+        <h2>Parts Library</h2>
+        <p>Choose an Arduino Uno circuit. The wiring map, pin guide, and starter sketch update together.</p>
+        <div class="project-list" id="project-list"></div>
+
+        <div class="parts-bin" id="parts-bin"></div>
+
+        <div class="wire-key">
+          <h3>Dupont Wire Colors</h3>
+          <span><b class="wire-dot red"></b>Power or output signal</span>
+          <span><b class="wire-dot black"></b>Ground</span>
+          <span><b class="wire-dot yellow"></b>Sensor signal</span>
+          <span><b class="wire-dot blue"></b>Optional trigger/echo</span>
+        </div>
+
+        <div class="uno-reference">
+          <h3>Arduino Uno Pins</h3>
+          <div class="pin-reference-grid">
+            <span>D2 input</span>
+            <span>D3 input</span>
+            <span>D6 data</span>
+            <span>D8 buzzer</span>
+            <span>D9 PWM</span>
+            <span>D10 PWM</span>
+            <span>D11 PWM</span>
+            <span>D13 LED</span>
+            <span>A0 analog</span>
+            <span>A4 SDA</span>
+            <span>A5 SCL</span>
+            <span>5V / GND</span>
+          </div>
+        </div>
+
+        <div class="virtual-shelf">
+          <h3>Virtual Parts Shelf</h3>
+          <p>Add parts you do not have at home and load a matching starter sketch.</p>
+          <label>
+            Component
+            <select id="virtual-part-select"></select>
+          </label>
+          <div class="button-row compact-row">
+            <button class="button secondary" id="add-virtual-part" type="button">Add Part</button>
+            <button class="button" id="clear-virtual-parts" type="button">Clear Parts</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="circuit-panel">
+        <div class="sim-toolbar">
+          <div>
+            <h2 id="project-title">LED Blink</h2>
+            <p id="project-goal">Make an LED blink on pin 13.</p>
+          </div>
+          <div class="status-pill" id="run-state">Stopped</div>
+        </div>
+
+        <div class="sim-workbench">
+          <svg class="circuit-svg" viewBox="0 0 980 540" role="img" aria-labelledby="circuit-title circuit-desc">
+            <title id="circuit-title">Arduino simulator wiring diagram</title>
+            <desc id="circuit-desc">Arduino Uno, breadboard, Dupont wires, LED, and selected sensor.</desc>
+
+            <rect class="mat" x="12" y="12" width="956" height="516" rx="26"></rect>
+            <g class="arduino-board">
+              <rect x="58" y="76" width="285" height="364" rx="24"></rect>
+              <rect x="86" y="110" width="110" height="55" rx="9"></rect>
+              <rect x="225" y="116" width="80" height="42" rx="8"></rect>
+              <text x="200" y="205" text-anchor="middle">Arduino Uno</text>
+              <text x="118" y="145" text-anchor="middle" class="tiny-label">USB</text>
+              <text x="265" y="143" text-anchor="middle" class="tiny-label">ATmega</text>
+              <g id="board-pins"></g>
+              <circle class="power-led" cx="304" cy="398" r="9"></circle>
+              <text x="286" y="423" class="tiny-label">ON</text>
+            </g>
+
+            <g class="breadboard">
+              <rect x="498" y="70" width="390" height="365" rx="22"></rect>
+              <rect x="528" y="112" width="330" height="44" rx="10"></rect>
+              <rect x="528" y="356" width="330" height="44" rx="10"></rect>
+              <line x1="544" y1="134" x2="842" y2="134" class="rail-line red-rail"></line>
+              <line x1="544" y1="378" x2="842" y2="378" class="rail-line black-rail"></line>
+              <text x="693" y="238" text-anchor="middle">Breadboard</text>
+              <g id="board-holes"></g>
+            </g>
+
+            <g class="wire-layer" id="wire-layer"></g>
+            <g class="component-layer" id="component-layer"></g>
+            <g class="virtual-component-layer" id="virtual-component-layer"></g>
+          </svg>
+        </div>
+
+        <div class="sensor-controls" id="sensor-controls"></div>
+        <div class="wiring-feedback" id="wiring-feedback"></div>
+
+        <div class="virtual-bench" id="virtual-bench">
+          <div class="virtual-bench-header">
+            <div>
+              <h3>Virtual Workbench</h3>
+              <p>Add sensors, outputs, and modules to practice without owning every part.</p>
+            </div>
+            <button class="button secondary" id="load-part-code" type="button">Load Part Code</button>
+          </div>
+          <div class="virtual-parts-grid" id="virtual-parts-grid"></div>
+        </div>
+      </section>
+
+      <aside class="code-panel" id="code">
+        <div class="code-panel-header">
+          <div>
+            <h2>Code Lab</h2>
+            <p>Edit the sketch, then run the simulation.</p>
+          </div>
+          <div class="code-tools">
+            <button class="button secondary" id="reset-code" type="button">Reset Code</button>
+            <button class="button" id="download-code" type="button">Download .ino</button>
+          </div>
+        </div>
+
+        <textarea id="code-editor" spellcheck="false" aria-label="Arduino code editor"></textarea>
+
+        <div class="button-row sim-buttons">
+          <button class="button" id="run-sim" type="button">Run Simulation</button>
+          <button class="button secondary" id="stop-sim" type="button">Stop</button>
+        </div>
+
+        <div class="simulation-result" id="simulation-result">
+          <h3>Live Output</h3>
+          <div class="led-readout">
+            <span class="mini-led" id="mini-led"></span>
+            <span id="led-label">LED is off</span>
+          </div>
+          <div class="serial-monitor" id="serial-monitor" aria-live="polite"></div>
+          <div class="arduino-check" id="arduino-check"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h2>Teacher Notes</h2>
+      <ol class="lesson-steps">
+        <li>Start with LED Blink so students learn output, resistor protection, and ground.</li>
+        <li>Move to Button Input to show that sensors give information to the Arduino.</li>
+        <li>Use Light, Temperature, and Distance Sensor projects to connect analog readings to decisions.</li>
+        <li>Ask students to explain both sides: what the wire does and what the code line does.</li>
+      </ol>
+      <div class="button-row">
+        <a class="button" href="led-basics.html">Review LED Basics</a>
+        <a class="button secondary" href="index.html">Back to Arduino Basics</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © HuskyDaddy | Learning, resilience, and life beyond the classroom <span>Arduino</span>
+  </footer>
+
+  <script>
+    const projects = {
+      blink: {
+        title: "LED Blink",
+        goal: "Make an LED blink on pin 13.",
+        parts: ["Arduino Uno", "Breadboard", "LED", "220 ohm resistor", "3 Dupont wires"],
+        sensorLabel: "Blink speed",
+        sensorMin: 120,
+        sensorMax: 1200,
+        sensorValue: 500,
+        sensorUnit: "ms",
+        code: `int ledPin = 13;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  digitalWrite(ledPin, HIGH);\n  delay(500);\n  digitalWrite(ledPin, LOW);\n  delay(500);\n}`,
+        wires: [
+          { color: "red", points: "330,172 438,172 526,182 610,182" },
+          { color: "red", points: "610,182 650,182" },
+          { color: "black", points: "330,384 430,384 525,380 720,380" }
+        ],
+        feedback: ["D13 is configured as an OUTPUT pin.", "D13 connects through a resistor before the LED.", "GND completes the Arduino circuit path."],
+        checks: ["pinMode", "OUTPUT", "digitalWrite", "delay", "13"],
+        component: "led"
+      },
+      button: {
+        title: "Button Input",
+        goal: "Press a button sensor to control the LED.",
+        parts: ["Arduino Uno", "Breadboard", "LED", "Pushbutton", "Resistor", "5 Dupont wires"],
+        sensorLabel: "Button pressed",
+        sensorMin: 0,
+        sensorMax: 1,
+        sensorValue: 0,
+        sensorUnit: "",
+        code: `int ledPin = 13;\nint buttonPin = 2;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n  pinMode(buttonPin, INPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int buttonState = digitalRead(buttonPin);\n  Serial.println(buttonState);\n  if (buttonState == HIGH) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}`,
+        wires: [
+          { color: "red", points: "330,172 440,172 526,182 608,182" },
+          { color: "black", points: "330,384 448,384 528,378 755,378" },
+          { color: "yellow", points: "330,212 428,212 548,292 650,292" },
+          { color: "red", points: "330,114 505,114 548,134 650,134" },
+          { color: "black", points: "708,292 755,378" }
+        ],
+        feedback: ["D2 is configured as an INPUT pin.", "D13 remains the LED output pin.", "Serial output helps students see HIGH and LOW."],
+        checks: ["pinMode", "INPUT", "digitalRead", "Serial.begin", "2", "13"],
+        component: "button"
+      },
+      light: {
+        title: "Light Sensor",
+        goal: "Use a photoresistor reading to turn an LED on in the dark.",
+        parts: ["Arduino Uno", "Photoresistor", "10k resistor", "LED", "Dupont wires"],
+        sensorLabel: "Light level",
+        sensorMin: 0,
+        sensorMax: 1023,
+        sensorValue: 320,
+        sensorUnit: "analog",
+        code: `int ledPin = 13;\nint lightPin = A0;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int lightValue = analogRead(lightPin);\n  Serial.println(lightValue);\n\n  if (lightValue < 450) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}`,
+        wires: [
+          { color: "red", points: "330,172 438,172 526,182 608,182" },
+          { color: "yellow", points: "330,334 430,334 555,278 670,278" },
+          { color: "red", points: "330,114 505,114 548,134 670,134" },
+          { color: "black", points: "330,384 448,384 528,378 770,378" }
+        ],
+        feedback: ["A0 reads a changing analog value from 0 to 1023.", "D13 is the LED output controlled by the reading.", "The voltage divider needs 5V, signal, and GND."],
+        checks: ["analogRead", "A0", "Serial.begin", "digitalWrite", "13"],
+        component: "light"
+      },
+      temperature: {
+        title: "Temperature Sensor",
+        goal: "Read a TMP36-style temperature sensor and print Celsius values.",
+        parts: ["Arduino Uno", "TMP36 sensor", "Breadboard", "3 Dupont wires", "Serial monitor"],
+        sensorLabel: "Temperature",
+        sensorMin: 0,
+        sensorMax: 45,
+        sensorValue: 23,
+        sensorUnit: "C",
+        code: `int tempPin = A0;\n\nvoid setup() {\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int reading = analogRead(tempPin);\n  float voltage = reading * (5.0 / 1023.0);\n  float tempC = (voltage - 0.5) * 100.0;\n\n  Serial.print("Temperature: ");\n  Serial.println(tempC);\n  delay(1000);\n}`,
+        wires: [
+          { color: "red", points: "330,114 505,114 548,134 652,134" },
+          { color: "yellow", points: "330,334 430,334 555,260 695,260" },
+          { color: "black", points: "330,384 448,384 528,378 738,378" }
+        ],
+        feedback: ["TMP36 left leg connects to Arduino 5V.", "The middle leg sends an analog signal to A0.", "The right leg connects to Arduino GND."],
+        checks: ["analogRead", "A0", "Serial.begin", "voltage", "tempC"],
+        component: "temperature"
+      },
+      distance: {
+        title: "Distance Sensor",
+        goal: "Use an ultrasonic sensor to warn when an object is close.",
+        parts: ["Arduino Uno", "HC-SR04 sensor", "LED", "Resistor", "Dupont wires"],
+        sensorLabel: "Distance",
+        sensorMin: 3,
+        sensorMax: 120,
+        sensorValue: 28,
+        sensorUnit: "cm",
+        code: `int trigPin = 9;\nint echoPin = 10;\nint ledPin = 13;\n\nvoid setup() {\n  pinMode(trigPin, OUTPUT);\n  pinMode(echoPin, INPUT);\n  pinMode(ledPin, OUTPUT);\n  Serial.begin(9600);\n}\n\nvoid loop() {\n  int distance = 28;\n  Serial.println(distance);\n\n  if (distance < 30) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}`,
+        wires: [
+          { color: "red", points: "330,172 438,172 526,182 608,182" },
+          { color: "red", points: "330,114 505,114 548,134 620,134" },
+          { color: "black", points: "330,384 448,384 528,378 780,378" },
+          { color: "blue", points: "330,252 450,252 560,250 678,250" },
+          { color: "yellow", points: "330,272 455,272 560,294 720,294" }
+        ],
+        feedback: ["D9 works as TRIG and sends the sound pulse.", "D10 works as ECHO and listens for the return.", "D13 turns on the LED warning when the object is close."],
+        checks: ["trigPin", "echoPin", "pinMode", "Serial.begin", "9", "10"],
+        component: "distance"
+      }
+    };
+
+    const projectList = document.getElementById("project-list");
+    const partsBin = document.getElementById("parts-bin");
+    const projectTitle = document.getElementById("project-title");
+    const projectGoal = document.getElementById("project-goal");
+    const wireLayer = document.getElementById("wire-layer");
+    const componentLayer = document.getElementById("component-layer");
+    const sensorControls = document.getElementById("sensor-controls");
+    const wiringFeedback = document.getElementById("wiring-feedback");
+    const codeEditor = document.getElementById("code-editor");
+    const serialMonitor = document.getElementById("serial-monitor");
+    const runState = document.getElementById("run-state");
+    const miniLed = document.getElementById("mini-led");
+    const ledLabel = document.getElementById("led-label");
+    const arduinoCheck = document.getElementById("arduino-check");
+    const boardPins = document.getElementById("board-pins");
+    const boardHoles = document.getElementById("board-holes");
+    const virtualPartSelect = document.getElementById("virtual-part-select");
+    const addVirtualPartButton = document.getElementById("add-virtual-part");
+    const clearVirtualPartsButton = document.getElementById("clear-virtual-parts");
+    const loadPartCodeButton = document.getElementById("load-part-code");
+    const virtualPartsGrid = document.getElementById("virtual-parts-grid");
+    const virtualComponentLayer = document.getElementById("virtual-component-layer");
+
+    const virtualParts = {
+      rgb: {
+        name: "RGB LED",
+        type: "Output",
+        pins: "R -> D9, G -> D10, B -> D11, common -> GND",
+        use: "Mix red, green, and blue light with PWM pins.",
+        output: "RGB LED fades through red, green, and blue.",
+        code: `int redPin = 9;
+int greenPin = 10;
+int bluePin = 11;
+
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+  analogWrite(redPin, 255);
+  analogWrite(greenPin, 40);
+  analogWrite(bluePin, 0);
+  delay(600);
+
+  analogWrite(redPin, 0);
+  analogWrite(greenPin, 180);
+  analogWrite(bluePin, 255);
+  delay(600);
+}`
+      },
+      buzzer: {
+        name: "Piezo Buzzer",
+        type: "Output",
+        pins: "+ -> D8, - -> GND",
+        use: "Create beeps for alarms, games, and feedback.",
+        output: "Buzzer plays short classroom-safe beeps.",
+        code: `int buzzerPin = 8;
+
+void setup() {
+  pinMode(buzzerPin, OUTPUT);
+}
+
+void loop() {
+  tone(buzzerPin, 440);
+  delay(250);
+  noTone(buzzerPin);
+  delay(500);
+}`
+      },
+      servo: {
+        name: "Servo Motor",
+        type: "Motor",
+        pins: "Signal -> D9, red -> 5V, brown -> GND",
+        use: "Move an arm or pointer to a controlled angle.",
+        output: "Servo sweeps from 0 degrees to 180 degrees.",
+        code: `#include <Servo.h>
+
+Servo arm;
+
+void setup() {
+  arm.attach(9);
+}
+
+void loop() {
+  arm.write(0);
+  delay(700);
+  arm.write(90);
+  delay(700);
+  arm.write(180);
+  delay(700);
+}`
+      },
+      potentiometer: {
+        name: "Potentiometer",
+        type: "Analog input",
+        pins: "Left -> 5V, middle -> A0, right -> GND",
+        use: "Turn a knob to control brightness, speed, or volume.",
+        output: "Analog value changes between 0 and 1023.",
+        code: `int knobPin = A0;
+int ledPin = 9;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int knob = analogRead(knobPin);
+  int brightness = map(knob, 0, 1023, 0, 255);
+  analogWrite(ledPin, brightness);
+  Serial.println(knob);
+  delay(100);
+}`
+      },
+      dht: {
+        name: "DHT22 Sensor",
+        type: "Digital sensor",
+        pins: "VCC -> 5V, data -> D2, GND -> GND",
+        use: "Read room temperature and humidity.",
+        output: "Temperature: 23 C, Humidity: 48%",
+        code: `int dhtPin = 2;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Temperature: 23 C");
+  Serial.println("Humidity: 48%");
+  delay(1000);
+}`
+      },
+      pir: {
+        name: "PIR Motion Sensor",
+        type: "Digital sensor",
+        pins: "VCC -> 5V, OUT -> D3, GND -> GND",
+        use: "Detect movement for alarms and automatic lights.",
+        output: "Motion detected: LED warning on.",
+        code: `int pirPin = 3;
+int ledPin = 13;
+
+void setup() {
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int motion = digitalRead(pirPin);
+  digitalWrite(ledPin, motion);
+  Serial.println(motion == HIGH ? "Motion" : "Still");
+}`
+      },
+      lcd: {
+        name: "I2C LCD Display",
+        type: "Display",
+        pins: "VCC -> 5V, GND -> GND, SDA -> A4, SCL -> A5",
+        use: "Show sensor readings without using the serial monitor.",
+        output: "LCD shows: Hello Steve / Arduino Lab",
+        code: `void setup() {
+  Serial.begin(9600);
+  Serial.println("LCD: Hello Steve");
+  Serial.println("LCD: Arduino Lab");
+}
+
+void loop() {
+}`
+      },
+      neopixel: {
+        name: "NeoPixel Strip",
+        type: "Output",
+        pins: "DIN -> D6, 5V -> 5V, GND -> GND",
+        use: "Create programmable color patterns with one data wire.",
+        output: "Eight virtual pixels chase across the strip.",
+        code: `int neoPixelPin = 6;
+
+void setup() {
+  pinMode(neoPixelPin, OUTPUT);
+}
+
+void loop() {
+  // In a real project, use the Adafruit NeoPixel library.
+  digitalWrite(neoPixelPin, HIGH);
+  delay(120);
+  digitalWrite(neoPixelPin, LOW);
+  delay(120);
+}`
+      }
+    };
+
+    let activeProjectKey = "blink";
+    let simTimer;
+    let activeVirtualParts = ["rgb", "servo"];
+    let sensorValue = projects.blink.sensorValue;
+    let ledOn = false;
+
+    function escapeText(value) {
+      const div = document.createElement("div");
+      div.textContent = value;
+      return div.innerHTML;
+    }
+
+
+    function renderVirtualPartSelector() {
+      virtualPartSelect.innerHTML = Object.entries(virtualParts).map(([key, part]) => `
+        <option value="${key}">${escapeText(part.name)} - ${escapeText(part.type)}</option>
+      `).join("");
+    }
+
+    function renderVirtualWorkbench() {
+      if (!activeVirtualParts.length) {
+        virtualPartsGrid.innerHTML = '<div class="empty-bench">No extra parts on the bench yet.</div>';
+        virtualComponentLayer.innerHTML = "";
+        return;
+      }
+
+      virtualPartsGrid.innerHTML = activeVirtualParts.map((key) => {
+        const part = virtualParts[key];
+        return `
+          <article class="virtual-part-card">
+            <div>
+              <strong>${escapeText(part.name)}</strong>
+              <span>${escapeText(part.type)}</span>
+            </div>
+            <p>${escapeText(part.use)}</p>
+            <dl>
+              <dt>Pins</dt>
+              <dd>${escapeText(part.pins)}</dd>
+            </dl>
+            <button class="text-button remove-part" type="button" data-remove-part="${key}">Remove</button>
+          </article>
+        `;
+      }).join("");
+
+      virtualComponentLayer.innerHTML = activeVirtualParts.map((key, index) => {
+        const part = virtualParts[key];
+        const x = 535 + (index % 4) * 88;
+        const y = 454 + Math.floor(index / 4) * 42;
+        return `
+          <g class="bench-chip" transform="translate(${x} ${y})">
+            <rect width="78" height="34" rx="10"></rect>
+            <text x="39" y="22" text-anchor="middle">${escapeText(part.name.split(" ")[0])}</text>
+          </g>
+        `;
+      }).join("");
+    }
+
+    function addVirtualPart() {
+      const key = virtualPartSelect.value;
+      if (!activeVirtualParts.includes(key)) {
+        activeVirtualParts.push(key);
+      }
+      renderVirtualWorkbench();
+      serialMonitor.textContent = `${virtualParts[key].name} added to the virtual bench. Click Load Part Code to practice with it.`;
+    }
+
+    function loadSelectedPartCode() {
+      const key = virtualPartSelect.value || activeVirtualParts[activeVirtualParts.length - 1];
+      const part = virtualParts[key];
+      if (!part) return;
+      stopSimulation(false);
+      codeEditor.value = part.code;
+      serialMonitor.textContent = `${part.name} starter code loaded. Pin guide: ${part.pins}`;
+      updateArduinoCheck();
+    }
+
+    function virtualOutputLines() {
+      if (!activeVirtualParts.length) return "";
+      return "\n\nVirtual Parts Bench\n" + activeVirtualParts.map((key) => {
+        const part = virtualParts[key];
+        return `${part.name}: ${part.output}`;
+      }).join("\n");
+    }
+
+    function drawStaticPins() {
+      const digitalPins = ["13", "12", "11", "10", "9", "2"];
+      const analogPins = ["A0", "5V", "GND"];
+      boardPins.innerHTML = digitalPins.map((pin, index) => `
+        <g>
+          <circle class="pin-dot" cx="330" cy="${172 + index * 20}" r="8"></circle>
+          <text class="tiny-label" x="292" y="${178 + index * 20}">${pin}</text>
+        </g>
+      `).join("") + analogPins.map((pin, index) => `
+        <g>
+          <circle class="pin-dot" cx="330" cy="${334 + index * 25}" r="8"></circle>
+          <text class="tiny-label" x="288" y="${340 + index * 25}">${pin}</text>
+        </g>
+      `).join("");
+
+      const holes = [];
+      for (let row = 0; row < 7; row++) {
+        for (let col = 0; col < 11; col++) {
+          holes.push(`<circle class="hole" cx="${548 + col * 30}" cy="${196 + row * 22}" r="4"></circle>`);
+        }
+      }
+      boardHoles.innerHTML = holes.join("");
+    }
+
+    function setLed(on, brightness = 1) {
+      ledOn = on;
+      miniLed.classList.toggle("is-on", on);
+      miniLed.style.opacity = on ? Math.max(0.35, brightness) : 0.35;
+      ledLabel.textContent = on ? "LED is on" : "LED is off";
+      const bulb = document.getElementById("main-led-bulb");
+      if (bulb) {
+        bulb.classList.toggle("is-on", on);
+        bulb.style.opacity = on ? Math.max(0.45, brightness) : 0.55;
+      }
+    }
+
+    function componentMarkup(type) {
+      const led = `
+        <g class="sim-led" transform="translate(650 150)">
+          <circle id="main-led-bulb" class="led-bulb" cx="38" cy="38" r="35"></circle>
+          <line x1="18" y1="82" x2="18" y2="132" class="component-leg"></line>
+          <line x1="58" y1="82" x2="58" y2="132" class="component-leg"></line>
+          <text x="38" y="152" text-anchor="middle" class="component-label">LED</text>
+        </g>
+        <polyline class="resistor" points="590,182 604,170 618,194 632,170 646,194 660,182"></polyline>`;
+
+      if (type === "button") {
+        return led + `
+          <g class="pushbutton-part" transform="translate(622 256)">
+            <rect x="0" y="0" width="100" height="58" rx="13"></rect>
+            <circle cx="50" cy="29" r="18" class="button-cap ${sensorValue > 0 ? "pressed" : ""}"></circle>
+            <text x="50" y="86" text-anchor="middle" class="component-label">Button</text>
+          </g>`;
+      }
+
+      if (type === "light") {
+        return led + `
+          <g class="sensor-part" transform="translate(640 246)">
+            <circle cx="45" cy="35" r="30" class="photo-sensor"></circle>
+            <path d="M18 8 L6 -8 M45 2 L45 -18 M72 8 L84 -8" class="light-rays"></path>
+            <text x="45" y="88" text-anchor="middle" class="component-label">Photoresistor</text>
+          </g>`;
+      }
+
+      if (type === "temperature") {
+        return `
+          <g class="sensor-part" transform="translate(632 206)">
+            <rect x="0" y="0" width="130" height="88" rx="18"></rect>
+            <circle cx="38" cy="44" r="16" class="temp-dot"></circle>
+            <text x="78" y="40" class="component-label">TMP36</text>
+            <text x="78" y="62" class="tiny-label">${sensorValue} C</text>
+          </g>`;
+      }
+
+      if (type === "distance") {
+        return led + `
+          <g class="sensor-part ultrasonic" transform="translate(610 230)">
+            <rect x="0" y="0" width="170" height="78" rx="16"></rect>
+            <circle cx="48" cy="39" r="23"></circle>
+            <circle cx="122" cy="39" r="23"></circle>
+            <text x="85" y="102" text-anchor="middle" class="component-label">HC-SR04</text>
+          </g>`;
+      }
+
+      return led;
+    }
+
+    function renderProjectButtons() {
+      projectList.innerHTML = Object.entries(projects).map(([key, project]) => `
+        <button class="project-button ${key === activeProjectKey ? "active" : ""}" type="button" data-project="${key}">
+          <strong>${escapeText(project.title)}</strong>
+          <span>${escapeText(project.goal)}</span>
+        </button>
+      `).join("");
+    }
+
+    function renderProject() {
+      const project = projects[activeProjectKey];
+      stopSimulation();
+      sensorValue = project.sensorValue;
+      projectTitle.textContent = project.title;
+      projectGoal.textContent = project.goal;
+      codeEditor.value = project.code;
+      partsBin.innerHTML = project.parts.map((part) => `<div class="part-chip">${escapeText(part)}</div>`).join("");
+      wireLayer.innerHTML = project.wires.map((wire) => `
+        <polyline class="dupont-wire ${wire.color}" points="${wire.points}"></polyline>
+        <circle class="wire-end ${wire.color}" cx="${wire.points.split(" ")[0].split(",")[0]}" cy="${wire.points.split(" ")[0].split(",")[1]}" r="7"></circle>
+      `).join("");
+      componentLayer.innerHTML = componentMarkup(project.component);
+      wiringFeedback.innerHTML = `<h3>Wiring Check</h3><ul>${project.feedback.map((item) => `<li>${escapeText(item)}</li>`).join("")}</ul>`;
+      renderSensorControls();
+      renderProjectButtons();
+      serialMonitor.textContent = "Serial monitor ready. Click Run Simulation.";
+      updateArduinoCheck();
+      setLed(false);
+    }
+
+    function renderSensorControls() {
+      const project = projects[activeProjectKey];
+      if (project.sensorMin === 0 && project.sensorMax === 1) {
+        sensorControls.innerHTML = `
+          <label class="toggle-control">
+            <input id="sensor-input" type="checkbox" ${sensorValue ? "checked" : ""}>
+            <span>Press virtual button</span>
+          </label>`;
+      } else {
+        sensorControls.innerHTML = `
+          <label>
+            ${escapeText(project.sensorLabel)}: <strong id="sensor-value">${sensorValue} ${project.sensorUnit}</strong>
+            <input id="sensor-input" type="range" min="${project.sensorMin}" max="${project.sensorMax}" value="${sensorValue}">
+          </label>`;
+      }
+
+      document.getElementById("sensor-input").addEventListener("input", (event) => {
+        sensorValue = event.target.type === "checkbox" ? (event.target.checked ? 1 : 0) : Number(event.target.value);
+        const valueLabel = document.getElementById("sensor-value");
+        if (valueLabel) valueLabel.textContent = `${sensorValue} ${project.sensorUnit}`;
+        componentLayer.innerHTML = componentMarkup(project.component);
+        if (runState.textContent === "Running") updateSensorSimulation();
+      });
+    }
+
+    function parseDelay(code, fallback) {
+      const matches = [...code.matchAll(/delay\s*\(\s*(\d+)\s*\)/g)].map((match) => Number(match[1]));
+      return matches.length ? Math.max(80, Math.min(2000, matches[0])) : fallback;
+    }
+
+    function codeCheckLines() {
+      const project = projects[activeProjectKey];
+      const code = codeEditor.value;
+      const missing = (project.checks || []).filter((token) => !code.includes(token));
+      if (!missing.length) {
+        return "Arduino check: sketch includes the expected pins/functions for this circuit.";
+      }
+      return `Arduino check: review ${missing.join(", ")} before uploading to a real board.`;
+    }
+
+    function updateArduinoCheck() {
+      arduinoCheck.textContent = codeCheckLines();
+    }
+
+    function monitorText(lines) {
+      return [`Serial Monitor`, ...lines, virtualOutputLines(), codeCheckLines()].filter(Boolean).join("\n");
+    }
+
+    function updateSensorSimulation() {
+      const key = activeProjectKey;
+      if (key === "button") {
+        setLed(sensorValue === 1);
+        serialMonitor.textContent = monitorText([`buttonState = ${sensorValue ? "HIGH" : "LOW"}`]);
+      } else if (key === "light") {
+        const threshold = 450;
+        const isDark = sensorValue < threshold;
+        setLed(isDark, isDark ? 1 - sensorValue / 1200 : 0.35);
+        serialMonitor.textContent = monitorText([`lightValue = ${sensorValue}`, isDark ? "Dark room: LED warning on" : "Bright room: LED off"]);
+      } else if (key === "temperature") {
+        const raw = Math.round(((sensorValue / 100) + 0.5) / 5 * 1023);
+        serialMonitor.textContent = monitorText([`analogRead(A0) = ${raw}`, `Temperature: ${sensorValue} C`]);
+        setLed(sensorValue >= 30);
+      } else if (key === "distance") {
+        const close = sensorValue < 30;
+        setLed(close);
+        serialMonitor.textContent = monitorText([`distance = ${sensorValue} cm`, close ? "Object close: warning LED on" : "Object far enough: LED off"]);
+      }
+      updateArduinoCheck();
+    }
+
+    function runSimulation() {
+      stopSimulation(false);
+      const code = codeEditor.value;
+      runState.textContent = "Running";
+      runState.classList.add("running");
+      serialMonitor.textContent = "Serial Monitor\nSketch uploaded successfully.";
+
+      if (activeProjectKey === "blink") {
+        const delayTime = parseDelay(code, sensorValue || 500);
+        serialMonitor.textContent = monitorText([`Blinking D13 every ${delayTime} ms.`]);
+        setLed(true);
+        simTimer = window.setInterval(() => setLed(!ledOn), delayTime);
+      } else {
+        updateSensorSimulation();
+        simTimer = window.setInterval(updateSensorSimulation, 800);
+      }
+
+      updateArduinoCheck();
+    }
+
+    function stopSimulation(resetOutput = true) {
+      if (simTimer) window.clearInterval(simTimer);
+      simTimer = undefined;
+      runState.textContent = "Stopped";
+      runState.classList.remove("running");
+      setLed(false);
+      if (resetOutput) {
+        serialMonitor.textContent = "Serial monitor ready. Click Run Simulation.";
+        updateArduinoCheck();
+      }
+    }
+
+    function downloadSketch() {
+      const sketch = new Blob([codeEditor.value], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(sketch);
+      link.download = `${activeProjectKey}_arduino_sim.ino`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+      serialMonitor.textContent = "Sketch downloaded as an Arduino .ino file.";
+    }
+
+    drawStaticPins();
+    renderVirtualPartSelector();
+    renderProject();
+    renderVirtualWorkbench();
+
+    projectList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-project]");
+      if (!button) return;
+      activeProjectKey = button.dataset.project;
+      renderProject();
+    });
+
+    addVirtualPartButton.addEventListener("click", addVirtualPart);
+    clearVirtualPartsButton.addEventListener("click", () => {
+      activeVirtualParts = [];
+      renderVirtualWorkbench();
+      serialMonitor.textContent = "Virtual bench cleared.";
+    });
+    loadPartCodeButton.addEventListener("click", loadSelectedPartCode);
+    virtualPartsGrid.addEventListener("click", (event) => {
+      const key = event.target.dataset.removePart;
+      if (!key) return;
+      activeVirtualParts = activeVirtualParts.filter((partKey) => partKey !== key);
+      renderVirtualWorkbench();
+    });
+
+    codeEditor.addEventListener("input", updateArduinoCheck);
+    document.getElementById("download-code").addEventListener("click", downloadSketch);
+    document.getElementById("run-sim").addEventListener("click", runSimulation);
+    document.getElementById("stop-sim").addEventListener("click", () => stopSimulation());
+    document.getElementById("reset-code").addEventListener("click", () => {
+      codeEditor.value = projects[activeProjectKey].code;
+      updateArduinoCheck();
+      serialMonitor.textContent = monitorText(["Starter code restored."]);
+    });
+  </script>
+</body>
+</html>

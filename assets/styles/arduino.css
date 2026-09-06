@@ -328,3 +328,680 @@ footer span {
     padding: 24px;
   }
 }
+
+
+.arduino-sim-hero {
+  background:
+    radial-gradient(circle at 80% 16%, rgba(217, 178, 95, 0.18), transparent 28%),
+    linear-gradient(135deg, #fffaf0 0%, #f8f3e8 44%, #dfeff4 100%);
+}
+
+.simulator-page {
+  max-width: 1440px;
+}
+
+.sim-shell {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(520px, 1fr) minmax(320px, 410px);
+  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 32px;
+}
+
+.parts-panel,
+.circuit-panel,
+.code-panel {
+  background: #ffffff;
+  border: 1px solid rgba(16, 42, 67, 0.08);
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(16, 42, 67, 0.08);
+  padding: 22px;
+}
+
+.parts-panel h2,
+.circuit-panel h2,
+.code-panel h2 {
+  color: #102a43;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.parts-panel p,
+.code-panel p,
+.circuit-panel p {
+  color: #2d3d4d;
+  font-size: 16px;
+}
+
+.project-list,
+.parts-bin,
+.wire-key,
+.sensor-controls,
+.wiring-feedback {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.project-button {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 14px;
+  color: #102a43;
+  cursor: pointer;
+  display: grid;
+  font-family: Georgia, "Times New Roman", serif;
+  gap: 4px;
+  padding: 13px;
+  text-align: left;
+  transition: 0.2s ease;
+}
+
+.project-button:hover,
+.project-button.active {
+  background: #e8f3f8;
+  border-color: #0b4f71;
+  transform: translateY(-1px);
+}
+
+.project-button span {
+  color: #4f5d75;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.part-chip {
+  background: #08233d;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 12px;
+}
+
+.wire-key {
+  background: #f8f3e8;
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.wire-key h3,
+.wiring-feedback h3,
+.simulation-result h3 {
+  color: #102a43;
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+
+.wire-key span {
+  align-items: center;
+  color: #2d3d4d;
+  display: flex;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.wire-dot {
+  border-radius: 50%;
+  display: inline-block;
+  height: 13px;
+  width: 13px;
+}
+
+.wire-dot.red { background: #d84735; }
+.wire-dot.black { background: #293241; }
+.wire-dot.yellow { background: #e0a800; }
+.wire-dot.blue { background: #277da1; }
+
+.sim-toolbar,
+.code-panel-header {
+  align-items: start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+.status-pill {
+  background: #f8f3e8;
+  border: 1px solid #e5dac7;
+  border-radius: 999px;
+  color: #4f5d75;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.status-pill.running {
+  background: #dff3e5;
+  border-color: #5fa878;
+  color: #17472a;
+}
+
+.sim-workbench {
+  background: #f8f3e8;
+  border: 1px solid #e5dac7;
+  border-radius: 18px;
+  margin-top: 18px;
+  overflow: auto;
+  padding: 12px;
+}
+
+.circuit-svg {
+  display: block;
+  min-width: 780px;
+  width: 100%;
+}
+
+.mat {
+  fill: #fffdf8;
+  stroke: #e5dac7;
+  stroke-width: 2;
+}
+
+.arduino-board rect:first-child {
+  fill: #0b4f71;
+}
+
+.arduino-board rect:nth-child(2),
+.arduino-board rect:nth-child(3) {
+  fill: #dfeff4;
+}
+
+.arduino-board text,
+.breadboard text {
+  fill: #08233d;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.arduino-board > text {
+  fill: #ffffff;
+}
+
+.tiny-label {
+  fill: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pin-dot {
+  fill: #d9b25f;
+  stroke: #fffaf0;
+  stroke-width: 2;
+}
+
+.power-led {
+  fill: #52b788;
+  filter: drop-shadow(0 0 7px rgba(82, 183, 136, 0.75));
+}
+
+.breadboard rect:first-child {
+  fill: #ffffff;
+  stroke: #d9b25f;
+  stroke-width: 4;
+}
+
+.breadboard rect:nth-child(2),
+.breadboard rect:nth-child(3) {
+  fill: #fff3d8;
+}
+
+.rail-line {
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.red-rail { stroke: #d84735; }
+.black-rail { stroke: #293241; }
+
+.hole {
+  fill: #b7cfdd;
+}
+
+.dupont-wire {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 8;
+  filter: drop-shadow(0 3px 2px rgba(16, 42, 67, 0.18));
+}
+
+.dupont-wire.red { stroke: #d84735; }
+.dupont-wire.black { stroke: #293241; }
+.dupont-wire.yellow { stroke: #e0a800; }
+.dupont-wire.blue { stroke: #277da1; }
+
+.wire-end.red { fill: #d84735; }
+.wire-end.black { fill: #293241; }
+.wire-end.yellow { fill: #e0a800; }
+.wire-end.blue { fill: #277da1; }
+
+.led-bulb {
+  fill: #cfd8dc;
+  stroke: #7d8793;
+  stroke-width: 5;
+  transition: 0.2s ease;
+}
+
+.led-bulb.is-on {
+  fill: #ff4d4d;
+  stroke: #9f2727;
+  filter: drop-shadow(0 0 18px rgba(255, 77, 77, 0.85));
+}
+
+.component-leg {
+  stroke: #4f5d75;
+  stroke-linecap: round;
+  stroke-width: 7;
+}
+
+.component-label {
+  fill: #102a43;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.resistor {
+  fill: none;
+  stroke: #725129;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 7;
+}
+
+.pushbutton-part rect,
+.sensor-part rect {
+  fill: #e8f3f8;
+  stroke: #0b4f71;
+  stroke-width: 4;
+}
+
+.button-cap {
+  fill: #d9b25f;
+  stroke: #725129;
+  stroke-width: 4;
+}
+
+.button-cap.pressed {
+  fill: #52b788;
+  transform: translateY(5px);
+}
+
+.photo-sensor {
+  fill: #f6c453;
+  stroke: #725129;
+  stroke-width: 4;
+}
+
+.light-rays {
+  fill: none;
+  stroke: #d9b25f;
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.temp-dot {
+  fill: #ff6b6b;
+}
+
+.ultrasonic circle {
+  fill: #dfeff4;
+  stroke: #102a43;
+  stroke-width: 4;
+}
+
+.sensor-controls label {
+  color: #102a43;
+  display: grid;
+  font-size: 17px;
+  gap: 8px;
+}
+
+.sensor-controls input[type="range"] {
+  accent-color: #0b4f71;
+  width: 100%;
+}
+
+.toggle-control {
+  align-items: center;
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 14px;
+  display: flex !important;
+  padding: 14px;
+}
+
+.toggle-control input {
+  accent-color: #0b4f71;
+  height: 22px;
+  width: 22px;
+}
+
+.wiring-feedback {
+  background: #fffaf0;
+  border-left: 5px solid #d9b25f;
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.wiring-feedback ul {
+  margin-left: 20px;
+}
+
+.wiring-feedback li {
+  color: #2d3d4d;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.code-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#code-editor {
+  background: #071f36;
+  border: 1px solid rgba(217, 178, 95, 0.42);
+  border-radius: 18px;
+  color: #f7fbff;
+  flex: 1;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  min-height: 420px;
+  padding: 18px;
+  resize: vertical;
+}
+
+.sim-buttons {
+  margin-top: 0;
+}
+
+.simulation-result {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.led-readout {
+  align-items: center;
+  color: #102a43;
+  display: flex;
+  font-weight: 800;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.mini-led {
+  background: #cfd8dc;
+  border: 3px solid #7d8793;
+  border-radius: 50%;
+  display: inline-block;
+  height: 22px;
+  transition: 0.2s ease;
+  width: 22px;
+}
+
+.mini-led.is-on {
+  background: #ff4d4d;
+  border-color: #9f2727;
+  box-shadow: 0 0 16px rgba(255, 77, 77, 0.75);
+}
+
+.serial-monitor {
+  background: #102a43;
+  border-radius: 12px;
+  color: #dff3e5;
+  font-family: Menlo, Consolas, Monaco, monospace;
+  font-size: 14px;
+  min-height: 112px;
+  padding: 14px;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 1180px) {
+  .sim-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .code-panel {
+    min-height: auto;
+  }
+
+  #code-editor {
+    min-height: 340px;
+  }
+}
+
+@media (max-width: 700px) {
+  .parts-panel,
+  .circuit-panel,
+  .code-panel {
+    padding: 18px;
+  }
+
+  .sim-toolbar,
+  .code-panel-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .circuit-svg {
+    min-width: 720px;
+  }
+}
+
+
+.virtual-shelf {
+  background: #e8f3f8;
+  border: 1px solid #b7cfdd;
+  border-radius: 16px;
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 14px;
+}
+
+.virtual-shelf h3 {
+  color: #102a43;
+  font-size: 18px;
+  margin: 0;
+}
+
+.virtual-shelf label {
+  color: #102a43;
+  display: grid;
+  font-size: 15px;
+  font-weight: 800;
+  gap: 6px;
+}
+
+.virtual-shelf select {
+  background: #ffffff;
+  border: 1px solid #b7cfdd;
+  border-radius: 12px;
+  color: #102a43;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.compact-row {
+  gap: 8px;
+  margin-top: 0;
+}
+
+.compact-row .button {
+  border: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  padding: 9px 12px;
+}
+
+.virtual-bench {
+  background: #ffffff;
+  border: 1px solid #e5dac7;
+  border-radius: 18px;
+  margin-top: 18px;
+  padding: 18px;
+}
+
+.virtual-bench-header {
+  align-items: start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.virtual-bench-header h3 {
+  color: #102a43;
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+
+.virtual-bench-header p {
+  margin: 0;
+}
+
+.virtual-parts-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  margin-top: 16px;
+}
+
+.virtual-part-card,
+.empty-bench {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-left: 5px solid #d9b25f;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.virtual-part-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.virtual-part-card strong {
+  color: #102a43;
+  font-size: 17px;
+}
+
+.virtual-part-card span,
+.virtual-part-card p,
+.virtual-part-card dd,
+.empty-bench {
+  color: #2d3d4d;
+  font-size: 14px;
+}
+
+.virtual-part-card p {
+  margin: 8px 0;
+}
+
+.virtual-part-card dl {
+  margin: 0;
+}
+
+.virtual-part-card dt {
+  color: #102a43;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.virtual-part-card dd {
+  margin: 2px 0 10px;
+}
+
+.text-button.remove-part {
+  background: transparent;
+  border: 0;
+  color: #0b4f71;
+  cursor: pointer;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 0;
+}
+
+.bench-chip rect {
+  fill: #102a43;
+  stroke: #d9b25f;
+  stroke-width: 2;
+}
+
+.bench-chip text {
+  fill: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 700px) {
+  .virtual-bench-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+
+.uno-reference {
+  background: #fffaf0;
+  border: 1px solid #e5dac7;
+  border-radius: 16px;
+  margin-top: 18px;
+  padding: 14px;
+}
+
+.uno-reference h3 {
+  color: #102a43;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.pin-reference-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pin-reference-grid span {
+  background: #ffffff;
+  border: 1px solid #e5dac7;
+  border-radius: 999px;
+  color: #102a43;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.code-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.code-tools .button {
+  border: 0;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.arduino-check {
+  background: #e8f3f8;
+  border-left: 5px solid #0b4f71;
+  border-radius: 12px;
+  color: #102a43;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 12px;
+  padding: 12px 14px;
+}
