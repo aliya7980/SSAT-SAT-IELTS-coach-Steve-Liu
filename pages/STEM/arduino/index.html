@@ -23,24 +23,22 @@
     <div>
       <h1>Arduino Basics</h1>
       <p>
-        A beginner-friendly maker corner for learning electronics, coding, and hands-on problem solving.
-        Students start with simple parts, write short programs, and see their ideas become physical actions.
+        A beginner-friendly electronics lab for learning wiring, coding, sensors, and real-world problem solving.
+        Students learn how power moves through a circuit and how code turns inputs into outputs.
       </p>
       <div class="button-row">
         <a class="button" href="led-basics.html">Start With LEDs</a>
-        <a class="button" href="simulator.html">Open Circuit Simulator</a>
         <a class="button secondary" href="../../stem.html">Back to STEM</a>
-        <a class="button secondary" href="https://youtube.com/shorts/zl72vvDt1mQ?si=A8XeH08CeqExhdlP" target="_blank" rel="noopener noreferrer">Watch Arduino in Action</a>
       </div>
     </div>
 
     <div class="hero-panel">
-      <h2>What Students Learn</h2>
+      <h2>Big Idea</h2>
       <ul>
-        <li>How a microcontroller follows instructions.</li>
-        <li>How pins send and receive electrical signals.</li>
-        <li>How simple circuits use power, ground, and resistance.</li>
-        <li>How code can control lights, sensors, motors, and sounds.</li>
+        <li>Inputs give Arduino information.</li>
+        <li>Logic helps Arduino make a decision.</li>
+        <li>Outputs let Arduino do something in the physical world.</li>
+        <li>Most beginner projects are INPUT → LOGIC → OUTPUT.</li>
       </ul>
     </div>
   </section>
@@ -49,64 +47,228 @@
     <section class="intro">
       <h2>What Is Arduino?</h2>
       <p>
-        Arduino is a small programmable board. You connect electronic parts to it, write code on a computer,
-        upload the code, and the board follows your instructions. It is one of the easiest ways to begin
-        learning physical computing.
+        Arduino is a small programmable board. You connect electronic parts to its pins, write code on a computer,
+        upload the code through USB, and the board follows your instructions.
       </p>
       <p>
-        In a normal coding lesson, students see results on a screen. In Arduino lessons, they can see a light
-        blink, a sensor react, or a motor move. That makes coding more concrete and memorable.
+        In a normal coding lesson, students see results on a screen. In Arduino lessons, they see a light blink,
+        a sensor react, a buzzer beep, or a motor move. That makes coding easier to understand because the result is physical.
       </p>
     </section>
 
     <section class="card">
-      <h2>Core Ideas</h2>
+      <h2>Basic Wiring Knowledge</h2>
       <div class="topic-grid">
         <div class="topic-card">
-          <h3>Board</h3>
-          <p>The Arduino board is the small computer. It has numbered pins, power pins, and a USB port.</p>
+          <h3>Power</h3>
+          <p>Power usually comes from the Arduino 5V pin or 3.3V pin. Many beginner parts need 5V, but some sensors require 3.3V.</p>
         </div>
-
         <div class="topic-card">
-          <h3>Circuit</h3>
-          <p>A circuit is a path for electricity. A complete path lets current move from power to ground.</p>
+          <h3>Ground</h3>
+          <p>GND completes the circuit. If a project has no common ground, the code may be correct but the part still will not work.</p>
         </div>
-
         <div class="topic-card">
-          <h3>Input</h3>
-          <p>Inputs collect information. Buttons, light sensors, and temperature sensors are common inputs.</p>
+          <h3>Signal</h3>
+          <p>Signal wires carry information. A button may send HIGH or LOW. A sensor may send a changing value to an analog pin.</p>
         </div>
-
         <div class="topic-card">
-          <h3>Output</h3>
-          <p>Outputs do something. LEDs, buzzers, screens, and motors are common outputs.</p>
+          <h3>Breadboard</h3>
+          <p>A breadboard lets students connect parts without soldering. Holes in the same connected row share electricity.</p>
         </div>
-
         <div class="topic-card">
-          <h3>Code</h3>
-          <p>Code tells the board what to do first, what to repeat, and how long to wait.</p>
+          <h3>Resistors</h3>
+          <p>Resistors limit current. LEDs usually need a resistor, such as 220 ohms, so the LED and Arduino pin are protected.</p>
         </div>
-
         <div class="topic-card">
-          <h3>Debugging</h3>
-          <p>Debugging means checking wiring and code step by step when the project does not work yet.</p>
+          <h3>Dupont Wires</h3>
+          <p>Use jumper wires to connect Arduino pins to the breadboard. A helpful habit is red for power, black for ground, and yellow or blue for signal.</p>
         </div>
+      </div>
+
+      <div class="note">
+        Wiring habit: always trace the path out loud. Power goes to the part, the signal pin controls or reads the part, and ground completes the path.
       </div>
     </section>
 
     <section class="card">
-      <h2>Beginner Learning Path</h2>
+      <h2>LED Wiring Example</h2>
+      <p>An LED has two legs. The longer leg is usually positive. The shorter leg goes to ground. A resistor should be placed in series with the LED.</p>
+      <div class="wiring-map">
+        <svg viewBox="0 0 900 300" role="img" aria-label="Arduino LED wiring example">
+          <rect x="35" y="45" width="260" height="190" rx="22" fill="#0b7285"></rect>
+          <text x="165" y="135" fill="white" text-anchor="middle" font-size="28" font-family="Georgia">Arduino Uno</text>
+          <circle cx="274" cy="92" r="9" fill="#111827"></circle>
+          <text x="238" y="97" fill="white" font-size="15">D8</text>
+          <circle cx="274" cy="198" r="9" fill="#111827"></circle>
+          <text x="232" y="203" fill="white" font-size="15">GND</text>
+          <rect x="485" y="54" width="330" height="190" rx="18" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"></rect>
+          <text x="650" y="268" fill="#102a43" text-anchor="middle" font-size="20" font-family="Georgia">Breadboard</text>
+          <polyline points="274,92 390,92 450,120 520,120" fill="none" stroke="#e03131" stroke-width="8" stroke-linecap="round"></polyline>
+          <rect x="520" y="105" width="90" height="30" rx="15" fill="#fde68a" stroke="#92400e" stroke-width="3"></rect>
+          <text x="565" y="126" text-anchor="middle" fill="#102a43" font-size="14">220Ω</text>
+          <polyline points="610,120 668,120" fill="none" stroke="#e03131" stroke-width="8" stroke-linecap="round"></polyline>
+          <circle cx="710" cy="120" r="34" fill="#fecaca" stroke="#b91c1c" stroke-width="4"></circle>
+          <text x="710" y="183" text-anchor="middle" fill="#102a43" font-size="18" font-family="Georgia">LED</text>
+          <polyline points="710,154 710,198 274,198" fill="none" stroke="#111827" stroke-width="8" stroke-linecap="round"></polyline>
+        </svg>
+      </div>
       <ol class="lesson-steps">
-        <li>Identify the board, USB cable, breadboard, jumper wires, resistors, and LEDs.</li>
-        <li>Build a simple LED circuit with a resistor.</li>
-        <li>Upload the first blink program.</li>
-        <li>Change the delay time to make the blink faster or slower.</li>
-        <li>Use variables and loops to create patterns.</li>
-        <li>Add buttons or sensors after the student understands output control.</li>
+        <li>Arduino D8 connects to a 220 ohm resistor.</li>
+        <li>The resistor connects to the long leg of the LED.</li>
+        <li>The short leg of the LED connects to GND.</li>
+        <li>The code sends HIGH to D8 to turn the LED on and LOW to turn it off.</li>
       </ol>
+    </section>
+
+    <section class="card">
+      <h2>Arduino Coding — Basic Knowledge Checklist</h2>
+      <div class="topic-grid">
+        <div class="topic-card"><h3>Program Structure</h3><p><code>setup()</code> runs once when Arduino starts. <code>loop()</code> runs again and again. Braces group code, and semicolons end commands.</p></div>
+        <div class="topic-card"><h3>Comments</h3><p>Use <code>//</code> for one comment line and <code>/* ... */</code> for multiple lines. Comments explain thinking without changing the program.</p></div>
+        <div class="topic-card"><h3>Variables</h3><p><code>int</code> stores whole numbers, <code>float</code> stores decimals, <code>bool</code> stores true or false, and <code>const</code> protects values that should not change.</p></div>
+        <div class="topic-card"><h3>Digital Pins</h3><p><code>pinMode()</code> sets a pin as <code>INPUT</code>, <code>OUTPUT</code>, or <code>INPUT_PULLUP</code>. <code>digitalWrite()</code> sends HIGH or LOW.</p></div>
+        <div class="topic-card"><h3>Analog Input</h3><p><code>analogRead(A0)</code> reads changing sensor values. On Arduino Uno, the value is usually from 0 to 1023.</p></div>
+        <div class="topic-card"><h3>PWM Output</h3><p><code>analogWrite()</code> creates analog-style output for LED brightness or motor speed. On Uno, PWM values are 0 to 255.</p></div>
+        <div class="topic-card"><h3>Operators</h3><p>Math uses <code>+ - * / %</code>. Comparisons use <code>== != &gt; &lt; &gt;= &lt;=</code>. Remember: <code>=</code> assigns, while <code>==</code> compares.</p></div>
+        <div class="topic-card"><h3>If Decisions</h3><p><code>if</code>, <code>else if</code>, and <code>else</code> let Arduino choose an action based on a sensor value or button state.</p></div>
+        <div class="topic-card"><h3>Loops</h3><p><code>for</code> and <code>while</code> repeat code. They are useful for LED patterns, counting, and repeated checks.</p></div>
+        <div class="topic-card"><h3>Functions</h3><p>Functions put repeated jobs into reusable pieces, such as <code>turnOnLight()</code> or <code>beepAlarm()</code>.</p></div>
+        <div class="topic-card"><h3>Timing</h3><p><code>delay(1000)</code> waits one second. Later, <code>millis()</code> helps Arduino keep time while still doing other work.</p></div>
+        <div class="topic-card"><h3>Serial Monitor</h3><p><code>Serial.begin()</code>, <code>Serial.print()</code>, and <code>Serial.println()</code> help students see what the board is reading.</p></div>
+        <div class="topic-card"><h3>Reading Sensors</h3><p>Digital sensors use <code>digitalRead()</code>. Analog sensors use <code>analogRead()</code>. Then students convert readings into decisions.</p></div>
+        <div class="topic-card"><h3>Libraries</h3><p><code>#include &lt;Servo.h&gt;</code> gives Arduino extra abilities for servo motors, LCD displays, ultrasonic sensors, LED matrices, and other modules.</p></div>
+        <div class="topic-card"><h3>Objects</h3><p>With libraries, students can think: Library → Object → Command. Example: <code>Servo gate;</code>, then <code>gate.write(90);</code>.</p></div>
+        <div class="topic-card"><h3>Mapping Values</h3><p><code>map()</code> converts one range into another, such as potentiometer 0-1023 into servo angle 0-180.</p></div>
+        <div class="topic-card"><h3>State</h3><p>Variables remember what is happening, such as <code>bool gateOpen = false;</code> or <code>int parkingSpaces = 4;</code>.</p></div>
+        <div class="topic-card"><h3>Debugging</h3><p>Check wiring, pin numbers, braces, semicolons, compiler messages, and <code>Serial.println()</code>. Test one component at a time.</p></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Concrete Coding Examples</h2>
+      <h3>1. Blink an LED</h3>
+      <p>This example uses a digital output pin. HIGH turns the LED on. LOW turns it off.</p>
+      <pre class="code-block"><code>const int LED = 8;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(LED, HIGH);
+  delay(1000);
+  digitalWrite(LED, LOW);
+  delay(1000);
+}</code></pre>
+
+      <h3>2. Button Controls an LED</h3>
+      <p>The button is an input. Arduino reads the button, makes an <code>if</code> decision, and controls the LED output.</p>
+      <pre class="code-block"><code>const int BUTTON = 2;
+const int LED = 8;
+
+void setup() {
+  pinMode(BUTTON, INPUT);
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int buttonState = digitalRead(BUTTON);
+  Serial.println(buttonState);
+
+  if (buttonState == HIGH) {
+    digitalWrite(LED, HIGH);
+  } else {
+    digitalWrite(LED, LOW);
+  }
+}</code></pre>
+
+      <h3>3. Light Sensor Turns on an LED</h3>
+      <p>A photoresistor gives an analog reading. Low numbers can mean the room is dark, so Arduino turns on the LED.</p>
+      <pre class="code-block"><code>const int LIGHT_SENSOR = A0;
+const int LED = 8;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int lightValue = analogRead(LIGHT_SENSOR);
+  Serial.println(lightValue);
+
+  if (lightValue &lt; 450) {
+    digitalWrite(LED, HIGH);
+  } else {
+    digitalWrite(LED, LOW);
+  }
+}</code></pre>
+
+      <h3>4. Potentiometer Controls LED Brightness</h3>
+      <p>The potentiometer reads 0-1023. <code>map()</code> changes that into a PWM brightness value from 0-255.</p>
+      <pre class="code-block"><code>const int KNOB = A0;
+const int LED = 5;
+
+void setup() {
+  pinMode(LED, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int knobValue = analogRead(KNOB);
+  int brightness = map(knobValue, 0, 1023, 0, 255);
+
+  analogWrite(LED, brightness);
+  Serial.println(brightness);
+  delay(50);
+}</code></pre>
+
+      <h3>5. Ultrasonic Sensor, Servo, LED, and Buzzer</h3>
+      <p>This parking-gate style example shows the full beginner pattern: sensor input, logic decision, and several outputs.</p>
+      <pre class="code-block"><code>#include &lt;Servo.h&gt;
+
+Servo gate;
+const int DISTANCE = A0;
+const int LED = 8;
+const int BUZZER = 9;
+
+void setup() {
+  gate.attach(10);
+  pinMode(LED, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int distanceValue = analogRead(DISTANCE);
+  Serial.println(distanceValue);
+
+  if (distanceValue &lt; 300) {
+    gate.write(90);
+    digitalWrite(LED, HIGH);
+    tone(BUZZER, 440);
+  } else {
+    gate.write(0);
+    digitalWrite(LED, LOW);
+    noTone(BUZZER);
+  }
+}</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Beginner Project Thinking</h2>
+      <div class="parts-list">
+        <div class="part"><strong>Parking gate:</strong><br>Ultrasonic sensor → <code>if</code> decision → servo + LED + buzzer + LCD</div>
+        <div class="part"><strong>Potentiometer project:</strong><br>Potentiometer → <code>analogRead()</code> + <code>map()</code> → servo</div>
+        <div class="part"><strong>Button project:</strong><br>Button → <code>digitalRead()</code> + <code>if</code> → LED</div>
+        <div class="part"><strong>Light alarm:</strong><br>Photoresistor → <code>analogRead()</code> + threshold → LED or buzzer</div>
+      </div>
+      <div class="note">
+        The most important sentence for students: Arduino projects become easier when you can name the input, the logic, and the output.
+      </div>
       <div class="button-row">
         <a class="button" href="led-basics.html">Open LED Lesson</a>
-        <a class="button secondary" href="simulator.html">Open Circuit Simulator</a>
+        <a class="button secondary" href="../../stem.html">Back to STEM</a>
       </div>
     </section>
   </main>
