@@ -81,19 +81,34 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 45px;
-      padding: 10px 17px;
-      border: 2px solid var(--blue);
-      border-radius: 10px;
+      min-height: 46px;
+      padding: 11px 19px;
+      border: 0;
+      border-radius: 14px;
       color: var(--white);
-      background: var(--blue);
+      background: linear-gradient(135deg, #146c94, #0b8ca8);
+      box-shadow: 0 10px 22px rgba(20, 108, 148, .24);
       text-decoration: none;
-      font-weight: 800;
-      transition: transform .2s ease, background .2s ease;
+      font-weight: 900;
+      transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
     }
-    .button:hover, .button:focus-visible { transform: translateY(-2px); background: #0f587a; }
-    .button.secondary { color: var(--blue); background: var(--white); }
-    .button.secondary:hover, .button.secondary:focus-visible { color: var(--white); background: var(--blue); }
+    .button:hover, .button:focus-visible {
+      box-shadow: 0 14px 28px rgba(20, 108, 148, .32);
+      filter: saturate(1.08);
+      transform: translateY(-2px);
+    }
+    .button.secondary {
+      color: #08233d;
+      background: linear-gradient(135deg, #f4b942, #ffd166);
+      box-shadow: 0 10px 22px rgba(244, 185, 66, .28);
+    }
+    .button.secondary:hover, .button.secondary:focus-visible {
+      box-shadow: 0 14px 28px rgba(244, 185, 66, .36);
+      color: #08233d;
+    }
+    .stem-card:nth-child(3n + 1) .button { background: linear-gradient(135deg, #146c94, #0b8ca8); }
+    .stem-card:nth-child(3n + 2) .button { background: linear-gradient(135deg, #7c3aed, #2563eb); }
+    .stem-card:nth-child(3n) .button { background: linear-gradient(135deg, #0f766e, #22a06b); }
     footer { padding: 25px; color: #c7dde8; background: var(--navy); text-align: center; font-size: .88rem; }
 
     @media (max-width: 760px) {
@@ -166,7 +181,6 @@
         </ul>
         <div class="actions">
           <a class="button" href="STEM/arduino/index.html">Start Arduino</a>
-          <a class="button secondary" href="https://youtube.com/shorts/zl72vvDt1mQ?si=A8XeH08CeqExhdlP" target="_blank" rel="noopener noreferrer">Watch the Video</a>
         </div>
       </article>
 
@@ -195,7 +209,6 @@
         </ul>
         <div class="actions">
           <a class="button" href="STEM/finger-frame-effect.html">Launch Effect</a>
-          <a class="button secondary" href="https://github.com/sophiamyang/finger-frame-effect" target="_blank" rel="noopener noreferrer">Original Repo</a>
         </div>
       </article>
 
