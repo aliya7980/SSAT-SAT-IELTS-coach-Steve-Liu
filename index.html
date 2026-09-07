@@ -737,7 +737,7 @@
     }
 
     .husky-sprite {
-      background-image: url("./assets/images/branding/husky-puppy-sprite-v3.png");
+      background-image: url("./assets/images/branding/yuexinmao-clean-loop-source.gif");
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 400% 400%;
@@ -1144,6 +1144,92 @@
         animation: none;
       }
     }
+
+
+    /* Draggable homepage cat */
+    .husky-habitat {
+      bottom: 18px;
+      height: 190px;
+      max-width: 560px;
+      pointer-events: none;
+      right: 2%;
+      width: 44vw;
+    }
+
+    .husky-habitat .husky-runner {
+      animation: none !important;
+      bottom: 0;
+      cursor: grab;
+      height: 170px;
+      left: auto;
+      right: 0;
+      touch-action: none;
+      transition: none !important;
+      width: 170px;
+    }
+
+    .husky-habitat .husky-runner.is-dragging {
+      cursor: grabbing;
+    }
+
+    .husky-sprite-shell {
+      animation: none !important;
+      height: 170px;
+      transform: none !important;
+      transition: none !important;
+      width: 170px;
+    }
+
+    .husky-sprite {
+      animation: none !important;
+      background-image: url("./assets/images/branding/yuexinmao-clean-loop-source.gif");
+      background-position: center !important;
+      background-repeat: no-repeat;
+      background-size: contain !important;
+      filter: drop-shadow(0 9px 8px rgba(2, 17, 27, 0.26));
+      height: 170px;
+      transform: none !important;
+      width: 170px;
+      will-change: transform;
+    }
+
+    .husky-runner[data-state] .husky-sprite,
+    .husky-runner.is-hovered .husky-sprite {
+      background-position: center !important;
+      animation: none !important;
+    }
+
+    .husky-habitat .husky-bubble {
+      bottom: 148px;
+      left: 5px;
+    }
+
+    .husky-runner.is-dragging .husky-bubble,
+    .husky-runner:focus-visible .husky-bubble {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    @media (max-width: 760px) {
+      .husky-habitat {
+        height: 136px;
+        width: 50vw;
+      }
+
+      .husky-habitat .husky-runner,
+      .husky-sprite-shell,
+      .husky-sprite {
+        height: 120px;
+        width: 120px;
+      }
+
+      .husky-habitat .husky-bubble {
+        bottom: 106px;
+        left: -6px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1169,15 +1255,15 @@
         <a class="button" href="#services">Choose a Service</a>
       </div>
 
-      <div class="husky-habitat" aria-label="Animated Husky mascot area">
+      <div class="husky-habitat" aria-label="Draggable cat mascot area">
         <div
           class="husky-runner"
           data-state="idle"
           role="button"
           tabindex="0"
-          aria-label="Husky puppy mascot. Hover or click to interact."
+          aria-label="Draggable cat mascot. Drag to move it."
         >
-          <div class="husky-bubble" aria-hidden="true">Hi! Ready to learn?</div>
+          <div class="husky-bubble" aria-hidden="true">Drag me!</div>
           <div class="husky-sprite-shell">
             <div class="husky-sprite" aria-hidden="true"></div>
           </div>
@@ -1316,240 +1402,93 @@
     (() => {
       const habitat = document.querySelector(".husky-habitat");
       const puppy = habitat?.querySelector(".husky-runner");
-      const shell = habitat?.querySelector(".husky-sprite-shell");
       const bubble = habitat?.querySelector(".husky-bubble");
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-      if (!habitat || !puppy || !shell || !bubble) return;
+      if (!habitat || !puppy || !bubble) return;
 
-      let stateTimer;
+      let dragging = false;
+      let pointerId = null;
+      let startPointerX = 0;
+      let startPointerY = 0;
+      let startX = 0;
+      let startY = 0;
       let currentX = 0;
-      let animationFrame;
-      let runningStartedAt = 0;
-      let runningFromX = 0;
-      let runningTargetX = 0;
-      let runningDuration = 0;
-      let interacting = false;
-      let pageHidden = document.hidden;
+      let currentY = 0;
 
-      const randomBetween = (min, max) =>
-        Math.round(min + Math.random() * (max - min));
+      const storageKey = "huskydaddy-draggable-husky-position";
 
-      const easeInOutSine = (progress) =>
-        -(Math.cos(Math.PI * progress) - 1) / 2;
-
-      const clearStateTimer = () => {
-        if (stateTimer) window.clearTimeout(stateTimer);
-        stateTimer = undefined;
+      const bounds = () => {
+        const habitatRect = habitat.getBoundingClientRect();
+        return {
+          maxX: Math.max(0, habitatRect.width - puppy.offsetWidth),
+          maxY: Math.max(0, habitatRect.height - puppy.offsetHeight)
+        };
       };
 
-      const maxTravel = () =>
-        Math.max(0, habitat.clientWidth - puppy.offsetWidth);
-
-      const setState = (state) => {
-        puppy.dataset.state = state;
-      };
-
-      const setFacing = (direction) => {
-        shell.style.setProperty("--husky-facing", direction < 0 ? "1" : "-1");
-      };
-
-      const readCurrentX = () => {
-        const matrix = new DOMMatrixReadOnly(getComputedStyle(puppy).transform);
-        return Number.isFinite(matrix.m41) ? matrix.m41 : currentX;
-      };
-
-      const stopSmoothRun = () => {
-        if (animationFrame) window.cancelAnimationFrame(animationFrame);
-        animationFrame = undefined;
-      };
-
-      const placePuppy = (x) => {
-        currentX = Math.max(0, Math.min(maxTravel(), x));
-        puppy.style.transform = `translate3d(${currentX.toFixed(2)}px, 0, 0)`;
-      };
-
-      const holdCurrentPosition = () => {
-        stopSmoothRun();
-        currentX = Math.max(0, Math.min(maxTravel(), readCurrentX()));
-        puppy.style.transition = "none";
-        placePuppy(currentX);
-        void puppy.offsetWidth;
-      };
-
-      const schedule = (callback, delay) => {
-        clearStateTimer();
-        stateTimer = window.setTimeout(callback, delay);
-      };
-
-      const stepRun = (now) => {
-        if (interacting || pageHidden || reducedMotion.matches) {
-          stopSmoothRun();
-          return;
-        }
-
-        const elapsed = now - runningStartedAt;
-        const progress = Math.min(1, elapsed / runningDuration);
-        const eased = easeInOutSine(progress);
-        placePuppy(runningFromX + (runningTargetX - runningFromX) * eased);
-
-        if (progress < 1) {
-          animationFrame = window.requestAnimationFrame(stepRun);
-        } else {
-          animationFrame = undefined;
-          slowDown();
+      const place = (x, y, save = false) => {
+        const limit = bounds();
+        currentX = Math.max(0, Math.min(limit.maxX, x));
+        currentY = Math.max(0, Math.min(limit.maxY, y));
+        puppy.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+        if (save) {
+          localStorage.setItem(storageKey, JSON.stringify({ x: currentX, y: currentY }));
         }
       };
 
-      const run = () => {
-        if (interacting || pageHidden || reducedMotion.matches) return;
-        stopSmoothRun();
-
-        const limit = maxTravel();
-        const midpoint = limit / 2;
-        const direction = currentX > midpoint ? -1 : 1;
-        const inset = randomBetween(0, Math.max(0, Math.min(34, limit / 5)));
-        const target = direction < 0 ? inset : Math.max(0, limit - inset);
-
-        setFacing(direction);
-        setState("running");
-        puppy.style.transition = "none";
-        runningFromX = currentX;
-        runningTargetX = target;
-        runningDuration = randomBetween(6200, 11800);
-        runningStartedAt = performance.now();
-        animationFrame = window.requestAnimationFrame(stepRun);
-      };
-
-      const slowDown = () => {
-        if (interacting || pageHidden || reducedMotion.matches) return;
-        stopSmoothRun();
-        setState("slowing");
-        puppy.style.transition = "transform 760ms cubic-bezier(.16, .8, .3, 1)";
-        const direction = currentX > maxTravel() / 2 ? -1 : 1;
-        placePuppy(currentX + direction * 7);
-        schedule(chooseBehavior, 760);
-      };
-
-      const standAndRun = () => {
-        if (interacting || pageHidden || reducedMotion.matches) return;
-        setState("standingUp");
-        schedule(run, 650);
-      };
-
-      const chooseBehavior = () => {
-        if (interacting || pageHidden || reducedMotion.matches) return;
-        const choice = Math.random();
-
-        if (choice < 0.34) {
-          setState("looking");
-          schedule(standAndRun, randomBetween(2000, 4000));
-        } else if (choice < 0.62) {
-          setState("playBow");
-          schedule(standAndRun, randomBetween(1100, 1900));
-        } else if (choice < 0.88) {
-          setState("sitting");
-          schedule(standAndRun, randomBetween(3000, 5800));
-        } else {
-          setState(Math.random() > 0.5 ? "paw" : "idle");
-          schedule(standAndRun, randomBetween(1200, 2800));
+      const restorePosition = () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || "null");
+          if (saved && Number.isFinite(saved.x) && Number.isFinite(saved.y)) {
+            place(saved.x, saved.y);
+            return;
+          }
+        } catch (error) {
+          localStorage.removeItem(storageKey);
         }
+        place(bounds().maxX, 0);
       };
 
-      const beginInteraction = () => {
-        if (reducedMotion.matches) {
-          setState("looking");
-        } else {
-          holdCurrentPosition();
-          setState("looking");
-        }
-        clearStateTimer();
-        interacting = true;
-        puppy.classList.add("is-hovered", "is-speaking");
-        bubble.textContent = "Hi! Ready to learn?";
-      };
+      puppy.addEventListener("pointerdown", (event) => {
+        dragging = true;
+        pointerId = event.pointerId;
+        startPointerX = event.clientX;
+        startPointerY = event.clientY;
+        startX = currentX;
+        startY = currentY;
+        puppy.setPointerCapture(pointerId);
+        puppy.classList.add("is-dragging");
+        bubble.textContent = "Place me here!";
+      });
 
-      const endInteraction = () => {
-        puppy.classList.remove("is-hovered", "is-speaking");
-        shell.style.removeProperty("--cursor-tilt");
-        interacting = false;
-        if (!pageHidden && !reducedMotion.matches) schedule(standAndRun, 650);
-      };
-
-      const happyJump = () => {
-        clearStateTimer();
-        interacting = true;
-        holdCurrentPosition();
-        puppy.classList.remove("is-hovered");
-        puppy.classList.add("is-speaking");
-        bubble.textContent = "Let's go!";
-        setState("jumping");
-        schedule(() => {
-          setState("landing");
-          schedule(() => {
-            setState("looking");
-            schedule(() => {
-              puppy.classList.remove("is-speaking");
-              interacting = false;
-              if (!pageHidden && !reducedMotion.matches) standAndRun();
-            }, 900);
-          }, 330);
-        }, 560);
-      };
-
-      puppy.addEventListener("pointerenter", beginInteraction);
-      puppy.addEventListener("pointerleave", endInteraction);
       puppy.addEventListener("pointermove", (event) => {
-        if (!interacting) return;
-        const bounds = puppy.getBoundingClientRect();
-        const relative = (event.clientX - (bounds.left + bounds.width / 2)) / bounds.width;
-        const tilt = Math.max(-12, Math.min(12, relative * 18));
-        shell.style.setProperty("--cursor-tilt", `${tilt}deg`);
+        if (!dragging || event.pointerId !== pointerId) return;
+        event.preventDefault();
+        place(startX + event.clientX - startPointerX, startY + event.clientY - startPointerY);
       });
-      puppy.addEventListener("click", happyJump);
+
+      const finishDrag = (event) => {
+        if (!dragging || event.pointerId !== pointerId) return;
+        dragging = false;
+        puppy.classList.remove("is-dragging");
+        bubble.textContent = "Drag me!";
+        place(currentX, currentY, true);
+      };
+
+      puppy.addEventListener("pointerup", finishDrag);
+      puppy.addEventListener("pointercancel", finishDrag);
+
       puppy.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          happyJump();
-        }
+        const step = event.shiftKey ? 20 : 8;
+        if (event.key === "ArrowLeft") place(currentX - step, currentY, true);
+        else if (event.key === "ArrowRight") place(currentX + step, currentY, true);
+        else if (event.key === "ArrowUp") place(currentX, currentY - step, true);
+        else if (event.key === "ArrowDown") place(currentX, currentY + step, true);
+        else return;
+        event.preventDefault();
       });
 
-      document.addEventListener("visibilitychange", () => {
-        pageHidden = document.hidden;
-        clearStateTimer();
-        if (pageHidden) stopSmoothRun();
-        habitat.classList.toggle("is-paused", pageHidden);
-        if (!pageHidden && !interacting && !reducedMotion.matches) {
-          holdCurrentPosition();
-          setState("idle");
-          schedule(run, 500);
-        }
-      });
-
-      reducedMotion.addEventListener("change", () => {
-        clearStateTimer();
-        if (reducedMotion.matches) {
-          currentX = maxTravel();
-          puppy.style.transition = "none";
-          puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
-          setState("idle");
-        } else if (!pageHidden && !interacting) {
-          schedule(run, 400);
-        }
-      });
-
-      window.addEventListener("resize", () => {
-        currentX = Math.max(0, Math.min(maxTravel(), currentX));
-        puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
-      }, { passive: true });
-
-      currentX = maxTravel();
-      puppy.style.transform = `translate3d(${currentX}px, 0, 0)`;
-      if (reducedMotion.matches) {
-        setState("idle");
-      } else {
-        schedule(run, 800);
-      }
+      window.addEventListener("resize", () => place(currentX, currentY, true), { passive: true });
+      restorePosition();
     })();
   </script>
 </body>
