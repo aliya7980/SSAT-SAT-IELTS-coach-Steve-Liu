@@ -737,7 +737,7 @@
     }
 
     .husky-sprite {
-      background-image: url("./assets/images/branding/yuexinmao-clean-loop-source.gif");
+      background-image: url("./assets/images/branding/yuexinmao-cat-transparent.gif");
       background-position: 0 0;
       background-repeat: no-repeat;
       background-size: 400% 400%;
@@ -1182,7 +1182,7 @@
 
     .husky-sprite {
       animation: none !important;
-      background-image: url("./assets/images/branding/yuexinmao-clean-loop-source.gif");
+      background-image: url("./assets/images/branding/yuexinmao-cat-transparent.gif");
       background-position: center !important;
       background-repeat: no-repeat;
       background-size: contain !important;
@@ -1230,6 +1230,80 @@
       }
     }
 
+
+
+    /* Reliable draggable cat overlay */
+    .husky-habitat {
+      bottom: 0 !important;
+      height: 100vh !important;
+      left: 0 !important;
+      max-width: none !important;
+      pointer-events: none;
+      position: fixed !important;
+      right: auto !important;
+      top: 0 !important;
+      width: 100vw !important;
+      z-index: 1200;
+    }
+
+    .husky-habitat .husky-runner {
+      animation: none !important;
+      bottom: auto !important;
+      cursor: grab;
+      height: 150px !important;
+      left: 0 !important;
+      pointer-events: auto;
+      position: absolute !important;
+      right: auto !important;
+      top: 0 !important;
+      touch-action: none;
+      transform: translate3d(calc(100vw - 178px), calc(100vh - 178px), 0);
+      transition: none !important;
+      width: 150px !important;
+    }
+
+    .husky-habitat .husky-runner.is-dragging {
+      cursor: grabbing;
+    }
+
+    .husky-sprite-shell,
+    .husky-sprite,
+    .cat-mascot-img {
+      animation: none !important;
+      display: block;
+      height: 150px !important;
+      transform: none !important;
+      transition: none !important;
+      width: 150px !important;
+    }
+
+    .cat-mascot-img {
+      background: transparent !important;
+      filter: drop-shadow(0 9px 8px rgba(2, 17, 27, 0.26));
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .husky-habitat .husky-bubble {
+      bottom: 132px !important;
+      left: 8px !important;
+    }
+
+    @media (max-width: 760px) {
+      .husky-habitat .husky-runner,
+      .husky-sprite-shell,
+      .husky-sprite,
+      .cat-mascot-img {
+        height: 112px !important;
+        width: 112px !important;
+      }
+
+      .husky-habitat .husky-bubble {
+        bottom: 96px !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1265,7 +1339,7 @@
         >
           <div class="husky-bubble" aria-hidden="true">Drag me!</div>
           <div class="husky-sprite-shell">
-            <div class="husky-sprite" aria-hidden="true"></div>
+            <img class="husky-sprite cat-mascot-img" src="./assets/images/branding/yuexinmao-cat-transparent.gif" alt="Draggable cat mascot">
           </div>
         </div>
       </div>
@@ -1417,13 +1491,10 @@
 
       const storageKey = "huskydaddy-draggable-husky-position";
 
-      const bounds = () => {
-        const habitatRect = habitat.getBoundingClientRect();
-        return {
-          maxX: Math.max(0, habitatRect.width - puppy.offsetWidth),
-          maxY: Math.max(0, habitatRect.height - puppy.offsetHeight)
-        };
-      };
+      const bounds = () => ({
+        maxX: Math.max(0, window.innerWidth - puppy.offsetWidth - 18),
+        maxY: Math.max(0, window.innerHeight - puppy.offsetHeight - 18)
+      });
 
       const place = (x, y, save = false) => {
         const limit = bounds();
@@ -1445,7 +1516,7 @@
         } catch (error) {
           localStorage.removeItem(storageKey);
         }
-        place(bounds().maxX, 0);
+        place(bounds().maxX, bounds().maxY);
       };
 
       puppy.addEventListener("pointerdown", (event) => {
