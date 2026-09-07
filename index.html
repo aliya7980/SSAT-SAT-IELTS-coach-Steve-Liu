@@ -1337,7 +1337,7 @@
           tabindex="0"
           aria-label="Draggable cat mascot. Drag to move it."
         >
-          <div class="husky-bubble" aria-hidden="true">Drag me!</div>
+          <div class="husky-bubble" aria-hidden="true">Oh. You again.</div>
           <div class="husky-sprite-shell">
             <img class="husky-sprite cat-mascot-img" src="./assets/images/branding/yuexinmao-cat-transparent.gif" alt="Draggable cat mascot">
           </div>
@@ -1488,8 +1488,78 @@
       let startY = 0;
       let currentX = 0;
       let currentY = 0;
+      let speechTimer;
+      let hideSpeechTimer;
+      let lastPhrase = "";
 
-      const storageKey = "huskydaddy-draggable-husky-position";
+      const storageKey = "huskydaddy-draggable-cat-position";
+      const phrases = {
+        idle: [
+          "Oh. You again.",
+          "Fine. Let's learn.",
+          "I was napping, but sure.",
+          "Another lesson? Bold choice.",
+          "I'm awake. That's already progress.",
+          "Focus. My nap depends on it.",
+          "Finish the task, then we discuss snacks."
+        ],
+        click: [
+          "You clicked me. Ambitious.",
+          "Yes, I'm still judging the homework.",
+          "Read carefully. I dislike repeating myself.",
+          "Confidence is nice. Accuracy is better.",
+          "Think first. Panic later.",
+          "You can do this. I am mildly surprised too."
+        ],
+        drag: [
+          "Careful. This is premium cat cargo.",
+          "Place me somewhere productive.",
+          "Fine, rearrange the genius.",
+          "Dragging me counts as exercise. For you.",
+          "Try not to drop the academic advisor.",
+          "I moved. That is enough effort for both of us."
+        ],
+        blurt: [
+          "Mistakes are fine. Repeating them is a lifestyle choice.",
+          "One problem at a time. I have only one patience.",
+          "If it feels hard, your brain is probably doing something.",
+          "Guessing is not a strategy. It is a cry for help.",
+          "Slow is acceptable. Careless is expensive.",
+          "The answer is hiding in the details. Rude, but true.",
+          "Learning builds character. Unfortunately.",
+          "Your pencil knows nothing. You must guide it."
+        ]
+      };
+
+      const pickPhrase = (group) => {
+        const list = phrases[group] || phrases.idle;
+        let phrase = list[Math.floor(Math.random() * list.length)];
+        if (list.length > 1) {
+          while (phrase === lastPhrase) {
+            phrase = list[Math.floor(Math.random() * list.length)];
+          }
+        }
+        lastPhrase = phrase;
+        return phrase;
+      };
+
+      const speak = (group = "idle", linger = 3600) => {
+        window.clearTimeout(hideSpeechTimer);
+        bubble.textContent = pickPhrase(group);
+        puppy.classList.add("is-speaking");
+        hideSpeechTimer = window.setTimeout(() => {
+          if (!dragging) puppy.classList.remove("is-speaking");
+        }, linger);
+      };
+
+      const scheduleBlurt = () => {
+        window.clearTimeout(speechTimer);
+        const delay = 8500 + Math.random() * 12000;
+        speechTimer = window.setTimeout(() => {
+          if (!document.hidden && !dragging) speak("blurt", 5200);
+          scheduleBlurt();
+        }, delay);
+      };
 
       const bounds = () => ({
         maxX: Math.max(0, window.innerWidth - puppy.offsetWidth - 18),
@@ -1528,7 +1598,7 @@
         startY = currentY;
         puppy.setPointerCapture(pointerId);
         puppy.classList.add("is-dragging");
-        bubble.textContent = "Place me here!";
+        speak("drag", 999999);
       });
 
       puppy.addEventListener("pointermove", (event) => {
@@ -1541,12 +1611,15 @@
         if (!dragging || event.pointerId !== pointerId) return;
         dragging = false;
         puppy.classList.remove("is-dragging");
-        bubble.textContent = "Drag me!";
         place(currentX, currentY, true);
+        speak("drag", 3600);
       };
 
       puppy.addEventListener("pointerup", finishDrag);
       puppy.addEventListener("pointercancel", finishDrag);
+      puppy.addEventListener("click", () => {
+        if (!dragging) speak("click", 4200);
+      });
 
       puppy.addEventListener("keydown", (event) => {
         const step = event.shiftKey ? 20 : 8;
@@ -1558,8 +1631,20 @@
         event.preventDefault();
       });
 
+      document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+          window.clearTimeout(speechTimer);
+          window.clearTimeout(hideSpeechTimer);
+          puppy.classList.remove("is-speaking");
+        } else {
+          scheduleBlurt();
+        }
+      });
+
       window.addEventListener("resize", () => place(currentX, currentY, true), { passive: true });
       restorePosition();
+      speak("idle", 3800);
+      scheduleBlurt();
     })();
   </script>
 </body>
