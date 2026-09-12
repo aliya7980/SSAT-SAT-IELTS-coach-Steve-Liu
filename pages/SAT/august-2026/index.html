@@ -81,19 +81,71 @@ footer{background:#102a43;color:#e5e7eb;padding:26px;text-align:center;margin-to
     <div class="timer">Time Remaining<strong id="timer">32:00</strong></div>
   </div>
 
+  
   <div class="question-card">
+
     <div class="q-head">
-      <h2 id="questionNumber">Question 1 of 27</h2>
-      <button class="btn secondary" id="navigatorBtn">Question Navigator</button>
+  
+      <h2 id="questionNumber">
+        Question 1 of 27
+      </h2>
+  
+      <button
+        class="btn secondary"
+        id="navigatorBtn"
+      >
+        Question Navigator
+      </button>
+  
     </div>
-    <div class="q-body">
-      <div class="passage" id="passage"></div>
-      <div class="prompt" id="prompt"></div>
-      <div class="options" id="options"></div>
-      <div class="q-tools">
-        <button class="btn secondary" id="markBtn">☆ Mark for Review</button>
+  
+  
+    <div class="q-body sat-two-column">
+  
+  
+      <!-- LEFT SIDE: PASSAGE -->
+  
+      <div class="passage-panel">
+  
+        <div
+          class="passage"
+          id="passage"
+        ></div>
+  
       </div>
+  
+  
+      <!-- RIGHT SIDE: QUESTION -->
+  
+      <div class="question-panel">
+  
+        <div
+          class="prompt"
+          id="prompt"
+        ></div>
+  
+  
+        <div
+          class="options"
+          id="options"
+        ></div>
+  
+  
+        <div class="q-tools">
+  
+          <button
+            class="btn secondary"
+            id="markBtn"
+          >
+            ☆ Mark for Review
+          </button>
+  
+        </div>
+  
+      </div>
+  
     </div>
+  
   </div>
   <div class="nav-bottom">
     <button class="btn secondary" id="backBtn">← Back</button>
