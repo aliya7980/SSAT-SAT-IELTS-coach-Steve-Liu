@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HuskyDaddy Digital SAT Practice | August 2026 Asia-Pacific</title>
+<link rel="stylesheet" href="css/sat.css">
+</head>
+<body>
+<nav class="navbar">
+  <div class="logo">HuskyDaddy | Digital SAT Practice</div>
+  <ul class="nav-links">
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../download.html">Downloads</a></li>
+    <li><a href="../sat.html">SAT</a></li>
+    <li><a href="../contact.html">Contact</a></li>
+    <li><a href="#" id="teacherLink">Teacher</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <h1>Authentic SAT Questions: 2026 August Asia-Pacific Paper</h1>
+  <p>Reading & Writing simulator — 2 modules, 27 questions each, one question at a time.</p>
+</header>
+
+<main class="container">
+
+<section id="startScreen">
+  <div class="notice">This practice page contains only the Reading & Writing section from the supplied paper. Math is not included.</div>
+  <div class="card">
+    <h2 style="margin-bottom:14px">Start Practice Test</h2>
+    <div class="start-grid">
+      <div class="field"><label for="studentName">Student name</label><input id="studentName" placeholder="Enter your name"></div>
+      <div class="field"><label>Test</label><input value="August 2026 Asia-Pacific — Reading & Writing" disabled></div>
+    </div>
+    <p style="margin:18px 0;color:#52606d">Module 1: 27 questions · Module 2: 27 questions · 32 minutes per module</p>
+    <button class="btn" id="startBtn">Start Module 1</button>
+  </div>
+</section>
+
+<section id="testScreen" class="hidden test-shell">
+  <div class="test-top">
+    <div>
+      <div class="kicker">HuskyDaddy Digital SAT Practice</div>
+      <div class="test-title" id="moduleLabel">Reading and Writing · Module 1</div>
+      <div id="studentLabel" style="color:#52606d"></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <div class="timer">Time Remaining<strong id="timer">32:00</strong></div>
+  </div>
+
+  <div class="question-card">
+    <div class="q-head">
+      <h2 id="questionNumber">Question 1 of 27</h2>
+      <button class="btn secondary" id="navigatorBtn">Question Navigator</button>
+    </div>
+    <div class="q-body">
+      <div class="passage" id="passage"></div>
+      <div class="prompt" id="prompt"></div>
+      <div class="options" id="options"></div>
+      <div class="q-tools">
+        <button class="btn secondary" id="markBtn">☆ Mark for Review</button>
+      </div>
+    </div>
+  </div>
+  <div class="nav-bottom">
+    <button class="btn secondary" id="backBtn">← Back</button>
+    <span id="centerCounter">1 / 27</span>
+    <button class="btn" id="nextBtn">Next →</button>
+  </div>
+</section>
+
+<section id="navigatorScreen" class="hidden">
+  <div class="card">
+    <h2 id="navigatorTitle">Module Navigator</h2>
+    <p style="color:#52606d;margin-bottom:16px">Answered questions are shaded. A star means Marked for Review.</p>
+    <div class="navigator" id="navigatorGrid"></div>
+    <div style="margin-top:18px"><button class="btn" id="closeNavigator">Return to Question</button></div>
+  </div>
+</section>
+
+<section id="reviewScreen" class="hidden">
+  <div class="card">
+    <h2 id="reviewTitle">Module Review</h2>
+    <div id="reviewStats" style="margin-top:10px"></div>
+    <div class="review-grid" id="reviewGrid"></div>
+    <button class="btn" id="submitModuleBtn">Submit Module</button>
+  </div>
+</section>
+
+<section id="resultScreen" class="hidden">
+  <div class="card">
+    <h2>HuskyDaddy SAT Reading & Writing Results</h2>
+    <div id="scoreBox" style="margin-top:16px"></div>
+    <div style="margin-top:20px"><button class="btn secondary" id="restartBtn">Start Again</button></div>
+  </div>
+</section>
+
+<section id="teacherScreen" class="hidden">
+  <div id="teacherLogin" class="card teacher-login">
+    <h2>Teacher SAT Dashboard</h2>
+    <p style="color:#52606d;margin:8px 0 16px">Enter the teacher access code.</p>
+    <div class="field"><input id="teacherCode" type="password" placeholder="Access code"></div>
+    <button class="btn" id="teacherLoginBtn" style="margin-top:14px">Enter</button>
+    <p id="teacherError" style="color:#7f1d1d;margin-top:10px"></p>
+  </div>
+
+  <div id="teacherDash" class="hidden">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+        <div><h2>Teacher Dashboard</h2><p style="color:#52606d">Answer key and locally saved attempts.</p></div>
+        <button class="btn secondary" id="exitTeacher">Exit Teacher Mode</button>
+      </div>
+    </div>
+    <div class="teacher-grid">
+      <div class="card">
+        <h3>Answer Key</h3>
+        <p style="color:#52606d;margin-bottom:12px">The supplied PDF does not include an official answer key. Enter or edit the correct choices here.</p>
+        <div id="answerKeyEditor"></div>
+        <button class="btn" id="saveKeyBtn" style="margin-top:14px">Save Answer Key</button>
+      </div>
+      <div class="card">
+        <h3>Student Attempts</h3>
+        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Date</th><th>Score</th><th>Accuracy</th></tr></thead><tbody id="attemptRows"></tbody></table></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Teacher Analysis</h3>
+      <p style="color:#52606d;margin-bottom:12px">Select a saved attempt below to see a skill-based analysis. Because this is a single static HTML file, it does not call a private AI API.</p>
+      <select id="attemptSelect" style="padding:10px;border:1px solid #cbd5e1;border-radius:8px"></select>
+      <div id="analysisBox" style="margin-top:18px"></div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer>&copy; HuskyDaddy | SAT 2026 August Asia-Pacific</footer>
+
+<script src="js/module1.js"></script>
+<script src="js/module2.js"></script>
+<script src="js/test.js"></script>
+<script src="js/teacher.js"></script>
+</body>
+</html>

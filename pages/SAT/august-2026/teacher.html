@@ -1,0 +1,440 @@
+// ============================================================
+// TEACHER MODE
+// ============================================================
+
+// Open teacher screen
+function openTeacher() {
+  show("teacherScreen");
+
+  $("teacherLogin").classList.remove("hidden");
+  $("teacherDash").classList.add("hidden");
+}
+
+
+// ============================================================
+// TEACHER LINK
+// ============================================================
+
+$("teacherLink").onclick = (e) => {
+  e.preventDefault();
+  openTeacher();
+};
+
+
+// ============================================================
+// TEACHER LOGIN
+// ============================================================
+
+$("teacherLoginBtn").onclick = () => {
+
+  const code = $("teacherCode").value;
+
+  if (code === "1201") {
+
+    $("teacherLogin").classList.add("hidden");
+    $("teacherDash").classList.remove("hidden");
+
+    $("teacherError").textContent = "";
+
+    renderTeacher();
+
+  } else {
+
+    $("teacherError").textContent =
+      "Incorrect access code.";
+  }
+};
+
+
+// ============================================================
+// EXIT TEACHER MODE
+// ============================================================
+
+$("exitTeacher").onclick = () => {
+
+  show("startScreen");
+
+  $("teacherCode").value = "";
+  $("teacherError").textContent = "";
+};
+
+
+// ============================================================
+// GET SAVED ANSWER KEY
+// ============================================================
+
+function getKey() {
+
+  return JSON.parse(
+    localStorage.getItem("hd_sat_key") || "{}"
+  );
+}
+
+
+// ============================================================
+// BUILD TEACHER DASHBOARD
+// ============================================================
+
+function renderTeacher() {
+
+  const key = getKey();
+
+  // ----------------------------------------------------------
+  // ANSWER KEY EDITOR
+  // ----------------------------------------------------------
+
+  $("answerKeyEditor").innerHTML = "";
+
+
+  [1, 2].forEach((mod) => {
+
+    const heading =
+      document.createElement("h4");
+
+    heading.textContent =
+      `Module ${mod}`;
+
+    heading.style.marginTop =
+      "12px";
+
+    $("answerKeyEditor")
+      .appendChild(heading);
+
+
+    QUESTIONS[mod].forEach((item) => {
+
+      const row =
+        document.createElement("div");
+
+      row.className =
+        "answer-edit";
+
+
+      const savedAnswer =
+        key[`m${mod}q${item.n}`];
+
+
+      const options =
+        '<option value="">—</option>' +
+
+        ["A", "B", "C", "D"]
+          .map((letter) => {
+
+            const selected =
+              savedAnswer === letter
+                ? "selected"
+                : "";
+
+            return `
+              <option ${selected}>
+                ${letter}
+              </option>
+            `;
+          })
+          .join("");
+
+
+      row.innerHTML = `
+        <strong>Q${item.n}</strong>
+
+        <select data-k="m${mod}q${item.n}">
+          ${options}
+        </select>
+
+        <input
+          value="${item.skill}"
+          disabled
+        >
+      `;
+
+
+      $("answerKeyEditor")
+        .appendChild(row);
+    });
+  });
+
+
+  // ----------------------------------------------------------
+  // STUDENT ATTEMPTS
+  // ----------------------------------------------------------
+
+  const attempts =
+    JSON.parse(
+      localStorage.getItem(
+        "hd_sat_attempts"
+      ) || "[]"
+    );
+
+
+  $("attemptRows").innerHTML =
+    attempts
+      .map((attempt) => {
+
+        const score =
+          attempt.totalKnown
+            ? `${attempt.correct}/${attempt.totalKnown}`
+            : "Pending key";
+
+
+        const accuracy =
+          attempt.totalKnown
+            ? `${attempt.accuracy}%`
+            : "—";
+
+
+        return `
+          <tr>
+            <td>${attempt.name}</td>
+            <td>${attempt.date}</td>
+            <td>${score}</td>
+            <td>${accuracy}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+
+  // ----------------------------------------------------------
+  // ATTEMPT SELECT MENU
+  // ----------------------------------------------------------
+
+  $("attemptSelect").innerHTML =
+    '<option value="">Select attempt</option>' +
+
+    attempts
+      .map((attempt) => {
+
+        return `
+          <option value="${attempt.id}">
+            ${attempt.name} — ${attempt.date}
+          </option>
+        `;
+      })
+      .join("");
+}
+
+
+// ============================================================
+// SAVE ANSWER KEY
+// ============================================================
+
+$("saveKeyBtn").onclick = () => {
+
+  const key = {};
+
+
+  document
+    .querySelectorAll("[data-k]")
+    .forEach((select) => {
+
+      if (select.value) {
+
+        key[select.dataset.k] =
+          select.value;
+      }
+    });
+
+
+  localStorage.setItem(
+    "hd_sat_key",
+    JSON.stringify(key)
+  );
+
+
+  alert(
+    "Answer key saved on this browser."
+  );
+
+
+  renderTeacher();
+};
+
+
+// ============================================================
+// TEACHER ANALYSIS
+// ============================================================
+
+$("attemptSelect").onchange = () => {
+
+  const id =
+    Number(
+      $("attemptSelect").value
+    );
+
+
+  const attempts =
+    JSON.parse(
+      localStorage.getItem(
+        "hd_sat_attempts"
+      ) || "[]"
+    );
+
+
+  const attempt =
+    attempts.find(
+      (a) => a.id === id
+    );
+
+
+  if (!attempt) {
+
+    $("analysisBox").innerHTML = "";
+
+    return;
+  }
+
+
+  const key = getKey();
+
+  const skills = {};
+
+
+  // ----------------------------------------------------------
+  // CHECK QUESTIONS BY SKILL
+  // ----------------------------------------------------------
+
+  [1, 2].forEach((mod) => {
+
+    QUESTIONS[mod].forEach((item) => {
+
+      const correctAnswer =
+        key[`m${mod}q${item.n}`];
+
+
+      // Ignore question if teacher
+      // has not entered an answer
+      if (!correctAnswer) {
+        return;
+      }
+
+
+      // Create skill category if needed
+      if (!skills[item.skill]) {
+
+        skills[item.skill] = {
+          correct: 0,
+          total: 0
+        };
+      }
+
+
+      skills[item.skill].total++;
+
+
+      const studentAnswer =
+        attempt.answers?.[mod]?.[item.n];
+
+
+      if (
+        studentAnswer === correctAnswer
+      ) {
+
+        skills[item.skill].correct++;
+      }
+    });
+  });
+
+
+  // ----------------------------------------------------------
+  // SORT WEAKEST SKILLS FIRST
+  // ----------------------------------------------------------
+
+  const entries =
+    Object.entries(skills)
+      .sort((a, b) => {
+
+        const scoreA =
+          a[1].correct /
+          a[1].total;
+
+        const scoreB =
+          b[1].correct /
+          b[1].total;
+
+        return scoreA - scoreB;
+      });
+
+
+  // ----------------------------------------------------------
+  // SHOW ANALYSIS
+  // ----------------------------------------------------------
+
+  let html =
+    `<h4>${attempt.name}</h4>`;
+
+
+  html += entries
+    .map(([skill, result]) => {
+
+      const percent =
+        Math.round(
+          result.correct /
+          result.total *
+          100
+        );
+
+
+      return `
+        <div class="result-row">
+
+          <span>
+            ${skill}
+          </span>
+
+          <strong>
+            ${result.correct}/${result.total}
+            (${percent}%)
+          </strong>
+
+        </div>
+      `;
+    })
+    .join("");
+
+
+  // ----------------------------------------------------------
+  // PRIORITY REVIEW
+  // ----------------------------------------------------------
+
+  if (entries.length) {
+
+    const weakestSkills =
+      entries
+        .slice(0, 3)
+        .map(
+          ([skill]) => skill
+        )
+        .join(", ");
+
+
+    html += `
+      <div
+        class="notice"
+        style="margin-top:16px"
+      >
+
+        Priority review:
+
+        <strong>
+          ${weakestSkills}
+        </strong>
+
+      </div>
+    `;
+
+  } else {
+
+    html += `
+      <div class="notice">
+
+        Enter the answer key first
+        to generate the analysis.
+
+      </div>
+    `;
+  }
+
+
+  $("analysisBox").innerHTML =
+    html;
+};
