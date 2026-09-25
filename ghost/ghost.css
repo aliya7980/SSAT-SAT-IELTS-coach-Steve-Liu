@@ -1,0 +1,14 @@
+html { background: #000; }
+body { margin: 0; background: #000; color: #eee; font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.4; }
+.box { max-width: 420px; margin: 0 auto; padding: 18px 12px; }
+h1 { margin: 0 0 4px; color: #ff3939; font-family: Georgia, serif; font-size: 30px; line-height: 1.15; text-align: center; }
+.subtitle { margin: 0 0 16px; text-align: center; color: #ddd; font-size: 18px; }
+.hint, .footer { color: #aaa; font-size: 14px; text-align: center; }
+button { -webkit-appearance: none; box-sizing: border-box; display: block; width: 100%; min-height: 48px; margin: 0 0 10px; padding: 12px 8px; border: 1px solid #744; border-radius: 6px; background: #211515; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: 18px; cursor: pointer; }
+button:active { background: #633; }
+button:focus { outline: 3px solid #ffba66; outline-offset: 2px; }
+.random { min-height: 68px; background: #b90000; border-color: #ff5353; font-size: 25px; font-weight: bold; }
+.random:active { background: #800000; }
+#sound-status { min-height: 44px; padding: 10px; border: 1px solid #522; background: #150909; overflow-wrap: break-word; }
+.stop { background: #222; border-color: #777; }
+.footer { margin-bottom: 0; }

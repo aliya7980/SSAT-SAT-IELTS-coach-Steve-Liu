@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HuskyDaddy Ghost Box</title>
+  <link rel="stylesheet" href="ghost.css">
+</head>
+<body>
+  <div class="box">
+    <h1>HuskyDaddy Ghost Box</h1>
+    <p class="subtitle">Halloween Sound System</p>
+    <p class="hint">Tap a button to start a scare. Keep this page open.</p>
+    <button id="random-scare" class="random" type="button">RANDOM SCARE</button>
+    <p id="sound-status" role="status" aria-live="polite">Ready. Choose a sound.</p>
+    <div class="tests">
+      <button id="crazy-laugh-1" type="button">Crazy Laugh 1</button>
+      <button id="crazy-laugh-2" type="button">Crazy Laugh 2</button>
+      <button id="ghost-howl" type="button">Ghost Howl</button>
+      <button id="ghost-cry" type="button">Ghost Cry</button>
+      <button id="scream" type="button">Scream</button>
+      <button id="creepy-whisper" type="button">Creepy Whisper</button>
+      <button id="sinister-laugh" type="button">Sinister Laugh</button>
+      <button id="creepy-ghost" type="button">Creepy Ghost</button>
+      <button id="ghost-cry-2" type="button">Ghost Cry 2</button>
+      <button id="female-cry" type="button">Female Cry</button>
+      <button id="baby-zombie" type="button">Baby Zombie</button>
+    </div>
+    <button id="stop-sound" class="stop" type="button">STOP SOUND</button>
+    <audio id="scary-audio" preload="none">Your browser does not support HTML5 audio.</audio>
+    <noscript><p>Enable JavaScript in Safari to use the sound buttons.</p></noscript>
+    <p class="footer">Eleven sounds. One spooky night.</p>
+  </div>
+  <script src="ghost.js"></script>
+</body>
+</html>
