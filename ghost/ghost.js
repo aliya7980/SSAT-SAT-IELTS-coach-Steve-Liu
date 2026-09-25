@@ -15,7 +15,7 @@ var scarySounds = [
 var scaryAudio = document.getElementById('scary-audio');
 var soundStatus = document.getElementById('sound-status');
 var lastScarySoundIndex = -1;
-var activeScarySound = '';
+var activeScarySound = 'Crazy Laugh 1';
 var playbackRequest = 0;
 
 function setSoundStatus(message) {
@@ -56,8 +56,9 @@ function playScarySound(name) {
   setSoundStatus('Loading: ' + activeScarySound);
   /* Reload the shared audio element to start at the beginning, even on repeats. */
   scaryAudio.src = 'sounds/' + scarySounds[selected].file;
-  scaryAudio.load();
+  document.getElementById('direct-sound').href = scaryAudio.src;
   try {
+    scaryAudio.load();
     /* Keep play() directly inside the tap handler for old iOS Safari. */
     result = scaryAudio.play();
     /* Old Safari returns nothing; newer browsers may return a Promise. */
@@ -72,7 +73,7 @@ function playScarySound(name) {
       });
     }
   } catch (error) {
-    setSoundStatus('Cannot play ' + activeScarySound + '. Check the MP3 and tap again.');
+    setSoundStatus('Cannot play ' + activeScarySound + '. Tap Play in the player below, or open the sound directly.');
   }
 }
 
@@ -89,14 +90,25 @@ function playRandomScarySound() {
 }
 
 scaryAudio.onplaying = function () {
-  if (activeScarySound) { setSoundStatus('Playing: ' + activeScarySound); }
+  /* Native controls can start the initial sound or resume after Stop. */
+  if (lastScarySoundIndex < 0) { lastScarySoundIndex = 0; }
+  activeScarySound = scarySounds[lastScarySoundIndex].name;
+  if (activeScarySound) {
+    setSoundStatus('Playing: ' + activeScarySound);
+  }
 };
 scaryAudio.onended = function () {
   if (activeScarySound) { setSoundStatus('Finished: ' + activeScarySound); }
 };
 scaryAudio.onerror = function () {
   if (activeScarySound) {
-    setSoundStatus('Cannot load ' + activeScarySound + '. Add its MP3 to sounds/ and try again.');
+    var code = scaryAudio.error ? scaryAudio.error.code : 0;
+    var reason = 'Audio could not load';
+    if (code === 1) { reason = 'Audio loading was interrupted'; }
+    if (code === 2) { reason = 'Audio network error'; }
+    if (code === 3) { reason = 'Safari could not decode this MP3'; }
+    if (code === 4) { reason = 'Safari could not load or support this MP3'; }
+    setSoundStatus(reason + ' (code ' + code + '): ' + activeScarySound + '. Try Open selected sound directly.');
   }
 };
 document.getElementById('random-scare').onclick = playRandomScarySound;

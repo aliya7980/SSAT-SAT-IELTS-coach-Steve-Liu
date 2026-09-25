@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HuskyDaddy Ghost Box</title>
-  <link rel="stylesheet" href="ghost.css">
+  <link rel="stylesheet" href="ghost.css?v=2">
 </head>
 <body>
   <div class="box">
@@ -13,6 +13,11 @@
     <p class="hint">Tap a button to start a scare. Keep this page open.</p>
     <button id="random-scare" class="random" type="button">RANDOM SCARE</button>
     <p id="sound-status" role="status" aria-live="polite">Ready. Choose a sound.</p>
+    <div class="player">
+      <p id="player-help">If a button stays on Loading, tap Play in the player below.</p>
+      <audio id="scary-audio" controls="controls" preload="none" src="sounds/crazy-laugh-1.mp3">Your browser does not support HTML5 audio.</audio>
+      <p><a id="direct-sound" href="sounds/crazy-laugh-1.mp3">Open selected sound directly</a></p>
+    </div>
     <div class="tests">
       <button id="crazy-laugh-1" type="button">Crazy Laugh 1</button>
       <button id="crazy-laugh-2" type="button">Crazy Laugh 2</button>
@@ -27,10 +32,9 @@
       <button id="baby-zombie" type="button">Baby Zombie</button>
     </div>
     <button id="stop-sound" class="stop" type="button">STOP SOUND</button>
-    <audio id="scary-audio" preload="none">Your browser does not support HTML5 audio.</audio>
     <noscript><p>Enable JavaScript in Safari to use the sound buttons.</p></noscript>
-    <p class="footer">Eleven sounds. One spooky night.</p>
+    <p class="footer">Eleven sounds. One spooky night. &middot; Player v2</p>
   </div>
-  <script src="ghost.js"></script>
+  <script src="ghost.js?v=2"></script>
 </body>
 </html>

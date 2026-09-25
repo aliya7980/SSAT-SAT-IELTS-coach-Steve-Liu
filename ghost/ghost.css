@@ -12,3 +12,8 @@ button:focus { outline: 3px solid #ffba66; outline-offset: 2px; }
 #sound-status { min-height: 44px; padding: 10px; border: 1px solid #522; background: #150909; overflow-wrap: break-word; }
 .stop { background: #222; border-color: #777; }
 .footer { margin-bottom: 0; }
+
+.player { margin-bottom: 18px; padding: 10px; border: 1px solid #555; }
+.player p { margin: 4px 0 10px; font-size: 14px; }
+.player audio { display: block; width: 100%; height: 44px; }
+.player a { display: block; padding: 12px 0; color: #ffc18b; }
