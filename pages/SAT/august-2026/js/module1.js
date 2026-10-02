@@ -276,7 +276,7 @@ const MODULE_1 = [
       skill: "Command of Evidence",
   
       passage: `
-  Accounts of American revolutionary history often imply that the US Declaration of Independence (published in 1776) was a document that specifically resulted from the presumably exceptional nature of the soon-to-be United States—in this interpretation, the Declaration is a singular instrument born from a response to injustice that was intended to announce the birth of a new kind of nation and win foreign allies to that nation’s cause. But this interpretation neglects to place the Declaration in the larger context of eighteenth-century Western political philosophy—the Declaration was only one of several significant works published during 1776, a remarkable year for political thought.
+  Accounts of American revolutionary history often imply that the US Declaration of Independence (published in 1776) was a document that specifically resulted from the presumably exceptional nature of the soon-to-be United States—in this interpretation, the Declaration is a singular instrument born from a response to injustice that was intended to announce the birth of a new kind of nation and win foreign allies to that nation’s cause. But this interpretation neglects to place the Declaration in the larger context of eighteenth-century Western political philosophy— <u>the Declaration was only one of several significant works published during 1776, a remarkable year for political thought.</u>
       `,
   
       prompt: `
