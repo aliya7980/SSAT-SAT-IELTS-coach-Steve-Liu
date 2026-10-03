@@ -260,7 +260,7 @@ function startTimer(){
 function renderTimer(){let s=state.seconds[state.module],m=Math.floor(s/60),r=s%60;$("timer").textContent=`${m}:${String(r).padStart(2,"0")}`}
 function renderQuestion(){
  show("testScreen");const item=q();$("moduleLabel").textContent=`Reading and Writing · Module ${state.module}`;$("studentLabel").textContent=`Student: ${state.name}`;$("questionNumber").textContent=`Question ${item.n} of 27`;$("centerCounter").textContent=`${item.n} / 27`;$("progressBar").style.width=`${(item.n/27)*100}%`;
- $("passage").textContent=item.passage;$("prompt").textContent=item.prompt;$("options").innerHTML="";
+ $("passage").innerHTML=item.passage;$("prompt").textContent=item.prompt;$("options").innerHTML="";
  item.choices.forEach((c,i)=>{const l="ABCD"[i],div=document.createElement("div");div.className="option";if(state.answers[state.module][item.n]===l)div.classList.add("selected");if((state.crossed[state.module][item.n]||[]).includes(l))div.classList.add("crossed");
  div.innerHTML=`<div class="letter">${l}</div><div class="option-text">${c}</div><button class="cross-btn" title="Cross out">✕</button>`;
  div.querySelector(".option-text").addEventListener("click",()=>{state.answers[state.module][item.n]=l;renderQuestion()});
