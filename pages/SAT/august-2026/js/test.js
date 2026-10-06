@@ -148,9 +148,9 @@ const QUESTIONS = {
     $("progressBar").style.width =
       `${(item.n / 27) * 100}%`;
   
-    $("passage").textContent = item.passage;
+    $("passage").innerHTML = item.passage;
   
-    $("prompt").textContent = item.prompt;
+    $("prompt").innerHTML = item.prompt;
   
     $("options").innerHTML = "";
   
