@@ -1,438 +1,196 @@
-// ============================================================
-// TEACHER MODE
-// ============================================================
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HuskyDaddy Digital SAT Practice | August 2026 Asia-Pacific</title>
+<link rel="stylesheet" href="../august-2026/css/sat.css"
+><link rel="stylesheet" href="../shared/mock-tests.css">
 
-// Open teacher screen
-function openTeacher() {
-  show("teacherScreen");
+</head>
+<body data-view="teacher">
+<nav class="navbar">
+  <div class="logo">HuskyDaddy | Digital SAT Practice</div>
+  <ul class="nav-links">
+    <li><a href="../../sat.html">Home</a></li>
+    <li><a href="../../download.html">Downloads</a></li>
+    <li><a href="../../sat.html">SAT</a></li>
+    <li><a href="../../contact.html">Contact</a></li>
+    <li><a href="../index.html">Mock Tests</a></li>
+    <li><a href="#" id="teacherLink">Teacher</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <h1>Authentic SAT Questions: 2026 August Asia-Pacific Paper</h1>
+  <p>Reading & Writing</p>
+</header>
+
+<main class="container">
+
+<section id="startScreen">
+  <div class="card">
+    <h2 style="margin-bottom:14px">Start Practice Test</h2>
+    <div class="field"><label for="testSelector">Choose a mock test</label><select id="testSelector"><option value="august2026">August 2026 Asia-Pacific</option><option value="september2026-practice1">September 2026 Practice 1</option></select></div>
+    <div class="start-grid">
+      <div class="field"><label for="studentName">Student name</label><input id="studentName" placeholder="Enter your name"></div>
+      <div class="field"><label>Test</label><input id="testName" value="August 2026 Asia-Pacific — Reading & Writing" disabled></div>
+    </div>
+    <p style="margin:18px 0;color:#52606d">Module 1: 27 questions · Module 2: 27 questions · 32 minutes per module</p>
+    <p id="keyStatus" class="notice"></p><button class="btn" id="startBtn">Start Practice</button> <button class="btn secondary" id="resumeBtn" hidden>Resume test</button>
+  </div>
+</section>
+
+<section id="testScreen" class="hidden test-shell">
+  <div class="test-top">
+    <div>
+      <div class="kicker">HuskyDaddy Digital SAT Practice</div>
+      <div class="test-title" id="moduleLabel">Reading and Writing · Module 1</div>
+      <div id="studentLabel" style="color:#52606d"></div>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <div class="timer">Time Remaining<strong id="timer">32:00</strong></div>
+  </div>
+
+
+  <div class="question-card">
+
+    <div class="q-head">
+
+      <h2 id="questionNumber">
+        Question 1 of 27
+      </h2>
+
+      <button
+        class="btn secondary"
+        id="navigatorBtn"
+      >
+        Question Navigator
+      </button>
+
+    </div>
+
+
+    <div class="q-body sat-two-column">
+
+
+      <!-- LEFT SIDE: PASSAGE -->
+
+      <div class="passage-panel">
+
+        <div
+          class="passage"
+          id="passage"
+        ></div>
+
+      </div>
+
+
+      <!-- RIGHT SIDE: QUESTION -->
+
+      <div class="question-panel">
+
+        <div
+          class="prompt"
+          id="prompt"
+        ></div>
+
+
+        <div
+          class="options"
+          id="options"
+        ></div>
 
-  $("teacherLogin").classList.remove("hidden");
-  $("teacherDash").classList.add("hidden");
-}
 
+        <div class="q-tools">
 
-// ============================================================
-// TEACHER LINK
-// ============================================================
-
-$("teacherLink").onclick = (e) => {
-  e.preventDefault();
-  openTeacher();
-};
-
-
-// ============================================================
-// TEACHER LOGIN
-// ============================================================
-
-$("teacherLoginBtn").onclick = () => {
-
-  const code = $("teacherCode").value;
-
-  if (code === "1201") {
-
-    $("teacherLogin").classList.add("hidden");
-    $("teacherDash").classList.remove("hidden");
-
-    $("teacherError").textContent = "";
-
-    renderTeacher();
-
-  } else {
-
-    $("teacherError").textContent =
-      "Incorrect access code.";
-  }
-};
-
-
-// ============================================================
-// EXIT TEACHER MODE
-// ============================================================
-
-$("exitTeacher").onclick = () => {
-
-  show("startScreen");
-
-  $("teacherCode").value = "";
-  $("teacherError").textContent = "";
-};
-
-
-// ============================================================
-// GET SAVED ANSWER KEY
-// ============================================================
-
-function getKey() {
-  const defaultKey = {"m1q1":"A","m1q2":"A","m1q3":"A","m1q4":"A","m1q5":"A","m1q6":"D","m1q7":"B","m1q8":"D","m1q9":"C","m1q10":"D","m1q11":"A","m1q12":"A","m1q13":"D","m1q14":"D","m1q15":"D","m1q16":"A","m1q17":"B","m1q18":"D","m1q19":"D","m1q20":"A","m1q21":"C","m1q22":"B","m1q23":"B","m1q24":"B","m1q25":"D","m1q26":"B","m1q27":"D","m2q1":"A","m2q2":"A","m2q3":"C","m2q4":"D","m2q5":"B","m2q6":"D","m2q7":"B","m2q8":"B","m2q9":"A","m2q10":"A","m2q11":"B","m2q12":"D","m2q13":"B","m2q14":"B","m2q15":"D","m2q16":"D","m2q17":"D","m2q18":"B","m2q19":"A","m2q20":"A","m2q21":"A","m2q22":"D","m2q23":"C","m2q24":"B","m2q25":"D","m2q26":"D","m2q27":"A"};
-  return { ...defaultKey, ...JSON.parse(localStorage.getItem("hd_sat_key") || "{}") };
-}
-
-
-// ============================================================
-// BUILD TEACHER DASHBOARD
-// ============================================================
-
-function renderTeacher() {
-
-  const key = getKey();
-
-  // ----------------------------------------------------------
-  // ANSWER KEY EDITOR
-  // ----------------------------------------------------------
-
-  $("answerKeyEditor").innerHTML = "";
-
-
-  [1, 2].forEach((mod) => {
-
-    const heading =
-      document.createElement("h4");
-
-    heading.textContent =
-      `Module ${mod}`;
-
-    heading.style.marginTop =
-      "12px";
-
-    $("answerKeyEditor")
-      .appendChild(heading);
-
-
-    QUESTIONS[mod].forEach((item) => {
-
-      const row =
-        document.createElement("div");
-
-      row.className =
-        "answer-edit";
-
-
-      const savedAnswer =
-        key[`m${mod}q${item.n}`];
-
-
-      const options =
-        '<option value="">—</option>' +
-
-        ["A", "B", "C", "D"]
-          .map((letter) => {
-
-            const selected =
-              savedAnswer === letter
-                ? "selected"
-                : "";
-
-            return `
-              <option ${selected}>
-                ${letter}
-              </option>
-            `;
-          })
-          .join("");
-
-
-      row.innerHTML = `
-        <strong>Q${item.n}</strong>
-
-        <select data-k="m${mod}q${item.n}">
-          ${options}
-        </select>
-
-        <input
-          value="${item.skill}"
-          disabled
-        >
-      `;
-
-
-      $("answerKeyEditor")
-        .appendChild(row);
-    });
-  });
-
-
-  // ----------------------------------------------------------
-  // STUDENT ATTEMPTS
-  // ----------------------------------------------------------
-
-  const attempts =
-    JSON.parse(
-      localStorage.getItem(
-        "hd_sat_attempts"
-      ) || "[]"
-    );
-
-
-  $("attemptRows").innerHTML =
-    attempts
-      .map((attempt) => {
-
-        const score =
-          attempt.totalKnown
-            ? `${attempt.correct}/${attempt.totalKnown}`
-            : "Pending key";
-
-
-        const accuracy =
-          attempt.totalKnown
-            ? `${attempt.accuracy}%`
-            : "—";
-
-
-        return `
-          <tr>
-            <td>${attempt.name}</td>
-            <td>${attempt.date}</td>
-            <td>${score}</td>
-            <td>${accuracy}</td>
-          </tr>
-        `;
-      })
-      .join("");
-
-
-  // ----------------------------------------------------------
-  // ATTEMPT SELECT MENU
-  // ----------------------------------------------------------
-
-  $("attemptSelect").innerHTML =
-    '<option value="">Select attempt</option>' +
-
-    attempts
-      .map((attempt) => {
-
-        return `
-          <option value="${attempt.id}">
-            ${attempt.name} — ${attempt.date}
-          </option>
-        `;
-      })
-      .join("");
-}
-
-
-// ============================================================
-// SAVE ANSWER KEY
-// ============================================================
-
-$("saveKeyBtn").onclick = () => {
-
-  const key = {};
-
-
-  document
-    .querySelectorAll("[data-k]")
-    .forEach((select) => {
-
-      if (select.value) {
-
-        key[select.dataset.k] =
-          select.value;
-      }
-    });
-
-
-  localStorage.setItem(
-    "hd_sat_key",
-    JSON.stringify(key)
-  );
-
-
-  alert(
-    "Answer key saved on this browser."
-  );
-
-
-  renderTeacher();
-};
-
-
-// ============================================================
-// TEACHER ANALYSIS
-// ============================================================
-
-$("attemptSelect").onchange = () => {
-
-  const id =
-    Number(
-      $("attemptSelect").value
-    );
-
-
-  const attempts =
-    JSON.parse(
-      localStorage.getItem(
-        "hd_sat_attempts"
-      ) || "[]"
-    );
-
-
-  const attempt =
-    attempts.find(
-      (a) => a.id === id
-    );
-
-
-  if (!attempt) {
-
-    $("analysisBox").innerHTML = "";
-
-    return;
-  }
-
-
-  const key = getKey();
-
-  const skills = {};
-
-
-  // ----------------------------------------------------------
-  // CHECK QUESTIONS BY SKILL
-  // ----------------------------------------------------------
-
-  [1, 2].forEach((mod) => {
-
-    QUESTIONS[mod].forEach((item) => {
-
-      const correctAnswer =
-        key[`m${mod}q${item.n}`];
-
-
-      // Ignore question if teacher
-      // has not entered an answer
-      if (!correctAnswer) {
-        return;
-      }
-
-
-      // Create skill category if needed
-      if (!skills[item.skill]) {
-
-        skills[item.skill] = {
-          correct: 0,
-          total: 0
-        };
-      }
-
-
-      skills[item.skill].total++;
-
-
-      const studentAnswer =
-        attempt.answers?.[mod]?.[item.n];
-
-
-      if (
-        studentAnswer === correctAnswer
-      ) {
-
-        skills[item.skill].correct++;
-      }
-    });
-  });
-
-
-  // ----------------------------------------------------------
-  // SORT WEAKEST SKILLS FIRST
-  // ----------------------------------------------------------
-
-  const entries =
-    Object.entries(skills)
-      .sort((a, b) => {
-
-        const scoreA =
-          a[1].correct /
-          a[1].total;
-
-        const scoreB =
-          b[1].correct /
-          b[1].total;
-
-        return scoreA - scoreB;
-      });
-
-
-  // ----------------------------------------------------------
-  // SHOW ANALYSIS
-  // ----------------------------------------------------------
-
-  let html =
-    `<h4>${attempt.name}</h4>`;
-
-
-  html += entries
-    .map(([skill, result]) => {
-
-      const percent =
-        Math.round(
-          result.correct /
-          result.total *
-          100
-        );
-
-
-      return `
-        <div class="result-row">
-
-          <span>
-            ${skill}
-          </span>
-
-          <strong>
-            ${result.correct}/${result.total}
-            (${percent}%)
-          </strong>
+          <button
+            class="btn secondary"
+            id="markBtn"
+          >
+            ☆ Mark for Review
+          </button>
 
         </div>
-      `;
-    })
-    .join("");
-
-
-  // ----------------------------------------------------------
-  // PRIORITY REVIEW
-  // ----------------------------------------------------------
-
-  if (entries.length) {
-
-    const weakestSkills =
-      entries
-        .slice(0, 3)
-        .map(
-          ([skill]) => skill
-        )
-        .join(", ");
-
-
-    html += `
-      <div
-        class="notice"
-        style="margin-top:16px"
-      >
-
-        Priority review:
-
-        <strong>
-          ${weakestSkills}
-        </strong>
 
       </div>
-    `;
 
-  } else {
+    </div>
 
-    html += `
-      <div class="notice">
+  </div>
+  <div class="nav-bottom">
+    <button class="btn secondary" id="backBtn">← Back</button>
+    <span id="centerCounter">1 / 27</span>
+    <button class="btn" id="nextBtn">Next →</button>
+  </div>
+</section>
 
-        Enter the answer key first
-        to generate the analysis.
+<section id="navigatorScreen" class="hidden">
+  <div class="card">
+    <h2 id="navigatorTitle">Module Navigator</h2>
+    <p style="color:#52606d;margin-bottom:16px">Answered questions are shaded. A star means Marked for Review.</p>
+    <div class="navigator" id="navigatorGrid"></div>
+    <div style="margin-top:18px"><button class="btn" id="closeNavigator">Return to Question</button></div>
+  </div>
+</section>
 
+<section id="reviewScreen" class="hidden">
+  <div class="card">
+    <h2 id="reviewTitle">Module Review</h2>
+    <div id="reviewStats" style="margin-top:10px"></div>
+    <div class="review-grid" id="reviewGrid"></div>
+    <button class="btn" id="submitModuleBtn">Submit Module</button>
+  </div>
+</section>
+
+<section id="resultScreen" class="hidden">
+  <div class="card">
+    <h2>HuskyDaddy SAT Reading & Writing Results</h2>
+    <div id="scoreBox" style="margin-top:16px"></div>
+    <div style="margin-top:20px"><button class="btn secondary" id="restartBtn">Start Again</button></div>
+  </div>
+</section>
+
+<section id="teacherScreen" class="hidden">
+  <div id="teacherLogin" class="card teacher-login">
+    <h2>Teacher SAT Dashboard</h2>
+    <p style="color:#52606d;margin:8px 0 16px">Enter the teacher access code.</p>
+    <div class="field"><input id="teacherCode" type="password" placeholder="Access code"></div>
+    <button class="btn" id="teacherLoginBtn" style="margin-top:14px">Enter</button>
+    <p id="teacherError" style="color:#7f1d1d;margin-top:10px"></p>
+  </div>
+
+  <div id="teacherDash" class="hidden">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+        <div><h2>Teacher Dashboard</h2><p style="color:#52606d">Answer key and locally saved attempts.</p></div>
+        <button class="btn secondary" id="exitTeacher">Exit Teacher Mode</button>
       </div>
-    `;
-  }
+    </div>
+    <div class="teacher-grid">
+      <div class="card">
+        <h3>Answer Key</h3>
+        <p id="keyNotice" style="color:#52606d;margin-bottom:12px"></p>
+        <div id="answerKeyEditor"></div>
+        <button class="btn" id="saveKeyBtn" style="margin-top:14px">Save Answer Key</button>
+      </div>
+      <div class="card">
+        <h3>Student Attempts</h3>
+        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Date</th><th>Score</th><th>Accuracy</th><th>Review</th></tr></thead><tbody id="attemptRows"></tbody></table></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Teacher Analysis</h3>
+      <p style="color:#52606d;margin-bottom:12px">Select a saved attempt below to see a skill-based analysis.</p>
+      <select id="attemptSelect" aria-label="Select student attempt" style="padding:10px;border:1px solid #cbd5e1;border-radius:8px"></select>
+      <div id="analysisBox" style="margin-top:18px"></div>
+    </div>
+  </div>
+</section>
 
+</main>
+<footer>&copy; HuskyDaddy | SAT 2026 August Asia-Pacific</footer>
 
-  $("analysisBox").innerHTML =
-    html;
-};
+<script src="../shared/load-test.js" data-default-test="august2026" data-mode="test"></script>
+</body>
+</html>

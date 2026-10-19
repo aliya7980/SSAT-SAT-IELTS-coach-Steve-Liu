@@ -1,0 +1,142 @@
+[
+  {
+    "testId": "september2026-practice1",
+    "module": 1,
+    "questionNumber": 11,
+    "sourcePdfPageIndex": 12,
+    "sourcePdfPageNumber": 13,
+    "printedPageNumber": 12,
+    "cropCoordinates": [
+      160,
+      240,
+      1030,
+      674
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/september2026-practice1/m1-q11-table.png",
+    "description": "Commercial airline routes and passenger counts in 2017–18",
+    "matchStatus": "confirmed by printed module/question and visual subject",
+    "sourceNote": "",
+    "cropVisuallyInspected": true,
+    "renderedQuestionVisuallyInspected": true,
+    "renderedQuestionViewportCssPixels": 365
+  },
+  {
+    "testId": "september2026-practice1",
+    "module": 1,
+    "questionNumber": 13,
+    "sourcePdfPageIndex": 14,
+    "sourcePdfPageNumber": 15,
+    "printedPageNumber": 14,
+    "cropCoordinates": [
+      230,
+      255,
+      960,
+      668
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/september2026-practice1/m1-q13-chart.png",
+    "description": "Agricultural export growth rates before and after free trade agreements",
+    "matchStatus": "confirmed by printed module/question and visual subject",
+    "sourceNote": "",
+    "cropVisuallyInspected": true,
+    "renderedQuestionVisuallyInspected": true,
+    "renderedQuestionViewportCssPixels": 365
+  },
+  {
+    "testId": "september2026-practice1",
+    "module": 2,
+    "questionNumber": 9,
+    "sourcePdfPageIndex": 30,
+    "sourcePdfPageNumber": 31,
+    "printedPageNumber": 30,
+    "cropCoordinates": [
+      160,
+      238,
+      1030,
+      562
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/september2026-practice1/m2-q09-table.png",
+    "description": "Home video game systems, manufacturers, system types, and worldwide units sold",
+    "matchStatus": "confirmed by printed module/question and visual subject",
+    "sourceNote": "",
+    "cropVisuallyInspected": true,
+    "renderedQuestionVisuallyInspected": true,
+    "renderedQuestionViewportCssPixels": 365
+  },
+  {
+    "testId": "september2026-practice1",
+    "module": 2,
+    "questionNumber": 10,
+    "sourcePdfPageIndex": 31,
+    "sourcePdfPageNumber": 32,
+    "printedPageNumber": 31,
+    "cropCoordinates": [
+      250,
+      240,
+      925,
+      612
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/september2026-practice1/m2-q10-chart.png",
+    "description": "Leaf area consumed by hornworms in three trials for emitting and nonemitting leaves",
+    "matchStatus": "confirmed by printed module/question and visual subject",
+    "sourceNote": "The source chart itself clips the first characters of its vertical-axis description.",
+    "cropVisuallyInspected": true,
+    "renderedQuestionVisuallyInspected": true,
+    "renderedQuestionViewportCssPixels": 365
+  },
+  {
+    "testId": "september2026-practice1",
+    "module": 2,
+    "questionNumber": 11,
+    "sourcePdfPageIndex": 32,
+    "sourcePdfPageNumber": 33,
+    "printedPageNumber": 32,
+    "cropCoordinates": [
+      160,
+      240,
+      1030,
+      599
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/september2026-practice1/m2-q11-table.png",
+    "description": "Monthly temperatures and male and female fruit fly wing centroid sizes",
+    "matchStatus": "confirmed by printed module/question and visual subject",
+    "sourceNote": "",
+    "cropVisuallyInspected": true,
+    "renderedQuestionVisuallyInspected": true,
+    "renderedQuestionViewportCssPixels": 365
+  }
+]
