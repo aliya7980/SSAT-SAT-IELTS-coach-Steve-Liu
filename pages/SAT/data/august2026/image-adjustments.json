@@ -1,0 +1,66 @@
+[
+  {
+    "originalUpload": "m1q10.png",
+    "originalSizePixels": [
+      832,
+      670
+    ],
+    "cropPixels": [
+      270,
+      85,
+      700,
+      670
+    ],
+    "origin": "top-left",
+    "displayMaxWidthCssPixels": 440,
+    "processing": "Lossless crop only. Original data, labels, legends, and table notes retained. No redrawing or resampling."
+  },
+  {
+    "originalUpload": "m1q12.png",
+    "originalSizePixels": [
+      968,
+      592
+    ],
+    "cropPixels": [
+      50,
+      75,
+      950,
+      590
+    ],
+    "origin": "top-left",
+    "displayMaxWidthCssPixels": 900,
+    "processing": "Lossless crop only. Original data, labels, legends, and table notes retained. No redrawing or resampling."
+  },
+  {
+    "originalUpload": "m2q10.png",
+    "originalSizePixels": [
+      934,
+      480
+    ],
+    "cropPixels": [
+      110,
+      65,
+      900,
+      465
+    ],
+    "origin": "top-left",
+    "displayMaxWidthCssPixels": 900,
+    "processing": "Lossless crop only. Original data, labels, legends, and table notes retained. No redrawing or resampling."
+  },
+  {
+    "originalUpload": "m2q12.png",
+    "originalSizePixels": [
+      698,
+      486
+    ],
+    "cropPixels": [
+      292,
+      78,
+      630,
+      470
+    ],
+    "origin": "top-left",
+    "displayMaxWidthCssPixels": 420,
+    "processing": "Lossless crop only. Original data, labels, legends, and table notes retained. No redrawing or resampling."
+  }
+]

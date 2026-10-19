@@ -22,7 +22,7 @@ function saveProgress() {
   localStorage.setItem(storagePrefix + 'progress', JSON.stringify({...snapshot, testId: TEST.id, screen: practiceScreen}));
 }
 function questionImages(item) {
-  return (item.images || []).map(img => `<figure class="question-visual"><a href="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener" aria-label="Enlarge visual: ${escapeHtml(img.alt)}"><img src="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" alt="${escapeHtml(img.alt)}" loading="eager"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
+  return (item.images || []).map(img => `<figure class="question-visual" style="--visual-max-width: ${Number(img.displayWidth) || 900}px"><a href="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener" aria-label="Enlarge visual: ${escapeHtml(img.alt)}"><img src="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" alt="${escapeHtml(img.alt)}" loading="eager"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
 }
 
 const state={module:1,index:0,name:"",answers:{1:{},2:{}},marked:{1:{},2:{}},crossed:{1:{},2:{}},seconds:{1:1920,2:1920},timerId:null,startTime:null};

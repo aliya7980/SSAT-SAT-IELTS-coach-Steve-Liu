@@ -124,6 +124,14 @@ window.SAT_TESTS["august2026"] = {
           "pecans",
           "pistachios",
           "hazelnuts"
+        ],
+        "images": [
+          {
+            "src": "images/august2026/m1q10.png",
+            "alt": "Prices per pound of four nut varieties across the 2016/17 through 2019/20 seasons",
+            "position": "beforePassage",
+            "displayWidth": 440
+          }
         ]
       },
       {
@@ -148,6 +156,14 @@ window.SAT_TESTS["august2026"] = {
           "If properly processed and stored under airtight conditions, corn silage can retain its quality for over a year; hence, feeding systems that use corn silage are assured of a consistent feed supply that is less vulnerable to weather conditions than more traditional feeding systems, such as grazing.",
           "The labor costs of grazing livestock in Portugal (e.g., herding, fencing, and moving) are likely comparable with those in Spain; however, farmland in Portugal that is suitable for grazing is scarcer and may be more expensive than in rural southern and central Spain, where many Spanish goat farms are located.",
           "Goats expend energy grazing and therefore tend to produce less milk than goats fed silage or fresh-cut grass; moreover, grazing goats’ diets are heterogeneous and seasonally variable, so milk production could decline when the nutritional value of available vegetation is poor."
+        ],
+        "images": [
+          {
+            "src": "images/august2026/m1q12.png",
+            "alt": "Economic indicators of Spanish goat farms by feeding system in 2019, including the gross-margin definition",
+            "position": "beforePassage",
+            "displayWidth": 900
+          }
         ]
       },
       {
@@ -450,6 +466,14 @@ window.SAT_TESTS["august2026"] = {
           "the Blackwater Hoard, Ashford Hoard, and Glenmore Hoard have all been found since 1887.",
           "the Ashford Hoard was found in 1887.",
           "Ashford Hoard and Glenmore Hoard were both discovered in the 1900s."
+        ],
+        "images": [
+          {
+            "src": "images/august2026/m2q10.png",
+            "alt": "Scottish and Welsh hoards with dates of contents, years of discovery, and descriptions",
+            "position": "beforePassage",
+            "displayWidth": 900
+          }
         ]
       },
       {
@@ -474,6 +498,14 @@ window.SAT_TESTS["august2026"] = {
           "The distribution of Ge/Si ratios indicates that a portion of the cements could have precipitated via high-pressure reactions, which suggests that organisms at the site were less likely to have been preserved via rapid precipitation from a silica-rich ocean than Tarhan et al. hypothesized.",
           "The range of Ge/Si ratios is larger for the cements than for the grains, which suggests that the cements are likely the result of high-pressure reactions that occurred long after the organisms were preserved by some other means than precipitation from a silica-rich ocean.",
           "The distribution of Ge/Si ratios of the cements and grains is largely inconsistent with the cements having precipitated via high-pressure reactions, which implicitly lends support to the idea that the organisms at the site were quickly preserved by cement precipitation from a silica-rich ocean."
+        ],
+        "images": [
+          {
+            "src": "images/august2026/m2q12.png",
+            "alt": "Distribution of germanium-to-silicon ratios in silica cements and grains associated with South Australian Ediacara casts",
+            "position": "beforePassage",
+            "displayWidth": 420
+          }
         ]
       },
       {

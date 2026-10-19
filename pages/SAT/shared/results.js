@@ -21,7 +21,11 @@
   $('studentDetails').textContent = `${attempt.name} · ${attempt.date}`;
   // Current keys also grade responses submitted while the September key was pending.
   const key={...attempt.answerKey,...TEST.answerKey,...read('key',{})};
-  const questions=attempt.questions || TEST.questions;
+  // Restore newly added visuals when reviewing older saved question snapshots.
+  const questions=Object.fromEntries([1,2].map(mod=>[mod,(attempt.questions?.[mod] || TEST.questions[mod]).map(question=>({
+    ...question,
+    images: TEST.questions[mod].find(current=>current.n===question.n)?.images || question.images || []
+  }))]));
   const modules=[1,2].map(mod=>({mod,rows:questions[mod].map(question=>{
     const selected=attempt.answers?.[mod]?.[question.n], answer=key[`m${mod}q${question.n}`];
     return {question,selected,answer,correct:Boolean(answer && selected===answer),status:!selected?'Unanswered':!answer?'Awaiting answer key':selected===answer?'Correct':'Incorrect'};
@@ -32,7 +36,7 @@
   $('reviewControls').hidden=false;
   if(known<rows.length) {$('reviewFilter').value='all';$('reviewFilter').options[0].textContent='Incorrect, unanswered, or awaiting key';}
   function images(question) {
-    return (question.images||[]).map(img=>`<figure class="question-visual"><a href="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener"><img src="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" alt="${escape(img.alt)}"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
+    return (question.images||[]).map(img=>`<figure class="question-visual" style="--visual-max-width: ${Number(img.displayWidth) || 900}px"><a href="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener"><img src="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" alt="${escape(img.alt)}"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
   }
   function render() {
     const missedOnly=$('reviewFilter').value==='missed';

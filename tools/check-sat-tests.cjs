@@ -42,3 +42,12 @@ console.log('Cross-test isolation, legacy August migration, later-key scoring, r
 const septemberExpected=['ADCDDABBABDCBCBAADDDBBDCADB','CDBDCDDBCCBBABADDBCD CDBACBC'.replace(/ /g,'')];
 for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs[ids[1]].answerKey[`m${m}q${i+1}`]).join(''),septemberExpected[m-1]);
 console.log('All 54 teacher-supplied September answer mappings verified.');
+
+// August snapshots saved before image restoration must still show all four visuals.
+const oldAugust=JSON.parse(memory.hd_sat_august2026_attempts)[0];
+for(const module of [1,2])for(const question of oldAugust.questions[module])delete question.images;
+memory.hd_sat_august2026_attempts=JSON.stringify([oldAugust]);
+const restored=context('august2026');vm.runInContext(review,restored.c);
+restored.elements.reviewFilter.value='all';restored.elements.reviewFilter.onchange();
+for(const name of ['m1q10','m1q12','m2q10','m2q12'])assert(restored.elements.questionReview.innerHTML.includes('/images/august2026/'+name+'.png'));
+console.log('Four restored August visuals are present in current data and older saved reviews.');
