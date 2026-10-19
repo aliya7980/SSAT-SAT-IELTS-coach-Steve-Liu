@@ -55,7 +55,7 @@
     "Answer sheets",
     "Math modules"
   ],
-  "answerKeyStatus": "pending user supply",
+  "answerKeyStatus": "ready — teacher-supplied 2026-10-19",
   "extractionMethod": "Scanned PDF rendered with CoreGraphics at 144 dpi; Tesseract OCR; visual corrections and format restoration against original page renders.",
   "formattingNotes": "Retained original wording, source advertisements, notes bullets, italics and underlining. Completion blanks use five underscores. Line wrapping follows responsive browser layout; paragraph breaks are retained.",
   "knownSourceDefects": [

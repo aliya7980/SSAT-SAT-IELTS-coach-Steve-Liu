@@ -34,7 +34,7 @@ Results and teacher URLs carry `?test=<test ID>`. Each completed attempt records
 ## Validation performed
 
 - Two modules of 27 unique questions in source order for each test; all four choices present.
-- All 54 August answer mappings retained; September has zero invented mappings.
+- All 54 August answer mappings retained; all 54 September mappings match the teacher-supplied key.
 - Five visual mappings checked against printed question numbers, question subjects and original source page renders; all referenced PNGs exist.
 - Every final crop inspected; every associated rendered question inspected in Chrome's 365-pixel responsive view. Desktop two-column layout also inspected.
 - Browser flow checked through both module submissions, pending-key results and teacher login showing the September attempt.
@@ -43,7 +43,7 @@ Results and teacher URLs carry `?test=<test ID>`. Each completed attempt records
 
 ## Unresolved / source limitations
 
-1. September answer key awaits the teacher. The interface clearly shows pending status and does not score unkeyed questions.
+1. September’s 54-answer key was supplied by the teacher on 2026-10-19 and is active. Previously ungraded saved attempts are scored when their review is opened.
 2. The original Module 2 Q10 chart clips the beginning of its axis-description text. The crop preserves all visible source content.
 3. The original PDF includes promotional sentences within several passages. These were retained to follow the instruction to preserve original text.
 
@@ -58,3 +58,19 @@ All image filenames below are relative to `august-2026/images/september2026-prac
 | 2 | 9 | 31 | 30 | 30 | m2-q09-table.png |
 | 2 | 10 | 32 | 31 | 31 | m2-q10-chart.png |
 | 2 | 11 | 33 | 32 | 32 | m2-q11-table.png |
+
+## Standing preference for future mock tests
+
+Steve plans to add SAT mock tests continuously. For future requests to add a mock test, use this project’s established workflow by default:
+
+1. Reuse the shared layout, typography, navigation, timers, results review and teacher functionality. Preserve all existing tests and links.
+2. Give each test a unique stable ID and separate question data, key, progress, teacher edits and saved attempts. Add it to the selector and loader registry.
+3. Transcribe both Reading and Writing modules in printed order, identifying every question by module plus question number. Preserve original text, paragraph breaks, italics, underlining, symbols and choices.
+4. Crop required charts, graphs, tables and diagrams directly from the supplied PDF. Do not redraw or invent visual data. Keep complete labels and small margins, use module/question filenames, explicitly attach each image to its question, and support multiple images.
+5. Record source PDF page index, PDF page number, printed page number, crop coordinates/units, asset path and verified question match in a visual manifest. Inspect each crop against the source and its rendered question; check desktop and narrow layouts. State any verification limitation honestly.
+6. If the answer key will arrive later, finish the question import and documents first. Keep the key empty and show pending status without guessing. When Steve supplies it, enter all numbered mappings, rebuild the data, activate scoring and ensure previously saved attempts can be graded.
+7. After both modules, show total and module scores, each student answer, correct answer, correct/incorrect/unanswered status and expandable original question content. Retain the missed-question filter and teacher analysis.
+8. Update the transcription, source metadata and notes when the key arrives. Run data/order/key/asset checks, storage-isolation and resume checks, scoring/results regression checks, and August compatibility checks.
+9. Finish with concise changed-file and validation information plus a table of imported visuals. Flag unresolved source issues. Do not push, deploy, delete existing tests or overwrite source PDFs unless Steve explicitly requests the relevant action.
+
+Reference implementation: `september2026-practice1`, with the teacher-supplied key completed on 2026-10-19. Existing August test ID: `august2026`.

@@ -1,6 +1,6 @@
 # September 2026 Practice 1 — Reading and Writing transcription
 
-Test ID: `september2026-practice1`. Source: `SAT_September_2026Practice 1.pdf` (67 pages). Answer key: **pending**.
+Test ID: `september2026-practice1`. Source: `SAT_September_2026Practice 1.pdf` (67 pages). Answer key: **teacher-supplied, 2026-10-19**.
 
 PDF pages below are one-based. Printed pages are the numbers on the source paper. Paragraphs, notes, italics and underlines use inline HTML to preserve their formatting.
 
@@ -19,7 +19,7 @@ B. predict
 C. deny
 D. avoid
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 2
 
@@ -34,7 +34,7 @@ B. extolling
 C. obviating
 D. Necessitating
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 3
 
@@ -49,7 +49,7 @@ B. innovative
 C. comprehensive
 D. inadequate
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 4
 
@@ -64,7 +64,7 @@ B. measure
 C. shield
 D. recover
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 5
 
@@ -79,7 +79,7 @@ B. It defines a certain type of cultural institution, then argues that this type
 C. It describes a trend among cultural institutions in the United States, then identifies an institution that rejects that trend.
 D. It discusses one cultural institution, then discusses a more recently founded cultural institution.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 6
 
@@ -94,7 +94,7 @@ B. It summarizes a shift in scientists’ understanding of how <em>Gasterosteus 
 C. It emphasizes the magnitude of the effect reported by Lai and colleagues of ocean acidification on <em>Gasterosteus aculeatus</em>.
 D. It counters the objection of Clements and colleagues to studies that rely on relatively small sample sizes.
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 7
 
@@ -109,7 +109,7 @@ B. By pointing out that people can produce valuable poetry in other circumstance
 C. By asserting that people often work full-time jobs in order to afford the professional training described in Text 2.
 D. By indicating that those poets who publish in major poetry journals are most likely to be able to earn a living by writing poetry.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 8
 
@@ -124,7 +124,7 @@ B. It informs city planning and conservation efforts.
 C. It ranks the popularity of green spaces with city residents.
 D. It inspires tourists to visit metropolitan areas.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 9
 
@@ -139,7 +139,7 @@ B. The manner in which he crosses the pen is intended to calm the horses but has
 C. He is prepared to escape the pen immediately if the horses begin to approach him.
 D. His self-assured demeanor falters when subjected to the chaos in the pen.
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 10
 
@@ -154,7 +154,7 @@ B. Some North American tree species aren’t increasing their habitat ranges des
 C. The ranges of sand post oaks and limber pines are expanding more rapidly than climate models predicted.
 D. Some North American tree species are developing resistance to fungal partnerships at the northern boundaries of their ranges.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 11
 
@@ -171,7 +171,7 @@ B. number of passengers who traveled between Mumbai and Delhi in 2017 with the n
 C. number of passengers who traveled between Jakarta and Singapore in 2017 with the number who traveled that same route in 2018.
 D. number of passengers who traveled between Jakarta and Singapore in 2018 with the number who traveled between Mexico City and Monterrey during that same year.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 12
 
@@ -186,7 +186,7 @@ B. “God help our native land, / Bring surcease to her strife, / And shower fro
 C. “Let me make the songs for the people, / Songs for the old and young; / Songs to stir like a battle-cry / Wherever they are sung.” (from “Songs for the People”)
 D. “Our world, so worn and weary, / Needs music, pure and strong, / To hush the jangle and discords / Of sorrow, pain, and wrong.” (from “Songs for the People”)
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 13
 
@@ -203,7 +203,7 @@ B. Although agricultural exports from Morocco grew over the five years after Mor
 C. Although agricultural exports from Mexico decreased over the five years before NAFTA, a reversal in this trend was observed over the five years after Mexico joined NAFTA.
 D. Over the five years after Guatemala joined CAFTA-DR, agricultural exports from Guatemala grew at a rate of about 20.1 percent, which is higher than the rate over the five years before Guatemala joined the agreement.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 14
 
@@ -218,7 +218,7 @@ B. Jansson created her own magazine when she was thirteen years old and sold cop
 C. Jansson was an intensely private person but still responded personally to thousands of letters from fans writing about the Moomins.
 D. Jansson resigned from creating a daily Moomin comic strip in 1959 after working on it for seven years, and her brother Lars took her place.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 15
 
@@ -233,7 +233,7 @@ B. gathering information about localized customer preferences to deploy sales ta
 C. ensuring that organic products are clearly distinguished from nonorganic products in terms of messaging, placement, and price.
 D. combining in-store promotional messaging with social media messaging to ensure customers are aware of certain features of organic products.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 16
 
@@ -248,7 +248,7 @@ B. work
 C. are working
 D. have worked
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 17
 
@@ -263,7 +263,7 @@ B. Sereysothea the
 C. Sereysothea but the
 D. Sereysothea, the
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 18
 
@@ -278,7 +278,7 @@ B. Mo:
 C. Mo—
 D. Mo,
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 19
 
@@ -293,7 +293,7 @@ B. future lexicographers considered the dictionary, which preserved knowledge of
 C. the dictionary’s preservation of knowledge of the Hopi language was considered a model for future lexicographers.
 D. the dictionary preserved knowledge of the Hopi language and was considered a model for future lexicographers.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 20
 
@@ -308,7 +308,7 @@ B. tip mimicking
 C. tip and mimicking
 D. tip. Mimicking
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 21
 
@@ -323,7 +323,7 @@ B. Afterward,
 C. Instead,
 D. For example,
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 22
 
@@ -338,7 +338,7 @@ B. in turn,
 C. specifically,
 D. in sum,
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 23
 
@@ -353,7 +353,7 @@ B. As a result,
 C. In other words,
 D. In reality,
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 24
 
@@ -368,7 +368,7 @@ B. Likewise,
 C. Indeed,
 D. Additionally,
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 25
 
@@ -383,7 +383,7 @@ B. The Ole Bull Stradivarius is named after Ole Bull.
 C. Of the 1,000 or so violins Antonio Stradivari made, only about 500 exist today.
 D. Born in 1644, Antonio Stradivari was an Italian instrument maker whose violins are famous for their quality.
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 26
 
@@ -398,7 +398,7 @@ B. Participants were asked to identify the correct version of Snoopy, who is a c
 C. Snoopy is a cartoon dog with a black patch on its ear, but in one of the altered versions, the dog’s ear had no pattern.
 D. When participants were asked to identify the correct version of Snoopy, 84% selected the unaltered image.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 27
 
@@ -413,7 +413,7 @@ B. Previously believed to be extinct, a living specimen of <em>Catagonus wagneri
 C. Examples of Lazarus species can be found in <em>Catagonus wagneri</em> as well as <em>Medusagyne oppositifolia</em>.
 D. A living specimen of <em>Catagonus wagneri</em>, once believed to be extinct, was identified in 1974.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ## Module 2
 
@@ -430,7 +430,7 @@ B. precluded
 C. populated
 D. sanitized
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 2
 
@@ -445,7 +445,7 @@ B. fraudulent
 C. monotonous
 D. byzantine
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 3
 
@@ -460,7 +460,7 @@ B. enigmatic
 C. ambivalent
 D. pragmatic
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 4
 
@@ -475,7 +475,7 @@ B. Dispute
 C. Enumerate
 D. Regret
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 5
 
@@ -490,7 +490,7 @@ B. To compare two experiments addressing the same questions.
 C. To discuss an ongoing experiment.
 D. To describe difficulties associated with preserving seeds.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 6
 
@@ -505,7 +505,7 @@ B. It quantifies phosphate storage by <em>A. confutestita</em> in the Wadden Sea
 C. It offers a relative percentage to help convey the density of <em>A. confutestita</em> in the Wadden Sea intertidal zone during population blooms.
 D. It introduces a point of comparison to illustrate the scale of the phosphate storage by <em>A. confutestita</em> in the Wadden Sea intertidal zone.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 7
 
@@ -520,7 +520,7 @@ B. Mesquite trees grow best when planted in shaded areas, while agaves do not re
 C. Nabhan’s team’s method could be refined to more actively prevent soil moisture from evaporating.
 D. Mesquite trees can provide shade that protects agaves from high-intensity heat and light.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 8
 
@@ -535,7 +535,7 @@ B. Clothing made with awls at sites like Kamenka A likely had coarser seams than
 C. Clothing made with awls at sites like Kamenka A could likely be made more quickly than clothing made with needles at sites like Xiaogushan.
 D. Clothing made at sites like Kamenka A was likely made with needles, while clothing made at sites like Xiaogushan was likely made with awls.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 9
 
@@ -552,7 +552,7 @@ B. Game & Watch sold approximately 4,000,000 units, whereas the ColecoVision sol
 C. Game & Watch sold approximately 18,600,000, whereas the ColecoVision sold only approximately 2,000,000 units.
 D. MSX sold approximately 18,600,000 units, whereas the Intellivision sold only approximately 2,000,000 units.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 10
 
@@ -569,7 +569,7 @@ B. Although the compound is toxic to hornworms, the insects will consume leaves 
 C. Although the compound’s emission does not entirely prevent leaf consumption by hornworms, its emission is associated with reduced leaf consumption.
 D. Although leaves emit the compound in response to insect feeding, it does not appear to significantly reduce leaf consumption by hornworms.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 11
 
@@ -586,7 +586,7 @@ B. the average female wing centroid size was smaller in May than in July.
 C. the average male wing centroid size was consistently smaller than the average female wing centroid size in all four months in the table.
 D. the average monthly low temperature was lower in May than in June.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 12
 
@@ -601,7 +601,7 @@ B. When Martínez and colleagues played control sounds of random noise in the vi
 C. Other bird species than <em>C. cinerascens</em> also showed a tendency to freeze in place or scatter into vegetation when Martínez and colleagues played <em>T. caesius</em> alarm calls.
 D. In some instances, <em>C. cinerascens</em> froze in place or scattered into vegetation when Martínez and colleagues approached but before they began playing sounds.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 13
 
@@ -616,7 +616,7 @@ B. “By reaffirming baile folklórico as a hybrid of Indigenous and colonial Sp
 C. “Hernández’s reliance on classical ballet and modern dance has been exaggerated; the subject matter and gestural vocabulary of baile folklórico as popularized by her company remain rooted in the communal dances of Indigenous and colonial Spanish societies.”
 D. “Certain dances popularized by Hernández beginning in the 1950s appear in the repertoires of dance companies throughout Mexico and the United States but are nonetheless associated with specific Indigenous groups, specific colonial Spanish dances, or both.”
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 14
 
@@ -631,7 +631,7 @@ B. lower than those for “Soul Man.”
 C. lowest among participants who were fans of the Steve Miller Band.
 D. highest among participants who were fans of Sam & Dave.
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 15
 
@@ -646,7 +646,7 @@ B. wage increases in England between 1600 and 1750 did not account for the wides
 C. probate inventories from 1600 to 1750 that have been analyzed by scholars exaggerated the number of consumer goods that relatively prosperous individuals possessed.
 D. advocates of the consumer-revolution argument may have failed to account for the possibility that the increased acquisition of consumer goods in England between 1600 and 1750 was attributable to an increase in the proportion of wealthy individuals in the period.
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 16
 
@@ -661,7 +661,7 @@ B. Austin-Bergstrom International Airport saw a total of 8,506,262 departing pas
 C. flights at Austin-Bergstrom International Airport were boarded by a total of 8,506,262 departing passengers.
 D. employees at Austin-Bergstrom International Airport boarded a total of 8,506,262 departing passengers.
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 17
 
@@ -676,7 +676,7 @@ B. handwriting,
 C. handwriting
 D. handwriting;
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 18
 
@@ -691,7 +691,7 @@ B. example. With
 C. example, with
 D. example and with
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 19
 
@@ -706,7 +706,7 @@ B. Polynesia among
 C. Polynesia, among
 D. Polynesia. Among
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 20
 
@@ -721,7 +721,7 @@ B. indicates
 C. can indicate
 D. indicating
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 21
 
@@ -736,7 +736,7 @@ B. will form
 C. forming
 D. form
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 22
 
@@ -751,7 +751,7 @@ B. likewise,
 C. in contrast,
 D. that is,
 
-Correct answer: **pending**.
+Correct answer: **D**.
 
 ### Question 23
 
@@ -766,7 +766,7 @@ B. consequently,
 C. similarly,
 D. however,
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 24
 
@@ -781,7 +781,7 @@ B. <em>The Three Passions</em> (1928) was released early in actress Merle Oberon
 C. In <em>The Three Passions</em> (1928), actress Merle Oberon played a nameless, uncredited role; however, in <em>Désirée</em> (1954), she played a credited role—that of Empress Josephine.
 D. Early in her career, Merle Oberon wasn’t listed in some film credits, such as the credits for the film <em>The Three Passions</em>, where she played a nameless, uncredited role.
 
-Correct answer: **pending**.
+Correct answer: **A**.
 
 ### Question 25
 
@@ -796,7 +796,7 @@ B. Following Bigelow’s 1996 proposal, Bourne accepted the existence of past-te
 C. In contending with the truth-maker objection, <em>ersatz presentism</em> diverges from Lucretianism’s use of past-tensed properties by positing an “ersatz” time-outside-time capable of representing past things.
 D. In 2006, Bourne proposed <em>ersatz presentism</em>, disagreeing with Bigelow’s earlier hypothesis that only present things exist.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
 ### Question 26
 
@@ -811,7 +811,7 @@ B. Arguing that unsyncopated music gets boring fast, Hein offers a possible reas
 C. Hein argues that syncopated rhythms are more exciting than unsyncopated ones, and indeed, Keller and Schubert’s subjects assessed syncopated rhythms for happiness, enjoyment, and complexity, among other qualities.
 D. Happiness ratings were correlated with enjoyment in Keller and Schubert’s study of syncopated and unsyncopated rhythms, suggesting that syncopated rhythms are, in Hein’s words, “where the fun starts.”
 
-Correct answer: **pending**.
+Correct answer: **B**.
 
 ### Question 27
 
@@ -826,5 +826,5 @@ B. The study by Motta et al. showed that the LNF figures were clearly layered in
 C. The LNF rock art should be considered its own distinct style because its depictions of animal forms reveal a categorical departure from the art of the previous period.
 D. The differences between the LNF rock art and earlier IIAP depictions of animals show a notable increase in detail and variety, proving that rock art figures became more detailed over time.
 
-Correct answer: **pending**.
+Correct answer: **C**.
 
