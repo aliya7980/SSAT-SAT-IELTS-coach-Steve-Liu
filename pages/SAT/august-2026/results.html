@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Answer Review | August 2026 SAT</title>
+<link rel="stylesheet" href="css/sat.css">
+<style>
+.review-header{padding:32px 0 20px}.review-header p{color:#52606d}.review-actions{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.review-actions select{font:inherit;padding:10px;border:1px solid #bcccdc;border-radius:8px;background:white}.module-summary{margin:24px 0 12px}.answer-review{border-left:5px solid #b42318}.answer-review.correct{border-color:#18764b}.answer-review.unanswered{border-color:#b7791f}.answer-review summary{cursor:pointer;font-weight:bold;padding:8px 0}.answer-review p{margin:10px 0}.answer-review .passage{white-space:pre-wrap;margin:20px 0;padding:18px;background:#f7f3eb;border-radius:8px}.review-choice{padding:12px;margin:8px 0;border:1px solid #bcccdc;border-radius:8px}.review-choice.right-choice{border:2px solid #18764b;background:#eef9f1}.review-choice.wrong-choice{border:2px solid #b42318;background:#fff1f0}.choice-label{display:block;font-weight:bold}.review-status{font-weight:bold}.review-note{color:#52606d;margin:12px 0}.empty-state{padding:24px}@media print{.review-actions,.review-links{display:none}.card{break-inside:avoid}}
+</style>
+<script src="js/results.js" defer></script>
+</head>
+<body>
+<main class="container">
+<header class="review-header"><h1>August 2026 SAT · Answer Review</h1><p id="studentDetails"></p></header>
+<section class="card" aria-label="Test score"><h2>Your results</h2><div id="resultSummary" aria-live="polite"></div><p class="review-note">Raw Reading and Writing score out of 54. This is not an official SAT scaled score.</p></section>
+<div class="review-actions" id="reviewControls" hidden>
+<label for="reviewFilter">Show questions <select id="reviewFilter"><option value="missed">Incorrect and unanswered</option><option value="all">All questions</option></select></label>
+<button class="btn secondary" id="printResults">Print results</button>
+</div>
+<div id="questionReview"></div>
+<p class="review-links" style="margin:24px 0"><a class="btn" href="index.html">Start a new practice test</a></p>
+</main>
+</body>
+</html>

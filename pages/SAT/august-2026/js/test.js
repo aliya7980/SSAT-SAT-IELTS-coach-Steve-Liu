@@ -461,12 +461,9 @@ const QUESTIONS = {
   // ============================================================
   
   function getKey() {
-  
-    return JSON.parse(
-      localStorage.getItem("hd_sat_key") ||
-      "{}"
-    );
-  }
+  const defaultKey = {"m1q1":"A","m1q2":"A","m1q3":"A","m1q4":"A","m1q5":"A","m1q6":"D","m1q7":"B","m1q8":"D","m1q9":"C","m1q10":"D","m1q11":"A","m1q12":"A","m1q13":"D","m1q14":"D","m1q15":"D","m1q16":"A","m1q17":"B","m1q18":"D","m1q19":"D","m1q20":"A","m1q21":"C","m1q22":"B","m1q23":"B","m1q24":"B","m1q25":"D","m1q26":"B","m1q27":"D","m2q1":"A","m2q2":"A","m2q3":"C","m2q4":"D","m2q5":"B","m2q6":"D","m2q7":"B","m2q8":"B","m2q9":"A","m2q10":"A","m2q11":"B","m2q12":"D","m2q13":"B","m2q14":"B","m2q15":"D","m2q16":"D","m2q17":"D","m2q18":"B","m2q19":"A","m2q20":"A","m2q21":"A","m2q22":"D","m2q23":"C","m2q24":"B","m2q25":"D","m2q26":"D","m2q27":"A"};
+  return { ...defaultKey, ...JSON.parse(localStorage.getItem("hd_sat_key") || "{}") };
+}
   
   
   // ============================================================
@@ -474,167 +471,29 @@ const QUESTIONS = {
   // ============================================================
   
   function finishTest() {
-  
-    clearInterval(state.timerId);
-  
-    const key = getKey();
-  
-    let correct = 0;
-    let incorrect = 0;
-    let totalKnown = 0;
-  
-  
-    [1, 2].forEach(moduleNumber => {
-  
-      QUESTIONS[moduleNumber].forEach(item => {
-  
-        const correctAnswer =
-          key[
-            `m${moduleNumber}q${item.n}`
-          ];
-  
-  
-        if (!correctAnswer) {
-          return;
-        }
-  
-  
-        totalKnown++;
-  
-  
-        const studentAnswer =
-          state.answers[moduleNumber][item.n];
-  
-  
-        if (
-          studentAnswer === correctAnswer
-        ) {
-  
-          correct++;
-  
-        } else {
-  
-          incorrect++;
-        }
-      });
-    });
-  
-  
-    let accuracy = "—";
-  
-  
-    if (totalKnown) {
-  
-      accuracy =
-        (
-          (correct / totalKnown) * 100
-        ).toFixed(1);
+  clearInterval(state.timerId);
+  const key = getKey();
+  let correct = 0, totalKnown = 0;
+  [1, 2].forEach(mod => QUESTIONS[mod].forEach(item => {
+    if (key[`m${mod}q${item.n}`]) {
+      totalKnown++;
+      if (state.answers[mod][item.n] === key[`m${mod}q${item.n}`]) correct++;
     }
-  
-  
-    // ----------------------------------------------------------
-    // SAVE STUDENT ATTEMPT
-    // ----------------------------------------------------------
-  
-    const attempt = {
-  
-      id: Date.now(),
-  
-      name: state.name,
-  
-      date:
-        new Date().toLocaleString(),
-  
-      answers:
-        JSON.parse(
-          JSON.stringify(state.answers)
-        ),
-  
-      correct: correct,
-  
-      incorrect: incorrect,
-  
-      totalKnown: totalKnown,
-  
-      accuracy: accuracy,
-  
-      secondsUsed: {
-  
-        1:
-          1920 -
-          state.seconds[1],
-  
-        2:
-          1920 -
-          state.seconds[2]
-      }
-    };
-  
-  
-    const attempts =
-      JSON.parse(
-        localStorage.getItem(
-          "hd_sat_attempts"
-        ) || "[]"
-      );
-  
-  
-    attempts.unshift(attempt);
-  
-  
-    localStorage.setItem(
-      "hd_sat_attempts",
-      JSON.stringify(attempts)
-    );
-  
-  
-    // ----------------------------------------------------------
-    // RESULT SCREEN
-    // ----------------------------------------------------------
-  
-    show("resultScreen");
-  
-  
-    if (totalKnown) {
-  
-      $("scoreBox").innerHTML = `
-  
-        <div class="score">
-          ${correct} / ${totalKnown}
-        </div>
-  
-        <div class="result-row">
-          <span>Correct</span>
-          <strong>${correct}</strong>
-        </div>
-  
-        <div class="result-row">
-          <span>Incorrect</span>
-          <strong>${incorrect}</strong>
-        </div>
-  
-        <div class="result-row">
-          <span>Accuracy</span>
-          <strong>${accuracy}%</strong>
-        </div>
-      `;
-  
-    } else {
-  
-      $("scoreBox").innerHTML = `
-  
-        <div class="notice">
-  
-          Your responses have been saved.
-  
-          The teacher has not entered an
-          answer key yet, so a score cannot
-          be calculated.
-  
-        </div>
-      `;
-    }
-  }
+  }));
+  const attempt = {
+    id: Date.now(), name: state.name, date: new Date().toLocaleString(),
+    answers: JSON.parse(JSON.stringify(state.answers)),
+    questions: QUESTIONS, answerKey: key,
+    correct, incorrect: totalKnown - correct, totalKnown,
+    accuracy: totalKnown ? ((correct / totalKnown) * 100).toFixed(1) : "—",
+    secondsUsed: {1: 1920 - state.seconds[1], 2: 1920 - state.seconds[2]}
+  };
+  const attempts = JSON.parse(localStorage.getItem("hd_sat_attempts") || "[]");
+  attempts.unshift(attempt);
+  localStorage.setItem("hd_sat_attempts", JSON.stringify(attempts));
+  location.assign(`results.html?attempt=${attempt.id}`);
+}
+
   
   
   // ============================================================

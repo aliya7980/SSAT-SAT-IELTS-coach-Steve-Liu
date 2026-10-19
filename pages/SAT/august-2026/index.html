@@ -167,7 +167,7 @@
     <div class="teacher-grid">
       <div class="card">
         <h3>Answer Key</h3>
-        <p style="color:#52606d;margin-bottom:12px">The supplied PDF does not include an official answer key. Enter or edit the correct choices here.</p>
+        <p style="color:#52606d;margin-bottom:12px">The August 2026 answer key is preloaded. You can edit the correct choices here.</p>
         <div id="answerKeyEditor"></div>
         <button class="btn" id="saveKeyBtn" style="margin-top:14px">Save Answer Key</button>
       </div>
@@ -273,8 +273,33 @@ function renderQuestion(){
 }
 function openNavigator(){show("navigatorScreen");$("navigatorTitle").textContent=`Reading and Writing · Module ${state.module} Navigator`;$("navigatorGrid").innerHTML="";QUESTIONS[state.module].forEach((item,i)=>{let b=document.createElement("button");b.className="navnum";if(state.answers[state.module][item.n])b.classList.add("answered");if(i===state.index)b.classList.add("current");if(state.marked[state.module][item.n])b.classList.add("marked");b.textContent=item.n;b.onclick=()=>{state.index=i;renderQuestion()};$("navigatorGrid").appendChild(b)})}
 function openReview(){show("reviewScreen");clearInterval(state.timerId);$("reviewTitle").textContent=`Reading and Writing · Module ${state.module} Review`;let a=Object.keys(state.answers[state.module]).length,m=Object.keys(state.marked[state.module]).filter(k=>state.marked[state.module][k]).length;$("reviewStats").innerHTML=`Answered: <strong>${a}</strong> &nbsp; Unanswered: <strong>${27-a}</strong> &nbsp; Marked: <strong>${m}</strong>`;$("reviewGrid").innerHTML="";QUESTIONS[state.module].forEach((item,i)=>{let b=document.createElement("button");b.textContent=item.n;if(state.answers[state.module][item.n])b.classList.add("answered");if(state.marked[state.module][item.n])b.classList.add("marked");b.onclick=()=>{state.index=i;renderQuestion();startTimer()};$("reviewGrid").appendChild(b)});$("submitModuleBtn").textContent=state.module===1?"Submit Module 1 and Continue":"Submit Test"}
-function getKey(){return JSON.parse(localStorage.getItem("hd_sat_key")||"{}")}
-function finishTest(){let key=getKey(),correct=0,totalKnown=0,incorrect=0;[1,2].forEach(mod=>QUESTIONS[mod].forEach(item=>{let k=key[`m${mod}q${item.n}`];if(k){totalKnown++;if(state.answers[mod][item.n]===k)correct++;else incorrect++}}));let pct=totalKnown?((correct/totalKnown)*100).toFixed(1):"—";let attempt={id:Date.now(),name:state.name,date:new Date().toLocaleString(),answers:state.answers,correct,totalKnown,accuracy:pct,secondsUsed:{1:1920-state.seconds[1],2:1920-state.seconds[2]}};let arr=JSON.parse(localStorage.getItem("hd_sat_attempts")||"[]");arr.unshift(attempt);localStorage.setItem("hd_sat_attempts",JSON.stringify(arr));show("resultScreen");$("scoreBox").innerHTML=totalKnown?`<div class="score">${correct} / ${totalKnown}</div><div class="result-row"><span>Correct</span><strong>${correct}</strong></div><div class="result-row"><span>Incorrect</span><strong>${incorrect}</strong></div><div class="result-row"><span>Accuracy</span><strong>${pct}%</strong></div>`:`<div class="notice">Your responses have been saved on this browser. The teacher has not yet entered an answer key, so a score cannot be calculated yet.</div>`}
+function getKey() {
+  const defaultKey = {"m1q1":"A","m1q2":"A","m1q3":"A","m1q4":"A","m1q5":"A","m1q6":"D","m1q7":"B","m1q8":"D","m1q9":"C","m1q10":"D","m1q11":"A","m1q12":"A","m1q13":"D","m1q14":"D","m1q15":"D","m1q16":"A","m1q17":"B","m1q18":"D","m1q19":"D","m1q20":"A","m1q21":"C","m1q22":"B","m1q23":"B","m1q24":"B","m1q25":"D","m1q26":"B","m1q27":"D","m2q1":"A","m2q2":"A","m2q3":"C","m2q4":"D","m2q5":"B","m2q6":"D","m2q7":"B","m2q8":"B","m2q9":"A","m2q10":"A","m2q11":"B","m2q12":"D","m2q13":"B","m2q14":"B","m2q15":"D","m2q16":"D","m2q17":"D","m2q18":"B","m2q19":"A","m2q20":"A","m2q21":"A","m2q22":"D","m2q23":"C","m2q24":"B","m2q25":"D","m2q26":"D","m2q27":"A"};
+  return { ...defaultKey, ...JSON.parse(localStorage.getItem("hd_sat_key") || "{}") };
+}
+function finishTest() {
+  clearInterval(state.timerId);
+  const key = getKey();
+  let correct = 0, totalKnown = 0;
+  [1, 2].forEach(mod => QUESTIONS[mod].forEach(item => {
+    if (key[`m${mod}q${item.n}`]) {
+      totalKnown++;
+      if (state.answers[mod][item.n] === key[`m${mod}q${item.n}`]) correct++;
+    }
+  }));
+  const attempt = {
+    id: Date.now(), name: state.name, date: new Date().toLocaleString(),
+    answers: JSON.parse(JSON.stringify(state.answers)),
+    questions: QUESTIONS, answerKey: key,
+    correct, incorrect: totalKnown - correct, totalKnown,
+    accuracy: totalKnown ? ((correct / totalKnown) * 100).toFixed(1) : "—",
+    secondsUsed: {1: 1920 - state.seconds[1], 2: 1920 - state.seconds[2]}
+  };
+  const attempts = JSON.parse(localStorage.getItem("hd_sat_attempts") || "[]");
+  attempts.unshift(attempt);
+  localStorage.setItem("hd_sat_attempts", JSON.stringify(attempts));
+  location.assign(`results.html?attempt=${attempt.id}`);
+}
 $("startBtn").onclick=()=>{let n=$("studentName").value.trim();if(!n){alert("Please enter the student name.");return}state.name=n;state.module=1;state.index=0;state.seconds={1:1920,2:1920};state.answers={1:{},2:{}};state.marked={1:{},2:{}};state.crossed={1:{},2:{}};renderQuestion();startTimer()};
 $("nextBtn").onclick=()=>{if(state.index===26)openReview();else{state.index++;renderQuestion()}};
 $("backBtn").onclick=()=>{if(state.index>0){state.index--;renderQuestion()}};
