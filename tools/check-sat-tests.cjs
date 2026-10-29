@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
 const root=path.resolve(__dirname,'../pages/SAT');
-const ids=['august2026','september2026-practice1'];
+const ids=['august2026','september2026-practice1','october2026-practice1'];
 const configs={};for(const id of ids){const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'data',id+'.js'),'utf8'),c);configs[id]=c.window.SAT_TESTS[id];const test=configs[id];assert.equal(test.id,id);for(const m of [1,2]){assert.equal(test.questions[m].length,27);test.questions[m].forEach((q,i)=>{assert.equal(q.n,i+1);assert(q.passage&&q.prompt);assert.equal(q.choices.length,4);for(const img of q.images||[])assert(fs.existsSync(path.join(root,'august-2026',img.src)),img.src);});}for(const [k,a]of Object.entries(test.answerKey)){assert(/^m[12]q([1-9]|1[0-9]|2[0-7])$/.test(k));assert(/^[ABCD]$/.test(a));}}
 assert.equal(Object.keys(configs.august2026.answerKey).length,54);assert.equal(Object.keys(configs['september2026-practice1'].answerKey).length,54);
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'data/september2026-practice1/visual-manifest.json')));assert.equal(manifest.length,5);for(const row of manifest){const q=configs['september2026-practice1'].questions[row.module][row.questionNumber-1];assert(q.images.some(img=>img.src===row.imageFilename));assert.equal(q.source.pdfPageNumber,row.sourcePdfPageNumber);assert.equal(row.sourcePdfPageIndex,row.sourcePdfPageNumber-1);}
@@ -51,3 +51,18 @@ const restored=context('august2026');vm.runInContext(review,restored.c);
 restored.elements.reviewFilter.value='all';restored.elements.reviewFilter.onchange();
 for(const name of ['m1q10','m1q12','m2q10','m2q12'])assert(restored.elements.questionReview.innerHTML.includes('/images/august2026/'+name+'.png'));
 console.log('Four restored August visuals are present in current data and older saved reviews.');
+
+const octoberExpected=['ABCDBBCABBACADC BBAABCBBBCDA'.replace(/ /g,''),'AABCBAACDABDCABCCDCAABCDCAD'];
+for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs['october2026-practice1'].answerKey[`m${m}q${i+1}`]).join(''),octoberExpected[m-1]);
+const octoberManifest=JSON.parse(fs.readFileSync(path.join(root,'data/october2026-practice1/visual-manifest.json')));
+assert.equal(octoberManifest.length,5);
+for(const image of octoberManifest){
+ const question=configs['october2026-practice1'].questions[image.module][image.questionNumber-1];
+ assert(question.images.some(i=>i.src===image.imageFilename));
+ assert.equal(question.source.pdfPageNumber,image.sourcePdfPageNumber);
+ assert.equal(image.sourcePdfPageIndex,image.sourcePdfPageNumber-1);
+}
+assert(configs['october2026-practice1'].questions[1][11].choices[3].startsWith('those that filed Form 4720'));
+assert.equal(configs['october2026-practice1'].questions[1][11].source.pdfPages.join(','),'8,9');
+assert.equal(JSON.parse(memory['hd_sat_october2026-practice1_attempts']).length,1);
+console.log('October: 54 source key mappings, five visuals, cross-page choice D, and isolated storage verified.');

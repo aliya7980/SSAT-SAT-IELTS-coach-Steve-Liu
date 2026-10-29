@@ -2,7 +2,7 @@
   const ownScript = document.currentScript;
   const root = new URL('../', ownScript.src);
   const id = new URLSearchParams(location.search).get('test') || ownScript.dataset.defaultTest || 'august2026';
-  const known = ['august2026', 'september2026-practice1'];
+  const known = ['august2026', 'september2026-practice1', 'october2026-practice1'];
   const showError = message => {
     const p = document.createElement('p');p.className='card';p.setAttribute('role','alert');p.textContent=message;
     document.querySelector('main').prepend(p);

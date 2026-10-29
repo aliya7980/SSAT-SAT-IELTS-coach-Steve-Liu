@@ -1,0 +1,122 @@
+[
+  {
+    "testId": "october2026-practice1",
+    "module": 1,
+    "questionNumber": 11,
+    "sourcePdfPageIndex": 6,
+    "sourcePdfPageNumber": 7,
+    "printedPageNumber": null,
+    "cropCoordinates": [
+      420,
+      205,
+      770,
+      625
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/october2026-practice1/m1-q11-chart.png",
+    "description": "Active volcano counts in Eritrea and Guatemala since 1800 and since 1960",
+    "matchStatus": "Confirmed against printed question number and visual subject"
+  },
+  {
+    "testId": "october2026-practice1",
+    "module": 1,
+    "questionNumber": 12,
+    "sourcePdfPageIndex": 7,
+    "sourcePdfPageNumber": 8,
+    "printedPageNumber": null,
+    "cropCoordinates": [
+      415,
+      210,
+      775,
+      680
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/october2026-practice1/m1-q12-chart.png",
+    "description": "Tax penalties on private foundations by reason and year, 2003–2005",
+    "matchStatus": "Confirmed against printed question number and visual subject"
+  },
+  {
+    "testId": "october2026-practice1",
+    "module": 1,
+    "questionNumber": 14,
+    "sourcePdfPageIndex": 9,
+    "sourcePdfPageNumber": 10,
+    "printedPageNumber": null,
+    "cropCoordinates": [
+      132,
+      207,
+      1060,
+      524
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/october2026-practice1/m1-q14-table.png",
+    "description": "Highly traveled commercial airline routes and passenger counts in 2017–18",
+    "matchStatus": "Confirmed against printed question number and visual subject"
+  },
+  {
+    "testId": "october2026-practice1",
+    "module": 2,
+    "questionNumber": 10,
+    "sourcePdfPageIndex": 25,
+    "sourcePdfPageNumber": 26,
+    "printedPageNumber": null,
+    "cropCoordinates": [
+      132,
+      207,
+      1060,
+      742
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/october2026-practice1/m2-q10-table.png",
+    "description": "Employment counts and workforce percentages in tribal economies by sector in 2017 and 2023",
+    "matchStatus": "Confirmed against printed question number and visual subject"
+  },
+  {
+    "testId": "october2026-practice1",
+    "module": 2,
+    "questionNumber": 11,
+    "sourcePdfPageIndex": 26,
+    "sourcePdfPageNumber": 27,
+    "printedPageNumber": null,
+    "cropCoordinates": [
+      145,
+      207,
+      1047,
+      456
+    ],
+    "coordinateUnits": "pixels",
+    "coordinateOrigin": "top-left",
+    "renderSizePixels": [
+      1190,
+      1683
+    ],
+    "renderDpi": 144,
+    "imageFilename": "images/october2026-practice1/m2-q11-table.png",
+    "description": "T-values and p-values for recording position and changes in house wren song characteristics",
+    "matchStatus": "Confirmed against printed question number and visual subject"
+  }
+]

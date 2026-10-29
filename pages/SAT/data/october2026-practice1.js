@@ -1,0 +1,1239 @@
+window.SAT_TESTS = window.SAT_TESTS || {};
+window.SAT_TESTS["october2026-practice1"] = {
+  "id": "october2026-practice1",
+  "name": "October 2026 Practice 1",
+  "section": "Reading and Writing",
+  "moduleSeconds": 1920,
+  "questions": {
+    "1": [
+      {
+        "n": 1,
+        "skill": "Words in Context",
+        "passage": "_____ the source of a malfunction in a complex electrical system can be a painstaking, time- consuming process: a repair technician may need to test each individual component one by one until the specific part causing the problematic behavior is identified.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "Isolating",
+          "Incorporating",
+          "Adapting",
+          "Fabricating"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 0,
+          "pdfPageNumber": 1,
+          "pdfPages": [
+            1
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 2,
+        "skill": "Words in Context",
+        "passage": "Though most studies of the effect of altitude on blood chemistry usually concentrate on people who live above sea level, researchers Suleiman A. Al-Sweedan and Moath Alhaj have instead chosen the _____ path in their recent work of studying the blood of people who live below sea level, in locations such as the California towns of Westmorland and Indio.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "idealistic",
+          "innovative",
+          "predictable",
+          "timeworn"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 0,
+          "pdfPageNumber": 1,
+          "pdfPages": [
+            1
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 3,
+        "skill": "Words in Context",
+        "passage": "While once _____, basic computer security training that only teaches recognition of obvious scams cannot provide enough protection against today’s sophisticated fake emails, which employ such subtle deception techniques that many organizations now require their staff to complete comprehensive cybersecurity education programs.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "superficial",
+          "uncommon",
+          "sufficient",
+          "affordable"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 1,
+          "pdfPageNumber": 2,
+          "pdfPages": [
+            2
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 4,
+        "skill": "Words in Context",
+        "passage": "In 1970, Maggie Kuhn had to retire from her job as a secretary because the organization she worked for had a mandatory retirement age of sixty-five. (This SAT real test paper has been compiled by the HaoDeFen institution.) Kuhn noted that since her capabilities did not change when she turned sixty-five, such a policy was entirely _____. This observation prompted her to become an advocate for the rights of older people in the United States.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "convoluted",
+          "derivative",
+          "inadvertent",
+          "arbitrary"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 1,
+          "pdfPageNumber": 2,
+          "pdfPages": [
+            2
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 5,
+        "skill": "Text Structure and Purpose",
+        "passage": "The following text is adapted from the 1940 novel <em>The Hamlet</em> by William Faulkner. In rural Mississippi, a man is riding a horse toward the residence of someone he intends to meet with about a business matter.<br><br>He was breathing hard but not because he had been galloping. On the contrary, since he had approached near enough to his destination to believe he could have seen smoke if there had been smoke, he had ridden slower and slower. Nevertheless he now sat the horse before the gap in the fence, breathing hard enough through his nose and even sweating a little, looking at the sagging broken-backed cabin set in its inevitable treeless and grassless plot and weathered to the color of an old bee-hive, with that expression of tense and rapid speculation of a man approaching a dud howitzer [artillery] shell.<br><br>©1967 by Estelle Faulkner and Jill Faulkner Summers",
+        "prompt": "Which choice best states the main purpose of the text?",
+        "choices": [
+          "To contrast the man’s desire to attend the meeting with his awareness of the risk involved in attending it",
+          "To portray the man’s anxiety about the meeting as reflected by his physical state and demeanor",
+          "To compare the upcoming meeting to a far more serious experience from earlier in the man’s life",
+          "To depict the man’s insistence on meeting despite the inconvenience of traveling on horseback"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 2,
+          "pdfPageNumber": 3,
+          "pdfPages": [
+            3
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 6,
+        "skill": "Text Structure and Purpose",
+        "passage": "Modern forestry offers diverse career opportunities that integrate scientific knowledge with hands-on environmental work. Arborists assess tree health and perform maintenance such as pruning to promote safety and prevent problems. Forestry technicians collect data on growth patterns and biodiversity in the wild. Forest ecologists conduct field research and analyze ecosystems to understand how forests respond to changes in weather patterns. With this blend of scientific understanding and practical application, forestry professionals address a variety of complex environmental challenges.",
+        "prompt": "Which choice best describes the main purpose of the text?",
+        "choices": [
+          "To explain technological advances in modern forestry and demonstrate how they’ve transformed traditional practices",
+          "To highlight career opportunities in modern forestry and describe how they integrate scientific knowledge and hands-on work",
+          "To compare career opportunities in modern forestry and explain which positions offer the best job security",
+          "To analyze environmental challenges facing forests and describe how modern professionals address these problems"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 3,
+          "pdfPageNumber": 4,
+          "pdfPages": [
+            4
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 7,
+        "skill": "Text Structure and Purpose",
+        "passage": "Although beneficial for forestalling loss of vascular function when leaf veins are blocked, reticulate (netlike) leaf-vein topologies in plants are thought to reduce efficiency in water and sugar transport and to increase vein construction costs relative to branched topologies. <u>Charles A. Price and Joshua S. Weitz assessed these trade-offs by comparing vascular function in the reticulate patterns of <em>Acer griseum</em> (paperbark maple) and other angiosperm leaf veins with that of analogous open-branching patterns.</u> Though reticulation did indeed have added costs, they were offset by its benefits.",
+        "prompt": "Which choice best describes the function of the underlined sentence in the text as a whole?",
+        "choices": [
+          "It indicates a research team’s skepticism about the claim stated in the previous sentence that vascular function in plants with reticulate veins is necessarily inferior to that of plants with branching veins.",
+          "It introduces a novel method for evaluating the hypothesis advanced in the previous sentence regarding the causes of vascular impairment in branched-vein topologies.",
+          "It explains an approach that researchers took in a study to determine the impacts of reticulation on vascular function in plants.",
+          "It suggests why researchers were surprised by the finding of the relative costs and benefits of two types of venation patterns."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 4,
+          "pdfPageNumber": 5,
+          "pdfPages": [
+            5
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 8,
+        "skill": "Central Ideas and Details",
+        "passage": "James Fong and his team claim to have discovered a new color, which they named olo. Olo is a very saturated blue-green color that can’t be seen with the human eye under natural conditions. In the human eye, long, medium, and short cones in the retina help sense bright light and color. Olo can only be seen by activating the medium cones alone. Fong and team activated these cones by using a targeted laser technology to stimulate just the medium cone cells.",
+        "prompt": "According to the text, how can the color olo be seen?",
+        "choices": [
+          "By activating only the medium cones in the retina",
+          "By activating the long, medium, and short cones in the retina",
+          "By activating only the long cones in the retina",
+          "By activating both the long and short cones in the retina"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 4,
+          "pdfPageNumber": 5,
+          "pdfPages": [
+            5
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 9,
+        "skill": "Central Ideas and Details",
+        "passage": "Biologist Nathalie Stroeymeyt and her team found that black garden ants demonstrated a sophisticated form of “architectural immunity.” When confronted with fungal pathogens, these ants modified their excavation patterns in several strategic ways to speed up nest growth, increase spacing between entrances, (Follow the official account SAT Shishengshuo for more SAT preparation tips.) and reduce the centrality of key chambers (containing the queen, food, or nursery). The team noted that these architectural modifications weren’t random but specifically arranged to minimize fungal spread.",
+        "prompt": "Which choice best states the main idea of the text?",
+        "choices": [
+          "A team of scientists noticed that fungal pathogen exposure causes black garden ants to abandon their existing nest structures.",
+          "A study found that black garden ants deliberately modify their nest architecture to keep a harmful fungus from spreading.",
+          "According to a team of biologists, black garden ants build larger nests when exposed to a harmful fungus than they otherwise would build.",
+          "A study noted that black garden ants exposed to a harmful fungus tend to dig longer tunnels in their nests instead of reducing the centrality of the nest's chambers."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 5,
+          "pdfPageNumber": 6,
+          "pdfPages": [
+            6
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 10,
+        "skill": "Command of Evidence",
+        "passage": "<em>Good-Bye to All That</em> is a 1929 autobiography by writer Robert Graves. In the book, Graves explains that his father, though a poet and songwriter himself, did not attempt to influence Graves’s writing style: _____",
+        "prompt": "Which quotation from <em>Good-Bye to All That</em> most effectively illustrates the claim?",
+        "choices": [
+          "“[My father] has more than once impressed on me almost religiously never to sell for a sum down the complete rights of any work of mine whatsoever.”",
+          "“[My father] never once tried to teach me how to write; he was always more ready to ask advice about his own work than to offer it for mine.”",
+          "“Some of [my father’s] songs I sing without prejudice; when washing up after meals or shelling peas or on similar occasions.”",
+          "“I am glad in a way that my father was a poet. This at least saved me from any false reverence of poets.”"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 5,
+          "pdfPageNumber": 6,
+          "pdfPages": [
+            6
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 11,
+        "skill": "Command of Evidence",
+        "passage": "A student is collecting data about countries with volcanoes that have been active in the time since 1800 and in the time since 1960. The student records that Guatemala has _____",
+        "prompt": "Which choice most effectively uses data from the graph to complete the statement?",
+        "choices": [
+          "more volcanoes that have been active since 1960 than Eritrea has.",
+          "the same number of volcanoes that have been active since 1800 as Eritrea has.",
+          "fewer volcanoes that have been active since 1960 than Eritrea has.",
+          "no volcanoes that have been active since 1800."
+        ],
+        "images": [
+          {
+            "src": "images/october2026-practice1/m1-q11-chart.png",
+            "alt": "Active volcano counts in Eritrea and Guatemala since 1800 and since 1960",
+            "position": "beforePassage",
+            "displayWidth": 420
+          }
+        ],
+        "source": {
+          "pdfPageIndex": 6,
+          "pdfPageNumber": 7,
+          "pdfPages": [
+            7
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 12,
+        "skill": "Command of Evidence",
+        "passage": "While US public charities, like Habitat for Humanity International, must file Form 990 yearly with the IRS, private foundations, such as the David and Lucile Packard Foundation, must file a different form, 990-PF. In addition, foundations that engage in certain prohibited activities must also file Form 4720 and pay a penalty tax on the money involved. Private foundations are prohibited from holding excess interests in a business enterprise, “self-dealing” (conducting activities that benefit foundation insiders), making taxable expenditures such as grants to noncharitable entities, and failing to cross a required threshold in making charitable distributions from income. Out of the organizations that filed Form 990-PF in the years 2003— 2005, _____",
+        "prompt": "Which choice most effectively uses data from the graph to complete the assertion?",
+        "choices": [
+          "those that filed Form 4720 because they engaged in self-dealing paid an increasing percentage of the total penalty each year from 2003 to 2005.",
+          "those that filed Form 4720 because they had excess holdings in a business enterprise paid, on average, a larger penalty than those that filed Form 4720 because they made taxable expenditures.",
+          "those that filed Form 4720 in 2003 because they failed to meet the minimum charitable distribution requirement collectively paid a larger percentage of the total penalty assessed that year than those that filed Form 4720 in 2005 for the same reason.",
+          "those that filed Form 4720 in 2005 because they engaged in self-dealing collectively paid a larger percentage of the total penalty assessed that year than those that filed Form 990 but also filed Form 4720 for the same reason."
+        ],
+        "images": [
+          {
+            "src": "images/october2026-practice1/m1-q12-chart.png",
+            "alt": "Tax penalties on private foundations by reason and year, 2003–2005",
+            "position": "beforePassage",
+            "displayWidth": 440
+          }
+        ],
+        "source": {
+          "pdfPageIndex": 7,
+          "pdfPageNumber": 8,
+          "pdfPages": [
+            8,
+            9
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 13,
+        "skill": "Command of Evidence",
+        "passage": "<em>The Vortex</em> is a 1924 satirical play by Noël Coward. During the first act of the play Pawnie, Clara, and Helen are at the home of Florence, whose arrival they are awaiting. <u>In this act, Coward conveys the idea that other characters consider Pawnie to be a thoughtless person.</u>",
+        "prompt": "Which choice most effectively uses a quotation from the first act of <em>The Vortex</em> to illustrate the underlined claim?",
+        "choices": [
+          "Pawnie suggests that Clara would prefer him to leave the room, to which Clara responds, “No, Pawnie, I should never expect the least consideration from you.”",
+          "Pawnie exclaims his distaste for a particular lampshade, to which Helen responds, “I gave it to [Florence] last Christmas.”",
+          "Helen comments that the home’s decorations are not offensive to her tastes, to which Pawnie sarcastically replies, “Dear Helen, you're such a loyal friend.”",
+          "Helen says she wonders about Florence’s future, to which Pawnie replies, “My dear, I’m far too occupied in wondering what’s going to happen to me to worry about other people.”"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 8,
+          "pdfPageNumber": 9,
+          "pdfPages": [
+            9
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 14,
+        "skill": "Command of Evidence",
+        "passage": "A study of commercial airline routes that carried the greatest number of passengers in 2017 and 2018 shows that, in general, domestic routes (routes within a single country) carried many more passengers than international routes. However, a few international routes were so popular that they carried more travelers than some of the most highly traveled domestic routes, as can be seen when comparing the _____",
+        "prompt": "Which choice most effectively uses data from the table to complete the example?",
+        "choices": [
+          "distance between Mexico City and Monterrey with the distance between Jakarta and Singapore.",
+          "number of passengers who traveled between Mumbai and Delhi in 2017 with the number who traveled between Hong Kong and Manila during that same year.",
+          "number of passengers who traveled between Jakarta and Singapore in 2017 with the number who traveled that same route in 2018.",
+          "number of passengers who traveled between Jakarta and Singapore in 2018 with the number who traveled between Mexico City and Monterrey during that same year."
+        ],
+        "images": [
+          {
+            "src": "images/october2026-practice1/m1-q14-table.png",
+            "alt": "Highly traveled commercial airline routes and passenger counts in 2017–18",
+            "position": "beforePassage",
+            "displayWidth": 950
+          }
+        ],
+        "source": {
+          "pdfPageIndex": 9,
+          "pdfPageNumber": 10,
+          "pdfPages": [
+            10
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 15,
+        "skill": "Inferences",
+        "passage": "Last-mile delivery, the final stage in the delivery of products to customers, is subject to increasing pressure as consumers place greater emphasis on convenience and immediacy, often expecting next-day delivery. In response to this challenge and others, such as the increasing congestion of roadways, delivery companies are continually looking for ways to make last-mile delivery more efficient. (For additional SAT study materials, contact wechat: 13311268274.) One advance in last-mile delivery is the use of aerial drones (autonomous flying vehicles that can deliver small packages). This approach, while promising, also introduces new obstacles (e.g., the limited flight range of drones means that parcel depots must be in close proximity to delivery sites). It is therefore likely that _____",
+        "prompt": "Which choice most logically completes the text?",
+        "choices": [
+          "delivery companies will continue promising next-day delivery out of a desire to meet consumers’ expectations.",
+          "innovations in the use of drones for last-mile delivery will stall unless delivery companies shift their focus to methods with fewer complications.",
+          "delivery companies will need to keep experimenting with new ideas for last-mile delivery if they hope to keep pace with consumers’ expectations.",
+          "advances in last-mile technologies will slow as delivery companies focus more on meeting customer expectations for increased convenience."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 10,
+          "pdfPageNumber": 11,
+          "pdfPages": [
+            11
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 16,
+        "skill": "Standard English Conventions",
+        "passage": "Nanoengineers have developed synthesized cadmium sulfide nanoparticles that are used to provide a heat-resistant pigment for paints. As nanotechnology evolves, paint production _____ to evolve as well.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "had likely continued",
+          "will likely continue",
+          "had likely been continuing",
+          "would likely have continued"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 10,
+          "pdfPageNumber": 11,
+          "pdfPages": [
+            11
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 17,
+        "skill": "Standard English Conventions",
+        "passage": "To more easily balance the weight of her body on her toes while performing the demanding pointe work that became increasingly common in early 20th-century ballet, internationally known ballerina Anna Pavlova redesigned her pointe shoes. The modifications she made— adding a stiffened leather sole and hardened toe _____ began the modernization of ballet’s iconic footwear.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "box:",
+          "box—",
+          "box,",
+          "box"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 11,
+          "pdfPageNumber": 12,
+          "pdfPages": [
+            12
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 18,
+        "skill": "Standard English Conventions",
+        "passage": "Variation theory’s approach to comparative literary analysis, emphasizing meaningful cross- cultural dialogues and rejecting ethnocentric interpretations, _____ researchers to study similarities among literary traditions while still acknowledging cultural heterogeneity.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "allows",
+          "have allowed",
+          "allow",
+          "allowing"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 11,
+          "pdfPageNumber": 12,
+          "pdfPages": [
+            12
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 19,
+        "skill": "Standard English Conventions",
+        "passage": "Theoretical physicists have begun to develop novel methods for detecting dark matter. Certain approaches _____ on quantum collective phenomena, like phonons in crystals or excitations in superfluid helium, are likely to face significant challenges, acknowledges physicist Kathryn Zurek, unless researchers can reduce background processes that might mimic the signals they’re attempting to detect.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "focusing",
+          "are focused",
+          "focus",
+          "have focused"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 12,
+          "pdfPageNumber": 13,
+          "pdfPages": [
+            13
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 20,
+        "skill": "Standard English Conventions",
+        "passage": "Extensive radiocarbon dating of reed samples from Caral confirmed Ruth Shady Solis’s hypothesis about the Peruvian site’s _____ nearly 5,000 years ago, the ancient city preceded the Olmec civilization to the north by a full millennium, a revelation that fundamentally altered our understanding of urban development in the Western Hemisphere.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "age, built",
+          "age: built",
+          "age built",
+          "age and built"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 12,
+          "pdfPageNumber": 13,
+          "pdfPages": [
+            13
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 21,
+        "skill": "Transitions",
+        "passage": "How does a clear evening become foggy? First, the ground releases heat, which radiates upward. This causes the air near the ground to cool. _____ tiny water droplets begin to form as the cooling air reaches its dew point and can no longer hold its moisture as invisible vapor. Finally, as more droplets accumulate, a visible layer of fog develops close to the ground.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "Lastly,",
+          "Instead,",
+          "Next,",
+          "Similarly,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 13,
+          "pdfPageNumber": 14,
+          "pdfPages": [
+            14
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 22,
+        "skill": "Transitions",
+        "passage": "Many cities invest in public art, displaying works in locations where they can be enjoyed by anyone. _____ On display in Zadar, Croatia, is a marble seawall with pipes that produce sound from waves.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "nevertheless,",
+          "for instance,",
+          "finally,",
+          "however,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 13,
+          "pdfPageNumber": 14,
+          "pdfPages": [
+            14
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 23,
+        "skill": "Transitions",
+        "passage": "Generally, sleek vehicles are more aerodynamic than bulkier ones. The streamlined nose of the Comac ARJ21 Xiangfeng jet, _____ helps it glide through wind with relative ease, while a boxy pickup truck encounters more wind resistance, making it less aerodynamic.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "additionally,",
+          "for example,",
+          "meanwhile,",
+          "however,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 14,
+          "pdfPageNumber": 15,
+          "pdfPages": [
+            15
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 24,
+        "skill": "Transitions",
+        "passage": "India’s prominence as a supplier of information technology services to companies in North America and Europe is a result of several factors, including the country’s investments in technical education, (For additional SAT study materials, contact vx: sat_1600.) but the most serendipitous is India’s large number of English speakers. English is spoken by more people in India—129 million—than in any nation except the US. _____ only about 10% of Indians speak English.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "However, English is not the first language for most English speakers in India:",
+          "Granted, this numerical advantage is due more to population size than to language penetration:",
+          "Accordingly, 90% of people in India—over one billion people—do not speak the language:",
+          "As a result, careers in information technology services are not available to all people in India:"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 14,
+          "pdfPageNumber": 15,
+          "pdfPages": [
+            15
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 25,
+        "skill": "Rhetorical Synthesis",
+        "passage": "While researching a topic, a student has taken the following notes:<br><br><ul><li>India Arie is an African American singer and songwriter.</li><li>The media outlet BBC Music has described her music as a “blend of hip hop, soul and folk [that is] as subtle as it [is] inspired.”</li><li>Her first studio album, <em>Acoustic Soul</em>, was released in 2001.</li><li>It features the song “Strength, Courage &amp; Wisdom.”</li><li>Avery Johnson played bass on the album.</li></ul>",
+        "prompt": "Which choice most effectively uses information from the given sentences to introduce <em>Acoustic Soul</em> to an audience already familiar with India Arie?",
+        "choices": [
+          "“Strength, Courage & Wisdom,” a song by singer and songwriter India Arie, is featured on the album <em>Acoustic Soul</em>.",
+          "India Arie’s music has been described as a “blend of hip hop, soul and folk [that is] as subtle as it [is] inspired.”",
+          "Featuring the song “Strength, Courage & Wisdom,” <em>Acoustic Soul</em> is India Arie’s first studio album.",
+          "Avery Johnson played bass on singer and songwriter India Arie’s 2001 album, <em>Acoustic Soul</em>."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 15,
+          "pdfPageNumber": 16,
+          "pdfPages": [
+            16
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 26,
+        "skill": "Rhetorical Synthesis",
+        "passage": "While researching a topic, a student has taken the following notes:<br><br><ul><li>Elizabeth Catlett (1915-2012) was a celebrated African American artist.</li><li>She is best known for creating sculptures and prints that explore the Black experience.</li><li><em>Rejecting Injustice</em> is a 2003 sculpture by Catlett.</li><li><em>Survivor</em> is a 1983 print by Catlett.</li></ul>",
+        "prompt": "The student wants to provide an example of one of Catlett’s sculptures. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+        "choices": [
+          "Artist Elizabeth Catlett is best known for creating sculptures and prints that explore the Black experience.",
+          "Elizabeth Catlett, a celebrated artist, was born in 1915.",
+          "The print <em>Survivor</em> was created by celebrated artist Elizabeth Catlett in 1983.",
+          "The sculpture <em>Rejecting Injustice</em> was created by celebrated artist Elizabeth Catlett in 2003."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 16,
+          "pdfPageNumber": 17,
+          "pdfPages": [
+            17
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 27,
+        "skill": "Rhetorical Synthesis",
+        "passage": "While researching a topic, a student has taken the following notes:<br><br><ul><li>Tlahuiltepa is a municipality in the state of Hidalgo, Mexico.</li><li>Municipalities are governmental regions responsible for providing many public services to their residents.</li><li>One service they provide is traffic control.</li><li>Tlahuiltepa’s population was 9,086 in 2020.</li><li>Its population was 9,753 in 2010.</li><li>Hidalgo is divided into 84 municipalities.</li></ul>",
+        "prompt": "The student wants to emphasize the 2020 population of Tlahuiltepa. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+        "choices": [
+          "In 2020, the municipality of Tlahuiltepa had a population of 9,086.",
+          "Home to 9,753 people, the governmental region was responsible for providing traffic control to its population in 2010.",
+          "As a municipality in Hidalgo, Tlahuiltepa is responsible for providing public services to its population.",
+          "As of 2020, Tlahuiltepa was one of 84 municipalities in Hidalgo, Mexico."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 17,
+          "pdfPageNumber": 18,
+          "pdfPages": [
+            18
+          ],
+          "printedPageNumber": null
+        }
+      }
+    ],
+    "2": [
+      {
+        "n": 1,
+        "skill": "Words in Context",
+        "passage": "Weather patterns, market trends, input costs, labor availability, equipment maintenance, and biological cycles are all variables that farmers must consider separately and in terms of how they may affect each other, and it is this _____ of factors in particular that makes successful farm management so challenging.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "interplay",
+          "resolution",
+          "neglect",
+          "misinterpretation"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 18,
+          "pdfPageNumber": 19,
+          "pdfPages": [
+            19
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 2,
+        "skill": "Words in Context",
+        "passage": "To maximize _____, package distribution centers employ advanced scheduling systems and strategic staging areas that allow for goods received from warehouses to be immediately transferred to trucks for delivery to their final destinations. Some centers are so efficient that even the largest delivery trucks can be filled in a matter of minutes.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "throughput",
+          "liability",
+          "overhead",
+          "staffing"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 18,
+          "pdfPageNumber": 19,
+          "pdfPages": [
+            19
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 3,
+        "skill": "Words in Context",
+        "passage": "The Invisible Girl’s ability to turn invisible is illustrative of the lamentably lackluster powers bestowed on many female superheroes, (Reach out to our assistant sat_800800 at wechat to receive more sat learning resources.) but even those with more formidable powers have been subject to unflattering portrayals that often serve as _____: as Talisman, Elizabeth Twoyoungmen loses control of a vast mystic force and turns on her teammates in Alpha Flight, showing the pitfalls of possessing great power.",
+        "prompt": "Which choice completes the text with the most logical and precise word or phrase?",
+        "choices": [
+          "obfuscations",
+          "admonitions",
+          "venerations",
+          "exonerations"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 19,
+          "pdfPageNumber": 20,
+          "pdfPages": [
+            20
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 4,
+        "skill": "Text Structure and Purpose",
+        "passage": "Research on minor solar eruptions in magnetically quiet regions revealed an interesting pattern. <u>Material expelled during these events follows a narrow arc trajectory back to the Sun’s surface.</u> High-resolution images show these eruptions produce thin streams of hot gas moving at speeds between 55 and 200 kilometers per second. Although these are impressive velocities, they are not sufficient to overcome the confining forces of the Sun’s gravity and magnetic field, so the material is pulled back down.",
+        "prompt": "Which choice best describes the function of the underlined sentence in the text as a whole?",
+        "choices": [
+          "It discusses a natural occurrence that leads to the consequences explained later in the text.",
+          "It acknowledges an exception to the pattern described in the first sentence of the text.",
+          "It describes a natural phenomenon that is explained later in the text.",
+          "It presents a research finding that challenges the view mentioned in the first sentence of the text."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 19,
+          "pdfPageNumber": 20,
+          "pdfPages": [
+            20
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 5,
+        "skill": "Text Structure and Purpose",
+        "passage": "With examples ranging from the Lost Blue Hole in the Bahamas to Nancy’s Blue Hole in the Abaco Islands, blue holes are large underwater sinkholes: pits filled with dark blue water that contrasts with lighter blue shallower waters surrounding them. The formation of blue holes typically involves several natural processes, including the dissolution of limestone or other soluble rocks. Currently, the deepest blue hole on record is the Taam Ja’ Blue Hole in Chetumal Bay, Mexico, which is reported by Laura Carrillo and colleagues as extending at least 420 meters below sea level.",
+        "prompt": "Which choice best describes the overall structure of the text?",
+        "choices": [
+          "It compares a deep sinkhole to a shallower one, details the processes by which both sinkholes formed, and emphasizes the remarkable depth of the deeper sinkhole.",
+          "It defines a kind of sinkhole, describes its typical appearance and formation, and provides information about the deepest known sinkhole.",
+          "It describes the appearance of a particular type of sinkhole, compares the formations of two sinkholes of that type, and then names the researchers who discovered the deepest known sinkhole of that type.",
+          "It explains how a particular sinkhole formed, evaluates that sinkhole’s unusual appearance, and names a research team that is studying the sinkhole."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 20,
+          "pdfPageNumber": 21,
+          "pdfPages": [
+            21
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 6,
+        "skill": "Cross-Text Connections",
+        "passage": "<strong>Text 1</strong><br><br>For thousands of years, O’odham farmers in the Sonoran desert of the southwestern US and northern Mexico have cultivated elderberries and chia seeds, sometimes planting these species together so that the elderberry bushes provide shade for chia flowers. Doing so helps protect chia flowers from the harshest heat and light and thereby helps prevent soil moisture from evaporating.<br><br><strong>Text 2</strong><br><br>Chia flowers are well adapted to growing in the desert but grow best when shaded. Inspired by O’odham farmers, who often strategically plant chia flowers in the shade of sun-hardy species like elderberry bushes for protection from the sun and heat, (Reach sat_6688 in wechat to receive more resources.) Gary Nabhan and colleagues planted chia flowers in the shade of solar panels in the Sonoran desert and found that the plants grew well, suggesting to Nabhan and colleagues that the panels provide a benefit similar to that provided by elderberry bushes.",
+        "prompt": "Based on the texts, the author of Text 1 and the author of Text 2 would most likely agree on which point?",
+        "choices": [
+          "Elderberry bushes can provide shade that protects chia flowers from high-intensity heat and light.",
+          "Nabhan’s team’s method could be refined to more actively prevent soil moisture from evaporating.",
+          "Elderberry bushes grow best when planted in shaded areas, while chia flowers do not require shade to thrive.",
+          "Compared with Nabhan’s approach, the O’odham approach has the advantage of producing chia seeds."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 21,
+          "pdfPageNumber": 22,
+          "pdfPages": [
+            22
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 7,
+        "skill": "Cross-Text Connections",
+        "passage": "Text 1 is from George Eliot’s 1860 novel <em>The Mill on the Floss</em>. Text 2 is from Rabindranath Tagore’s 1921 nonfiction book <em>Glimpses of Bengal</em>.<br><br><strong>Text 1</strong><br><br>The wood I walk in on this mild May day, with the young yellow-brown foliage of the oaks between me and the blue sky, the white star-flowers and the blue-eyed speedwell and the ground ivy at my feet, what grove of tropic palms, what strange ferns or splendid broad- petalled blossoms, could ever thrill such deep and delicate fibres within me as this home scene?<br><br><strong>Text 2</strong><br><br>My feelings seem to be those of our ancient earth in the daily ecstasy of its sun-kissed life; my own consciousness seems to stream through each blade of grass, each sucking root, to rise with the sap through the trees, to break out with joyous thrills in the waving fields of corn, in the rustling palm leaves.",
+        "prompt": "Which choice best describes a notable difference in how the references to palm trees function in Text 1 and Text 2?",
+        "choices": [
+          "While palm trees serve to evoke natural beauty in both texts, only the author of Text 2 expresses a close sense of identification with palm trees.",
+          "While the narrator of Text 1 and the author of Text 2 both refer to metaphorical palm trees, only the narrator of Text 1 suggests that the palm trees are representative of home.",
+          "While the narrator of Text 1 and the author of Text 2 both discuss palm trees to suggest the value of experiencing the natural world, only the narrator of Text 1 alludes to the labor that goes into cultivating real palm trees.",
+          "While palm trees form part of a series conveying the variety of the natural world in both texts, only the author of Text 2 recognizes how closely interconnected palm trees are with other plants in their environment."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 22,
+          "pdfPageNumber": 23,
+          "pdfPages": [
+            23
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 8,
+        "skill": "Command of Evidence",
+        "passage": "In the Mexican dialect of Spanish, the consonant s is pronounced with greater tension in the tongue than it is in Castilian, the dominant dialect in Spain, resulting in a sharper sound. Margarita Hidalgo, a linguist at San Diego State University, argues that Mexican Spanish acquired this pronunciation from Nahuatl, the language of the Nahua people in Central Mexico: as the Spanish colonizers of Mexico incorporated Nahuatl words into their speech, and as more and more Nahuas spoke Spanish as a second language, the Nahuatl pronunciation of the s consonant replaced the Castilian pronunciation.",
+        "prompt": "Information in the text best supports which statement about the consonant s?",
+        "choices": [
+          "This consonant appears in a higher percentage of Nahuatl vocabulary than of Castilian vocabulary.",
+          "The pronunciation of this consonant is the principal difference between the Mexican and Castilian dialects of Spanish.",
+          "The pronunciation of this consonant requires greater tension in the tongue in Nahuatl than in Castilian.",
+          "The pronunciation of this consonant in Nahuatl may have been affected by its pronunciation in Mexican Spanish."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 23,
+          "pdfPageNumber": 24,
+          "pdfPages": [
+            24
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 9,
+        "skill": "Central Ideas and Details",
+        "passage": "Cover crops, such as flax, are planted by many farmers between main growing seasons. While these crops are known for increasing biodiversity, Christopher Poeplau and his coauthor argued in a 2015 study that cover crops’ role in supporting soil carbon sequestration deserves more attention. Cover crops remove carbon dioxide (CO₂) from the air and convert it to organic compounds; some of these compounds are stored in the soil as soil organic carbon (SOC), which contributes to the buildup of SOC stocks over time. Based on data from numerous farm fields, Poeplau and his coauthor concluded that cover crops contribute meaningfully to soil carbon sequestration and, if widely adopted, could help offset agricultural emissions of atmospheric CO₂ and other greenhouse gases.",
+        "prompt": "Which finding, if true, would be most consistent with Poeplau and his coauthor’s conclusion?",
+        "choices": [
+          "Cover crops generally exhibit reduced carbon sequestration rates in fields exposed to high levels of greenhouse gas emissions compared with fields exposed to low levels of those emissions.",
+          "Flax captures considerably more CO₂ in fields where it is the sole cover crop compared with fields where it is grown alongside other species of cover crops.",
+          "SOC stocks vary more in fields where cover crops have been grown for decades compared with fields where cover crops have only recently been introduced.",
+          "SOC stocks tend to be significantly lower in fields without cover crops compared with fields where cover crops have been grown for several years."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 24,
+          "pdfPageNumber": 25,
+          "pdfPages": [
+            25
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 10,
+        "skill": "Command of Evidence",
+        "passage": "Tribal nations employ a large percentage of their populations in tribally owned businesses as well as in government and public administration. This is especially true in Oklahoma and other states with robust tribal economies and large Native populations. (For additional SAT study materials, contact vx: 13161855117.) Between end-of-year 2017 and end-of-year 2023, the percentage of tribal employees working in the public sector increased, from 34.0% to 34.6%, while the percentage working in the business sector declined from 66.0% to 65.4%.",
+        "prompt": "Which statement about the decline in the percentage of tribal employees working in the business sector is best supported by information in the table?",
+        "choices": [
+          "It didn’t result from an overall contraction of that sector, since the total number of employees in that sector increased by several thousand during this period.",
+          "It resulted from widespread workforce redistributions, since several thousand employees left that sector to take new jobs in the public sector during this period.",
+          "It was offset by changes in leisure and hospitality businesses, since the percentage of employees working in those businesses increased during this period.",
+          "It was driven primarily by changes in businesses classified as “other,” since those businesses had the lowest number of employees by the end of 2023."
+        ],
+        "images": [
+          {
+            "src": "images/october2026-practice1/m2-q10-table.png",
+            "alt": "Employment counts and workforce percentages in tribal economies by sector in 2017 and 2023",
+            "position": "beforePassage",
+            "displayWidth": 950
+          }
+        ],
+        "source": {
+          "pdfPageIndex": 25,
+          "pdfPageNumber": 26,
+          "pdfPages": [
+            26
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 11,
+        "skill": "Command of Evidence",
+        "passage": "Erin Grabarczyk and Sharon Gill analyzed changes in house wrens’ song characteristics following playback of serialized recordings mimicking environmental noise. Because recordings earlier in a series may have carryover effects that influence vocal responses to later recordings, the effects of a recording’s position within a series on changes in song characteristics were also evaluated. Larger absolute t-values indicate stronger evidence that song characteristics change systematically with recording position (negative t-values show that characteristics decreased), while p-values below 0.05 suggest that the effects of recording position on song characteristics are statistically significant. The researchers concluded that the possibility of carryover effects cannot be excluded, given that _____",
+        "prompt": "Which choice most effectively uses the data from the table to complete the text?",
+        "choices": [
+          "later recordings had a more significant effect on change in peak frequency than on change in song duration, as shown by p-values of 0.4 and 0.002, respectively.",
+          "the position of recordings had a significant effect on change in song rate and change in song duration, as shown by p-values of 0.03 and 0.002, respectively.",
+          "vocal responses were likely affected by extraneous factors in addition to the position of recordings, as shown by the wider range of t-values relative to the narrower range of p-values.",
+          "vocal responses to later recordings were on average 3.2 seconds longer than responses to earlier recordings, a change that was statistically significant."
+        ],
+        "images": [
+          {
+            "src": "images/october2026-practice1/m2-q11-table.png",
+            "alt": "T-values and p-values for recording position and changes in house wren song characteristics",
+            "position": "beforePassage",
+            "displayWidth": 950
+          }
+        ],
+        "source": {
+          "pdfPageIndex": 26,
+          "pdfPageNumber": 27,
+          "pdfPages": [
+            27
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 12,
+        "skill": "Command of Evidence",
+        "passage": "The 2021 poetry collection <em>Double Trio</em> continues Nathaniel Mackey’s “long song,” a sprawling work that consists of a pair of serialized poems called <em>Song of the Andoumboulou</em> and <em>Mu</em>, whose joint publication spans multiple installments over several decades. In this long song, Mackey actualizes what he calls “discrepant engagement,” a compositional strategy that involves continuously revising and remixing diverse cultural references to illuminate the complex interconnectedness of global cultures. <u>Mackey’s long song’s open-endedness is essential to the way it manifests discrepant engagement—that is, the work’s associative logic and resistance to linear narrative prevent readers from imposing a definitive and coherent interpretation on its presentation of world cultures.</u>",
+        "prompt": "Which quotation from a literary scholar would most directly support the underlined claim?",
+        "choices": [
+          "“Though at the outset of his project Mackey conceived of <em>Song of the Andoumboulou</em> and <em>Mu</em> as two discrete series, in the preface of 2006’s <em>Splay Anthem</em>, Mackey indicates that their seriality eventually enabled his realization that they were in fact two facets of a single work.”",
+          "“Though nominally an epic whose band of wandering travelers evoke the ancient Greek epic hero Odysseus, unlike traditional Western epics, which often conclude with the hero’s return home, Mackey’s long song possesses an open-endedness that renders the final homecoming elusive.”",
+          "“The intellectual scope of Mackey’s work is capacious, drawing on such wide-ranging cultural influences as the traditional stories of the Dogon people of West Africa, philosophical schools of the ancient Mediterranean, the history of the African diaspora, quantum mechanics, modernist poetry, and experimental jazz music.”",
+          "“Seriality in Mackey’s long song operates recursively, meaning that, in combination with the work’s marshaling of an eclectic array of cultural allusions, it endlessly reiterates and recontextualizes the same archetypal images and narrative incidents, uncovering in these elements new and unexpected meanings with each repetition.”"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 27,
+          "pdfPageNumber": 28,
+          "pdfPages": [
+            28
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 13,
+        "skill": "Inferences",
+        "passage": "Many studies have found a positive association between levels of dissolved organic carbon and mercury in bodies of fresh water undisturbed by human activity. But Mark E. Brigham and colleagues did not find this correlation in an examination of freshwater bodies disturbed by urban development, leading some scientists to hypothesize that the association could be particular to undisturbed waters. However, Tomas Navratil and colleagues carried out a study on freshwater bodies disturbed by coal emissions that showed similar results to the studies on undisturbed waters, suggesting that _____",
+        "prompt": "Which choice most logically completes the text?",
+        "choices": [
+          "Brigham and colleagues’ study used different methods to measure the concentration of mercury in fresh water than Navratil and colleagues’ study did.",
+          "disturbances linked to urban development affect significantly more bodies of fresh water than disturbances linked to coal pollution do.",
+          "the effects of urban development on the association between levels of dissolved organic carbon and mercury should not be taken as indicative of the effects of every type of human disturbance.",
+          "levels of dissolved organic carbon and mercury are both much higher in bodies of fresh water disturbed by urban development than they are in bodies of fresh water disturbed by coal emissions."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 28,
+          "pdfPageNumber": 29,
+          "pdfPages": [
+            29
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 14,
+        "skill": "Inferences",
+        "passage": "In a 2018 study, Wee-Lee Tan and Yen-Nee Goh found that Malaysian consumers who reported more positive attitudes toward environmentally sustainable residences also reported greater intentions to purchase such properties. Subsequently, another team of researchers surveyed the attitudes of members of various demographic groups in Turkey about a new food product that is environmentally sustainable. (Visit the HDF website at https://www.hdfedu.com/ to access all SAT past papers and free mock exams.) Finding that suburban residents had the most positive attitude toward the food product, the researchers, citing the results of Tan and Goh’s study, concluded that suburban residents are more likely than other groups to purchase the food product, suggesting that the researchers may have assumed that _____",
+        "prompt": "Which choice most logically completes the text?",
+        "choices": [
+          "the relationship between attitude and purchase intention for environmentally sustainable goods is not substantially affected by the type of good being purchased.",
+          "the perception that goods are environmentally sustainable and the resulting increase in purchase intention are independent of those goods’ actual environmental sustainability.",
+          "regardless of consumers’ demographic characteristics, consumers’ attitudes toward goods are strongly influenced by their perceptions of the environmental sustainability of those goods.",
+          "suburban residents in Turkey and suburban residents in Malaysia are similar in their attitudes toward environmentally sustainable goods."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 29,
+          "pdfPageNumber": 30,
+          "pdfPages": [
+            30
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 15,
+        "skill": "Inferences",
+        "passage": "Rare species advantage (RSA) describes the situation in which there are few conspecifics (other members of the same species) in an organism’s immediate surroundings, enabling the organism to avoid competition with conspecifics for the same resources; RSA is widely believed to play a crucial role in maintaining ecological stability. Among tree species in the Barro Colorado Island plot (latitude 9.15° N) and other tropical forest sites, there is little correlation between conspecific aggregation and the abundance of a given species in the wider local area, so RSA is expected, but in the Fenglin Nature Reserve (latitude 48.08° N) and other temperate forest sites, the aggregation-abundance correlation for tree species is strongly negative. Mathematical modeling suggests, however, that ecological niche distinction may mitigate the apparent risk to temperate ecological stability engendered by this pattern: _____",
+        "prompt": "Which choice most logically completes the text?",
+        "choices": [
+          "even though rare tree species in temperate forests tend to cluster with conspecifics more than rare tree species in tropical forests do, they are sufficiently rare locally that they benefit from RSA more than rare tropical species do.",
+          "although rare tree species in temperate forests encounter relatively high local competition from conspecifics, they can thrive by exploiting resources that are underexploited by other local species.",
+          "as a tree species in temperate forests becomes more abundant, individuals of that species are more likely to be found near conspecifics, enabling abundant species to exploit localized resources to a greater extent than rare species can.",
+          "while an increase in abundance in one tree species often leads to a reduction in abundance of nearby species, temperate tree species tend to play different roles in the same ecosystem, reducing the expected effect of abundance on aggregation."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 30,
+          "pdfPageNumber": 31,
+          "pdfPages": [
+            31
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 16,
+        "skill": "Standard English Conventions",
+        "passage": "Archaeological evidence indicates that board games have existed in human societies for at least five millennia, with examples discovered in the tombs of ancient Egypt and the ruins of Mesopotamia. The purpose of these ancient games was _____ provide entertainment during leisure time, to reflect cultural beliefs, and to develop strategic thinking skills among players.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "threefold to",
+          "threefold. To",
+          "threefold: to",
+          "threefold; to"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 31,
+          "pdfPageNumber": 32,
+          "pdfPages": [
+            32
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 17,
+        "skill": "Standard English Conventions",
+        "passage": "Machinists must account for multiple parameters—including material properties, cutting tool geometry, and machine capabilities—when setting up a machining project. Experienced _____ that tool speed and workpiece feed rate recommendations from manufacturer charts are only the first considerations, learn to balance these competing factors by adjusting their parameters based on specific variables, such as the cutting depth, desired surface finish, and workpiece rigidity.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "operators, have recognized",
+          "operators recognize",
+          "operators, recognizing",
+          "operators can recognize"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 31,
+          "pdfPageNumber": 32,
+          "pdfPages": [
+            32
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 18,
+        "skill": "Standard English Conventions",
+        "passage": "As one of aviation’s earliest female stunt performers, Gladys Ingle developed a versatile repertoire of acrobatic feats. Her specialized skills included standing on the wing of a flying aircraft and shooting a bow and arrow at a _____ perfect balance during aerial maneuvers, such as vertical loops; and even walking across the wing as an aircraft flew at full speed beneath a bridge.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "target. Maintaining",
+          "target maintaining",
+          "target, maintaining",
+          "target; maintaining"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 32,
+          "pdfPageNumber": 33,
+          "pdfPages": [
+            33
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 19,
+        "skill": "Standard English Conventions",
+        "passage": "During a recent investigation, archaeologists _____ an explanation for the consistent and seemingly deliberate placement of petrogylphs (rock carvings) near water analyzed several sites on Carribbean islands. They discovered that many of the pools near petroglyphs had consistent water levels year-round, creating perfect reflecting surfaces for the carved symbols on the rocks.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "sought",
+          "had sought",
+          "seeking",
+          "were seeking"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 32,
+          "pdfPageNumber": 33,
+          "pdfPages": [
+            33
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 20,
+        "skill": "Standard English Conventions",
+        "passage": "For his mash-up “Smells Like Rockin’ Robin,” DJ Mark Vidler layered Kurt Cobain’s minor- key vocals from “Smells Like Teen Spirit” over the Jackson 5’s major-key blues progression from “Rockin’ _____ by inserting the grunge singer’s vocal melody as pitch-shifted “blue notes” within the pop-soul group’s harmonic framework, creates an intensified “bluesy” feeling and subverts the expectations of listeners familiar with either musical source.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "Robin”—a technique that,",
+          "Robin”; a technique that,",
+          "Robin,” a technique that",
+          "Robin.” A technique that"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 33,
+          "pdfPageNumber": 34,
+          "pdfPages": [
+            34
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 21,
+        "skill": "Standard English Conventions",
+        "passage": "Named for the year in which it was detected by Japanese astronomers, SN 2004dj was a supernova (the explosion of a massive _____ in the constellation Camelopardalis, 11 million light-years from Earth, the transient yet powerful blast propelled particles and debris into space at extremely high speeds.",
+        "prompt": "Which choice completes the text so that it conforms to the conventions of Standard English?",
+        "choices": [
+          "star). Occurring",
+          "star) and occurring",
+          "star) occurring",
+          "star), occurring"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 33,
+          "pdfPageNumber": 34,
+          "pdfPages": [
+            34
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 22,
+        "skill": "Transitions",
+        "passage": "The Hornbostel-Sachs system classifies musical instruments by how they produce sound. For example, an instrument that is popular in Russia called the garmon produces sound primarily through the vibration of air through the instrument’s body. _____ under the Hornbostel- Sachs system, the garmon is an aerophone.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "Instead,",
+          "Thus,",
+          "Furthermore,",
+          "Similarly,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 34,
+          "pdfPageNumber": 35,
+          "pdfPages": [
+            35
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 23,
+        "skill": "Transitions",
+        "passage": "Scientists studying forest restoration have discovered that trees depend on complex partnerships with microscopic organisms for survival. The researchers found that special fungi called endophytes live inside tree leaves and serve as a defense mechanism. _____ these endophytes help by fighting off diseases and boosting the tree’s immune system.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "In conclusion,",
+          "Alternatively,",
+          "Specifically,",
+          "Nevertheless,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 34,
+          "pdfPageNumber": 35,
+          "pdfPages": [
+            35
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 24,
+        "skill": "Transitions",
+        "passage": "On March 8, 1971, the Apollo 14 crew received a ticker-tape parade in New York City in recognition of their mission to the Moon. Of the 206 ticker-tape parades held between 1886 and 2022, a number were for the US space program. _____ the Apollo 14 parade was just one of 10 honoring astronauts.",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "Therefore,",
+          "Nevertheless,",
+          "In addition,",
+          "Indeed,"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 35,
+          "pdfPageNumber": 36,
+          "pdfPages": [
+            36
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 25,
+        "skill": "Transitions",
+        "passage": "Between April 1848 and October 1849, Edward Bulwer-Lytton’s novel <em>The Caxtons</em> was serialized in fourteen parts in <em>Blackwood’s Magazine</em>. (All past digital sat real test papers can be found at https://www.hdfedu.com/, all free.) Scholars typically regard the serial version of Bulwer-Lytton’s novel as less authoritative than the version later published in book form. _____ as scholar Philip Allingham notes, serialized texts were the versions in which the nineteenth-century readership first “saw itself and its world reflected, and to which it responded, often with great emotion.”",
+        "prompt": "Which choice completes the text with the most logical transition?",
+        "choices": [
+          "Accordingly, they emphasize the appeal of the serial version for Victorian audiences;",
+          "Consequently, the book version of the novel is often favored over the serial version;",
+          "Still, the serial version is important to an understanding of the novel’s historical context;",
+          "However, others regard the serial version as a more faithful representation of Bulwer- Lytton’s intentions;"
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 35,
+          "pdfPageNumber": 36,
+          "pdfPages": [
+            36
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 26,
+        "skill": "Rhetorical Synthesis",
+        "passage": "While researching a topic, a student has taken the following notes:<br><br><ul><li>Body positions are an important part of dance.</li><li>In ballet, there is a position called third position.</li><li>It is one of several positions for the dancer’s feet.</li></ul>",
+        "prompt": "The student wants to provide an example of a position in ballet. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+        "choices": [
+          "Third position is an example of a position in ballet.",
+          "In dance, some positions are for the dancer’s feet.",
+          "Body positions are an important part of dance, including ballet.",
+          "Ballet includes several dance positions for the dancer’s feet."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 36,
+          "pdfPageNumber": 37,
+          "pdfPages": [
+            37
+          ],
+          "printedPageNumber": null
+        }
+      },
+      {
+        "n": 27,
+        "skill": "Rhetorical Synthesis",
+        "passage": "While researching a topic, a student has taken the following notes:<br><br><ul><li>Enhanced rock weathering (ERW) is a method of spreading crushed basalt on farmland to capture carbon dioxide (CO₂) and improve soil health.</li><li>ERW increases crop yields and removes harmful CO₂ from the air.</li><li>ERW offers a low-cost, low-tech alternative to expensive, energy-intensive carbon capture methods.</li><li>The CO₂ captured by ERW becomes stable bicarbonate in soil water, which eventually streams into the ocean to remain safely stored for hundreds of years.</li><li>ERW can improve rural economies by reducing farmers’ need for fertilizers and increasing their earnings from carbon credits.</li></ul>",
+        "prompt": "The student wants to explain why ERW is a superior method for capturing CO₂. Which choice most effectively uses relevant information from the notes to accomplish this goal?",
+        "choices": [
+          "The CO₂ captured by ERW becomes stable bicarbonate, which improves soil health by remaining in the ocean for hundreds of years.",
+          "ERW is a method of spreading crushed basalt on farmland to capture CO₂, improving rural economies.",
+          "ERW improves soil health and helps farmers increase their income from selling carbon credits.",
+          "ERW removes CO₂ from the air in a way that is both low-cost and low-tech."
+        ],
+        "images": [],
+        "source": {
+          "pdfPageIndex": 37,
+          "pdfPageNumber": 38,
+          "pdfPages": [
+            38
+          ],
+          "printedPageNumber": null
+        }
+      }
+    ]
+  },
+  "answerKey": {
+    "m1q1": "A",
+    "m1q2": "B",
+    "m1q3": "C",
+    "m1q4": "D",
+    "m1q5": "B",
+    "m1q6": "B",
+    "m1q7": "C",
+    "m1q8": "A",
+    "m1q9": "B",
+    "m1q10": "B",
+    "m1q11": "A",
+    "m1q12": "C",
+    "m1q13": "A",
+    "m1q14": "D",
+    "m1q15": "C",
+    "m1q16": "B",
+    "m1q17": "B",
+    "m1q18": "A",
+    "m1q19": "A",
+    "m1q20": "B",
+    "m1q21": "C",
+    "m1q22": "B",
+    "m1q23": "B",
+    "m1q24": "B",
+    "m1q25": "C",
+    "m1q26": "D",
+    "m1q27": "A",
+    "m2q1": "A",
+    "m2q2": "A",
+    "m2q3": "B",
+    "m2q4": "C",
+    "m2q5": "B",
+    "m2q6": "A",
+    "m2q7": "A",
+    "m2q8": "C",
+    "m2q9": "D",
+    "m2q10": "A",
+    "m2q11": "B",
+    "m2q12": "D",
+    "m2q13": "C",
+    "m2q14": "A",
+    "m2q15": "B",
+    "m2q16": "C",
+    "m2q17": "C",
+    "m2q18": "D",
+    "m2q19": "C",
+    "m2q20": "A",
+    "m2q21": "A",
+    "m2q22": "B",
+    "m2q23": "C",
+    "m2q24": "D",
+    "m2q25": "C",
+    "m2q26": "A",
+    "m2q27": "D"
+  }
+};
