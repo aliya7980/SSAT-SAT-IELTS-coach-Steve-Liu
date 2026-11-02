@@ -123,3 +123,7 @@ complete(globals())
 
 from giver_visuals import improve
 improve(globals())
+
+# Keep the student-facing quick edition as the final build output.
+from giver_quick import apply as quick_edition
+quick_edition(R)
