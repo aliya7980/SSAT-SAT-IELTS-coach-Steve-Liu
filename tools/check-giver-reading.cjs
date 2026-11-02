@@ -1,0 +1,14 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const handlers={};const wrap={hidden:false,id:''},cards={hidden:true,id:''};
+const button={attrs:{},listeners:{},setAttribute(k,v){this.attrs[k]=v;},addEventListener(k,f){this.listeners[k]=f;}};
+const host={querySelector(s){return s==='.table-wrap'?wrap:s==='.table-cards'?cards:button;}};
+const target={hidden:true,closest(){return this.hidden?this:null;}};
+const toc={dataset:{tocTarget:'later'},hidden:false};const mq={matches:true,addEventListener(k,f){this.change=f;}};
+const document={querySelectorAll(s){return s==='.study-table'?[host]:s==='[data-toc-target]'?[toc]:[];},getElementById(){return target;},addEventListener(k,f){handlers[k]=f;}};
+vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../pages/READINGS/the-giver/reading.js'),'utf8'),{document,matchMedia(){return mq;}});
+assert.equal(wrap.hidden,true);assert.equal(cards.hidden,false);assert.equal(button.attrs['aria-pressed'],'true');assert.equal(toc.hidden,true);
+button.listeners.click();assert.equal(wrap.hidden,false);assert.equal(cards.hidden,true);assert.equal(button.attrs['aria-pressed'],'false');
+target.hidden=false;handlers.change({target:{id:'spoilers'}});assert.equal(toc.hidden,false);
+mq.matches=false;mq.change();assert.equal(wrap.hidden,false);
+mq.matches=true;mq.change();assert.equal(cards.hidden,false);
+console.log('PASS: mobile stacked tables, keyboard-compatible button handlers, resize behaviour, accessible toggle state, and spoiler-aware in-page destinations.');

@@ -22,3 +22,4 @@ assert.match(css,/\.teacher-content\{display:none!important\}/);
 assert.match(css,/body\.print-teacher \.teacher-content\{display:block!important\}/);
 assert.match(css,/\.print-log-only main>#lesson\{display:block!important\}/);
 console.log('PASS: student print closes/excludes opened teacher answers; explicit opt-in includes answers; future chapters stay hidden; screen disclosure states restored; print-log wrapper supported.');
+

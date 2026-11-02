@@ -51,7 +51,7 @@ def inventory():
  return {'pages':rows,'themes':themes,'chapters':stats,'plotLessonWords':sum(wc(s) for _,s in content.PLOT),'settingLessonWords':sum(wc(s) for _,s in content.SETTING),'characterProfileWords':{k:wc(v) for k,v in content.CHARACTERS.items()}}
 def write():
  data=inventory();(D/'content-inventory.json').write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n')
- lines=['# The Giver content inventory','','Counts come from the generated lesson area, excluding shared navigation, controls, footer, and SVG labels. Page totals include student tasks, tables, and deliberately hidden answers. Specific teaching counts below exclude theme questions and tables. Counts are approximate whitespace-based words, used to detect gaps rather than to pad content.','','| Page | Lesson words | Completed sections |','| --- | ---: | --- |']
+ lines=['# The Giver content inventory','','Counts come from the generated lesson area, excluding shared navigation, controls, footer, and SVG labels. Page totals include student tasks, tables, deliberately hidden answers, and the alternative stacked-table presentation (the alternatives are not shown together). Specific teaching counts below exclude theme questions and tables. Counts are approximate whitespace-based words, used to detect gaps rather than to pad content.','','| Page | Lesson words | Completed sections |','| --- | ---: | --- |']
  for r in data['pages']:lines.append('| '+r['page']+' | '+str(r['words'])+' | '+'; '.join(r['sections'])+' |')
  lines+=['','## Theme teaching depth','','| Theme | Teaching words excluding questions/tables | Model paragraph | Developed case studies |','| --- | ---: | ---: | ---: |']
  for k,v in data['themes'].items():lines.append(f'| {k} | {v["teachingWordsExcludingQuestionsTables"]} | {v["modelWords"]} | {v["caseStudies"]} |')
@@ -64,3 +64,4 @@ def write():
  print('Inventory generated:',sum(r['words'] for r in data['pages']),'lesson words across',len(data['pages']),'pages')
  for k,v in data['themes'].items():print(k,v)
 if __name__=='__main__':write()
+

@@ -119,3 +119,7 @@ shell('sources',sources,'Use the novel as evidence, and know what each supportin
 # Expand all lessons after the retained base interfaces have been generated.
 from giver_lessons import complete
 complete(globals())
+
+
+from giver_visuals import improve
+improve(globals())

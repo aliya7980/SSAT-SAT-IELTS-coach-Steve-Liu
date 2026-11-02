@@ -2,7 +2,7 @@
   "pages": [
     {
       "page": "assessment.html",
-      "words": 1132,
+      "words": 1486,
       "sections": [
         "A teaching rubric, not an official VSB document",
         "Literary analysis rubric",
@@ -18,7 +18,7 @@
     },
     {
       "page": "chapters.html",
-      "words": 14136,
+      "words": 14216,
       "sections": [
         "Read alongside your own copy",
         "After finishing the novel · retrospective interpretation",
@@ -27,7 +27,7 @@
     },
     {
       "page": "characters.html",
-      "words": 2143,
+      "words": 2381,
       "sections": [
         "Major and minor do not mean valuable and unimportant",
         "Nine developed profiles",
@@ -38,7 +38,7 @@
     },
     {
       "page": "conflicts.html",
-      "words": 975,
+      "words": 1236,
       "sections": [
         "Conflict is pressure between commitments",
         "Jonas versus society: who may decide what people need?",
@@ -52,7 +52,7 @@
     },
     {
       "page": "freedom.html",
-      "words": 1337,
+      "words": 1526,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -73,8 +73,34 @@
       ]
     },
     {
+      "page": "image-credits.html",
+      "words": 734,
+      "sections": [
+        "Images are illustrations, not evidence of a fictional place",
+        "Creators and permission",
+        "apple",
+        "snow-valley",
+        "library-shelves",
+        "uniform-community",
+        "choice-paths",
+        "human-connection",
+        "language-lenses",
+        "responsibility-route",
+        "evidence-chain",
+        "conflict-consequence",
+        "jonas-development",
+        "revision-cycle",
+        "plot-structure",
+        "relationships",
+        "theme-connections",
+        "Changes made to photographs",
+        "Spoilers and adaptations",
+        "Maintain these records"
+      ]
+    },
+    {
       "page": "index.html",
-      "words": 428,
+      "words": 501,
       "sections": [
         "What would you give up to feel safe?",
         "Your learning route",
@@ -84,7 +110,7 @@
     },
     {
       "page": "individuality.html",
-      "words": 1270,
+      "words": 1471,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -106,7 +132,7 @@
     },
     {
       "page": "language.html",
-      "words": 1271,
+      "words": 1451,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -128,7 +154,7 @@
     },
     {
       "page": "love.html",
-      "words": 1294,
+      "words": 1479,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -150,7 +176,7 @@
     },
     {
       "page": "memory.html",
-      "words": 1325,
+      "words": 1520,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -172,7 +198,7 @@
     },
     {
       "page": "plot.html",
-      "words": 1087,
+      "words": 1321,
       "sections": [
         "Read structure as an interpretation",
         "Interactive plot guide",
@@ -182,7 +208,7 @@
     },
     {
       "page": "responsibility.html",
-      "words": 1278,
+      "words": 1464,
       "sections": [
         "Essential question",
         "Topic → argument",
@@ -204,7 +230,7 @@
     },
     {
       "page": "setting.html",
-      "words": 978,
+      "words": 1243,
       "sections": [
         "Three lenses",
         "Physical setting: designed familiarity and unnamed distance",
@@ -218,7 +244,7 @@
     },
     {
       "page": "sources.html",
-      "words": 626,
+      "words": 674,
       "sections": [
         "Primary source: the novel",
         "Secondary study guides",
@@ -230,7 +256,7 @@
     },
     {
       "page": "symbols.html",
-      "words": 1140,
+      "words": 1378,
       "sections": [
         "Classify before interpreting",
         "Colour and seeing · motif with symbolic possibilities",
@@ -246,7 +272,7 @@
     },
     {
       "page": "techniques.html",
-      "words": 1381,
+      "words": 1479,
       "sections": [
         "Method → evidence → effect → meaning",
         "Third-person limited narration",
@@ -265,7 +291,7 @@
     },
     {
       "page": "themes.html",
-      "words": 297,
+      "words": 370,
       "sections": [
         "A topic is not yet an argument",
         "Six connected investigations",
@@ -281,7 +307,7 @@
     },
     {
       "page": "writing.html",
-      "words": 1817,
+      "words": 2203,
       "sections": [
         "Summary and analysis: a worked comparison",
         "Lesson 2 · Build a paragraph in six decisions",
@@ -300,32 +326,32 @@
   ],
   "themes": {
     "freedom": {
-      "teachingWordsExcludingQuestionsTables": 771,
+      "teachingWordsExcludingQuestionsTables": 777,
       "modelWords": 162,
       "caseStudies": 4
     },
     "memory": {
-      "teachingWordsExcludingQuestionsTables": 766,
+      "teachingWordsExcludingQuestionsTables": 772,
       "modelWords": 170,
       "caseStudies": 4
     },
     "individuality": {
-      "teachingWordsExcludingQuestionsTables": 759,
+      "teachingWordsExcludingQuestionsTables": 765,
       "modelWords": 168,
       "caseStudies": 4
     },
     "love": {
-      "teachingWordsExcludingQuestionsTables": 734,
+      "teachingWordsExcludingQuestionsTables": 740,
       "modelWords": 163,
       "caseStudies": 4
     },
     "language": {
-      "teachingWordsExcludingQuestionsTables": 740,
+      "teachingWordsExcludingQuestionsTables": 746,
       "modelWords": 160,
       "caseStudies": 4
     },
     "responsibility": {
-      "teachingWordsExcludingQuestionsTables": 737,
+      "teachingWordsExcludingQuestionsTables": 743,
       "modelWords": 159,
       "caseStudies": 4
     }

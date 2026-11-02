@@ -78,3 +78,4 @@
  const menu=$('.course-menu');if(matchMedia('(max-width:850px)').matches)menu.open=false;
  window.addEventListener('storage',event=>{if(event.key===prefix+'spoilers')updateMode(event.newValue||'light');if(limit&&event.key===prefix+'readThrough')updateLimit(event.newValue||0);});
 })();
+

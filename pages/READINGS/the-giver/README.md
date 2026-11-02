@@ -33,3 +33,12 @@ Progress and optional responses are stored only in the current browser and origi
 Teacher reveals are not access control. Print output excludes them by default even if opened on screen. The nonpersistent Include teacher answers in print checkbox deliberately opts in. Do not make teacher-print selection persist between pages or sessions. Test both printing paths and confirm that later chapter content remains hidden.
 
 No deployment or push is part of this local workflow without explicit user authorization. See `IMPLEMENTATION-REPORT.md` for the specific verification limits of this revision.
+
+
+## Visual and reading layer
+
+`tools/giver_visuals.py` runs after the complete content renderer. It adds local credited assets, student-friendly key ideas and term guides, in-page links, chapter scan links, and stacked table alternatives while preserving the lesson wording. `reading.css` and `reading.js` provide this layer without changing the original storage namespace or field IDs.
+
+Keep all photo permissions and original diagram records in `asset-manifest.json`. Image Credits is linked from every footer. Do not move later-event images or their alt text/captions outside Full novel containers. Do not use the photographs as depictions of fictional locations. Rebuild rather than editing generated HTML alone.
+
+After the existing checks, also run `python3 tools/check-giver-visuals.py` and `node tools/check-giver-reading.cjs`. See `VISUAL-REVIEW.md` for the separate review-copy delivery status and the browser verification limit. Current page word totals include alternative stacked-table text; desktop and stacked versions are not displayed together.

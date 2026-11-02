@@ -18,7 +18,7 @@ class Page(HTMLParser):
   if tag=='a' and a.get('aria-current')=='page':self.current+=1
   if tag=='h1':self.h1+=1
 pages={p:Page(p.read_text()) for p in D.glob('*.html')}
-assert len(pages)==18,len(pages)
+assert len(pages)==19,len(pages)
 for p,parsed in pages.items():
  assert len(parsed.ids)==len(set(parsed.ids)),f'duplicate IDs: {p}'
  assert parsed.current==1 and parsed.h1==1,p
@@ -42,7 +42,7 @@ for slug in ('freedom','memory','individuality','love','language','responsibilit
  for phrase in ('Essential question','Two defensible arguments','Model analytical paragraph','Scaffolded paragraph','Independent essay question','Two misconceptions to correct','full-content" hidden'):assert phrase in s,(slug,phrase)
 assert 'READINGS/the-giver/index.html' in (R/'pages/readingtips.html').read_text()
 assert 'Monte Cristo</a>\n          <a href="READINGS/the-giver/index.html"' in (R/'pages/readingtips.html').read_text()
-print('PASS: 18 pages; local links/assets/fragments; unique IDs; form labels; active navigation; 23 ordered chapter records; 100–150-word summaries; six complete theme pages; reading-page integration.')
+print('PASS: 19 pages; local links/assets/fragments; unique IDs; form labels; active navigation; 23 ordered chapter records; 100–150-word summaries; six complete theme pages; reading-page integration.')
 
 # Content requirements are measured from the canonical prose, not padded page furniture.
 from giver_inventory import inventory
@@ -77,3 +77,4 @@ for page in pages:
  main=dom.find(lambda n:n.tag=='main')
  lesson=dom.find(lambda n:n.attrs.get('id')=='lesson')
  assert len(list(main.each('section')))==len(list(lesson.each('section'))),page
+

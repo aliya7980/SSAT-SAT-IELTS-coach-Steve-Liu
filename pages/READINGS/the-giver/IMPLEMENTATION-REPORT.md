@@ -1,3 +1,5 @@
+> Earlier content-revision report. For the current image/readability review copy and its verification limits, see [VISUAL-REVIEW.md](VISUAL-REVIEW.md).
+
 # The Giver: completed teaching-content revision
 
 Prepared 2 November 2026. Local review only; no commit, push, or publication was performed.
@@ -57,3 +59,4 @@ From the repository root, run `python3 -m http.server 8000`, then open:
 http://localhost:8000/pages/READINGS/the-giver/index.html
 
 Choose Full novel to review the analysis. On the chapter guide, set Read up to Chapter 23 to inspect every entry; this does not happen automatically when changing spoiler mode.
+
