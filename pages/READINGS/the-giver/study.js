@@ -27,12 +27,13 @@
   if(!window.confirm('Delete all locally saved Giver responses, reading progress, and spoiler preferences in this browser?'))return;
   try{Object.keys(localStorage).filter(k=>k.startsWith(prefix)).forEach(k=>localStorage.removeItem(k));}catch{}
   all('[data-save]').forEach(el=>{if(el.type==='checkbox')el.checked=false;else el.value='';});
-  updateMode('light');if($('#chapter-limit')){updateLimit(0);}
+  $('#print-teacher').checked=false;updateMode('light');if($('#chapter-limit')){updateLimit(0);}
   status('All Giver responses and progress have been reset.');
  });
  const limit=$('#chapter-limit');
  function updateLimit(value,persist=false){
   const n=Math.min(23,Math.max(0,Number(value)||0));limit.value=String(n);
+  all('[data-retrospective]').forEach(el=>el.hidden=n<23);
   all('[data-chapter]').forEach(el=>{el.hidden=Number(el.dataset.chapter)>n;if(el.hidden)el.open=false;});
   all('[data-chapter-link]').forEach(el=>el.hidden=Number(el.dataset.chapterLink)>n);
   all('[data-next-locked]').forEach(el=>el.hidden=Number(el.dataset.nextLocked)<=n);
@@ -53,9 +54,27 @@
   function activate(tab){tabs.forEach(t=>{const selected=t===tab;t.setAttribute('aria-selected',String(selected));t.tabIndex=selected?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!selected;});}
   tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>activate(tab));tab.addEventListener('keydown',event=>{let next=i;if(event.key==='ArrowRight')next=(i+1)%tabs.length;else if(event.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;else if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else return;event.preventDefault();activate(tabs[next]);tabs[next].focus();});});
  });
+ // Print a complete available lesson while keeping teacher answers an explicit opt-in.
+ let printState=null;
+ function preparePrint(){
+  if(printState)return;
+  const includeTeacher=$('#print-teacher').checked;
+  document.body.classList.toggle('print-teacher',includeTeacher);
+  printState=all('#lesson details').map(el=>({el,open:el.open}));
+  printState.forEach(({el})=>{
+   if(el.closest('[hidden]'))return;
+   el.open=el.closest('.teacher-content')?includeTeacher:true;
+  });
+ }
+ function restorePrint(){
+  if(printState)printState.forEach(({el,open})=>{el.open=open;});
+  printState=null;
+  document.body.classList.remove('print-log-only','print-teacher');
+ }
+ window.addEventListener('beforeprint',preparePrint);
+ window.addEventListener('afterprint',restorePrint);
  $('#print').addEventListener('click',()=>window.print());
  const log=$('#print-log');if(log)log.addEventListener('click',()=>{document.body.classList.add('print-log-only');window.print();});
- window.addEventListener('afterprint',()=>document.body.classList.remove('print-log-only'));
  const menu=$('.course-menu');if(matchMedia('(max-width:850px)').matches)menu.open=false;
  window.addEventListener('storage',event=>{if(event.key===prefix+'spoilers')updateMode(event.newValue||'light');if(limit&&event.key===prefix+'readThrough')updateLimit(event.newValue||0);});
 })();

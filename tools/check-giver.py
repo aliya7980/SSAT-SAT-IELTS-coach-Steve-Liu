@@ -39,7 +39,41 @@ for c in cs:
  assert f'id="chapter-{c["number"]}" data-chapter="{c["number"]}" hidden' in (D/'chapters.html').read_text()
 for slug in ('freedom','memory','individuality','love','language','responsibility'):
  s=(D/(slug+'.html')).read_text()
- for phrase in ('Essential question','Two defensible arguments','Model analytical paragraph','Scaffolded paragraph','Independent writing','A common misconception','full-content" hidden'):assert phrase in s,(slug,phrase)
+ for phrase in ('Essential question','Two defensible arguments','Model analytical paragraph','Scaffolded paragraph','Independent essay question','Two misconceptions to correct','full-content" hidden'):assert phrase in s,(slug,phrase)
 assert 'READINGS/the-giver/index.html' in (R/'pages/readingtips.html').read_text()
 assert 'Monte Cristo</a>\n          <a href="READINGS/the-giver/index.html"' in (R/'pages/readingtips.html').read_text()
 print('PASS: 18 pages; local links/assets/fragments; unique IDs; form labels; active navigation; 23 ordered chapter records; 100–150-word summaries; six complete theme pages; reading-page integration.')
+
+# Content requirements are measured from the canonical prose, not padded page furniture.
+from giver_inventory import inventory
+import giver_lessons as content
+inv=inventory()
+assert 700<=inv['plotLessonWords']<=1000
+assert 600<=inv['settingLessonWords']<=900
+for name,n in inv['characterProfileWords'].items():
+ assert (250<=n<=350) if name in ('Jonas','The Giver') else (100<=n<=180),(name,n)
+for slug,row in inv['themes'].items():
+ assert 650<=row['teachingWordsExcludingQuestionsTables']<=900,(slug,row)
+ assert 150<=row['modelWords']<=200,(slug,row)
+ assert row['caseStudies']==4
+for c in cs:
+ for field,lo,hi in [('characterInsight',40,70),('literaryAnalysis',60,100),('themeAnalysis',40,70)]:
+  assert lo<=len(c[field].split())<=hi,(c['number'],field)
+ assert len(c['analyticalAnswer'].split())>=50
+for field in ('characterInsight','literaryAnalysis','themeAnalysis','analyticalAnswer'):
+ assert len({c[field] for c in cs})==23,field
+assert len(content.SYMBOLS)==7 and len(content.TECHNIQUES)==10
+for page in pages:
+ s=page.read_text().lower()
+ assert 'coming soon' not in s and 'todo' not in s
+ assert 'id="print-teacher"' in s
+assert (D/'chapters.html').read_text().count('class="teacher-content"')==23
+print('PASS: all chapter analysis ranges; unique chapter explanations; 700–1000-word plot; 600–900-word setting; nine developed profiles; six 650–900-word theme lessons and 150–200-word models; seven motif/concept studies; ten technique lessons; print opt-in controls.')
+
+# All lesson sections stay within the shared lesson wrapper (important for printing).
+from giver_inventory import DOM
+for page in pages:
+ dom=DOM(page.read_text()).root
+ main=dom.find(lambda n:n.tag=='main')
+ lesson=dom.find(lambda n:n.attrs.get('id')=='lesson')
+ assert len(list(main.each('section')))==len(list(lesson.each('section'))),page
