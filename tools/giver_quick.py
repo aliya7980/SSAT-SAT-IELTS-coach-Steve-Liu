@@ -40,7 +40,7 @@ def apply(R):
     if not isinstance(child,Node): kept.append(child); continue
     cs=set(classes(child)); tag=child.tag
     if tag in {'script','img','picture','figure','svg','noscript','button','textarea','select','input','footer'} or cs & {'toolbar','book-mark','page-toc','learning-focus','word-guide','response','teacher-content','spoiler-gate','tab-list','table-cards','print-controls'} or child.attrs.get('role')=='tablist' or child.attrs.get('id')=='mode-note': continue
-    if tag=='link' and child.attrs.get('href')=='reading.css': continue
+    if tag=='link' and child.attrs.get('href') in {'reading.css','quick.css'}: continue
     child.attrs.pop('hidden',None)
     for key in ['role','aria-labelledby','tabindex']:
      if child.attrs.get('role')=='tabpanel' or key=='tabindex': child.attrs.pop(key,None)
@@ -62,6 +62,11 @@ def apply(R):
     sections+='<nav class="chapter-menu" aria-label="Jump to chapter">'+''.join(f'<a href="#chapter-{i}">{i}</a>' for i in range(1,24))+'</nav>'
     for title,lo,hi in [('Part 1: The Community and Rules',1,6),('Part 2: The Selection and Memories',7,16),('Part 3: Rebellion and Escape',17,23)]:
      sections+=f'<section><h2>{title}</h2>'+''.join(f'<article id="chapter-{i}"><h3>Chapter {i}</h3><p>{SUMMARIES[i-1]}</p></article>' for i in range(lo,hi+1))+'</section>'
+   if ishome:
+    from pathlib import Path
+    sections=(Path(__file__).parent/'giver_home.html').read_text()
+    heading_parent=root.find(lambda n:'page-heading' in classes(n))
+    heading_parent.children=[]
    lesson.children=fragment(sections)
   # A compact menu replaces the permanent sidebar.
   menu=root.find(lambda n:'course-menu' in classes(n))

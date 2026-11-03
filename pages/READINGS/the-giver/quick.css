@@ -1,1 +1,35 @@
 body{font:17px/1.7 system-ui,-apple-system,sans-serif;background:#fff;color:#252b33}.site-header{background:#fff;color:#252b33;border-bottom:1px solid #e4e7eb;padding:16px max(20px,calc((100% - 960px)/2))}.site-header a{color:#252b33}.brand{font-size:19px}.layout{display:block;max-width:960px;margin:auto}aside{border:0;padding:16px 24px 0}.eyebrow,.breadcrumbs,.pager,.page-heading>.eyebrow{display:none}main{padding:18px 24px 56px;max-width:none}.page-heading{margin:0 0 24px;padding:0;border:0}h1{font:700 clamp(28px,5vw,40px)/1.2 system-ui;letter-spacing:-1px}h2{font:700 23px/1.35 system-ui;margin:32px 0 14px}h3{font:700 18px/1.4 system-ui;margin:22px 0 6px}p{margin:0 0 15px}.lede{font:16px/1.6 system-ui;color:#626b76;max-width:none}.panel,section{background:none;border:0;box-shadow:none;border-radius:0;padding:0;margin:0 0 28px}.course-menu{font:14px/1.6 system-ui;border:1px solid #e4e7eb;border-radius:6px;padding:9px 14px}.course-menu summary{cursor:pointer}.course-menu nav{display:flex;flex-wrap:wrap;gap:5px 18px;padding:12px 0}.course-menu nav a{padding:2px 0;border:0}.course-menu nav .subnav{padding-left:0}.quick-links{display:flex;flex-wrap:wrap;gap:10px 24px;border-bottom:1px solid #e4e7eb;padding-bottom:18px;margin-bottom:24px}a{color:#245b8b}.chapter-menu{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 28px}.chapter-menu a{display:inline-flex;justify-content:center;align-items:center;min-width:35px;min-height:35px;border:1px solid #dce2e8;border-radius:4px;padding:3px;text-decoration:none}article{scroll-margin-top:20px;max-width:75ch}article p{margin-bottom:22px}.table-wrap{max-width:100%;overflow:auto}table{font-size:15px}.cards{display:block}.card{display:block;margin:12px 0;padding:12px;border:1px solid #e4e7eb;box-shadow:none}.full-content{display:block}details{margin:12px 0}summary{cursor:pointer}@media(max-width:640px){main{padding:18px 18px 40px}aside{padding:14px 18px 0}.site-header{padding:14px 18px}.site-header nav{gap:14px;font-size:12px}body{font-size:16px}}@media print{aside,.site-header,.quick-links,.chapter-menu{display:none}main{padding:0}article{break-inside:avoid}body{font-size:11pt}}
+
+/* The study hub: calm typography, clear hierarchy, and direct destinations. */
+body[data-page="index"]{background:#f8fafb;color:#182d3c;-webkit-font-smoothing:antialiased}
+body[data-page="index"] .layout{max-width:1100px}
+body[data-page="index"] .site-header{padding:20px max(24px,calc((100% - 1052px)/2));background:#fff}
+body[data-page="index"] aside{padding-top:22px}
+body[data-page="index"] .course-menu{background:#fff;border-color:#dce4e9;max-width:100%;margin:0}
+body[data-page="index"] main{padding-top:0}
+body[data-page="index"] .page-heading{display:none}
+.home-intro{padding:64px 0 48px;max-width:850px}
+.home-kicker,.home-section-label,.home-topic-label{font:700 11px/1.5 system-ui;letter-spacing:1.8px;color:#567164}
+.home-intro h1{font:700 clamp(48px,7vw,76px)/1.08 Georgia,serif;letter-spacing:-2.5px;margin:18px 0 22px;color:#182d3c}
+.home-intro h1 span{display:block;font:500 clamp(24px,3.5vw,37px)/1.3 system-ui;letter-spacing:-1px;margin-top:12px}
+.home-description{font-size:18px;line-height:1.7;max-width:580px;color:#556572;margin-bottom:28px}
+.home-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.home-button{display:inline-flex;align-items:center;justify-content:center;gap:20px;min-height:48px;padding:12px 20px;border-radius:7px;text-decoration:none;font:650 14px/1.5 system-ui;transition:background .15s,box-shadow .15s}
+.home-button.primary{background:#214d40;color:#fff;border:1px solid #214d40}
+.home-button.primary:hover{background:#173c31;box-shadow:0 4px 12px #214d401a}
+.home-button.secondary{background:#fff;color:#284637;border:1px solid #d4ded8}
+.home-button.secondary:hover{background:#edf3ef}
+.home-meta{font-size:12px;color:#687784;margin:18px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.home-overview{background:#fff;border:1px solid #dfe6eb;border-radius:12px;padding:30px 34px;margin-bottom:52px;scroll-margin-top:24px}
+.home-overview h2,.home-topics h2{margin:8px 0 18px;font-size:25px;letter-spacing:-.6px}
+.home-overview>p{color:#465966;max-width:83ch;line-height:1.85}
+.home-takeaway{border-left:3px solid #749887;padding:4px 0 4px 18px;margin-top:22px}
+.home-takeaway strong{font-size:12px;color:#446757}.home-takeaway p{margin:3px 0 0;font:500 17px/1.6 Georgia,serif}
+.home-topics{margin-bottom:36px}.home-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:24px}
+.home-topic{display:flex;flex-direction:column;background:#fff;border:1px solid #dfe6eb;border-radius:10px;padding:25px;text-decoration:none;color:#182d3c;transition:border-color .15s,box-shadow .15s}
+.home-topic:hover{border-color:#8ba99a;box-shadow:0 5px 18px #182d3c08}
+.home-topic h3{font-size:21px;letter-spacing:-.4px;margin:9px 0}.home-topic p{font-size:15px;line-height:1.65;color:#61717d;margin-bottom:20px;max-width:38ch}.home-topic-link{font-size:13px;font-weight:650;color:#315e4d;margin-top:auto;display:flex;justify-content:space-between}
+.home-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:26px 0;border-top:1px solid #dfe6eb;margin-top:38px}.home-bottom p{margin:0;font-size:15px}.home-bottom p span{display:block;font-size:13px;color:#687784;margin-top:3px}
+@media(max-width:640px){.home-intro{padding:38px 0 32px}.home-intro h1{letter-spacing:-1.5px}.home-description{font-size:16px}.home-overview{padding:23px 21px;margin-bottom:36px}.home-grid{grid-template-columns:1fr;gap:12px}.home-topic{padding:22px}.home-bottom{align-items:flex-start;flex-direction:column}.home-actions{align-items:stretch;flex-direction:column}.home-actions .home-button{width:100%}.home-meta{font-size:11px;gap:6px}.home-bottom .home-button{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.home-button,.home-topic{transition:none}}
+@media print{body[data-page="index"]{background:#fff}.home-intro{padding:12px 0}.home-actions,.home-bottom{display:none}.home-grid{grid-template-columns:1fr 1fr}.home-overview,.home-topic{break-inside:avoid}}
