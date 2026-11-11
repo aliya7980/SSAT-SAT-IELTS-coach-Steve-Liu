@@ -1,0 +1,31 @@
+{
+  "testId": "november2026-practice1",
+  "sources": [
+    {
+      "role": "questions",
+      "libraryFileId": "libfile_1eaccb485ba4819182a41075ceeb66dc",
+      "sha256": "0518792d7083cdb04ca013c797b845f65e413bafcc0a325c90e8563b93b9226c",
+      "sizeBytes": 88040541
+    },
+    {
+      "role": "answerKey",
+      "libraryFileId": "libfile_00243056a03c819189a89e291404e390",
+      "sha256": "c022115d2740b0541aa217860e5b9805ce28a2b6816ded52f133fc6ab6da9dee",
+      "sizeBytes": 53628445
+    }
+  ],
+  "questionPdfPages": [
+    7,
+    44
+  ],
+  "excludedQuestionPdfPages": [
+    20,
+    38
+  ],
+  "scope": "Both Reading and Writing modules only. Math excluded. Answers only from second PDF; no analyses or explanations copied.",
+  "sourceNotes": [
+    "The question PDF has advertising pages between printed pages 17\u201318 and 34\u201335.",
+    "Promotional parenthetical text embedded within source passages is retained, following the existing transcription policy.",
+    "Source answer listing gives A for Module 2 Question 12; retained exactly as supplied."
+  ]
+}

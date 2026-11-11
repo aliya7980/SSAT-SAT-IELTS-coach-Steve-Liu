@@ -74,3 +74,19 @@ Steve plans to add SAT mock tests continuously. For future requests to add a moc
 9. Finish with concise changed-file and validation information plus a table of imported visuals. Flag unresolved source issues. Do not push, deploy, delete existing tests or overwrite source PDFs unless Steve explicitly requests the relevant action.
 
 Reference implementation: `september2026-practice1`, with the teacher-supplied key completed on 2026-10-19. Existing August test ID: `august2026`.
+
+## November 2026 Practice 1
+
+`november2026-practice1` adds both Reading and Writing modules (54 questions), using the November question PDF on PDF pages 7–44. Advertising insert pages 20 and 38 and all Math pages were excluded. The second PDF was used only for the 54 letter answers listed on PDF pages 3–4; no answer analyses or explanations were imported.
+
+The new `november-2026/` entry points reuse the shared engine. November is available from the mock-test list and all test selectors. Source hashes, page mappings, transcription, and visual crop coordinates are in `data/november2026-practice1/`. Source PDFs remain outside the repository.
+
+| Module | Question | PDF page | Printed page | Visual |
+|---|---|---|---|---|
+| 1 | 10 | 12 | 10 | Coral depth table |
+| 1 | 12 | 14 | 12 | Grapevine leaf-orientation chart |
+| 2 | 11 | 32 | 29 | Honey bee lineage/haplotype table |
+
+All three PNGs are direct crops of source pages rendered at twice the PDF page size, in `august-2026/images/november2026-practice1/`. Titles, labels, legends, and table columns are retained. The chart retains the source watermark; no visual data were redrawn. Crops were visually inspected. Data, answer mappings, blanks, underlining, scoring, results, existing-test regressions, and storage isolation passed automated checks. Browser preview was unavailable, so desktop/mobile browser layout was not visually verified for this import.
+
+The supplied answer listing gives **A for Module 2 Question 12**. This is retained as supplied, although the question's resolution-comparison wording appears to support C; confirm with the paper provider before changing the key.

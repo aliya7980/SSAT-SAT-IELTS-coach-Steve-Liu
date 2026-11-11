@@ -1,6 +1,6 @@
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
 const root=path.resolve(__dirname,'../pages/SAT');
-const ids=['august2026','september2026-practice1','october2026-practice1'];
+const ids=['august2026','september2026-practice1','october2026-practice1', 'november2026-practice1'];
 const configs={};for(const id of ids){const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'data',id+'.js'),'utf8'),c);configs[id]=c.window.SAT_TESTS[id];const test=configs[id];assert.equal(test.id,id);for(const m of [1,2]){assert.equal(test.questions[m].length,27);test.questions[m].forEach((q,i)=>{assert.equal(q.n,i+1);assert(q.passage&&q.prompt);assert.equal(q.choices.length,4);for(const img of q.images||[])assert(fs.existsSync(path.join(root,'august-2026',img.src)),img.src);});}for(const [k,a]of Object.entries(test.answerKey)){assert(/^m[12]q([1-9]|1[0-9]|2[0-7])$/.test(k));assert(/^[ABCD]$/.test(a));}}
 assert.equal(Object.keys(configs.august2026.answerKey).length,54);assert.equal(Object.keys(configs['september2026-practice1'].answerKey).length,54);
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'data/september2026-practice1/visual-manifest.json')));assert.equal(manifest.length,5);for(const row of manifest){const q=configs['september2026-practice1'].questions[row.module][row.questionNumber-1];assert(q.images.some(img=>img.src===row.imageFilename));assert.equal(q.source.pdfPageNumber,row.sourcePdfPageNumber);assert.equal(row.sourcePdfPageIndex,row.sourcePdfPageNumber-1);}
@@ -66,3 +66,24 @@ assert(configs['october2026-practice1'].questions[1][11].choices[3].startsWith('
 assert.equal(configs['october2026-practice1'].questions[1][11].source.pdfPages.join(','),'8,9');
 assert.equal(JSON.parse(memory['hd_sat_october2026-practice1_attempts']).length,1);
 console.log('October: 54 source key mappings, five visuals, cross-page choice D, and isolated storage verified.');
+
+// November answers are copied from the supplied answer listing, without explanations.
+const novemberId='november2026-practice1';
+const novemberExpected=['AAACAACDDDACAACBCDACBCBBCCA','BADBCCBDBABACDDAADABABADABD'];
+assert.equal(Object.keys(configs[novemberId].answerKey).length,54);
+for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs[novemberId].answerKey[`m${m}q${i+1}`]).join(''),novemberExpected[m-1]);
+const novemberManifest=JSON.parse(fs.readFileSync(path.join(root,'data',novemberId,'visual-manifest.json')));
+assert.equal(novemberManifest.length,3);
+for(const image of novemberManifest){
+ const question=configs[novemberId].questions[image.module][image.questionNumber-1];
+ assert(question.images.some(i=>i.src===image.imageFilename));
+ assert.equal(question.source.pdfPageNumber,image.sourcePdfPageNumber);
+ assert.equal(image.sourcePdfPageIndex,image.sourcePdfPageNumber-1);
+ assert(image.imageWidth>=780);
+}
+assert(configs[novemberId].questions[2][5].passage.includes('<u>Yet Zuni'));
+for(const m of [1,2])for(const question of configs[novemberId].questions[m]){
+ if(['Words in Context','Standard English Conventions','Transitions'].includes(question.skill))assert(question.passage.includes('_____'),`November M${m} Q${question.n}: missing blank`);
+}
+assert.equal(JSON.parse(memory[`hd_sat_${novemberId}_attempts`]).length,1);
+console.log('November: 54 supplied answers, three source visuals, blanks, underlining, and isolated storage verified.');
