@@ -1,34 +1,52 @@
-(async () => {
- const TEST=window.SAT_ACTIVE_TEST,$=id=>document.getElementById(id);
- const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- document.title=`Your results | ${TEST.name}`;
- $('resultsTestName').textContent=TEST.name;
- $('newTestLink').href=`index.html?test=${TEST.id}`;
- $('teacherReviewLink').href=`teacher.html?test=${TEST.id}`;
- async function load(){
-  $('resultSummary').textContent='Loading your results…';$('questionReview').innerHTML='';$('reviewControls').hidden=true;
-  try{
-   if(!window.SAT_API.hasAccessCode())throw Error('Enter the test access code your teacher issued to view your submitted result.');
-   const result=await window.SAT_API.student('result');
-   const requested=new URLSearchParams(location.search).get('attempt');
-   if(requested&&requested!==result.id)throw Error('This access code belongs to a different attempt. Enter the matching code to view that result.');
-   if(result.testId!==TEST.id)throw Error('This result belongs to a different test.');
-   $('resultAccess').hidden=true;
-   $('studentDetails').textContent=`${result.name} · ${new Date(result.date).toLocaleDateString()}`;
-   $('resultSummary').innerHTML=`<div class="results-count"><strong>${result.correct}</strong><span>out of ${result.total} correct</span></div><p class="results-accuracy">${(result.correct/result.total*100).toFixed(1)}% accuracy</p><p>Reading and Writing · Both modules completed</p>`;
-   $('reviewControls').hidden=false;
-   function render(){
-    const missed=$('reviewFilter').value==='missed';
-    $('questionReview').innerHTML=result.modules.map(module=>{
-     const rows=module.questions.filter(q=>!missed||q.status!=='Correct');
-     return `<section class="results-module" aria-labelledby="module-${module.number}"><div class="results-module-heading"><h2 id="module-${module.number}">Module ${module.number}</h2><p><strong>${module.correct} / ${module.total}</strong> correct</p></div>`+
-      (rows.length?`<ol class="results-question-grid" aria-label="Module ${module.number} question results">${rows.map(q=>`<li class="result-question ${q.status==='Correct'?'is-correct':'is-incorrect'}"><span class="result-icon" aria-hidden="true">${q.status==='Correct'?'✓':'×'}</span><span class="result-number">Question ${q.number}</span><span class="result-status">${esc(q.status)}</span></li>`).join('')}</ol>`:'<p class="results-empty">All questions in this module were answered correctly.</p>')+'</section>';
+(() => {
+  const TEST = window.SAT_ACTIVE_TEST;
+  const $ = id => document.getElementById(id);
+  const escape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const prefix = `hd_sat_${TEST.id}_`;
+  function read(kind, fallback) {
+    try { return JSON.parse(localStorage.getItem(prefix+kind) || (TEST.id === 'august2026' ? localStorage.getItem('hd_sat_'+kind) : null) || 'null') ?? fallback; }
+    catch { return fallback; }
+  }
+  document.title = `Answer Review | ${TEST.name}`;
+  document.querySelector('h1').textContent = `${TEST.name} · Answer Review`;
+  $('newTestLink').href = `index.html?test=${TEST.id}`;
+  $('teacherReviewLink').href = `teacher.html?test=${TEST.id}`;
+  const attempts=read('attempts',[]);
+  const id=new URLSearchParams(location.search).get('attempt');
+  const attempt=Array.isArray(attempts) ? (id ? attempts.find(a=>String(a.id)===id) : attempts[0]) : null;
+  if (!attempt || (attempt.testId && attempt.testId !== TEST.id)) {
+    $('resultSummary').textContent = 'No completed test review is available here. Complete both modules on this browser to see your results.';
+    return;
+  }
+  $('studentDetails').textContent = `${attempt.name} · ${attempt.date}`;
+  // Current keys also grade responses submitted while the September key was pending.
+  const key={...attempt.answerKey,...TEST.answerKey,...read('key',{})};
+  // Restore newly added visuals when reviewing older saved question snapshots.
+  const questions=Object.fromEntries([1,2].map(mod=>[mod,(attempt.questions?.[mod] || TEST.questions[mod]).map(question=>({
+    ...question,
+    images: TEST.questions[mod].find(current=>current.n===question.n)?.images || question.images || []
+  }))]));
+  const modules=[1,2].map(mod=>({mod,rows:questions[mod].map(question=>{
+    const selected=attempt.answers?.[mod]?.[question.n], answer=key[`m${mod}q${question.n}`];
+    return {question,selected,answer,correct:Boolean(answer && selected===answer),status:!selected?'Unanswered':!answer?'Awaiting answer key':selected===answer?'Correct':'Incorrect'};
+  })}));
+  const rows=modules.flatMap(m=>m.rows),known=rows.filter(r=>r.answer).length,correct=rows.filter(r=>r.correct).length;
+  const wrong=rows.filter(r=>r.answer && r.selected && !r.correct).length,unanswered=rows.filter(r=>!r.selected).length;
+  $('resultSummary').innerHTML=known ? `<div class="score">${correct} / ${known}</div><p>${(correct/known*100).toFixed(1)}% accuracy on keyed questions · ${wrong} incorrect · ${unanswered} unanswered${known<rows.length?` · ${rows.length-known} awaiting key`:''}</p>` : `<h3>Answer key pending</h3><p>Your responses to both modules have been saved. ${rows.length-unanswered} answered · ${unanswered} unanswered. Return to this page after the answer key is added to see your score and corrections.</p>`;
+  $('reviewControls').hidden=false;
+  if(known<rows.length) {$('reviewFilter').value='all';$('reviewFilter').options[0].textContent='Incorrect, unanswered, or awaiting key';}
+  function images(question) {
+    return (question.images||[]).map(img=>`<figure class="question-visual" style="--visual-max-width: ${Number(img.displayWidth) || 900}px"><a href="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener"><img src="${escape(new URL(img.src,window.SAT_ASSET_BASE).href)}" alt="${escape(img.alt)}"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
+  }
+  function render() {
+    const missedOnly=$('reviewFilter').value==='missed';
+    $('questionReview').innerHTML=modules.map(({mod,rows})=>{
+      const visible=missedOnly?rows.filter(r=>!r.correct):rows;
+      const keyed=rows.filter(r=>r.answer).length;
+      return `<section aria-label="Module ${mod} review"><h2 class="module-summary">Module ${mod} · ${keyed?`${rows.filter(r=>r.correct).length} / ${keyed}`:'Answer key pending'}</h2>`+(visible.length?visible.map(({question,selected,answer,correct,status})=>`<details class="card answer-review ${correct?'correct':!answer?'pending':!selected?'unanswered':''}"><summary>Question ${question.n} · ${escape(status)} · ${escape(question.skill)}</summary><p><strong>Your answer:</strong> ${escape(selected||'Not answered')} &nbsp; <strong>Correct answer:</strong> ${escape(answer||'Awaiting answer key')}</p><div class="passage">${images(question)}${question.passage}</div><p>${question.prompt}</p>${question.choices.map((choice,i)=>{const letter='ABCD'[i];return `<div class="review-choice ${letter===answer?'right-choice':answer&&letter===selected?'wrong-choice':''}"><span class="choice-label">${letter}${letter===answer?' · Correct answer':''}${letter===selected?' · Your answer':''}</span>${choice}</div>`;}).join('')}</details>`).join(''):'<p class="card">All answers in this module are correct.</p>')+'</section>';
     }).join('');
-   }
-   $('reviewFilter').onchange=render;render();
-  }catch(error){$('resultSummary').textContent=error.message;$('resultAccess').hidden=false;}
- }
- $('resultAccessForm').onsubmit=async event=>{event.preventDefault();window.SAT_API.setAccessCode($('resultAccessCode').value);$('resultAccessCode').value='';await load();};
- $('printResults').onclick=()=>window.print();
- await load();
+  }
+  $('reviewFilter').onchange=render;
+  $('printResults').onclick=()=>{document.querySelectorAll('#questionReview details').forEach(d=>d.open=true);window.print();};
+  render();
 })();
