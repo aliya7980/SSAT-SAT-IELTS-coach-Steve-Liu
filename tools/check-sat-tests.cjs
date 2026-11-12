@@ -7,12 +7,16 @@ const manifest=JSON.parse(fs.readFileSync(path.join(root,'data/september2026-pra
 const memory={hd_sat_key:JSON.stringify({'m1q1':'A'}),hd_sat_attempts:'[]'};
 function context(id,search=''){
  const elements={};function el(name){return elements[name]??={value:'missed',innerHTML:'',textContent:'',hidden:true,options:[{}],dataset:{},style:{},classList:{add(){},remove(){}},appendChild(){},addEventListener(){},querySelector(){return {addEventListener(){}};}};}
- const c={window:{SAT_ACTIVE_TEST:configs[id],SAT_ROOT:new URL('http://localhost/pages/SAT/'),SAT_ASSET_BASE:new URL('http://localhost/pages/SAT/august-2026/'),print(){}},document:{body:{dataset:{}},getElementById:el,querySelector:el,querySelectorAll:()=>[],createElement:()=>el('created'+Math.random())},localStorage:{getItem:k=>memory[k]??null,setItem:(k,v)=>memory[k]=v,removeItem:k=>delete memory[k]},location:{search,assign:url=>c.destination=url},URL,URLSearchParams,clearInterval(){},setInterval(){return 1;},alert(){},console};vm.createContext(c);return {c,elements};
+ const c={window:{createSATTeacherInk:()=>({unlock(){c.inkUnlocked=true;},render(key){c.inkQuestion=key;}}),SAT_ACTIVE_TEST:configs[id],SAT_ROOT:new URL('http://localhost/pages/SAT/'),SAT_ASSET_BASE:new URL('http://localhost/pages/SAT/august-2026/'),print(){}},document:{body:{dataset:{}},getElementById:el,querySelector:el,querySelectorAll:()=>[],createElement:()=>el('created'+Math.random())},localStorage:{getItem:k=>memory[k]??null,setItem:(k,v)=>memory[k]=v,removeItem:k=>delete memory[k]},location:{search,assign:url=>c.destination=url},URL,URLSearchParams,clearInterval(){},setInterval(){return 1;},alert(){},console};vm.createContext(c);return {c,elements};
 }
 const engine=fs.readFileSync(path.join(root,'shared/test.js'),'utf8'),review=fs.readFileSync(path.join(root,'shared/results.js'),'utf8');
 for(const id of ids){
  const {c,elements}=context(id);vm.runInContext(engine,c);
  vm.runInContext(`state.name='Student';state.answers={1:{},2:{}};[1,2].forEach(m=>QUESTIONS[m].forEach(q=>state.answers[m][q.n]=getKey()['m'+m+'q'+q.n]||'B'));state.answers[1][1]='B';delete state.answers[2][27];renderQuestion();`,c);
+ assert.equal(c.inkQuestion,`${id}:m1q1`);
+ c.document.getElementById('teacherCode').value='wrong';elements.teacherLoginBtn.onclick();assert(!c.inkUnlocked);
+ c.document.getElementById('teacherCode').value='1201';elements.teacherLoginBtn.onclick();assert(c.inkUnlocked);
+ elements.exitTeacher.onclick();assert.equal(c.inkQuestion,`${id}:m1q1`);
  assert(memory[`hd_sat_${id}_progress`]);assert.equal(JSON.parse(memory[`hd_sat_${id}_progress`]).testId,id);
  vm.runInContext('finishTest()',c);assert(!memory[`hd_sat_${id}_progress`]);assert(c.destination.includes('test='+id));
  const attempt=JSON.parse(memory[`hd_sat_${id}_attempts`])[0];assert.equal(attempt.testId,id);assert.equal(attempt.totalKnown,54);assert.equal(attempt.correct,52);

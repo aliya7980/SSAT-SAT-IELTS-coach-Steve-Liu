@@ -21,3 +21,14 @@ select{font:inherit;padding:10px;border:1px solid #bcccdc;border-radius:8px;max-
   text-align: center;
 }
 .question-panel,.passage-panel{min-width:0;overflow-wrap:anywhere}.btn[hidden],[hidden]{display:none!important}@media(max-width:700px){.test-cards{grid-template-columns:1fr}.question-visual{width:100%}.navbar{gap:12px;flex-wrap:wrap}.nav-links{flex-wrap:wrap}.container{max-width:100%;padding:16px}.q-body.sat-two-column{grid-template-columns:minmax(0,1fr)}.table-wrap{overflow-x:auto}}
+
+/* Inline teacher controls; drawing layers travel with their content, not the viewport. */
+.q-tools{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.teacher-ink-control{padding:7px 12px;font-size:14px;line-height:1.4}
+.teacher-ink-control[aria-pressed="true"]{color:#b91c1c;border-color:#dc2626;background:#fef2f2}
+.teacher-ink-control:disabled{opacity:.45;cursor:default}
+.teacher-ink-surface{position:relative;display:flow-root;min-height:32px}
+.teacher-ink-layer{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:hidden}
+.teacher-ink-layer.teacher-ink-on{pointer-events:auto;touch-action:none;user-select:none;cursor:crosshair}
+@media print{.teacher-ink-control,.teacher-ink-layer{display:none!important}}
+.options > .teacher-ink-surface{display:grid;gap:14px}

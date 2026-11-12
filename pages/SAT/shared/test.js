@@ -45,6 +45,7 @@ function renderQuestion(){
  $("options").appendChild(div)});
  $("markBtn").textContent=state.marked[state.module][item.n]?"★ Marked for Review":"☆ Mark for Review";
  $("backBtn").disabled=state.index===0;$("nextBtn").textContent=state.index===26?"Review Module":"Next →";
+ teacherInk.render(`${TEST.id}:m${state.module}q${item.n}`);
  renderTimer()
 }
 function openNavigator(){show("navigatorScreen");$("navigatorTitle").textContent=`Reading and Writing · Module ${state.module} Navigator`;$("navigatorGrid").innerHTML="";QUESTIONS[state.module].forEach((item,i)=>{let b=document.createElement("button");b.className="navnum";if(state.answers[state.module][item.n])b.classList.add("answered");if(i===state.index)b.classList.add("current");if(state.marked[state.module][item.n])b.classList.add("marked");b.textContent=item.n;b.onclick=()=>{state.index=i;renderQuestion()};$("navigatorGrid").appendChild(b)})}
@@ -90,8 +91,8 @@ $("restartBtn").onclick=()=>location.reload();
 
 function openTeacher(){show("teacherScreen");$("teacherLogin").classList.remove("hidden");$("teacherDash").classList.add("hidden")}
 $("teacherLink").onclick=e=>{e.preventDefault();openTeacher()};
-$("teacherLoginBtn").onclick=()=>{if($("teacherCode").value==="1201"){ $("teacherLogin").classList.add("hidden");$("teacherDash").classList.remove("hidden");renderTeacher()}else $("teacherError").textContent="Incorrect access code."};
-$("exitTeacher").onclick=()=>{show("startScreen");$("teacherCode").value="";$("teacherError").textContent=""};
+$("teacherLoginBtn").onclick=()=>{if($("teacherCode").value==="1201"){ $("teacherLogin").classList.add("hidden");$("teacherDash").classList.remove("hidden");teacherInk.unlock();$("exitTeacher").textContent="Return to test";renderTeacher()}else $("teacherError").textContent="Incorrect access code."};
+$("exitTeacher").onclick=()=>{if(state.name){renderQuestion();startTimer()}else show("startScreen");$("teacherCode").value="";$("teacherError").textContent=""};
 function renderTeacher(){
  let key=getKey();$("answerKeyEditor").innerHTML="";
  [1,2].forEach(mod=>{let h=document.createElement("h4");h.textContent=`Module ${mod}`;h.style.marginTop="12px";$("answerKeyEditor").appendChild(h);QUESTIONS[mod].forEach(item=>{let row=document.createElement("div");row.className="answer-edit";let opts='<option value="">—</option>'+["A","B","C","D"].map(x=>`<option ${key[`m${mod}q${item.n}`]===x?"selected":""}>${x}</option>`).join("");row.innerHTML=`<strong>Q${item.n}</strong><select aria-label="Module ${mod} question ${item.n} correct answer" data-k="m${mod}q${item.n}">${opts}</select><input aria-label="Module ${mod} question ${item.n} skill" value="${item.skill}" disabled>`;$("answerKeyEditor").appendChild(row)})});
@@ -99,6 +100,8 @@ function renderTeacher(){
 }
 $("saveKeyBtn").onclick=()=>{let key={};document.querySelectorAll("[data-k]").forEach(s=>{if(s.value)key[s.dataset.k]=s.value});localStorage.setItem(storagePrefix + "key",JSON.stringify(key));alert("Answer key saved on this browser.");renderTeacher()};
 $("attemptSelect").onchange=()=>{let id=Number($("attemptSelect").value),attempt=readSaved('attempts', []).find(a=>a.id===id);if(!attempt){$("analysisBox").innerHTML="";return}let key=getKey(),skills={};[1,2].forEach(mod=>QUESTIONS[mod].forEach(item=>{let k=key[`m${mod}q${item.n}`];if(!k)return;skills[item.skill]??={c:0,t:0};skills[item.skill].t++;if(attempt.answers?.[mod]?.[item.n]===k)skills[item.skill].c++}));let entries=Object.entries(skills).sort((a,b)=>(a[1].c/a[1].t)-(b[1].c/b[1].t));$("analysisBox").innerHTML=`<h4>${escapeHtml(attempt.name)}</h4>`+entries.map(([s,v])=>`<div class="result-row"><span>${s}</span><strong>${v.c}/${v.t} (${Math.round(v.c/v.t*100)}%)</strong></div>`).join("")+(entries.length?`<div class="notice" style="margin-top:16px">Priority review: <strong>${entries.slice(0,3).map(x=>x[0]).join(", ")}</strong>.</div>`:`<div class="notice">Enter the answer key first to generate the analysis.</div>`)}
+
+const teacherInk = window.createSATTeacherInk();
 
 document.title = `HuskyDaddy SAT Practice | ${TEST.name}`;
 document.querySelector('.hero h1').textContent = `SAT Practice: ${TEST.name}`;

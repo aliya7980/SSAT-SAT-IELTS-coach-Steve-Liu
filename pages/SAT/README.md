@@ -90,3 +90,13 @@ The new `november-2026/` entry points reuse the shared engine. November is avail
 All three PNGs are direct crops of source pages rendered at twice the PDF page size, in `august-2026/images/november2026-practice1/`. Titles, labels, legends, and table columns are retained. The chart retains the source watermark; no visual data were redrawn. Crops were visually inspected. Data, answer mappings, blanks, underlining, scoring, results, existing-test regressions, and storage isolation passed automated checks. Browser preview was unavailable, so desktop/mobile browser layout was not visually verified for this import.
 
 The supplied answer listing gives **A for Module 2 Question 12**. This is retained as supplied, although the question's resolution-comparison wording appears to support C; confirm with the paper provider before changing the key.
+
+## Temporary teacher red pen (all SAT sets)
+
+On the current mock test page, open **Teacher**, enter the existing teacher access code, then select **Return to test**. The small **Mark** toggle appears next to the existing question controls. When enabled, draw in red over the passage, prompt, or answer choices with a mouse, pen, or touch. **Undo** removes the latest stroke on the current question; **Clear** removes that question's strokes. Turning Mark off leaves the ink visible and restores normal answer selection, text selection, image links, and touch scrolling.
+
+`shared/teacher-ink.js` keeps drawings in a private in-memory map keyed by test ID, module, and question. They survive question navigation on that page, but are never included in saved progress, attempts, browser storage, or server requests. Page exit clears all drawings, including before a back/forward-cache restore; refresh and close discard the instance. Teacher unlocking also lasts only for the current page. This follows the existing client-side teacher access-code gate.
+
+SVG layers are inside the content's scrolling flow, with separate passage, prompt, and answer regions. They do not cover navigation or the inline controls. Normalized region coordinates adapt to region-size changes; after a responsive text reflow, marks scale with their region rather than following individual words.
+
+Validation: `node tools/check-sat-teacher-ink.cjs` exercises the actual pointer handlers for mouse, stylus, and touch, the teacher gate, pen on/off, Undo/Clear, scrolling coordinates, question/module/test isolation, navigation, page exit, and a fresh-page instance. `node tools/check-sat-tests.cjs` covers teacher unlocking/return and existing scoring, saved progress, results, and resume across all four sets. Browser visual QA could not run because this session cannot bind a local preview server.

@@ -18,7 +18,15 @@
     const engine = document.createElement('script');
     engine.src = new URL(ownScript.dataset.mode === 'results' ? 'shared/results.js' : 'shared/test.js', root).href;
     engine.onerror = () => showError('The test could not start. Please reload this page.');
-    document.head.appendChild(engine);
+    if (ownScript.dataset.mode === 'results') {
+      document.head.appendChild(engine);
+    } else {
+      const ink = document.createElement('script');
+      ink.src = new URL('shared/teacher-ink.js', root).href;
+      ink.onload = () => document.head.appendChild(engine);
+      ink.onerror = () => showError('The marking controls could not be loaded. Please reload this page.');
+      document.head.appendChild(ink);
+    }
   };
   document.head.appendChild(data);
 })();
