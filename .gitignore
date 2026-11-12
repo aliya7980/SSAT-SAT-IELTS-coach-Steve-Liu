@@ -1,0 +1,9 @@
+.sat-private/
+.site-public/
+sat-backend/node_modules/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.env
+.env.*
+!.env.example

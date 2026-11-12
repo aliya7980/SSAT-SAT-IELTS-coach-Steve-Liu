@@ -9,7 +9,7 @@ function readSaved(kind, fallback) {
 }
 // Migrate existing August attempts and teacher edits once, without changing legacy entries.
 if (TEST.id === 'august2026') {
-  ['key', 'attempts'].forEach(kind => {
+  ['attempts'].forEach(kind => {
     if (localStorage.getItem(storagePrefix + kind) === null && localStorage.getItem('hd_sat_' + kind)) {
       localStorage.setItem(storagePrefix + kind, localStorage.getItem('hd_sat_' + kind));
     }
@@ -25,7 +25,7 @@ function questionImages(item) {
   return (item.images || []).map(img => `<figure class="question-visual" style="--visual-max-width: ${Number(img.displayWidth) || 900}px"><a href="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" target="_blank" rel="noopener" aria-label="Enlarge visual: ${escapeHtml(img.alt)}"><img src="${escapeHtml(new URL(img.src, window.SAT_ASSET_BASE).href)}" alt="${escapeHtml(img.alt)}" loading="eager"></a><figcaption>Click the visual to enlarge.</figcaption></figure>`).join('');
 }
 
-const state={module:1,index:0,name:"",answers:{1:{},2:{}},marked:{1:{},2:{}},crossed:{1:{},2:{}},seconds:{1:1920,2:1920},timerId:null,startTime:null};
+const state={module:1,index:0,name:"",answers:{1:{},2:{}},marked:{1:{},2:{}},crossed:{1:{},2:{}},seconds:{1:1920,2:1920},timerId:null,startTime:null,completedModules:[]};
 const $=id=>document.getElementById(id);
 function show(id){if(["testScreen","reviewScreen","navigatorScreen"].includes(id))practiceScreen=id;["startScreen","testScreen","navigatorScreen","reviewScreen","resultScreen","teacherScreen"].forEach(x=>$(x).classList.add("hidden"));$(id).classList.remove("hidden")}
 function q(){return QUESTIONS[state.module][state.index]}
@@ -50,73 +50,142 @@ function renderQuestion(){
 }
 function openNavigator(){show("navigatorScreen");$("navigatorTitle").textContent=`Reading and Writing · Module ${state.module} Navigator`;$("navigatorGrid").innerHTML="";QUESTIONS[state.module].forEach((item,i)=>{let b=document.createElement("button");b.className="navnum";if(state.answers[state.module][item.n])b.classList.add("answered");if(i===state.index)b.classList.add("current");if(state.marked[state.module][item.n])b.classList.add("marked");b.textContent=item.n;b.onclick=()=>{state.index=i;renderQuestion()};$("navigatorGrid").appendChild(b)})}
 function openReview(){show("reviewScreen");clearInterval(state.timerId);$("reviewTitle").textContent=`Reading and Writing · Module ${state.module} Review`;let a=Object.keys(state.answers[state.module]).length,m=Object.keys(state.marked[state.module]).filter(k=>state.marked[state.module][k]).length;$("reviewStats").innerHTML=`Answered: <strong>${a}</strong> &nbsp; Unanswered: <strong>${27-a}</strong> &nbsp; Marked: <strong>${m}</strong>`;$("reviewGrid").innerHTML="";QUESTIONS[state.module].forEach((item,i)=>{let b=document.createElement("button");b.textContent=item.n;if(state.answers[state.module][item.n])b.classList.add("answered");if(state.marked[state.module][item.n])b.classList.add("marked");b.onclick=()=>{state.index=i;renderQuestion();startTimer()};$("reviewGrid").appendChild(b)});$("submitModuleBtn").textContent=state.module===1?"Submit Module 1 and Continue":"Submit Test";saveProgress()}
-function getKey() { return {...TEST.answerKey, ...readSaved('key', {})}; }
-function scoreAttempt(attempt) {
- const key=getKey();let correct=0,totalKnown=0;
- [1,2].forEach(mod=>QUESTIONS[mod].forEach(q=>{const answer=key[`m${mod}q${q.n}`];if(answer){totalKnown++;if(attempt.answers?.[mod]?.[q.n]===answer)correct++;}}));
- return {correct,totalKnown,accuracy:totalKnown?((correct/totalKnown)*100).toFixed(1):'—'};
-}
-
-function finishTest() {
+async function finishTest() {
   clearInterval(state.timerId);
-  const key = getKey();
-  let correct = 0, totalKnown = 0;
-  [1, 2].forEach(mod => QUESTIONS[mod].forEach(item => {
-    if (key[`m${mod}q${item.n}`]) {
-      totalKnown++;
-      if (state.answers[mod][item.n] === key[`m${mod}q${item.n}`]) correct++;
-    }
-  }));
-  const attempt = {
-    id: Date.now(), testId: TEST.id, testName: TEST.name, name: state.name, date: new Date().toLocaleString(),
-    answers: JSON.parse(JSON.stringify(state.answers)),
-    questions: QUESTIONS, answerKey: key,
-    correct, incorrect: totalKnown - correct, totalKnown,
-    accuracy: totalKnown ? ((correct / totalKnown) * 100).toFixed(1) : "—",
-    secondsUsed: {1: 1920 - state.seconds[1], 2: 1920 - state.seconds[2]}
-  };
-  const attempts = readSaved('attempts', []);
-  attempts.unshift(attempt);
-  localStorage.setItem(storagePrefix + "attempts", JSON.stringify(attempts));
-  localStorage.removeItem(storagePrefix + 'progress');
-  location.assign(new URL(`august-2026/results.html?test=${TEST.id}&attempt=${attempt.id}`, window.SAT_ROOT).href);
+  $('submitModuleBtn').disabled = true;
+  saveProgress();
+  try {
+    const result = await window.SAT_API.student('submit', {
+      answers: state.answers, completedModules: [1,2]
+    });
+    const attempt = {
+      id: result.id, serverId: result.id, testId: TEST.id, testName: TEST.name,
+      name: result.name, date: result.date, answers: JSON.parse(JSON.stringify(state.answers)),
+      secondsUsed: {1:1920-state.seconds[1],2:1920-state.seconds[2]}
+    };
+    const attempts=readSaved('attempts',[]).filter(a=>String(a.id)!==result.id);
+    attempts.unshift(attempt);
+    localStorage.setItem(storagePrefix+'attempts',JSON.stringify(attempts));
+    localStorage.removeItem(storagePrefix+'progress');
+    location.assign(new URL(`august-2026/results.html?test=${TEST.id}&attempt=${result.id}`,window.SAT_ROOT).href);
+  } catch(error) { alert(error.message); }
+  finally { $('submitModuleBtn').disabled=false; }
 }
-$("startBtn").onclick=()=>{let n=$("studentName").value.trim();if(!n){alert("Please enter the student name.");return}state.name=n;state.module=1;state.index=0;state.seconds={1:1920,2:1920};state.answers={1:{},2:{}};state.marked={1:{},2:{}};state.crossed={1:{},2:{}};renderQuestion();startTimer()};
+$('startBtn').onclick=async()=>{
+  const name=$('studentName').value.trim();
+  if(!name){alert('Please enter the student name.');return;}
+  $('startBtn').disabled=true;
+  try {
+    let accessCode=$('studentAccessCode').value;
+    if(!accessCode&&teacherKey){const invite=await window.SAT_API.teacher('invitations','POST',{name});accessCode=invite.code;}
+    window.SAT_API.setAccessCode(accessCode);
+    const access=await window.SAT_API.student('start');
+    if(access.submitted){location.assign(new URL(`august-2026/results.html?test=${TEST.id}&attempt=${access.id}`,window.SAT_ROOT).href);return;}
+    state.name=access.name;state.module=1;state.index=0;state.seconds={1:1920,2:1920};
+    state.answers={1:{},2:{}};state.marked={1:{},2:{}};state.crossed={1:{},2:{}};state.completedModules=[];
+    renderQuestion();startTimer();
+  }catch(error){alert(error.message);}
+  finally{$('startBtn').disabled=false;}
+};
 $("nextBtn").onclick=()=>{if(state.index===26)openReview();else{state.index++;renderQuestion()}};
 $("backBtn").onclick=()=>{if(state.index>0){state.index--;renderQuestion()}};
 $("navigatorBtn").onclick=openNavigator;$("closeNavigator").onclick=renderQuestion;
 $("markBtn").onclick=()=>{let n=q().n;state.marked[state.module][n]=!state.marked[state.module][n];renderQuestion()};
-$("submitModuleBtn").onclick=()=>{if(state.module===1){state.module=2;state.index=0;renderQuestion();startTimer()}else finishTest()};
+$("submitModuleBtn").onclick=()=>{if(state.module===1){state.completedModules=[1];state.module=2;state.index=0;renderQuestion();startTimer()}else finishTest()};
 $("restartBtn").onclick=()=>location.reload();
 
-function openTeacher(){show("teacherScreen");$("teacherLogin").classList.remove("hidden");$("teacherDash").classList.add("hidden")}
-$("teacherLink").onclick=e=>{e.preventDefault();openTeacher()};
-$("teacherLoginBtn").onclick=()=>{if($("teacherCode").value==="1201"){ $("teacherLogin").classList.add("hidden");$("teacherDash").classList.remove("hidden");teacherInk.unlock();$("exitTeacher").textContent="Return to test";renderTeacher()}else $("teacherError").textContent="Incorrect access code."};
-$("exitTeacher").onclick=()=>{if(state.name){renderQuestion();startTimer()}else show("startScreen");$("teacherCode").value="";$("teacherError").textContent=""};
-function renderTeacher(){
- let key=getKey();$("answerKeyEditor").innerHTML="";
- [1,2].forEach(mod=>{let h=document.createElement("h4");h.textContent=`Module ${mod}`;h.style.marginTop="12px";$("answerKeyEditor").appendChild(h);QUESTIONS[mod].forEach(item=>{let row=document.createElement("div");row.className="answer-edit";let opts='<option value="">—</option>'+["A","B","C","D"].map(x=>`<option ${key[`m${mod}q${item.n}`]===x?"selected":""}>${x}</option>`).join("");row.innerHTML=`<strong>Q${item.n}</strong><select aria-label="Module ${mod} question ${item.n} correct answer" data-k="m${mod}q${item.n}">${opts}</select><input aria-label="Module ${mod} question ${item.n} skill" value="${item.skill}" disabled>`;$("answerKeyEditor").appendChild(row)})});
- let attempts=readSaved('attempts', []);$("attemptRows").innerHTML=attempts.map(original=>{const a={...original,...scoreAttempt(original)};return `<tr><td>${escapeHtml(a.name)}</td><td>${a.date}</td><td>${a.totalKnown?a.correct+"/"+a.totalKnown:"Pending key"}</td><td>${a.totalKnown?a.accuracy+"%":"—"}</td><td><a href="${new URL(`august-2026/results.html?test=${TEST.id}&attempt=${a.id}`,window.SAT_ROOT).href}">Review</a></td></tr>`}).join("");$("attemptSelect").innerHTML='<option value="">Select attempt</option>'+attempts.map(a=>`<option value="${a.id}">${escapeHtml(a.name)} — ${a.date}</option>`).join("")
+let teacherKey=null, teacherAttempts=[];
+function openTeacher(){
+ clearInterval(state.timerId);show('teacherScreen');
+ $('teacherLogin').classList.remove('hidden');$('teacherDash').classList.add('hidden');
 }
-$("saveKeyBtn").onclick=()=>{let key={};document.querySelectorAll("[data-k]").forEach(s=>{if(s.value)key[s.dataset.k]=s.value});localStorage.setItem(storagePrefix + "key",JSON.stringify(key));alert("Answer key saved on this browser.");renderTeacher()};
-$("attemptSelect").onchange=()=>{let id=Number($("attemptSelect").value),attempt=readSaved('attempts', []).find(a=>a.id===id);if(!attempt){$("analysisBox").innerHTML="";return}let key=getKey(),skills={};[1,2].forEach(mod=>QUESTIONS[mod].forEach(item=>{let k=key[`m${mod}q${item.n}`];if(!k)return;skills[item.skill]??={c:0,t:0};skills[item.skill].t++;if(attempt.answers?.[mod]?.[item.n]===k)skills[item.skill].c++}));let entries=Object.entries(skills).sort((a,b)=>(a[1].c/a[1].t)-(b[1].c/b[1].t));$("analysisBox").innerHTML=`<h4>${escapeHtml(attempt.name)}</h4>`+entries.map(([s,v])=>`<div class="result-row"><span>${s}</span><strong>${v.c}/${v.t} (${Math.round(v.c/v.t*100)}%)</strong></div>`).join("")+(entries.length?`<div class="notice" style="margin-top:16px">Priority review: <strong>${entries.slice(0,3).map(x=>x[0]).join(", ")}</strong>.</div>`:`<div class="notice">Enter the answer key first to generate the analysis.</div>`)}
-
+$('teacherLink').onclick=e=>{e.preventDefault();openTeacher();};
+$('teacherLoginBtn').onclick=async()=>{
+ $('teacherLoginBtn').disabled=true;$('teacherError').textContent='';
+ try{
+  await window.SAT_API.signIn($('teacherCode').value);
+  $('teacherCode').value='';await renderTeacher();
+  $('teacherLogin').classList.add('hidden');$('teacherDash').classList.remove('hidden');
+  teacherInk.unlock();$('exitTeacher').textContent='Return to test';
+ }catch(error){$('teacherError').textContent=error.message;}
+ finally{$('teacherLoginBtn').disabled=false;}
+};
+$('exitTeacher').onclick=()=>{if(state.name){renderQuestion();startTimer();}else show('startScreen');};
+async function renderTeacher(){
+ const [keyData,attemptData]=await Promise.all([window.SAT_API.teacher('key'),window.SAT_API.teacher('attempts')]);
+ teacherKey=keyData.answers;teacherAttempts=attemptData.attempts;
+ $('answerKeyEditor').innerHTML='';$('analysisBox').innerHTML='';
+ [1,2].forEach(mod=>{
+  const h=document.createElement('h4');h.textContent=`Module ${mod}`;$('answerKeyEditor').appendChild(h);
+  QUESTIONS[mod].forEach(item=>{
+   const row=document.createElement('div');row.className='answer-edit';
+   row.innerHTML=`<strong>Q${item.n}</strong><select aria-label="Module ${mod} question ${item.n} correct answer" data-k="m${mod}q${item.n}"><option value="">—</option>${['A','B','C','D'].map(x=>`<option ${teacherKey[`m${mod}q${item.n}`]===x?'selected':''}>${x}</option>`).join('')}</select><input aria-label="Skill" value="${escapeHtml(item.skill)}" disabled>`;
+   $('answerKeyEditor').appendChild(row);
+  });
+ });
+ $('attemptRows').innerHTML=teacherAttempts.map(a=>`<tr><td>${escapeHtml(a.name)}</td><td>${escapeHtml(new Date(a.date).toLocaleString())}</td><td>${a.correct}/${a.total}</td><td>${Math.round(a.correct/a.total*100)}%</td><td>Select below</td></tr>`).join('');
+ $('attemptSelect').innerHTML='<option value="">Select attempt</option>'+teacherAttempts.map(a=>`<option value="${escapeHtml(a.id)}">${escapeHtml(a.name)} — ${escapeHtml(new Date(a.date).toLocaleString())}</option>`).join('');
+}
+$('saveKeyBtn').onclick=async()=>{
+ const answers={};document.querySelectorAll('[data-k]').forEach(s=>answers[s.dataset.k]=s.value);
+ $('saveKeyBtn').disabled=true;
+ try{await window.SAT_API.teacher('key','PUT',{answers});await renderTeacher();alert('Answer key saved securely. Submitted attempts have been regraded.');}
+ catch(error){alert(error.message);}finally{$('saveKeyBtn').disabled=false;}
+};
+$('attemptSelect').onchange=()=>{
+ const attempt=teacherAttempts.find(a=>a.id===$('attemptSelect').value);
+ if(!attempt||!teacherKey){$('analysisBox').innerHTML='';return;}
+ const skills={};
+ [1,2].forEach(mod=>QUESTIONS[mod].forEach(item=>{
+  const correct=attempt.modules.find(m=>m.number===mod).questions.find(q=>q.number===item.n).status==='Correct';
+  skills[item.skill]??={c:0,t:0};skills[item.skill].t++;if(correct)skills[item.skill].c++;
+ }));
+ $('analysisBox').innerHTML=`<h4>${escapeHtml(attempt.name)}</h4>`+Object.entries(skills).map(([skill,v])=>`<div class="result-row"><span>${escapeHtml(skill)}</span><strong>${v.c}/${v.t}</strong></div>`).join('')+
+ [1,2].map(mod=>`<h4>Module ${mod}</h4>`+QUESTIONS[mod].map(item=>`<details class="card"><summary>Question ${item.n} · ${escapeHtml(attempt.modules.find(m=>m.number===mod).questions.find(q=>q.number===item.n).status)}</summary><p>Student response: ${escapeHtml(attempt.answers[mod]?.[item.n]||'Unanswered')} · Correct answer: ${escapeHtml(teacherKey[`m${mod}q${item.n}`])}</p>${questionImages(item)}<div>${item.passage}</div><p>${item.prompt}</p>${item.choices.map((choice,i)=>`<p>${'ABCD'[i]}. ${choice}</p>`).join('')}</details>`).join('')).join('');
+};
+$('issueAccessBtn').onclick=async()=>{
+ const name=$('accessStudentName').value.trim();
+ try{const invite=await window.SAT_API.teacher('invitations','POST',{name});$('issuedAccessCode').value=invite.code;$('accessCodeNotice').textContent=`One submission for ${invite.name} · expires ${new Date(invite.expires).toLocaleDateString()}. Copy and share this code privately.`;}
+ catch(error){$('accessCodeNotice').textContent=error.message;}
+};
+$('importAttemptsBtn').onclick=async()=>{
+ $('importAttemptsBtn').disabled=true;
+ try{
+  const local=readSaved('attempts',[]);let imported=0;
+  for(const attempt of local){
+   if(attempt.serverId)continue;
+   const record=await window.SAT_API.teacher('import','POST',{id:attempt.id,name:attempt.name,date:attempt.date,answers:attempt.answers});
+   attempt.serverId=record.id;imported++;
+   localStorage.setItem(storagePrefix+'attempts',JSON.stringify(local));
+  }
+  await renderTeacher();alert(`${imported} earlier attempts imported and graded securely.`);
+ }catch(error){alert(error.message);}finally{$('importAttemptsBtn').disabled=false;}
+};
+$('teacherLogoutBtn').onclick=()=>window.SAT_API.signOut().catch(error=>alert(error.message));
 const teacherInk = window.createSATTeacherInk();
 
-document.title = `HuskyDaddy SAT Practice | ${TEST.name}`;
-document.querySelector('.hero h1').textContent = `SAT Practice: ${TEST.name}`;
+document.title = `Authentic SAT Practice Suites | ${TEST.name}`;
+document.querySelector('.hero h1').textContent = 'Authentic SAT Practice Suites';
 document.querySelector('footer').textContent = `© HuskyDaddy | SAT ${TEST.name}`;
 $('testName').value = TEST.name;
-$('keyNotice').textContent = Object.keys(TEST.answerKey).length ? 'The answer key is preloaded. You can edit the correct choices here.' : 'Answer key pending. Responses are saved, but unkeyed questions will not be graded.';
-$('keyStatus').textContent = Object.keys(getKey()).length === 54 ? 'Answer key ready: results available after both modules.' : 'Answer key pending: your responses will be saved for review when the key is added.';
+window.SAT_API.onExpire(()=>{
+ teacherKey=null;teacherAttempts=[];teacherInk.lock();
+ for(const id of ['answerKeyEditor','attemptRows','attemptSelect','analysisBox'])$(id).innerHTML='';
+ $('issuedAccessCode').value='';$('teacherDash').classList.add('hidden');$('teacherLogin').classList.remove('hidden');
+});
+$('keyNotice').textContent='Teacher access only. Keys and grading are stored on the secure service.';
+$('keyStatus').textContent=window.SAT_API.configured?'Use the test access code issued by your teacher. Results show raw accuracy only.':'Secure grading needs setup. Saved responses are preserved; submission is unavailable until configured.';
 $('testSelector').value = TEST.id;
 $('testSelector').onchange = () => { saveProgress(); location.assign(`?test=${$('testSelector').value}`); };
 const progress = readSaved('progress', null);
 if (progress?.testId === TEST.id && progress.name) {
  $('resumeBtn').hidden = false;
  $('resumeBtn').textContent = `Resume ${progress.name} · Module ${progress.module}, Question ${progress.index + 1}`;
- $('resumeBtn').onclick = () => {
-  Object.assign(state,progress,{timerId:null});
+ $('resumeBtn').onclick = async () => {
+  if(!window.SAT_API.hasAccessCode()&&$('studentAccessCode').value)window.SAT_API.setAccessCode($('studentAccessCode').value);
+  if(window.SAT_API.configured){try{const access=await window.SAT_API.student('start');if(access.submitted){location.assign(new URL(`august-2026/results.html?test=${TEST.id}&attempt=${access.id}`,window.SAT_ROOT).href);return;}}catch(error){alert(error.message);return;}}
+  for(const k of ['name','module','index','seconds','answers','marked','crossed','startTime'])if(progress[k]!==undefined)state[k]=progress[k];
+  state.completedModules=state.module===2?[1]:[];state.timerId=null;
   if(progress.screen==='reviewScreen') openReview();
   else {renderQuestion();startTimer();}
  };

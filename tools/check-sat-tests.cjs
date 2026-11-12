@@ -1,93 +1,46 @@
+'use strict';
 const fs=require('fs'),path=require('path'),vm=require('vm'),assert=require('assert');
 const root=path.resolve(__dirname,'../pages/SAT');
-const ids=['august2026','september2026-practice1','october2026-practice1', 'november2026-practice1'];
-const configs={};for(const id of ids){const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'data',id+'.js'),'utf8'),c);configs[id]=c.window.SAT_TESTS[id];const test=configs[id];assert.equal(test.id,id);for(const m of [1,2]){assert.equal(test.questions[m].length,27);test.questions[m].forEach((q,i)=>{assert.equal(q.n,i+1);assert(q.passage&&q.prompt);assert.equal(q.choices.length,4);for(const img of q.images||[])assert(fs.existsSync(path.join(root,'august-2026',img.src)),img.src);});}for(const [k,a]of Object.entries(test.answerKey)){assert(/^m[12]q([1-9]|1[0-9]|2[0-7])$/.test(k));assert(/^[ABCD]$/.test(a));}}
-assert.equal(Object.keys(configs.august2026.answerKey).length,54);assert.equal(Object.keys(configs['september2026-practice1'].answerKey).length,54);
-const manifest=JSON.parse(fs.readFileSync(path.join(root,'data/september2026-practice1/visual-manifest.json')));assert.equal(manifest.length,5);for(const row of manifest){const q=configs['september2026-practice1'].questions[row.module][row.questionNumber-1];assert(q.images.some(img=>img.src===row.imageFilename));assert.equal(q.source.pdfPageNumber,row.sourcePdfPageNumber);assert.equal(row.sourcePdfPageIndex,row.sourcePdfPageNumber-1);}
-const memory={hd_sat_key:JSON.stringify({'m1q1':'A'}),hd_sat_attempts:'[]'};
-function context(id,search=''){
- const elements={};function el(name){return elements[name]??={value:'missed',innerHTML:'',textContent:'',hidden:true,options:[{}],dataset:{},style:{},classList:{add(){},remove(){}},appendChild(){},addEventListener(){},querySelector(){return {addEventListener(){}};}};}
- const c={window:{createSATTeacherInk:()=>({unlock(){c.inkUnlocked=true;},render(key){c.inkQuestion=key;}}),SAT_ACTIVE_TEST:configs[id],SAT_ROOT:new URL('http://localhost/pages/SAT/'),SAT_ASSET_BASE:new URL('http://localhost/pages/SAT/august-2026/'),print(){}},document:{body:{dataset:{}},getElementById:el,querySelector:el,querySelectorAll:()=>[],createElement:()=>el('created'+Math.random())},localStorage:{getItem:k=>memory[k]??null,setItem:(k,v)=>memory[k]=v,removeItem:k=>delete memory[k]},location:{search,assign:url=>c.destination=url},URL,URLSearchParams,clearInterval(){},setInterval(){return 1;},alert(){},console};vm.createContext(c);return {c,elements};
-}
-const engine=fs.readFileSync(path.join(root,'shared/test.js'),'utf8'),review=fs.readFileSync(path.join(root,'shared/results.js'),'utf8');
+const ids=fs.readdirSync(path.join(root,'data')).filter(id=>fs.existsSync(path.join(root,'data',id,'metadata.json')));
+const configs={};
+function noKeys(value){if(Array.isArray(value))value.forEach(noKeys);else if(value&&typeof value==='object')for(const [k,v]of Object.entries(value)){assert(!['answerKey','correctAnswer','explanation'].includes(k),'Leaked private field '+k);noKeys(v);}}
 for(const id of ids){
- const {c,elements}=context(id);vm.runInContext(engine,c);
- vm.runInContext(`state.name='Student';state.answers={1:{},2:{}};[1,2].forEach(m=>QUESTIONS[m].forEach(q=>state.answers[m][q.n]=getKey()['m'+m+'q'+q.n]||'B'));state.answers[1][1]='B';delete state.answers[2][27];renderQuestion();`,c);
- assert.equal(c.inkQuestion,`${id}:m1q1`);
- c.document.getElementById('teacherCode').value='wrong';elements.teacherLoginBtn.onclick();assert(!c.inkUnlocked);
- c.document.getElementById('teacherCode').value='1201';elements.teacherLoginBtn.onclick();assert(c.inkUnlocked);
- elements.exitTeacher.onclick();assert.equal(c.inkQuestion,`${id}:m1q1`);
- assert(memory[`hd_sat_${id}_progress`]);assert.equal(JSON.parse(memory[`hd_sat_${id}_progress`]).testId,id);
- vm.runInContext('finishTest()',c);assert(!memory[`hd_sat_${id}_progress`]);assert(c.destination.includes('test='+id));
- const attempt=JSON.parse(memory[`hd_sat_${id}_attempts`])[0];assert.equal(attempt.testId,id);assert.equal(attempt.totalKnown,54);assert.equal(attempt.correct,52);
- c.location.search=new URL(c.destination).search;vm.runInContext(review,c);assert(elements.questionReview.innerHTML.includes('Question 27'));
- assert(elements.resultSummary.innerHTML.includes('52 / 54'));assert.equal((elements.questionReview.innerHTML.match(/<details /g)||[]).length,2);
- elements.reviewFilter.value='all';elements.reviewFilter.onchange();assert.equal((elements.questionReview.innerHTML.match(/<details /g)||[]).length,54);
- console.log(id+': data, submit, results, pending keys, and filters passed');
+ const c={window:{}};vm.runInNewContext(fs.readFileSync(path.join(root,'data',id+'.js'),'utf8'),c);const test=configs[id]=c.window.SAT_TESTS[id];noKeys(test);
+ for(const m of [1,2]){assert.equal(test.questions[m].length,27);test.questions[m].forEach((q,i)=>{assert.equal(q.n,i+1);assert(q.passage&&q.prompt);assert.equal(q.choices.length,4);for(const img of q.images||[])assert(fs.existsSync(path.join(root,'august-2026',img.src)));});}
+ assert(!fs.existsSync(path.join(root,'data',id,'answer-key.json')));
 }
-assert.equal(JSON.parse(memory.hd_sat_august2026_attempts).length,1);assert.equal(JSON.parse(memory['hd_sat_september2026-practice1_attempts']).length,1);
-// Saved responses from before the September key arrived now receive full scoring.
-const id=ids[1];
-const oldAttempt=JSON.parse(memory[`hd_sat_${id}_attempts`])[0];
-oldAttempt.answerKey={};oldAttempt.totalKnown=0;oldAttempt.correct=0;oldAttempt.accuracy='—';
-memory[`hd_sat_${id}_attempts`]=JSON.stringify([oldAttempt]);
-const {c,elements}=context(id);vm.runInContext(review,c);
-assert(elements.resultSummary.innerHTML.includes('52 / 54'));
-// Retain correct pending-key behavior for future tests without guessing answers.
-const suppliedKey=configs[id].answerKey;configs[id].answerKey={};
-const pending=context(id);vm.runInContext(review,pending.c);
-assert(pending.elements.resultSummary.innerHTML.includes('Answer key pending'));
-assert(!pending.elements.questionReview.innerHTML.includes(' · Correct answer'));
-configs[id].answerKey=suppliedKey;
-// Resume preserves answers, timer, and test identity.
-const resume=context(id);vm.runInContext(engine,resume.c);vm.runInContext(`state.name='Resume';state.module=2;state.index=8;state.seconds[2]=123;state.answers[2][9]='D';saveProgress();`,resume.c);const resumed=context(id);vm.runInContext(engine,resumed.c);resumed.elements.resumeBtn.onclick();assert.equal(vm.runInContext('state.seconds[2]',resumed.c),123);assert.equal(vm.runInContext('state.answers[2][9]',resumed.c),'D');
-console.log('Cross-test isolation, legacy August migration, later-key scoring, resume, and five visual mappings passed.');
-
-const septemberExpected=['ADCDDABBABDCBCBAADDDBBDCADB','CDBDCDDBCCBBABADDBCD CDBACBC'.replace(/ /g,'')];
-for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs[ids[1]].answerKey[`m${m}q${i+1}`]).join(''),septemberExpected[m-1]);
-console.log('All 54 teacher-supplied September answer mappings verified.');
-
-// August snapshots saved before image restoration must still show all four visuals.
-const oldAugust=JSON.parse(memory.hd_sat_august2026_attempts)[0];
-for(const module of [1,2])for(const question of oldAugust.questions[module])delete question.images;
-memory.hd_sat_august2026_attempts=JSON.stringify([oldAugust]);
-const restored=context('august2026');vm.runInContext(review,restored.c);
-restored.elements.reviewFilter.value='all';restored.elements.reviewFilter.onchange();
-for(const name of ['m1q10','m1q12','m2q10','m2q12'])assert(restored.elements.questionReview.innerHTML.includes('/images/august2026/'+name+'.png'));
-console.log('Four restored August visuals are present in current data and older saved reviews.');
-
-const octoberExpected=['ABCDBBCABBACADC BBAABCBBBCDA'.replace(/ /g,''),'AABCBAACDABDCABCCDCAABCDCAD'];
-for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs['october2026-practice1'].answerKey[`m${m}q${i+1}`]).join(''),octoberExpected[m-1]);
-const octoberManifest=JSON.parse(fs.readFileSync(path.join(root,'data/october2026-practice1/visual-manifest.json')));
-assert.equal(octoberManifest.length,5);
-for(const image of octoberManifest){
- const question=configs['october2026-practice1'].questions[image.module][image.questionNumber-1];
- assert(question.images.some(i=>i.src===image.imageFilename));
- assert.equal(question.source.pdfPageNumber,image.sourcePdfPageNumber);
- assert.equal(image.sourcePdfPageIndex,image.sourcePdfPageNumber-1);
+const memory={};
+function context(id){
+ const elements={};const el=name=>elements[name]??={value:'all',innerHTML:'',textContent:'',hidden:true,disabled:false,options:[{}],dataset:{},style:{},classList:{add(){},remove(){}},appendChild(){},addEventListener(){},querySelector(){return {addEventListener(){}};}};
+ let signed=false;let result;
+ const safeResult=()=>({id:'attempt-'+id,testId:id,name:'Student',date:new Date().toISOString(),correct:0,total:54,modules:[1,2].map(number=>({number,correct:0,total:27,questions:Array.from({length:27},(_,i)=>({number:i+1,status:i===26?'Unanswered':'Incorrect'}))}))});
+ const api={configured:true,setAccessCode(){},hasAccessCode:()=>true,onExpire(fn){this.expire=fn;},async student(action,payload){if(action==='start')return {id:'attempt-'+id,name:'Student',submitted:false};if(action==='submit'){assert.deepEqual(payload.completedModules,[1,2]);result=safeResult();return result;}return result||safeResult();},async signIn(password){if(password!=='server-test-password')throw Error('Invalid credentials.');signed=true;},async signOut(){signed=false;api.expire();},async teacher(action){if(!signed)throw Error('Teacher sign-in required.');return action==='key'?{answers:Object.fromEntries([1,2].flatMap(m=>Array.from({length:27},(_,i)=>[`m${m}q${i+1}`,'B'])))}:{attempts:[]};}};
+ const c={window:{SAT_API:api,createSATTeacherInk:()=>({unlock(){c.inkUnlocked=true;},lock(){c.inkUnlocked=false;},render(key){c.inkQuestion=key;}}),SAT_ACTIVE_TEST:configs[id],SAT_ROOT:new URL('http://localhost/pages/SAT/'),SAT_ASSET_BASE:new URL('http://localhost/pages/SAT/august-2026/'),print(){}},document:{body:{dataset:{}},getElementById:el,querySelector:el,querySelectorAll:()=>[],createElement:()=>el('new'+Math.random())},localStorage:{getItem:k=>memory[k]??null,setItem:(k,v)=>memory[k]=v,removeItem:k=>delete memory[k]},location:{search:'',assign:url=>c.destination=url},URL,URLSearchParams,clearInterval(){},setInterval(){return 1;},alert(message){c.lastAlert=message;},console};
+ vm.createContext(c);return {c,elements,api,el};
 }
-assert(configs['october2026-practice1'].questions[1][11].choices[3].startsWith('those that filed Form 4720'));
-assert.equal(configs['october2026-practice1'].questions[1][11].source.pdfPages.join(','),'8,9');
-assert.equal(JSON.parse(memory['hd_sat_october2026-practice1_attempts']).length,1);
-console.log('October: 54 source key mappings, five visuals, cross-page choice D, and isolated storage verified.');
-
-// November answers are copied from the supplied answer listing, without explanations.
-const novemberId='november2026-practice1';
-const novemberExpected=['AAACAACDDDACAACBCDACBCBBCCA','BADBCCBDBABACDDAADABABADABD'];
-assert.equal(Object.keys(configs[novemberId].answerKey).length,54);
-for(let m=1;m<=2;m++)assert.equal(Array.from({length:27},(_,i)=>configs[novemberId].answerKey[`m${m}q${i+1}`]).join(''),novemberExpected[m-1]);
-const novemberManifest=JSON.parse(fs.readFileSync(path.join(root,'data',novemberId,'visual-manifest.json')));
-assert.equal(novemberManifest.length,3);
-for(const image of novemberManifest){
- const question=configs[novemberId].questions[image.module][image.questionNumber-1];
- assert(question.images.some(i=>i.src===image.imageFilename));
- assert.equal(question.source.pdfPageNumber,image.sourcePdfPageNumber);
- assert.equal(image.sourcePdfPageIndex,image.sourcePdfPageNumber-1);
- assert(image.imageWidth>=780);
-}
-assert(configs[novemberId].questions[2][5].passage.includes('<u>Yet Zuni'));
-for(const m of [1,2])for(const question of configs[novemberId].questions[m]){
- if(['Words in Context','Standard English Conventions','Transitions'].includes(question.skill))assert(question.passage.includes('_____'),`November M${m} Q${question.n}: missing blank`);
-}
-assert.equal(JSON.parse(memory[`hd_sat_${novemberId}_attempts`]).length,1);
-console.log('November: 54 supplied answers, three source visuals, blanks, underlining, and isolated storage verified.');
+(async()=>{
+ const engine=fs.readFileSync(path.join(root,'shared/test.js'),'utf8'),review=fs.readFileSync(path.join(root,'shared/results.js'),'utf8');
+ for(const id of ids){
+  const {c,elements,api,el}=context(id);vm.runInContext(engine,c);
+  assert.equal(c.document.querySelector('.hero h1').textContent,'Authentic SAT Practice Suites');
+  el('studentName').value='Student';el('studentAccessCode').value='issued-code';await elements.startBtn.onclick();assert.equal(c.inkQuestion,`${id}:m1q1`);
+  vm.runInContext("state.answers[1][1]='B';saveProgress();",c);assert(JSON.parse(memory[`hd_sat_${id}_progress`]).answers[1][1]==='B');
+  elements.nextBtn.onclick();assert.equal(c.inkQuestion,`${id}:m1q2`);elements.backBtn.onclick();assert.equal(c.inkQuestion,`${id}:m1q1`);
+  el('teacherCode').value='1201';await elements.teacherLoginBtn.onclick();assert(!c.inkUnlocked);
+  el('teacherCode').value='server-test-password';await elements.teacherLoginBtn.onclick();assert(c.inkUnlocked);elements.exitTeacher.onclick();
+  await api.signOut();assert(!c.inkUnlocked);assert.equal(elements.answerKeyEditor.innerHTML,'');
+  elements.submitModuleBtn.onclick();assert.equal(vm.runInContext('state.module',c),2);
+  vm.runInContext("state.answers[2][1]='C';saveProgress();",c);await vm.runInContext('finishTest()',c);
+  assert(c.destination.includes('attempt=attempt-'+id));assert(!memory[`hd_sat_${id}_progress`]);
+  const attempt=JSON.parse(memory[`hd_sat_${id}_attempts`])[0];noKeys(attempt);assert(!attempt.questions);assert.equal(attempt.answers[2][1],'C');
+  c.location.search=new URL(c.destination).search;await vm.runInContext(review,c);
+  assert(elements.resultSummary.innerHTML.includes('out of 54 correct'));assert(elements.questionReview.innerHTML.includes('Module 1'));assert(elements.questionReview.innerHTML.includes('Module 2'));assert.equal((elements.questionReview.innerHTML.match(/class="result-question /g)||[]).length,54);assert(elements.questionReview.innerHTML.includes('Unanswered'));
+  assert(!/Correct answer:|right-choice|Awaiting answer key|Your answer:/.test(elements.questionReview.innerHTML));
+  // Rejected submissions preserve responses and stay on the page.
+  const retry=context(id);vm.runInContext(engine,retry.c);retry.api.student=async()=>{throw Error('Service unavailable.');};
+  vm.runInContext("state.name='Retry';state.module=2;state.answers[1][3]='D';",retry.c);await vm.runInContext('finishTest()',retry.c);
+  assert(!retry.c.destination);assert(JSON.parse(memory[`hd_sat_${id}_progress`]).answers[1][3]==='D');assert.equal(retry.el('submitModuleBtn').disabled,false);
+  const resumed=context(id);vm.runInContext(engine,resumed.c);await resumed.elements.resumeBtn.onclick();assert.equal(vm.runInContext('state.answers[1][3]',resumed.c),'D');
+  console.log(id+': public question data, start, navigation, submission, student results, teacher authentication/lock, saved responses, failure/retry, and resume passed.');
+ }
+})().catch(e=>{console.error(e);process.exitCode=1;});

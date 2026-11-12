@@ -50,5 +50,6 @@ clear.emit('click');assert.equal(f.svg().children.length,0);assert(undo.disabled
 f.render('august2026:m1q2');assert.equal(f.svg().children.length,1,'Clear affects only the current question');
 f.events.pagehide({persisted:true});assert.equal(f.svg().children.length,0);assert.equal(mark.attrs['aria-pressed'],'false');
 f.render('august2026:m1q1');assert.equal(f.svg().children.length,0,'Leaving clears all questions, including back/forward cache');
+f.stroke();f.ink.lock();assert(mark.hidden);assert.equal(f.svg().children.length,0,'Losing teacher access clears ink');
 const fresh=fixture();fresh.render('august2026:m1q2');assert(fresh.buttons[0].hidden);assert.equal(fresh.svg().children.length,0,'Refresh starts without teacher authorization or marks');
 console.log('Teacher gate, mouse/pen/touch, undo/clear, scrolling, per-question/module/test isolation, navigation, and temporary lifecycle passed.');

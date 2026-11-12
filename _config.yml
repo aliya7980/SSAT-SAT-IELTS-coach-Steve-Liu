@@ -1,0 +1,9 @@
+# Defense in depth for legacy Jekyll publishing. Prefer the static-only Actions workflow.
+exclude:
+  - sat-backend
+  - tools
+  - scripts
+  - .sat-private
+  - .site-public
+  - python_projects
+  - output

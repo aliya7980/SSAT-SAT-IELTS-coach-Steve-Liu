@@ -22,7 +22,7 @@
 </nav>
 
 <header class="hero">
-  <h1>Authentic SAT Questions: 2026 August Asia-Pacific Paper</h1>
+  <h1>Authentic SAT Practice Suites</h1>
   <p>Reading & Writing</p>
 </header>
 
@@ -33,9 +33,10 @@
     <h2 style="margin-bottom:14px">Start Practice Test</h2>
     <div class="field"><label for="testSelector">Choose a mock test</label><select id="testSelector"><option value="august2026">August 2026 Asia-Pacific</option><option value="september2026-practice1">September 2026 Practice 1</option><option value="october2026-practice1">October 2026 Practice 1</option><option value="november2026-practice1">November 2026 Practice 1</option></select></div>
     <div class="start-grid">
-      <div class="field"><label for="studentName">Student name</label><input id="studentName" placeholder="Enter your name"></div>
+      <div class="field"><label for="studentName">Student name</label><input id="studentName" placeholder="Enter your name" autocomplete="name"></div>
       <div class="field"><label>Test</label><input id="testName" value="August 2026 Asia-Pacific — Reading & Writing" disabled></div>
     </div>
+    <div class="field"><label for="studentAccessCode">Test access code from your teacher</label><input id="studentAccessCode" type="password" autocomplete="off" spellcheck="false"></div>
     <p style="margin:18px 0;color:#52606d">Module 1: 27 questions · Module 2: 27 questions · 32 minutes per module</p>
     <p id="keyStatus" class="notice"></p><button class="btn" id="startBtn">Start Practice</button> <button class="btn secondary" id="resumeBtn" hidden>Resume test</button>
   </div>
@@ -154,8 +155,8 @@
 <section id="teacherScreen" class="hidden">
   <div id="teacherLogin" class="card teacher-login">
     <h2>Teacher SAT Dashboard</h2>
-    <p style="color:#52606d;margin:8px 0 16px">Enter the teacher access code.</p>
-    <div class="field"><input id="teacherCode" type="password" placeholder="Access code"></div>
+    <p style="color:#52606d;margin:8px 0 16px">Sign in with your teacher password.</p>
+    <div class="field"><input id="teacherCode" type="password" placeholder="Teacher password" autocomplete="current-password"></div>
     <button class="btn" id="teacherLoginBtn" style="margin-top:14px">Enter</button>
     <p id="teacherError" style="color:#7f1d1d;margin-top:10px"></p>
   </div>
@@ -163,9 +164,18 @@
   <div id="teacherDash" class="hidden">
     <div class="card">
       <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
-        <div><h2>Teacher Dashboard</h2><p style="color:#52606d">Answer key and locally saved attempts.</p></div>
+        <div><h2>Teacher Dashboard</h2><p style="color:#52606d">Secure answer key and submitted attempts.</p></div>
         <button class="btn secondary" id="exitTeacher">Exit Teacher Mode</button>
       </div>
+    </div>
+    <div class="card">
+      <h3>Student test access</h3>
+      <div class="field"><label for="accessStudentName">Student name</label><input id="accessStudentName" maxlength="100"></div>
+      <button class="btn secondary" id="issueAccessBtn">Create one-submission code</button>
+      <div class="field"><label for="issuedAccessCode">New code (copy now)</label><input id="issuedAccessCode" readonly autocomplete="off"></div>
+      <p id="accessCodeNotice" role="status"></p>
+      <button class="btn secondary" id="importAttemptsBtn">Import earlier attempts from this browser</button>
+      <button class="btn secondary" id="teacherLogoutBtn">Sign out of teacher access</button>
     </div>
     <div class="teacher-grid">
       <div class="card">

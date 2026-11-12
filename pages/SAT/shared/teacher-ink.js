@@ -94,6 +94,7 @@ window.createSATTeacherInk = function () {
  window.addEventListener('blur', finish);
  return {
   unlock() { unlocked = true; update(); },
+  lock() { unlocked = false; reset(); update(); },
   render(key) {
    finish(); observer.disconnect(); regions.clear(); current = key;
    attach('passage', document.getElementById('passage'));

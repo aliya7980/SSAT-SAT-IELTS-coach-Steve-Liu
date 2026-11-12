@@ -18,6 +18,7 @@
     const engine = document.createElement('script');
     engine.src = new URL(ownScript.dataset.mode === 'results' ? 'shared/results.js' : 'shared/test.js', root).href;
     engine.onerror = () => showError('The test could not start. Please reload this page.');
+    function startEngine() {
     if (ownScript.dataset.mode === 'results') {
       document.head.appendChild(engine);
     } else {
@@ -27,6 +28,19 @@
       ink.onerror = () => showError('The marking controls could not be loaded. Please reload this page.');
       document.head.appendChild(ink);
     }
+    }
+    function loadClient() {
+      const client = document.createElement('script');
+      client.src = new URL('shared/api-client.js', root).href;
+      client.onload = startEngine;
+      client.onerror = () => showError('Secure test controls could not load. Please reload.');
+      document.head.appendChild(client);
+    }
+    const config = document.createElement('script');
+    config.src = new URL('shared/api-config.js', root).href;
+    config.onload = loadClient;
+    config.onerror = () => showError('Secure test configuration could not load. Please reload.');
+    document.head.appendChild(config);
   };
   document.head.appendChild(data);
 })();
