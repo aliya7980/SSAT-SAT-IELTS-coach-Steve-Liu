@@ -21,3 +21,5 @@
 .wide-question footer{padding:16px}
 @media(min-width:1000px){.wide-question .question-layout>section+section{border-left:1px solid #d9e2ec;padding-left:3vw}.wide-question .question-layout{gap:3vw}}
 @media(max-width:760px){.wide-question .practice-wrap{padding:12px 2%}.wide-question .practice-card{padding:18px 4%}.wide-question .question-layout{grid-template-columns:1fr;gap:24px}.wide-question .reading-text{font-size:18px}.wide-question #choices label{font-size:18px}.wide-question .hero h1{font-size:26px}}
+
+.final-grade{border:1px solid #d9c9a7;border-left:5px solid #d4af37;padding:22px;margin:24px 0;background:#fffcf5}.final-grade h2{margin-bottom:12px}.final-grade .stats{gap:32px}.final-grade input{max-width:100%}.final-grade p{margin:12px 0}
