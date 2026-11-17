@@ -1,0 +1,1163 @@
+{
+  "source": "Details.pdf",
+  "sha256": "5ca8080a2796cd847f49e26376b5f94018184fac7d3d54679068fa99d5cf3cf6",
+  "questionCount": 34,
+  "visuals": [
+    {
+      "question": 1,
+      "pdfPage": 1,
+      "pdfPageIndex": 0,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1807,
+        661
+      ],
+      "asset": "details/images/q01-passage.webp"
+    },
+    {
+      "question": 1,
+      "pdfPage": 1,
+      "pdfPageIndex": 0,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q01-question.webp"
+    },
+    {
+      "question": 2,
+      "pdfPage": 2,
+      "pdfPageIndex": 1,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1788,
+        661
+      ],
+      "asset": "details/images/q02-passage.webp"
+    },
+    {
+      "question": 2,
+      "pdfPage": 2,
+      "pdfPageIndex": 1,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1461
+      ],
+      "asset": "details/images/q02-question.webp"
+    },
+    {
+      "question": 3,
+      "pdfPage": 3,
+      "pdfPageIndex": 2,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1814,
+        661
+      ],
+      "asset": "details/images/q03-passage.webp"
+    },
+    {
+      "question": 3,
+      "pdfPage": 3,
+      "pdfPageIndex": 2,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1013
+      ],
+      "asset": "details/images/q03-question.webp"
+    },
+    {
+      "question": 4,
+      "pdfPage": 4,
+      "pdfPageIndex": 3,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1818,
+        709
+      ],
+      "asset": "details/images/q04-passage.webp"
+    },
+    {
+      "question": 4,
+      "pdfPage": 4,
+      "pdfPageIndex": 3,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1237
+      ],
+      "asset": "details/images/q04-question.webp"
+    },
+    {
+      "question": 5,
+      "pdfPage": 5,
+      "pdfPageIndex": 4,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1814,
+        661
+      ],
+      "asset": "details/images/q05-passage.webp"
+    },
+    {
+      "question": 5,
+      "pdfPage": 5,
+      "pdfPageIndex": 4,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        957
+      ],
+      "asset": "details/images/q05-question.webp"
+    },
+    {
+      "question": 6,
+      "pdfPage": 6,
+      "pdfPageIndex": 5,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1802,
+        661
+      ],
+      "asset": "details/images/q06-passage.webp"
+    },
+    {
+      "question": 6,
+      "pdfPage": 6,
+      "pdfPageIndex": 5,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1069
+      ],
+      "asset": "details/images/q06-question.webp"
+    },
+    {
+      "question": 7,
+      "pdfPage": 7,
+      "pdfPageIndex": 6,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        99,
+        314,
+        1813,
+        773
+      ],
+      "asset": "details/images/q07-passage.webp"
+    },
+    {
+      "question": 7,
+      "pdfPage": 7,
+      "pdfPageIndex": 6,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        957
+      ],
+      "asset": "details/images/q07-question.webp"
+    },
+    {
+      "question": 8,
+      "pdfPage": 8,
+      "pdfPageIndex": 7,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1817,
+        709
+      ],
+      "asset": "details/images/q08-passage.webp"
+    },
+    {
+      "question": 8,
+      "pdfPage": 8,
+      "pdfPageIndex": 7,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1125
+      ],
+      "asset": "details/images/q08-question.webp"
+    },
+    {
+      "question": 9,
+      "pdfPage": 9,
+      "pdfPageIndex": 8,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1790,
+        661
+      ],
+      "asset": "details/images/q09-passage.webp"
+    },
+    {
+      "question": 9,
+      "pdfPage": 9,
+      "pdfPageIndex": 8,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3744,
+        1069
+      ],
+      "asset": "details/images/q09-question.webp"
+    },
+    {
+      "question": 10,
+      "pdfPage": 10,
+      "pdfPageIndex": 9,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1803,
+        661
+      ],
+      "asset": "details/images/q10-passage.webp"
+    },
+    {
+      "question": 10,
+      "pdfPage": 10,
+      "pdfPageIndex": 9,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q10-question.webp"
+    },
+    {
+      "question": 11,
+      "pdfPage": 11,
+      "pdfPageIndex": 10,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1816,
+        661
+      ],
+      "asset": "details/images/q11-passage.webp"
+    },
+    {
+      "question": 11,
+      "pdfPage": 11,
+      "pdfPageIndex": 10,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1125
+      ],
+      "asset": "details/images/q11-question.webp"
+    },
+    {
+      "question": 12,
+      "pdfPage": 12,
+      "pdfPageIndex": 11,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1808,
+        661
+      ],
+      "asset": "details/images/q12-passage.webp"
+    },
+    {
+      "question": 12,
+      "pdfPage": 12,
+      "pdfPageIndex": 11,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q12-question.webp"
+    },
+    {
+      "question": 13,
+      "pdfPage": 13,
+      "pdfPageIndex": 12,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1814,
+        661
+      ],
+      "asset": "details/images/q13-passage.webp"
+    },
+    {
+      "question": 13,
+      "pdfPage": 13,
+      "pdfPageIndex": 12,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1237
+      ],
+      "asset": "details/images/q13-question.webp"
+    },
+    {
+      "question": 14,
+      "pdfPage": 14,
+      "pdfPageIndex": 13,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1786,
+        661
+      ],
+      "asset": "details/images/q14-passage.webp"
+    },
+    {
+      "question": 14,
+      "pdfPage": 14,
+      "pdfPageIndex": 13,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1125
+      ],
+      "asset": "details/images/q14-question.webp"
+    },
+    {
+      "question": 15,
+      "pdfPage": 15,
+      "pdfPageIndex": 14,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1798,
+        661
+      ],
+      "asset": "details/images/q15-passage.webp"
+    },
+    {
+      "question": 15,
+      "pdfPage": 15,
+      "pdfPageIndex": 14,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q15-question.webp"
+    },
+    {
+      "question": 16,
+      "pdfPage": 16,
+      "pdfPageIndex": 15,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1816,
+        661
+      ],
+      "asset": "details/images/q16-passage.webp"
+    },
+    {
+      "question": 16,
+      "pdfPage": 16,
+      "pdfPageIndex": 15,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q16-question.webp"
+    },
+    {
+      "question": 17,
+      "pdfPage": 17,
+      "pdfPageIndex": 16,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1765,
+        661
+      ],
+      "asset": "details/images/q17-passage.webp"
+    },
+    {
+      "question": 17,
+      "pdfPage": 17,
+      "pdfPageIndex": 16,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1237
+      ],
+      "asset": "details/images/q17-question.webp"
+    },
+    {
+      "question": 18,
+      "pdfPage": 18,
+      "pdfPageIndex": 17,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1803,
+        661
+      ],
+      "asset": "details/images/q18-passage.webp"
+    },
+    {
+      "question": 18,
+      "pdfPage": 18,
+      "pdfPageIndex": 17,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1181
+      ],
+      "asset": "details/images/q18-question.webp"
+    },
+    {
+      "question": 19,
+      "pdfPage": 19,
+      "pdfPageIndex": 18,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1818,
+        661
+      ],
+      "asset": "details/images/q19-passage.webp"
+    },
+    {
+      "question": 19,
+      "pdfPage": 19,
+      "pdfPageIndex": 18,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q19-question.webp"
+    },
+    {
+      "question": 20,
+      "pdfPage": 20,
+      "pdfPageIndex": 19,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1819,
+        829
+      ],
+      "asset": "details/images/q20-passage.webp"
+    },
+    {
+      "question": 20,
+      "pdfPage": 20,
+      "pdfPageIndex": 19,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1069
+      ],
+      "asset": "details/images/q20-question.webp"
+    },
+    {
+      "question": 21,
+      "pdfPage": 21,
+      "pdfPageIndex": 20,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1801,
+        597
+      ],
+      "asset": "details/images/q21-passage.webp"
+    },
+    {
+      "question": 21,
+      "pdfPage": 21,
+      "pdfPageIndex": 20,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q21-question.webp"
+    },
+    {
+      "question": 22,
+      "pdfPage": 22,
+      "pdfPageIndex": 21,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1812,
+        661
+      ],
+      "asset": "details/images/q22-passage.webp"
+    },
+    {
+      "question": 22,
+      "pdfPage": 22,
+      "pdfPageIndex": 21,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q22-question.webp"
+    },
+    {
+      "question": 23,
+      "pdfPage": 23,
+      "pdfPageIndex": 22,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1812,
+        661
+      ],
+      "asset": "details/images/q23-passage.webp"
+    },
+    {
+      "question": 23,
+      "pdfPage": 23,
+      "pdfPageIndex": 22,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q23-question.webp"
+    },
+    {
+      "question": 24,
+      "pdfPage": 24,
+      "pdfPageIndex": 23,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1819,
+        717
+      ],
+      "asset": "details/images/q24-passage.webp"
+    },
+    {
+      "question": 24,
+      "pdfPage": 24,
+      "pdfPageIndex": 23,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1069
+      ],
+      "asset": "details/images/q24-question.webp"
+    },
+    {
+      "question": 25,
+      "pdfPage": 25,
+      "pdfPageIndex": 24,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1795,
+        661
+      ],
+      "asset": "details/images/q25-passage.webp"
+    },
+    {
+      "question": 25,
+      "pdfPage": 25,
+      "pdfPageIndex": 24,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1181
+      ],
+      "asset": "details/images/q25-question.webp"
+    },
+    {
+      "question": 26,
+      "pdfPage": 26,
+      "pdfPageIndex": 25,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1817,
+        661
+      ],
+      "asset": "details/images/q26-passage.webp"
+    },
+    {
+      "question": 26,
+      "pdfPage": 26,
+      "pdfPageIndex": 25,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q26-question.webp"
+    },
+    {
+      "question": 27,
+      "pdfPage": 27,
+      "pdfPageIndex": 26,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1768,
+        661
+      ],
+      "asset": "details/images/q27-passage.webp"
+    },
+    {
+      "question": 27,
+      "pdfPage": 27,
+      "pdfPageIndex": 26,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1125
+      ],
+      "asset": "details/images/q27-question.webp"
+    },
+    {
+      "question": 28,
+      "pdfPage": 28,
+      "pdfPageIndex": 27,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1810,
+        661
+      ],
+      "asset": "details/images/q28-passage.webp"
+    },
+    {
+      "question": 28,
+      "pdfPage": 28,
+      "pdfPageIndex": 27,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1237
+      ],
+      "asset": "details/images/q28-question.webp"
+    },
+    {
+      "question": 29,
+      "pdfPage": 29,
+      "pdfPageIndex": 28,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1806,
+        605
+      ],
+      "asset": "details/images/q29-passage.webp"
+    },
+    {
+      "question": 29,
+      "pdfPage": 29,
+      "pdfPageIndex": 28,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q29-question.webp"
+    },
+    {
+      "question": 30,
+      "pdfPage": 30,
+      "pdfPageIndex": 29,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1818,
+        709
+      ],
+      "asset": "details/images/q30-passage.webp"
+    },
+    {
+      "question": 30,
+      "pdfPage": 30,
+      "pdfPageIndex": 29,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1069
+      ],
+      "asset": "details/images/q30-question.webp"
+    },
+    {
+      "question": 31,
+      "pdfPage": 31,
+      "pdfPageIndex": 30,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1803,
+        885
+      ],
+      "asset": "details/images/q31-passage.webp"
+    },
+    {
+      "question": 31,
+      "pdfPage": 31,
+      "pdfPageIndex": 30,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1181
+      ],
+      "asset": "details/images/q31-question.webp"
+    },
+    {
+      "question": 32,
+      "pdfPage": 32,
+      "pdfPageIndex": 31,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        97,
+        314,
+        1792,
+        605
+      ],
+      "asset": "details/images/q32-passage.webp"
+    },
+    {
+      "question": 32,
+      "pdfPage": 32,
+      "pdfPageIndex": 31,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        1013
+      ],
+      "asset": "details/images/q32-question.webp"
+    },
+    {
+      "question": 33,
+      "pdfPage": 33,
+      "pdfPageIndex": 32,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1790,
+        717
+      ],
+      "asset": "details/images/q33-passage.webp"
+    },
+    {
+      "question": 33,
+      "pdfPage": 33,
+      "pdfPageIndex": 32,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q33-question.webp"
+    },
+    {
+      "question": 34,
+      "pdfPage": 34,
+      "pdfPageIndex": 33,
+      "part": "passage",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        98,
+        314,
+        1804,
+        997
+      ],
+      "asset": "details/images/q34-passage.webp"
+    },
+    {
+      "question": 34,
+      "pdfPage": 34,
+      "pdfPageIndex": 33,
+      "part": "question",
+      "originalImageSize": [
+        3840,
+        2160
+      ],
+      "cropPixels": [
+        2025,
+        420,
+        3743,
+        957
+      ],
+      "asset": "details/images/q34-question.webp"
+    }
+  ]
+}
